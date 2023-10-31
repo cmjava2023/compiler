@@ -1,4 +1,4 @@
-package OurClassFileEqualsJdksClassFile.hello_world;
+package OurClassFileEqualsJdksClassFile.helloWorld;
 
 import org.cmjava2023.Main;
 import org.junit.jupiter.api.Test;
