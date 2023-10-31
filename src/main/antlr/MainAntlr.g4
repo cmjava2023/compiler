@@ -4,86 +4,69 @@ grammar MainAntlr;
 package org.cmjava2023.generated_from_antlr;
 }
 
-start   : statement (statement)*;
+// ----- Parser -----
 
-tokens:  (SCOPE_START
-                              | SCOPE_END
-                              | OPEN_PARENTHESIS
-                              | CLOSE_PARENTHESIS
-                              | OPEN_BRACKET
-                              | CLOSE_BRACKET
-                              | QUOTATION_MARK
-                              | DOT
-                              | EXCLAMATION_MARK
-                              | ASSIGNMENT
-                              | RETURN
-                              | STATEMENT_END
-                              | MATH_DASH_OPERATOR
-                              | COMPARISON_OPERATOR
-                              | IF
-                              | ELSE
-                              | IDENTIFIER
-                              | INTEGER_CONSTANT
-                              | ACCESS_MODIFIER
-                              | CLASS_KEYWORD
-                              | WHITESPACE
-                              | FUNCTION_RETURNTYPE
-                              | INSTANCE_MODIFIER
-                              | PRIMITIVE_DATATYPE
-                              | ACCESS_MODIFIER)+;
+// Start here
+start : statement*;
 
-// Parser rules
-statement: ((package_definition  | class_definition) (STATEMENT_END | EOF));
-package_definition: PACKAGE_KEYWORD PACKAGE_NAME;
-class_definition: ACCESS_MODIFIER CLASS_KEYWORD IDENTIFIER SCOPE_START class_body SCOPE_END;
-class_body: function_definition;
-function_definition: ACCESS_MODIFIER INSTANCE_MODIFIER FUNCTION_RETURNTYPE IDENTIFIER parameter SCOPE_START function_body SCOPE_END;
-function_body: java_print_ln;
-string_definition: QUOTATION_MARK (STRING_CONTENT) QUOTATION_MARK ;
-print_statement_content: QUOTATION_MARK ('Hello world!') QUOTATION_MARK; // TODO: später verbessern, bitte nicht hardcoden
-parameter: OPEN_PARENTHESIS (JAVA_STRING_ARGS) CLOSE_PARENTHESIS;
+// Statements and expressions
+statement: (package_declaration SEMICOLON) | class_declaration;
+expression: (function_call) SEMICOLON;
 
-// Lexer rules
+// Packages
+package_declaration: PACKAGE_KEYWORD POTENTIALLY_NESTED_IDENTIFIER;
 
-// TODO: später verbessern, bitte nicht hardcoden
-java_print_ln: JAVA_PRINT_LN OPEN_PARENTHESIS print_statement_content CLOSE_PARENTHESIS STATEMENT_END;
-JAVA_PRINT_LN: 'System.out.println';
-JAVA_STRING_ARGS: 'String[] args';
+// Classes
+class_declaration: ACCESS_MODIFIER CLASS IDENTIFIER CURLY_OPEN class_body CURLY_CLOSE;
+class_body: function_declaration;
 
-SCOPE_START: '{';
-SCOPE_END: '}';
-OPEN_PARENTHESIS: '(';
-CLOSE_PARENTHESIS: ')';
-OPEN_BRACKET: '[';
-CLOSE_BRACKET: ']';
-QUOTATION_MARK: '"';
-DOT: '.';
-EXCLAMATION_MARK: '!';
-ASSIGNMENT: '=';
-RETURN: 'return';
-STATEMENT_END: ';';
-ACCESS_MODIFIER: 'public' | 'private' | 'protected';
-PRIMITIVE_DATATYPE: 'boolean' | 'char' | 'double' | 'float' | 'long' | 'int' |'short' | 'byte';
-CLASS_DATATYPE: 'String';
+// Functions
+function_declaration: ACCESS_MODIFIER INSTANCE_MODIFIER? TYPE IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_declaration_body CURLY_CLOSE;
+function_declaration_args: TYPE IDENTIFIER (COMMA TYPE IDENTIFIER)*;
+function_declaration_body: expression;
+function_call: POTENTIALLY_NESTED_IDENTIFIER PAREN_OPEN function_args PAREN_CLOSE;
+function_args: STRING;
+
+// ----- Lexer -----
+
+// Keywords, need to be on top!
 PACKAGE_KEYWORD: 'package';
-CLASS_KEYWORD: 'class';
+CLASS: 'class';
+
+// Modifiers, need to be on top!
+ACCESS_MODIFIER: 'public' | 'private' | 'protected';
 INSTANCE_MODIFIER: 'static';
-FUNCTION_RETURNTYPE: PRIMITIVE_DATATYPE | 'void' | CLASS_DATATYPE;
-MATH_DASH_OPERATOR: '-' | '+';
-COMPARISON_OPERATOR : '<' | '>' | '<=' | '>=' | '==' | '<>';
-IF: 'if';
-ELSE: 'else';
+
+// Types
+TYPE: ('void' | 'String') TYPE_ADDITION?;
+TYPE_ADDITION: '[]';
+
+// Names
 IDENTIFIER: NAME;
-ANYTHING: ANY_TEXT;
-INTEGER_CONSTANT: DIGIT+;
-PACKAGE_NAME: NAME ([/.]{1} NAME*)*;
-STRING_CONTENT: (CHAR)+;
+POTENTIALLY_NESTED_IDENTIFIER: IDENTIFIER (DOT IDENTIFIER)*;
+
+// Punctuation
+SEMICOLON: ';';
+COLON: ':';
+COMMA: ',';
+DOT: '.';
+
+// Brackets
+PAREN_OPEN: '(';
+PAREN_CLOSE: ')';
+BRACKET_OPEN: '[';
+BRACKET_CLOSE: ']';
+CURLY_OPEN: '{';
+CURLY_CLOSE: '}';
+
+// Misc
 WHITESPACE  : (' ' | '\t' | '\r' | '\n') -> skip;
+STRING : '"' (~'"'|'/"')* '"'; // Danke https://stackoverflow.com/a/36615281
+
+// Fragments
 fragment
-ANY_TEXT: [a-zA-Z0-9*]+;
+NAME: CHAR (DIGIT | CHAR)*; // Names must begin with a letter.
 fragment
-NAME: CHAR [a-zA-Z0-9]*;
-fragment
-CHAR   : [a-zA-Z] ;
+CHAR   : [a-zA-Z$_] ; // The general rules for naming variables are: Names can contain letters, digits, underscores, and dollar signs.
 fragment
 DIGIT  : [0-9] ;
