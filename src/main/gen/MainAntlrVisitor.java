@@ -78,4 +78,10 @@ public interface MainAntlrVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunction_args(MainAntlrParser.Function_argsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainAntlrParser#function_arg}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_arg(MainAntlrParser.Function_argContext ctx);
 }

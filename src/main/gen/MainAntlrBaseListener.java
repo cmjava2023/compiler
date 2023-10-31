@@ -146,6 +146,18 @@ public class MainAntlrBaseListener implements MainAntlrListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_args(MainAntlrParser.Function_argsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_arg(MainAntlrParser.Function_argContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_arg(MainAntlrParser.Function_argContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

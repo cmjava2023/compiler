@@ -11,7 +11,7 @@ start : statement*;
 
 // Statements and expressions
 statement: (package_declaration SEMICOLON) | class_declaration;
-expression: (function_call) SEMICOLON;
+expression: function_call SEMICOLON;
 
 // Packages
 package_declaration: PACKAGE_KEYWORD POTENTIALLY_NESTED_IDENTIFIER;
@@ -25,7 +25,8 @@ function_declaration: ACCESS_MODIFIER INSTANCE_MODIFIER? TYPE IDENTIFIER PAREN_O
 function_declaration_args: TYPE IDENTIFIER (COMMA TYPE IDENTIFIER)*;
 function_declaration_body: expression;
 function_call: POTENTIALLY_NESTED_IDENTIFIER PAREN_OPEN function_args PAREN_CLOSE;
-function_args: STRING;
+function_args: function_arg (COMMA function_arg)*;
+function_arg: STRING | IDENTIFIER | POTENTIALLY_NESTED_IDENTIFIER;
 
 // ----- Lexer -----
 

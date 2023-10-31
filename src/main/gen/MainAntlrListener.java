@@ -119,4 +119,14 @@ public interface MainAntlrListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_args(MainAntlrParser.Function_argsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainAntlrParser#function_arg}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_arg(MainAntlrParser.Function_argContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainAntlrParser#function_arg}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_arg(MainAntlrParser.Function_argContext ctx);
 }
