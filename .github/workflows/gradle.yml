@@ -36,9 +36,11 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
+    - name: Test Report
+      uses: dorny/test-reporter@v1
       if: always()
       with:
-        files: |
-            build/test-results/test/TEST-*.xml
+        name: Tests
+        path: build/test-results/test/TEST-*.xml
+        reporter: jest-junit
+
