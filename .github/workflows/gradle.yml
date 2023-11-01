@@ -36,11 +36,15 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
-    - name: Test Report
+    - name: Test Report as Check
       uses: dorny/test-reporter@v1
       if: always()
       with:
         name: Test Report (click on details to view it)
         path: build/test-results/test/TEST-*.xml
         reporter: java-junit
+    - name: Test Report as Pull Request Comment
+      uses: xportation/junit-coverage-report@main
+      with:
+        junit-path: build/test-results/test/TEST-*.xml
 
