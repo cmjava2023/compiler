@@ -9,9 +9,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "master", "build_and_test_on_local_and_github" ]
   pull_request:
-    branches: [ "master" ]
 
 permissions:
   contents: read
