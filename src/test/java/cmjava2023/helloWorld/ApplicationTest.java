@@ -17,5 +17,6 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
         String expectedJavaP = GetContentOfTestClassFileInSamePackage("Main.javap.txt");
         String actualJavaP = GetJavaPForFileInTemporaryFolder("Main.class");
         assertEquals(expectedJavaP, actualJavaP);
+        fail();
     }
 }
