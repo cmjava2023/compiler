@@ -8,10 +8,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HelloWorldTest extends AbstractTestUsingResourceFiles {
+public class ApplicationTest extends AbstractTestUsingResourceFiles {
 
     @Test
-    public void test() throws IOException {
+    public void HelloWorld_OurClassFileEqualsJdkEightCompiledClassFileBasedOnJavaP() throws IOException {
         Main.main(new String[]{ GetPathOfJavaResourceInSamePackage("Main.java"), GetTemporaryFolderPath() });
 
         String expectedJavaP = GetContentOfTestClassFileInSamePackage("Main.javap.txt");
