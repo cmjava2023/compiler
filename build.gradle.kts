@@ -32,15 +32,20 @@ tasks.register("prepareTestFilesWithJdk8") {
         println("Compile Java test files using jdk version 8. Files from $testJavaFilesRoot compiled to $outputRoot.")
         testJavaFilesRoot.walk().forEach {
             if (it.extension == "java") {
-                val outputFolder = File(outputRoot, it.parentFile.relativeTo(testJavaFilesRoot).path)
-                outputFolder.mkdirs()
-                val commandParts = listOf("javac", it.path, "-d", outputFolder.path, "--release",  "8")
+                val commandParts = listOf("javac", it.path, "--release",  "8")
                 println("  " + commandParts.joinToString(" "))
                 ProcessBuilder(commandParts)
                         .redirectOutput(ProcessBuilder.Redirect.PIPE)
                         .redirectError(ProcessBuilder.Redirect.INHERIT)
                         .start()
                         .waitFor()
+                val outputFolder = File(outputRoot, it.parentFile.relativeTo(testJavaFilesRoot).path)
+                outputFolder.mkdirs()
+                val resultFileName = it.nameWithoutExtension + ".class"
+                val resultFile = File(it.parentFile, resultFileName)
+                resultFile.copyTo(File(outputFolder, resultFileName))
+                resultFile.delete()
+
             }
         }
 
