@@ -28,12 +28,8 @@ jobs:
     - name: Set up JDK 8 and JDK with min version for ANTLR
       uses: actions/setup-java@v3
       with:
-        java-version: |
-          8
-          19
+        java-version: 21
         distribution: 'temurin'
-    - name: java 8 compile everything in 'src/test/java' to 'build/test-classfiles'
-      run: mkdir -p build/test-classfiles && cd src/test/resources/java && for dir in $(find -mindepth 1 -type d); do  find -name "*.java" | xargs javac -d ../../../../build/test-classfiles/$dir; done && ls ../../../../build/test-classfiles -R
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build with Gradle
