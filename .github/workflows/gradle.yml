@@ -40,7 +40,7 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: Tests
+        name: Test Report (click on details to view it)
         path: build/test-results/test/TEST-*.xml
         reporter: java-junit
 
