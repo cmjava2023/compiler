@@ -43,8 +43,4 @@ jobs:
         name: Test Report (click on details to view it)
         path: build/test-results/test/TEST-*.xml
         reporter: java-junit
-    - name: Test Report as Pull Request Comment
-      uses: xportation/junit-coverage-report@main
-      with:
-        junit-path: build/test-results/test/TEST-*.xml
 
