@@ -22,7 +22,7 @@ public class TreePrinter {
         StringBuilder result = new StringBuilder();
         result.append(prefix);
         if(!parseTree.getClass().getSimpleName().equals("TerminalNodeImpl")) {
-            result.append(parseTree.getClass().getSimpleName());
+            result.append(parseTree.getClass().getSimpleName().split("Context")[0]);
             result.append(": ");
         }
         result.append(parseTree.getText());
