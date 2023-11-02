@@ -21,6 +21,8 @@ public class Main {
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 
         ParseTree tree = parser.start();
+        ASTVisitor visitor = new ASTVisitor();
+        ASTNodes.Node ast = visitor.visit(tree);
 
         Path outputDirPath = Paths.get(args[1]);
         Files.createDirectories(outputDirPath);
