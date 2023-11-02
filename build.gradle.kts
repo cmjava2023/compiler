@@ -1,6 +1,7 @@
 plugins {
     id("java")
     antlr // https://docs.gradle.org/current/userguide/antlr_plugin.html
+    kotlin("jvm") version "1.9.20"
 }
 
 group = "org.cmjava2023"
@@ -19,6 +20,10 @@ dependencies {
 tasks.test {
     dependsOn("prepareTestFilesWithJdk8")
     useJUnitPlatform()
+}
+
+tasks.compileKotlin{
+    dependsOn("generateGrammarSource")
 }
 
 tasks.register("prepareTestFilesWithJdk8") {
