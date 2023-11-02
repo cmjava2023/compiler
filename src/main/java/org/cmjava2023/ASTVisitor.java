@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitStart(MainAntlrParser.StartContext ctx) {
-        ArrayList<ASTNodes.Statement> statementlist = new ArrayList<>();
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.children) {
-            statementlist.add((ASTNodes.Statement) visit(tree.getChild(0)));
+            statementList.add((ASTNodes.Statement) visit(tree.getChild(0)));
         }
 
-        return new ASTNodes.StartNode(statementlist);
+        return new ASTNodes.StartNode(statementList);
     }
 
     public ASTNodes.Node visitPackage_declaration(MainAntlrParser.Package_declarationContext ctx) {
@@ -21,20 +21,20 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     public ASTNodes.Node visitClass_declaration(MainAntlrParser.Class_declarationContext ctx) {
-        ArrayList<ASTNodes.Statement> statementlist = new ArrayList<>();
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.class_body().children) {
-            statementlist.add((ASTNodes.Statement) visit(tree));
+            statementList.add((ASTNodes.Statement) visit(tree));
         }
         ArrayList<ASTNodes.Modifier> modifiers = new ArrayList<>();
         modifiers.add(ASTNodes.Modifier.valueOf(ctx.ACCESS_MODIFIER().getText().toUpperCase()));
 
-        return new ASTNodes.ClassNode(ctx.IDENTIFIER().getText(), modifiers, statementlist);
+        return new ASTNodes.ClassNode(ctx.IDENTIFIER().getText(), modifiers, statementList);
     }
 
     public ASTNodes.Node visitFunction_declaration(MainAntlrParser.Function_declarationContext ctx) {
-        ArrayList<ASTNodes.Statement> statementlist = new ArrayList<>();
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_declaration_body().children) {
-            statementlist.add((ASTNodes.Statement) visit(tree.getChild(0)));
+            statementList.add((ASTNodes.Statement) visit(tree.getChild(0)));
         }
 
         ArrayList<ASTNodes.ParameterNode> parameters = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         modifiers.add(ASTNodes.Modifier.valueOf(ctx.ACCESS_MODIFIER().getText().toUpperCase()));
         modifiers.add(ASTNodes.Modifier.valueOf(ctx.INSTANCE_MODIFIER().getText().toUpperCase()));
 
-        return new ASTNodes.FunctionNode(ctx.IDENTIFIER().getText(), modifiers, ctx.TYPE().getText(), parameters, statementlist);
+        return new ASTNodes.FunctionNode(ctx.IDENTIFIER().getText(), modifiers, ctx.TYPE().getText(), parameters, statementList);
     }
 
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
