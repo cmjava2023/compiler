@@ -1,5 +1,6 @@
-package parseTreeToAst;
+package cmjava2023.helloWorld;
 
+import cmjava2023.AbstractTestUsingResourceFiles;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,10 +15,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParseTreeToASTTest {
+public class ParseTreeToASTTest extends AbstractTestUsingResourceFiles {
     @Test
     public void test() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName("src/test/resources/OurClassFileEqualsJdksClassFile/hello_world/Main.java");
+        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaResourceInSamePackage("Main.java"));
         Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 
