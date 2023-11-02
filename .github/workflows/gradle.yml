@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 jobs:
   build-and-test-with-gradle:
     runs-on: ubuntu-latest
