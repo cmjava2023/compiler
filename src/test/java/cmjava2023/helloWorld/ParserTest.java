@@ -25,38 +25,38 @@ public class ParserTest extends AbstractTestUsingResourceFiles {
 
         String expected =
                 """
-                StartContext: packageorg.cmjava2023;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                |- StatementContext: packageorg.cmjava2023;
-                |  |- Package_declarationContext: packageorg.cmjava2023
+                Start: packageorg.cmjava2023;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+                |- Statement: packageorg.cmjava2023;
+                |  |- Package_declaration: packageorg.cmjava2023
                 |  |  |- package
                 |  |  L  org.cmjava2023
                 |  L  ;
-                L  StatementContext: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                   L  Class_declarationContext: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+                L  Statement: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+                   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
                       |- public
                       |- class
                       |- Main
                       |- {
-                      |- Class_bodyContext: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                      |  L  Function_declarationContext: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
+                      |- Class_body: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
+                      |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
                       |     |- public
                       |     |- static
                       |     |- void
                       |     |- main
                       |     |- (
-                      |     |- Function_declaration_argsContext: String[]args
-                      |     |  L  Function_declaration_argContext: String[]args
+                      |     |- Function_declaration_args: String[]args
+                      |     |  L  Function_declaration_arg: String[]args
                       |     |     |- String[]
                       |     |     L  args
                       |     |- )
                       |     |- {
-                      |     |- Function_declaration_bodyContext: System.out.println("Hello world!");
-                      |     |  L  ExpressionContext: System.out.println("Hello world!");
-                      |     |     |- Function_callContext: System.out.println("Hello world!")
+                      |     |- Function_declaration_body: System.out.println("Hello world!");
+                      |     |  L  Expression: System.out.println("Hello world!");
+                      |     |     |- Function_call: System.out.println("Hello world!")
                       |     |     |  |- System.out.println
                       |     |     |  |- (
-                      |     |     |  |- Function_argsContext: "Hello world!"
-                      |     |     |  |  L  Function_argContext: "Hello world!"
+                      |     |     |  |- Function_args: "Hello world!"
+                      |     |     |  |  L  Function_arg: "Hello world!"
                       |     |     |  |     L  "Hello world!"
                       |     |     |  L  )
                       |     |     L  ;
