@@ -22,7 +22,8 @@ class_body: function_declaration;
 
 // Functions
 function_declaration: ACCESS_MODIFIER INSTANCE_MODIFIER? TYPE IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_declaration_body CURLY_CLOSE;
-function_declaration_args: TYPE IDENTIFIER (COMMA TYPE IDENTIFIER)*;
+function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
+function_declaration_arg: TYPE IDENTIFIER;
 function_declaration_body: expression;
 function_call: POTENTIALLY_NESTED_IDENTIFIER PAREN_OPEN function_args PAREN_CLOSE;
 function_args: function_arg (COMMA function_arg)*;
