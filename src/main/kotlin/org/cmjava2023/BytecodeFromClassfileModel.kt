@@ -4,6 +4,7 @@ import org.cmjava2023.ClassfileModel
 import org.cmjava2023.ByteListUtil.Companion.add
 import org.cmjava2023.ByteListUtil.Companion.toByteList
 import org.cmjava2023.classfilespecification.ConstantPoolToByteList
+import kotlin.experimental.or
 
 
 class BytecodeFromClassfileModel {
@@ -18,8 +19,8 @@ class BytecodeFromClassfileModel {
         result.add(majorVersion)
         result.add(constantPoolCount)
         result.addAll(constantPoolByteList)
-        result.add(model.classAccessModifiers)
-        result.addAll(2.toShort().toByteList())
+        result.add(model.classAccessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag })
+        result.addAll(1.toShort().toByteList())
         result.add(model.superClassIndexInConstantPool)
         result.add(model.numberOfInterfaces)
         result.addAll(model.interfaceDefinitions)

@@ -1,10 +1,11 @@
 package org.cmjava2023
 
+import org.cmjava2023.classfilespecification.AccessModifier
 import org.cmjava2023.classfilespecification.ConstantInfo
 
 data class ClassfileModel(
         val constantPool: List<ConstantInfo>,
-        val classAccessModifiers: Short,
+        val classAccessModifiers: List<AccessModifier>,
         val constantPoolIndex: Short,
         val superClassIndexInConstantPool: Short,
         val numberOfInterfaces: Short,

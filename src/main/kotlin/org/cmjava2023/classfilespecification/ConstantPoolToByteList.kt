@@ -6,21 +6,21 @@ class ConstantPoolToByteList {
     companion object {
         fun mapToByteList(constantPool: List<ConstantInfo>): Pair<List<Byte>, Short> {
             val result = mutableListOf<Byte>()
-            var constantPoolIndex: Short = 0
+            var constantPoolIndex: Short = 1
             for (constantInfo in constantPool) {
                 when(constantInfo) {
                     is ConstantClassInfo -> {
-                        result.addAll(constantInfo.nameConstant.getByteArray())
+                        result.add(constantInfo.tag.value)
+                        result.addAll((constantPoolIndex + 1).toShort().toByteList())
                         constantPoolIndex++
 
-                        result.add(constantInfo.tag.value)
-                        result.addAll(constantPoolIndex.toByteList())
+                        result.addAll(constantInfo.nameConstant.getByteArray())
                         constantPoolIndex++
                     }
                 }
             }
 
-            return Pair(result, (constantPoolIndex + 1).toShort())
+            return Pair(result, constantPoolIndex)
         }
     }
 }
