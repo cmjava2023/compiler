@@ -37,7 +37,7 @@ public abstract class AbstractTestUsingResourceFiles {
         String pathToFile = GetTemporaryFolderPath() + "/" + fileName;
         String pathToResultFile = GetTemporaryFolderPath() + "/" + fileName + ".javap.txt";
 
-        String[] commandParts = new String[]{"javap", "-c", "-p", pathToFile };
+        String[] commandParts = new String[]{"javap", "-c", "-p", "-verbose", pathToFile };
         try {
             new ProcessBuilder(commandParts)
                     .redirectOutput(new File(pathToResultFile))

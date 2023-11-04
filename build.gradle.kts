@@ -59,7 +59,7 @@ tasks.register("prepareTestFilesWithJdk8") {
 
         outputRoot.walk().forEach {
             if (it.extension == "class") {
-                val commandParts = listOf("javap", "-c", "-p", it.path)
+                val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
                 println("  " + commandParts.joinToString(" "))
                 val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
                 println("  Output:$outputFile")
