@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.cmjava2023.org.cmjava2023.BytecodeFromClassfileModel;
+import org.cmjava2023.BytecodeFromClassfileModel;
 
 import java.io.IOException;
 import java.nio.file.Files;
