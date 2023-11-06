@@ -1,2 +1,2 @@
-rootProject.name = "java_compiler_pipeline_test"
+rootProject.name = "compiler"
 
