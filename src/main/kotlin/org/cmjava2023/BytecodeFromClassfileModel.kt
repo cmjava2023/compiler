@@ -1,4 +1,4 @@
-package org.cmjava2023.org.cmjava2023
+package org.cmjava2023
 
 import org.cmjava2023.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileModel
@@ -9,21 +9,17 @@ import kotlin.experimental.or
 class BytecodeFromClassfileModel {
 
     fun generate(model: ClassfileModel): ByteArray {
-
-        val result: MutableList<Byte> = mutableListOf()
         val classFileBytes = ConstantPoolToByteList.mapToByteList(model.constantPool, model.methodDefinitions)
 
-        val indexOfThisClassInConstantPool = 1.toShort()
-        val indexOfSuperClassInConstantPool = 3.toShort()
-
-        result.add(magicNumber)
-        result.add(minorVersion)
-        result.add(majorVersion)
+        val result: MutableList<Byte> = mutableListOf()
+        result.add(MAGIC_NUMBER)
+        result.add(MINOR_VERSION)
+        result.add(MAJOR_VERSION)
         result.add(classFileBytes.constantPoolItemCount)
         result.addAll(classFileBytes.constantPoolBytes)
         result.add(model.classClassAccessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag })
-        result.add(indexOfThisClassInConstantPool)
-        result.add(indexOfSuperClassInConstantPool)
+        result.add(INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL)
+        result.add(INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL)
         result.add(model.numberOfInterfaces)
         result.addAll(model.interfaceDefinitions)
         result.add(model.numberOfFields)
@@ -37,9 +33,12 @@ class BytecodeFromClassfileModel {
     }
 
     companion object {
-        const val magicNumber: UInt = 0xCAFEBABEu
-        const val minorVersion: Short = 0x0
-        const val majorVersion: Short = 0x00000034
+        const val MAGIC_NUMBER: UInt = 0xCAFEBABEu
+        const val MINOR_VERSION: Short = 0x0
+        const val MAJOR_VERSION: Short = 0x00000034
+
+        const val INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL:Short = 1
+        const val INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL:Short = 3
     }
 }
 

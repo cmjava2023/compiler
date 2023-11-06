@@ -2,6 +2,7 @@ package org.cmjava2023.classfilespecification
 
 import org.cmjava2023.ASTNodes
 
+@Suppress("unused")
 enum class MethodAccessModifier(val value:Short) {
     ACC_PUBLIC(0x0001),
     ACC_PRIVATE(0x0002),

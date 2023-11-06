@@ -11,38 +11,21 @@ class ClassfileModelFromAst {
 
     private val constantInfos = mutableListOf<ConstantInfo>()
     private val methodInfos = mutableListOf<MethodInfo>()
+    private val classAccessModifiers = mutableListOf<ClassAccessModifier>()
 
     private fun resetFields() {
         constantInfos.clear()
         methodInfos.clear()
+        classAccessModifiers.clear()
     }
 
     fun generate(ast: ASTNodes.StartNode): ClassfileModel {
         resetFields()
-        var fullyQualifiedClassName = ""
-        val modifiers = mutableListOf<ClassAccessModifier>()
-
-        for (statement in ast.body) {
-            if (statement is ASTNodes.PackageNode) {
-                fullyQualifiedClassName += statement.identifier.replace(PACKAGE_DELIMITER_IN_JAVA_FILES, PACKAGE_DELIMITER_IN_CLASS_FILES)
-            } else if (statement is ASTNodes.ClassNode) {
-                fullyQualifiedClassName += PACKAGE_DELIMITER_IN_CLASS_FILES + statement.identifier
-                for(modifierNode in statement.modifier) {
-                    modifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
-                }
-                parseStatements(statement.body)
-            }
-        }
-        if (!modifiers.contains(ClassAccessModifier.ACC_FINAL)) {
-            modifiers.add(ClassAccessModifier.ACC_SUPER)
-        }
-
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName)))
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
+        parseTopLevelStatements(ast)
 
         return ClassfileModel(
                 constantInfos,
-                modifiers,
+            classAccessModifiers,
                 0,
                 0,
                 listOf(),
@@ -52,6 +35,31 @@ class ClassfileModelFromAst {
                 0,
                 listOf()
         )
+    }
+
+    private fun parseTopLevelStatements(ast: ASTNodes.StartNode) {
+        var fullyQualifiedClassName = ""
+
+        for (statement in ast.body) {
+            if (statement is ASTNodes.PackageNode) {
+                fullyQualifiedClassName += statement.identifier.replace(
+                    PACKAGE_DELIMITER_IN_JAVA_FILES,
+                    PACKAGE_DELIMITER_IN_CLASS_FILES
+                )
+            } else if (statement is ASTNodes.ClassNode) {
+                fullyQualifiedClassName += PACKAGE_DELIMITER_IN_CLASS_FILES + statement.identifier
+                for (modifierNode in statement.modifier) {
+                    classAccessModifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
+                }
+                parseStatements(statement.body)
+            }
+        }
+        if (!classAccessModifiers.contains(ClassAccessModifier.ACC_FINAL)) {
+            classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
+        }
+
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName)))
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
     }
 
     private fun parseStatements(statements: List<ASTNodes.Statement>) {
