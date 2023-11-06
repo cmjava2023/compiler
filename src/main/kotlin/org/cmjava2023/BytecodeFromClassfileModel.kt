@@ -1,8 +1,7 @@
 package org.cmjava2023.org.cmjava2023
 
-import org.cmjava2023.classfilespecification.ClassfileModel
 import org.cmjava2023.ByteListUtil.Companion.add
-import org.cmjava2023.ByteListUtil.Companion.toByteList
+import org.cmjava2023.classfilespecification.ClassfileModel
 import org.cmjava2023.classfilespecification.ConstantPoolToByteList
 import kotlin.experimental.or
 
@@ -12,22 +11,25 @@ class BytecodeFromClassfileModel {
     fun generate(model: ClassfileModel): ByteArray {
 
         val result: MutableList<Byte> = mutableListOf()
-        val (constantPoolByteList, constantPoolCount) = ConstantPoolToByteList.mapToByteList(model.constantPool)
+        val classFileBytes = ConstantPoolToByteList.mapToByteList(model.constantPool, model.methodDefinitions)
+
+        val indexOfThisClassInConstantPool = 1.toShort()
+        val indexOfSuperClassInConstantPool = 3.toShort()
 
         result.add(magicNumber)
         result.add(minorVersion)
         result.add(majorVersion)
-        result.add(constantPoolCount)
-        result.addAll(constantPoolByteList)
-        result.add(model.classAccessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag })
-        result.addAll(1.toShort().toByteList())
-        result.add(model.superClassIndexInConstantPool)
+        result.add(classFileBytes.constantPoolItemCount)
+        result.addAll(classFileBytes.constantPoolBytes)
+        result.add(model.classClassAccessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag })
+        result.add(indexOfThisClassInConstantPool)
+        result.add(indexOfSuperClassInConstantPool)
         result.add(model.numberOfInterfaces)
         result.addAll(model.interfaceDefinitions)
         result.add(model.numberOfFields)
         result.addAll(model.fieldDefinitions)
-        result.add(model.numberOfMethods)
-        result.addAll(model.methodDefinitions)
+        result.add(classFileBytes.methodInfoCount)
+        result.addAll(classFileBytes.methodInfosBytes)
         result.add(model.attributesCount)
         result.addAll(model.attributeDefinitions)
 

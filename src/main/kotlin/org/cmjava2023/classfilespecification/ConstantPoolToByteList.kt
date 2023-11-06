@@ -1,26 +1,55 @@
 package org.cmjava2023.classfilespecification
 
-import org.cmjava2023.ByteListUtil.Companion.toByteList
+import org.cmjava2023.ByteListUtil.Companion.add
+import kotlin.experimental.or
 
 class ConstantPoolToByteList {
+
+    data class ClassFileBytes(
+            val constantPoolBytes: List<Byte>,
+            val constantPoolItemCount: Short,
+            val methodInfosBytes: List<Byte>,
+            val methodInfoCount: Short
+    )
+
     companion object {
-        fun mapToByteList(constantPool: List<ConstantInfo>): Pair<List<Byte>, Short> {
-            val result = mutableListOf<Byte>()
+        fun mapToByteList(constantPool: List<ConstantInfo>, methodInfos: List<MethodInfo>): ClassFileBytes {
+            val constantPoolBytes = mutableListOf<Byte>()
             var constantPoolIndex: Short = 1
             for (constantInfo in constantPool) {
                 when(constantInfo) {
                     is ClassConstantInfo -> {
-                        result.add(constantInfo.tag.value)
-                        result.addAll((constantPoolIndex + 1).toShort().toByteList())
+                        constantPoolBytes.add(constantInfo.tag.value)
+                        constantPoolBytes.add((constantPoolIndex + 1).toShort())
                         constantPoolIndex++
 
-                        result.addAll(constantInfo.nameConstant.getByteArray())
+                        constantPoolBytes.addAll(constantInfo.nameConstant.getByteArray())
                         constantPoolIndex++
                     }
                 }
             }
 
-            return Pair(result, constantPoolIndex)
+            val methodInfosBytes = mutableListOf<Byte>()
+            for (methodInfo in methodInfos) {
+                methodInfosBytes.add(
+                    methodInfo.accessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag }
+                )
+                constantPoolBytes.addAll(methodInfo.nameConstant.getByteArray())
+                methodInfosBytes.add(constantPoolIndex)
+                constantPoolIndex++
+
+                constantPoolBytes.addAll(methodInfo.methodType.getByteArray())
+                methodInfosBytes.add(constantPoolIndex)
+                constantPoolIndex++
+                methodInfosBytes.add((0).toShort())
+            }
+
+            return ClassFileBytes(
+                constantPoolBytes,
+                constantPoolIndex,
+                methodInfosBytes,
+                methodInfos.size.toShort()
+            )
         }
     }
 }

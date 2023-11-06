@@ -1,9 +1,7 @@
 package org.cmjava2023
 
-import org.cmjava2023.classfilespecification.AccessModifier
-import org.cmjava2023.classfilespecification.ClassfileModel
-import org.cmjava2023.classfilespecification.ClassConstantInfo
-import org.cmjava2023.classfilespecification.Utf8ConstantInfo
+import org.cmjava2023.classfilespecification.*
+import java.util.ArrayList
 
 class ClassfileModelFromAst {
     companion object {
@@ -11,40 +9,84 @@ class ClassfileModelFromAst {
         private const val PACKAGE_DELIMITER_IN_JAVA_FILES = "."
     }
 
-    fun generate(ast: ASTNodes.StartNode): ClassfileModel {
-        var fullyQualifiedClassName = ""
+    private val constantInfos = mutableListOf<ConstantInfo>()
+    private val methodInfos = mutableListOf<MethodInfo>()
 
-        val modifiers = mutableListOf<AccessModifier>()
+    private fun resetFields() {
+        constantInfos.clear()
+        methodInfos.clear()
+    }
+
+    fun generate(ast: ASTNodes.StartNode): ClassfileModel {
+        resetFields()
+        var fullyQualifiedClassName = ""
+        val modifiers = mutableListOf<ClassAccessModifier>()
+
         for (statement in ast.body) {
             if (statement is ASTNodes.PackageNode) {
                 fullyQualifiedClassName += statement.identifier.replace(PACKAGE_DELIMITER_IN_JAVA_FILES, PACKAGE_DELIMITER_IN_CLASS_FILES)
             } else if (statement is ASTNodes.ClassNode) {
                 fullyQualifiedClassName += PACKAGE_DELIMITER_IN_CLASS_FILES + statement.identifier
                 for(modifierNode in statement.modifier) {
-                    modifiers.add(AccessModifier.fromASTModifier(modifierNode))
+                    modifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
                 }
+                parseStatements(statement.body)
             }
         }
-        if (!modifiers.contains(AccessModifier.ACC_FINAL)) {
-            modifiers.add(AccessModifier.ACC_SUPER)
+        if (!modifiers.contains(ClassAccessModifier.ACC_FINAL)) {
+            modifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        val classConstantInfo = ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName))
-        val objectClassInfo = ClassConstantInfo(Utf8ConstantInfo("java/lang/Object"))
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName)))
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
 
         return ClassfileModel(
-                listOf(classConstantInfo, objectClassInfo),
+                constantInfos,
                 modifiers,
                 0,
                 0,
-                0,
                 listOf(),
                 0,
                 listOf(),
-                0,
-                listOf(),
+                methodInfos,
                 0,
                 listOf()
         )
+    }
+
+    private fun parseStatements(statements: List<ASTNodes.Statement>) {
+        for (statement in statements) {
+            when (statement) {
+                is ASTNodes.FunctionNode -> parseFunctionNode(statement)
+                else -> throw NotImplementedError()
+            }
+        }
+
+        return
+    }
+
+    private fun parseFunctionNode(functionNode: ASTNodes.FunctionNode) {
+        val returnCode = if (functionNode.returnType == "void") { "V" } else { throw  NotImplementedError() }
+        val parameterCodes = parseParameterCodes(functionNode.parameters)
+        methodInfos.add(
+            MethodInfo(
+                functionNode.modifier.map { MethodAccessModifier.fromASTModifier(it) },
+                Utf8ConstantInfo(functionNode.identifier),
+                Utf8ConstantInfo("(${parameterCodes.joinToString("") { "$it;" }})$returnCode")
+            )
+        )
+    }
+
+    private fun parseParameterCodes(parameters: ArrayList<ASTNodes.ParameterNode>): List<String> {
+        val result = mutableListOf<String>()
+        for (parameter in parameters) {
+            if (parameter.type == "String[]") {
+                result.add("[Ljava/lang/String")
+            } else {
+                throw NotImplementedError()
+            }
+        }
+
+        return result
     }
 }
