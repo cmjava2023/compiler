@@ -1,6 +1,7 @@
-package org.cmjava2023.classfilespecification
+package org.cmjava2023
 
 import org.cmjava2023.ByteListUtil.Companion.add
+import org.cmjava2023.classfilespecification.MethodInfo
 import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import kotlin.experimental.or
