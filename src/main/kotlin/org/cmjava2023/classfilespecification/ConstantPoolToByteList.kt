@@ -9,7 +9,7 @@ class ConstantPoolToByteList {
             var constantPoolIndex: Short = 1
             for (constantInfo in constantPool) {
                 when(constantInfo) {
-                    is ConstantClassInfo -> {
+                    is ClassConstantInfo -> {
                         result.add(constantInfo.tag.value)
                         result.addAll((constantPoolIndex + 1).toShort().toByteList())
                         constantPoolIndex++

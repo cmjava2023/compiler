@@ -1,6 +1,6 @@
 package org.cmjava2023.org.cmjava2023
 
-import org.cmjava2023.ClassfileModel
+import org.cmjava2023.classfilespecification.ClassfileModel
 import org.cmjava2023.ByteListUtil.Companion.add
 import org.cmjava2023.ByteListUtil.Companion.toByteList
 import org.cmjava2023.classfilespecification.ConstantPoolToByteList
