@@ -1,5 +1,6 @@
-package org.cmjava2023.classfilespecification
+package org.cmjava2023.classfilespecification.constantpool
 
+@Suppress("unused")
 enum class ConstantInfoTag(val value:Byte) {
     CONSTANT_Class(7),
     CONSTANT_Fieldref(9),

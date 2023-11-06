@@ -1,4 +1,4 @@
-package org.cmjava2023.classfilespecification
+package org.cmjava2023.classfilespecification.constantpool
 
 import org.cmjava2023.ByteListUtil.Companion.toByteList
 

@@ -1,6 +1,9 @@
 package org.cmjava2023
 
 import org.cmjava2023.classfilespecification.*
+import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.Utf8ConstantInfo
 import java.util.ArrayList
 
 class ClassfileModelFromAst {
@@ -66,11 +69,16 @@ class ClassfileModelFromAst {
         for (statement in statements) {
             when (statement) {
                 is ASTNodes.FunctionNode -> parseFunctionNode(statement)
+                is ASTNodes.FunctionCallNode -> parseFunctionCallNode(statement)
                 else -> throw NotImplementedError()
             }
         }
 
         return
+    }
+
+    private fun parseFunctionCallNode(functionCallNode: ASTNodes.FunctionCallNode) {
+        TODO("Not yet implemented")
     }
 
     private fun parseFunctionNode(functionNode: ASTNodes.FunctionNode) {
@@ -83,6 +91,7 @@ class ClassfileModelFromAst {
                 Utf8ConstantInfo("(${parameterCodes.joinToString("") { "$it;" }})$returnCode")
             )
         )
+        parseStatements(functionNode.body)
     }
 
     private fun parseParameterCodes(parameters: ArrayList<ASTNodes.ParameterNode>): List<String> {

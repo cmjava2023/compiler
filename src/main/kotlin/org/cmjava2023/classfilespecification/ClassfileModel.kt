@@ -1,5 +1,7 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
+
 data class ClassfileModel(
         val constantPool: List<ConstantInfo>,
         val classClassAccessModifiers: List<ClassAccessModifier>,

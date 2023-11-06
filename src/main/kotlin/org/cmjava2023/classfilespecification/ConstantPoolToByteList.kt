@@ -1,6 +1,8 @@
 package org.cmjava2023.classfilespecification
 
 import org.cmjava2023.ByteListUtil.Companion.add
+import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import kotlin.experimental.or
 
 class ConstantPoolToByteList {
