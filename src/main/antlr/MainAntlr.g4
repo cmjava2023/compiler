@@ -10,28 +10,50 @@ package org.cmjava2023.generated_from_antlr;
 start : (statement)+;
 
 // Statements and expressions
-statement: class_declaration | (package_declaration SEMICOLON);
-expression: function_call SEMICOLON;
+statement: class_declaration | (instantiation | assignment | package_declaration) SEMICOLON;
+expression: (function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | potentially_nested_identifier ) SEMICOLON?;
+instantiation: primitive_type potentially_nested_identifier;
+assignment: instantiation EQUALS expression;
 
 // Packages
-package_declaration:  PACKAGE_KEYWORD (potentially_nested_identifier);
+package_declaration: PACKAGE_KEYWORD potentially_nested_identifier;
 
 // Classes
-class_declaration: ACCESS_MODIFIER CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_body CURLY_CLOSE;
+class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_body CURLY_CLOSE;
 class_body: function_declaration;
 
 // Functions
-function_declaration: ACCESS_MODIFIER INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_declaration_body CURLY_CLOSE;
+function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_declaration_body CURLY_CLOSE;
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
 function_declaration_body: expression;
 function_call: potentially_nested_identifier PAREN_OPEN function_args PAREN_CLOSE;
 function_args: function_arg (COMMA function_arg)*;
-function_arg: STRING | IDENTIFIER | potentially_nested_identifier;
+function_arg: (expression)*;
 
 // Names
 potentially_nested_identifier: IDENTIFIER (DOT IDENTIFIER)*;
-type: VOID_KEYWORD | PRIMITIVE_TYPE | ARRAY_TYPE | REFERENCE_TYPE;
+type: VOID_KEYWORD | primitive_type | array_type | reference_type;
+
+//Types
+integral_type: BYTE_KEYWORD | SHORT_KEYWORD | INT_KEYWORD | LONG_KEYWORD | CHAR_KEYWORD;
+floating_point_type: FLOAT_KEYWORD | DOUBLE_KEYWORD;
+numeric_type: integral_type | floating_point_type;
+primitive_type: numeric_type | BOOLEAN_KEYWORD;
+
+reference_type: class_type | type_variable | array_type;
+class_type: IDENTIFIER type_arguments?;
+
+type_arguments:DIAMOND_OPEN type_argument_list DIAMOND_CLOSE;
+type_argument_list: type_argument (COMMA type_argument)*;
+type_argument: reference_type | wildcard;
+wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
+type_variable: IDENTIFIER;
+array_type: (primitive_type | class_type |type_variable) BRACKET_OPEN BRACKET_CLOSE;
+
+// Modifiers
+access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
+
 // ----- Lexer -----
 
 // Keywords, need to be on top!
@@ -39,13 +61,7 @@ PACKAGE_KEYWORD: 'package';
 CLASS_KEYWORD: 'class';
 
 // Modifiers, need to be on top!
-ACCESS_MODIFIER: 'public' | 'private' | 'protected';
 INSTANCE_MODIFIER: 'static';
-
-// Types REFERENCE_TYPE LAST!!!
-//TYPE: PSEUDO_TYPE | PRIMITIVE_TYPE | REFERENCE_TYPE;
-
-//POTENTIALLY_NESTED_IDENTIFIER: IDENTIFIER (DOT IDENTIFIER)*;
 
 BOOLEAN_KEYWORD: 'boolean';
 BYTE_KEYWORD: 'byte';
@@ -58,23 +74,12 @@ DOUBLE_KEYWORD: 'double';
 EXTENDS_KEYWORD: 'extends';
 SUPER_KEYWORD: 'super';
 VOID_KEYWORD: 'void';
-
-IDENTIFIER: NAME;
+PUBLIC_KEYWORD: 'public';
+PRIVATE_KEYWORD: 'private';
+PROTECTED_KEYWORD: 'protected';
 
 // Names
-
-ARRAY_TYPE: (PRIMITIVE_TYPE | CLASS_TYPE | TYPE_VARIABLE) BRACKET_OPEN BRACKET_CLOSE;
-PRIMITIVE_TYPE: NUMERIC_TYPE | BOOLEAN_KEYWORD;
-NUMERIC_TYPE: INTEGRAL_TYPE | FLOATING_POINT_TYPE;
-INTEGRAL_TYPE: BYTE_KEYWORD | SHORT_KEYWORD | INT_KEYWORD | LONG_KEYWORD | CHAR_KEYWORD;
-FLOATING_POINT_TYPE: FLOAT_KEYWORD | DOUBLE_KEYWORD;
-TYPE_VARIABLE: IDENTIFIER;
-CLASS_TYPE: IDENTIFIER TYPE_ARGUMENTS?;
-TYPE_ARGUMENTS: DIAMOND_OPEN TYPE_ARGUMENT_LIST DIAMOND_CLOSE;
-TYPE_ARGUMENT_LIST: TYPE_ARGUMENT (COMMA TYPE_ARGUMENT)*;
-TYPE_ARGUMENT: REFERENCE_TYPE | WILDCARD;
-WILDCARD: EXTENDS_KEYWORD REFERENCE_TYPE | SUPER_KEYWORD REFERENCE_TYPE;
-REFERENCE_TYPE: CLASS_TYPE | TYPE_VARIABLE | ARRAY_TYPE;
+IDENTIFIER: NAME;
 
 // Punctuation
 SEMICOLON: ';';
@@ -96,6 +101,9 @@ EQUALS: '=';
 // Misc
 WHITESPACE  : (' ' | '\t' | '\r' | '\n') -> skip;
 STRING : '"' (~'"'|'/"')* '"'; // Danke https://stackoverflow.com/a/36615281
+
+INTEGER: DIGIT+;
+DECIMAL: [1-9] DIGIT* DOT DIGIT+;
 
 // Fragments
 fragment
