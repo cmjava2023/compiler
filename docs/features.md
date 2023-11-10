@@ -21,7 +21,7 @@ package foo.bar.wuffie;
 ```java
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        boolean a = 5 >= 1;
     }
 }
 ```
