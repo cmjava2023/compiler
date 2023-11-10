@@ -10,7 +10,12 @@ package org.cmjava2023.generated_from_antlr;
 start : (statement)+;
 
 // Statements and expressions
-statement: class_declaration | (instantiation | assignment | package_declaration) SEMICOLON;
+statement: global_scope;
+
+global_scope: class_declaration | package_declaration SEMICOLON;
+
+class_scope: (class_declaration | function_declaration | ((instantiation | assignment ) SEMICOLON))+;
+
 expression: (function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | potentially_nested_identifier ) SEMICOLON?;
 instantiation: primitive_type potentially_nested_identifier;
 assignment: instantiation EQUALS expression;
@@ -19,8 +24,7 @@ assignment: instantiation EQUALS expression;
 package_declaration: PACKAGE_KEYWORD potentially_nested_identifier;
 
 // Classes
-class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_body CURLY_CLOSE;
-class_body: function_declaration;
+class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
 
 // Functions
 function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_declaration_body CURLY_CLOSE;
