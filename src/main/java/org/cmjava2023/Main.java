@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
         CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(args[0]);
         Lexer lexer = new MainAntlrLexer(charStreamOfGivenFilePath);
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));

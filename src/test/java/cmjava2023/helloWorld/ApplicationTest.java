@@ -13,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationTest extends AbstractTestUsingResourceFiles {
     @Test
-    @Disabled
+    //@Disabled
     public void helloWorld_OurClassFileEqualsJdkEightCompiledClassFileBasedOnJavaP() {
         String expectedJavaP = GetContentOfTestClassFileInSamePackage("Main.javap.txt");
         String actualJavaP = GetJavaPForFileInTemporaryFolder("Main.class");
         assertEquals(expectedJavaP, actualJavaP);
     }
+
 
     @Test
     public void helloWorld_runningPrintsHelloWorld() {
