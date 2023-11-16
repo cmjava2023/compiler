@@ -1,11 +1,11 @@
 package cmjava2023;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractTestUsingResourceFiles {
     protected String JAVA_RESOURCE_FOLDER_PATH = "src/test/resources/java";
@@ -45,6 +45,24 @@ public abstract class AbstractTestUsingResourceFiles {
                     .start()
                     .waitFor();
             return Files.readString(Paths.get(pathToResultFile));
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String RunClassAndGetStdOut(String className) {
+        String[] commandParts = new String[]{"java", "-cp", GetTemporaryFolderPath(), className };
+        try {
+            Process process = new ProcessBuilder(commandParts).start();
+            process.waitFor();
+            String error = new BufferedReader(new InputStreamReader(process.getErrorStream())).lines().collect(Collectors.joining("\n"));
+            if (error.isEmpty()) {
+                return new BufferedReader(new InputStreamReader(process.getInputStream()))
+                        .lines().collect(Collectors.joining("\n"));
+            }
+            else {
+                return error;
+            }
         } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
         }
