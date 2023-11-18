@@ -47,29 +47,52 @@ class ConstantPoolToByteList {
                     val attributeNameIndex = addUtf8ConstantAndGetStartIndex(singleAttribute.name)
                     methodInfosBytes.add(attributeNameIndex)
 
-                    val attributeLength = 21u
-                    methodInfosBytes.add(attributeLength)
 
-                    val functionCallCodePart = singleAttribute.functionCallCodeParts.singleOrNull() ?: throw NotImplementedError()
+                    if (methodInfo.nameConstant.name  == "<init>") {
+                        val attributeLength = 17u
+                        methodInfosBytes.add(attributeLength)
+                        val maxStackSize: Short = 2
+                        val maxLocalVarSize: Short = 1
+                        val sizeOfCode = 5u
 
-                    val maxStackSize: Short = 2
-                    val maxLocalVarSize: Short = 1
-                    val sizeOfCode = 9u
+                        methodInfosBytes.add(maxStackSize)
+                        methodInfosBytes.add(maxLocalVarSize)
+                        methodInfosBytes.add(sizeOfCode)
 
-                    methodInfosBytes.add(maxStackSize)
-                    methodInfosBytes.add(maxLocalVarSize)
-                    methodInfosBytes.add(sizeOfCode)
+                        methodInfosBytes.add(OpCode.aload_0.value)
 
-                    methodInfosBytes.add(OpCode.getstatic.value)
-                    methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo))
+                        methodInfosBytes.add(OpCode.invokespecial.value)
+                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(MethodReferenceConstantInfo(
+                            ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")),
+                            NameAndTypeConstantInfo(Utf8ConstantInfo("<init>"), Utf8ConstantInfo("()V")))))
 
-                    methodInfosBytes.add(OpCode.loaDConstant.value) //ldc only takes a byte sized index, ldc_w is used when a byte is not sufficient for index
-                    methodInfosBytes.add(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte())
+                        methodInfosBytes.add(OpCode.returnVoid.value)
+                    }
+                    else {
+                        val attributeLength = 21u
+                        methodInfosBytes.add(attributeLength)
 
-                    methodInfosBytes.add(OpCode.invokevirtual.value)
-                    methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo))
+                        val functionCallCodePart = singleAttribute.functionCallCodeParts.singleOrNull() ?: throw NotImplementedError()
 
-                    methodInfosBytes.add(OpCode.returnVoid.value)
+                        val maxStackSize: Short = 2
+                        val maxLocalVarSize: Short = 1
+                        val sizeOfCode = 9u
+
+                        methodInfosBytes.add(maxStackSize)
+                        methodInfosBytes.add(maxLocalVarSize)
+                        methodInfosBytes.add(sizeOfCode)
+
+                        methodInfosBytes.add(OpCode.getstatic.value)
+                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo))
+
+                        methodInfosBytes.add(OpCode.loaDConstant.value) //ldc only takes a byte sized index, ldc_w is used when a byte is not sufficient for index
+                        methodInfosBytes.add(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte())
+
+                        methodInfosBytes.add(OpCode.invokevirtual.value)
+                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo))
+
+                        methodInfosBytes.add(OpCode.returnVoid.value)
+                    }
 
                     val exceptionTableLength: Short = 0
                     methodInfosBytes.add(exceptionTableLength)

@@ -2,7 +2,7 @@ package org.cmjava2023.classfilespecification.constantpool
 
 import org.cmjava2023.ByteListUtil.Companion.toByteList
 
-class Utf8ConstantInfo(name: String): ConstantInfo(ConstantInfoTag.CONSTANT_Utf8) {
+class Utf8ConstantInfo(val name: String): ConstantInfo(ConstantInfoTag.CONSTANT_Utf8) {
     private val utf8encodedName: String
 
     init {

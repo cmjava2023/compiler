@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Queue;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,9 +52,10 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
     }
 
     private void constantPool(Queue<String> resultClassFileByteHex) {
-        assertEquals("0016", pollMultiple(resultClassFileByteHex, 2));
+        String constantPoolSizeHex = pollMultiple(resultClassFileByteHex, 2);
+        assertEquals("001F", constantPoolSizeHex);
         ArrayList<String> constantPoolItems = new ArrayList<>();
-        for (int i = 0; i < 0x15; i++) {
+        for (int i = 0; i < Integer.parseInt(constantPoolSizeHex, 16) - 1; i++) {
             String constantInfoTag = resultClassFileByteHex.poll();
             String constantPoolItem = constantInfoTag;
             switch(constantInfoTag){
@@ -67,7 +67,7 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
                     String lengthHex = pollMultiple(resultClassFileByteHex, 2);
                     constantPoolItem += lengthHex;
                     int length = Integer.parseInt(lengthHex, 16);
-                    constantPoolItem += pollMultiple(resultClassFileByteHex, length);
+                    constantPoolItem += utf8FromHexString(pollMultiple(resultClassFileByteHex, length));
                 break;
                 case "09":
                 case "0A":
@@ -80,31 +80,53 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
             }
             constantPoolItems.add(constantPoolItem);
         }
-        assertArrayEquals(
-                new String[]{
-                        "0100044D61696E",
-                        "070001",
-                        "0100106A6176612F6C616E672F4F626A656374",
-                        "070003",
-                        "0100046D61696E",
-                        "010016285B4C6A6176612F6C616E672F537472696E673B2956",
-                        "010004436F6465",
-                        "0100106A6176612F6C616E672F53797374656D",
-                        "070008",
-                        "0100036F7574",
-                        "0100154C6A6176612F696F2F5072696E7453747265616D3B",
-                        "0C000A000B",
-                        "090009000C",
-                        "01000C48656C6C6F20776F726C6421",
-                        "08000E",
-                        "0100136A6176612F696F2F5072696E7453747265616D",
-                        "070010",
-                        "0100077072696E746C6E",
-                        "010015284C6A6176612F6C616E672F537472696E673B2956",
-                        "0C00120013",
-                        "0A00110014"
-                },
-                constantPoolItems.toArray());
+
+        String[] expectedItems = new String[]{
+                "010004Main",
+                "070001",
+                "010010java/lang/Object",
+                "070003",
+                "010004main",
+                "010016([Ljava/lang/String;)V",
+                "010004Code",
+                "010010java/lang/System",
+                "070008",
+                "010003out",
+                "010015Ljava/io/PrintStream;",
+                "0C000A000B",
+                "090009000C",
+                "01000CHello world!",
+                "08000E",
+                "010013java/io/PrintStream",
+                "070010",
+                "010007println",
+                "010015(Ljava/lang/String;)V",
+                "0C00120013",
+                "0A00110014",
+                "010006<init>",
+                "010003()V",
+                "010004Code",
+                "010010java/lang/Object",
+                "070019",
+                "010006<init>",
+                "010003()V",
+                "0C001B001C",
+                "0A001A001D",
+        };
+        List<String> expectedItemList = new ArrayList<>(Arrays.stream(expectedItems).toList());
+        expectedItemList.addAll(Arrays.stream(new String[constantPoolItems.size() - expectedItems.length]).map( s -> "").toList());
+        assertArrayEquals(expectedItemList.toArray(), constantPoolItems.toArray());
+        assertArrayEquals(expectedItems, constantPoolItems.toArray());
+    }
+
+    private String utf8FromHexString(String hexString) {
+        StringBuilder builder = new StringBuilder();
+        for ( int i = 0 ; i < hexString.length() ; i += 2 ) {
+            String substring = hexString.substring( i , i + 2 );
+            int codePoint = Integer.parseInt( substring , 16 );
+            builder.appendCodePoint( codePoint );
+        }
+        return builder.toString();
     }
 
     private void classAccessModifier(Queue<String> resultClassFileByteHex) {
@@ -128,41 +150,51 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
     }
 
     private void methods(Queue<String> resultClassFileByteHex) {
-        assertEquals("0001", pollMultiple(resultClassFileByteHex, 2));
-        methodAccessFlags(resultClassFileByteHex);
-        methodNameIndex(resultClassFileByteHex);
-        typeDescriptorIndex(resultClassFileByteHex);
-        methodAttributeCount(resultClassFileByteHex);
-        codeAttribute(resultClassFileByteHex);
-    }
-
-    private static void methodAccessFlags(Queue<String> resultClassFileByteHex) {
-        assertEquals("0009", pollMultiple(resultClassFileByteHex, 2));
-    }
-
-    private static void methodNameIndex(Queue<String> resultClassFileByteHex) {
-        assertEquals("0005", pollMultiple(resultClassFileByteHex, 2));
-    }
-
-    private static void typeDescriptorIndex(Queue<String> resultClassFileByteHex) {
-        assertEquals("0006", pollMultiple(resultClassFileByteHex, 2));
-    }
-
-    private static void methodAttributeCount(Queue<String> resultClassFileByteHex) {
-        assertEquals("0001", pollMultiple(resultClassFileByteHex, 2));
-    }
-
-    private static void codeAttribute(Queue<String> resultClassFileByteHex) {
-        indexToAttributeNameCode(resultClassFileByteHex);
-        assertEquals("00000015", pollMultiple(resultClassFileByteHex, 4));
         assertEquals("0002", pollMultiple(resultClassFileByteHex, 2));
-        assertEquals("0001", pollMultiple(resultClassFileByteHex, 2));
-        assertEquals("00000009", pollMultiple(resultClassFileByteHex, 4));
-        assertEquals("B2000D120FB60015B1", pollMultiple(resultClassFileByteHex, 0x9));
+
+        methodAccessFlags(resultClassFileByteHex, "0009");
+        methodNameIndex(resultClassFileByteHex, "0005");
+        typeDescriptorIndex(resultClassFileByteHex, "0006");
+        methodAttributeCount(resultClassFileByteHex, "0001");
+        codeAttribute(resultClassFileByteHex, "0007" , "00000015", "0002", "0001", "00000009", "B2000D120FB60015B1");
+
+
+        methodAccessFlags(resultClassFileByteHex, "0001");
+        methodNameIndex(resultClassFileByteHex, "0016");
+        typeDescriptorIndex(resultClassFileByteHex, "0017");
+        methodAttributeCount(resultClassFileByteHex, "0001");
+        codeAttribute(resultClassFileByteHex, "0018", "00000011", "0002", "0001", "00000005", "2AB7001EB1");
     }
 
-    private static void indexToAttributeNameCode(Queue<String> resultClassFileByteHex) {
-        assertEquals("0007", pollMultiple(resultClassFileByteHex, 2));
+    private static void methodAccessFlags(Queue<String> resultClassFileByteHex, String expected) {
+        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    }
+
+    private static void methodNameIndex(Queue<String> resultClassFileByteHex, String expected) {
+        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    }
+
+    private static void typeDescriptorIndex(Queue<String> resultClassFileByteHex, String expected) {
+        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    }
+
+    private static void methodAttributeCount(Queue<String> resultClassFileByteHex, String expected) {
+        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    }
+
+    private static void codeAttribute(Queue<String> resultClassFileByteHex,  String indexToAttributeName, String expectedAttributeLength, String maxStack, String maxLocals, String codeLength, String expectedCode) {
+        indexToAttributeNameCode(resultClassFileByteHex, indexToAttributeName);
+        assertEquals(expectedAttributeLength, pollMultiple(resultClassFileByteHex, 4));
+        assertEquals(maxStack, pollMultiple(resultClassFileByteHex, 2));
+        assertEquals(maxLocals, pollMultiple(resultClassFileByteHex, 2));
+        assertEquals(codeLength, pollMultiple(resultClassFileByteHex, 4));
+        assertEquals(expectedCode, pollMultiple(resultClassFileByteHex, expectedCode.length() / 2));
+        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+    }
+
+    private static void indexToAttributeNameCode(Queue<String> resultClassFileByteHex, String expected) {
+        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
     }
 
     private void classAttributeCount(Queue<String> resultClassFileByteHex) {

@@ -26,20 +26,12 @@ class ClassfileModelFromAst {
         resetFields()
         parseTopLevelStatements(ast)
 
-        // THE FUCK? WHY DOESNT THIS WORK?
-        var superConstructor = MethodReferenceConstantInfo(
-            ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")),
-            NameAndTypeConstantInfo(Utf8ConstantInfo("\"<init>\""), Utf8ConstantInfo("()V"))
-        )
-        constantInfos.add(0, superConstructor)
-
-        var constructor = MethodInfo(
+        methodInfos.add(MethodInfo(
             listOf(MethodAccessModifier.ACC_PUBLIC),
             Utf8ConstantInfo("<init>"),
             Utf8ConstantInfo("()V"),
-            listOf()
-        );
-        methodInfos.add(0, constructor)
+            listOf(CodeAttributeInfo(listOf()))
+        ))
 
         return ClassfileModel(
                 constantInfos,
