@@ -1,0 +1,3 @@
+package org.cmjava2023.classfilespecification.constantpool
+
+class StringConstantInfo(val valueConstantInfo: Utf8ConstantInfo): ConstantInfo(ConstantInfoTag.CONSTANT_String)

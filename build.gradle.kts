@@ -1,6 +1,7 @@
 plugins {
     id("java")
     antlr // https://docs.gradle.org/current/userguide/antlr_plugin.html
+    kotlin("jvm") version "1.9.20"
 }
 
 group = "org.cmjava2023"
@@ -19,6 +20,10 @@ dependencies {
 tasks.test {
     dependsOn("prepareTestFilesWithJdk8")
     useJUnitPlatform()
+}
+
+tasks.compileKotlin{
+    dependsOn("generateGrammarSource")
 }
 
 tasks.register("prepareTestFilesWithJdk8") {
@@ -54,7 +59,7 @@ tasks.register("prepareTestFilesWithJdk8") {
 
         outputRoot.walk().forEach {
             if (it.extension == "class") {
-                val commandParts = listOf("javap", "-c", "-p", it.path)
+                val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
                 println("  " + commandParts.joinToString(" "))
                 val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
                 println("  Output:$outputFile")
