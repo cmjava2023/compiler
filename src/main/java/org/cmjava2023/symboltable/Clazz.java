@@ -10,6 +10,20 @@ public class Clazz extends SymbolWithScope implements Type {
         this.parentClazz = parentClazz;
     }
 
+    @Override
+    public Symbol resolve(String name) {
+        Symbol memberSymbol = resolveMember(name);
+        if (memberSymbol != null) {
+            return memberSymbol;
+        }
+
+        if (enclosingScope != null) {
+            return enclosingScope.resolve(name);
+        }
+
+        return null;
+    }
+
     public Symbol resolveMember(String name) {
         if (symbols.containsKey(name)) {
             return symbols.get(name);
