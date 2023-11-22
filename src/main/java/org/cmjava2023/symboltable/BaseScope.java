@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public abstract class BaseScope implements Scope {
     protected final Scope enclosingScope;
-    protected final HashMap<String, Symbol> symbols;
+    protected HashMap<String, Symbol> symbols;
 
     public BaseScope(Scope enclosingScope, HashMap<String, Symbol> symbols) {
         this.enclosingScope = enclosingScope;
@@ -33,5 +33,9 @@ public abstract class BaseScope implements Scope {
 
     public HashMap<String, Symbol> getSymbols() {
         return symbols;
+    }
+
+    public void setSymbols(HashMap<String, Symbol> symbols) {
+        this.symbols = symbols;
     }
 }

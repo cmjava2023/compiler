@@ -3,10 +3,12 @@ package org.cmjava2023;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.generated_from_antlr.MainAntlrBaseVisitor;
+import org.cmjava2023.symboltable.SymbolTable;
 
 import java.util.ArrayList;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
+    public final SymbolTable symbolTable = new SymbolTable();
     public ASTNodes.Node visitStart(MainAntlrParser.StartContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.children) {
