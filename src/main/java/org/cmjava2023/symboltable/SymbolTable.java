@@ -26,7 +26,7 @@ public class SymbolTable {
     }
 
     public void addSymbol(Symbol symbol) {
-        this.currentScope.addSymbol(symbol);
+        this.currentScope.bind(symbol);
     }
 
     public void setSymbols(HashMap<String, Symbol> symbols) {
