@@ -56,7 +56,7 @@ public class ASTNodes {
     // type -> String returnType_MaybeSymbolRef TODO Maybe shift this into the symbol table
     // Function_declaration_args-> ArrayList<ParameterNode>
     // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->ArrayList<Statement> body
-    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, String returnType_MaybeSymbolRef, ArrayList<ParameterNode> parameters, ArrayList<Statement> body) implements Node, Callable, Statement {} //TODO Identifier to symboltable
+    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, String typeRef, ArrayList<ParameterNode> parameters, ArrayList<Statement> body) implements Node, Callable, Statement {} //TODO Identifier to symboltable
 
     //Function_declaration_arg[type(->SYMBOLTABLE), IDENTIFIER (->SYMBOLTABLE)-> ParameterNode
     // TODO lexer/parser: change IDENTIFIER* to IDENTIFIER!
@@ -82,7 +82,7 @@ public class ASTNodes {
     // variable_declaration -> VariableNode
     // variable_declaration [primitive_type(->SYMBOLTABLE), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode TODO exclude potentially_nested_identifier -> Just Identifier. Also maybe just do a ref to symboltable here.
     // TODO Also make sure the primitive Types are put into the symboltable? Because now we are using this Node to store the Value as the Identifier. -> Maybe shift to using ValueNode again, if that doesnt make sense!
-    public record VariableNode ( Identifier value) implements Node, Callable, Statement {} // TODO Type and Identifier to Symboltable
+    public record VariableNode ( Identifier value) implements Node, Callable, Statement , Expression{} // TODO Type and Identifier to Symboltable
 
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->ArrayList<Identifier> nested_identifier ) -> PotentiallyNestedIdentifierNode TODO Maybe this can be solved with symbol tables. As to somehow shift it to there. Or an ArrayList<SymbolRef>

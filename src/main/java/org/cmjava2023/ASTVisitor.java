@@ -62,12 +62,14 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFunction_declaration(MainAntlrParser.Function_declarationContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
-            statementList.add((ASTNodes.Statement) visit(tree.getChild(0))); // And visit those Children ==>
-            // expressions: expression (expression_operator expression)?;
-            // variable_declaration: primitive_type potentially_nested_identifier;
-            // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
-            // return_statement: RETURN_KEYWORD expressions;
-            // block_scope: if_statement | if_else_statement;
+            if(! tree.getText().equals(";")) {
+                statementList.add((ASTNodes.Statement) visit(tree.getChild(0))); // And visit those Children ==>
+                // expressions: expression (expression_operator expression)?;
+                // variable_declaration: primitive_type potentially_nested_identifier;
+                // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+                // return_statement: RETURN_KEYWORD expressions;
+                // block_scope: if_statement | if_else_statement;
+            }
         }
 
         ASTNodes.Access_Modifier access_modifier= ASTNodes.Access_Modifier.valueOf(ctx.access_modifier().getText().toUpperCase());
