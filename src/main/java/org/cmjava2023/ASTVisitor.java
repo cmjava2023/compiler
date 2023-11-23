@@ -16,6 +16,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitStart(MainAntlrParser.StartContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.children) {// global_scope: class_declaration | package_declaration SEMICOLON;
+            // NOTE: tree.getChild(0) will always get the first one and leave the semicolon out. Thus it will only view class_declaration OR package_declaration.
             statementList.add((ASTNodes.Statement) visit(tree.getChild(0)));// And visit those children ==>
             // class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
             // package_declaration: PACKAGE_KEYWORD potentially_nested_identifier;
@@ -45,10 +46,12 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitClass_declaration(MainAntlrParser.Class_declarationContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.class_scope().children) { // class_scope: (function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
-            statementList.add((ASTNodes.Statement) visit(tree)); // And visit those children ==>
-            // function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
-            // variable_declaration: primitive_type potentially_nested_identifier;
-            // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+            if(!tree.getText().equals(";")){// But not the semicolon!
+                statementList.add((ASTNodes.Statement) visit(tree)); // And visit those children ==>
+                // function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+                // variable_declaration: primitive_type potentially_nested_identifier;
+                // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+            }
         }
         ASTNodes.Access_Modifier access_modifier= ASTNodes.Access_Modifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         ArrayList<ASTNodes.Modifier> modifiers = new ArrayList<>();
@@ -62,7 +65,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFunction_declaration(MainAntlrParser.Function_declarationContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
-            if(! tree.getText().equals(";")) {
+            if(!tree.getText().equals(";")) {// But not the semicolon!
                 statementList.add((ASTNodes.Statement) visit(tree.getChild(0))); // And visit those Children ==>
                 // expressions: expression (expression_operator expression)?;
                 // variable_declaration: primitive_type potentially_nested_identifier;
@@ -78,51 +81,71 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             modifiers.add(ASTNodes.Modifier.valueOf(ctx.INSTANCE_MODIFIER().getText().toUpperCase())); // TODO Only one modifier currently possible. But more to follow.
         }
         ArrayList<ASTNodes.ParameterNode> parameters = new ArrayList<>();
-        for (ParseTree tree : ctx.function_declaration_args().children) {// function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
-            parameters.add((ASTNodes.ParameterNode) visit(tree)); // And visit those children ==>
-            // function_declaration_arg: (type IDENTIFIER)*;
+        if(ctx.function_declaration_args()!=null) { // If there is even any function_declaration_args
+            for (ParseTree tree : ctx.function_declaration_args().children) {// function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
+                if(!tree.getText().equals(";")) { // Do not take the semicolon!
+                    parameters.add((ASTNodes.ParameterNode) visit(tree)); // And visit those children ==>
+                    // function_declaration_arg: (type IDENTIFIER)*;
+                }
+            }
         }
-        return new ASTNodes.FunctionNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()), access_modifier, modifiers, ctx.type().getText(), parameters, statementList);//TODO IDENTIFIER should reference to a SYMBOL TABLE entry. AND TODO maybe shift the return type to the Symbol table!
+
+        // TODO SYMBOL link the identifier to a symbol ref and put the type into the symboltable
+        // ctx.type().getText() --> You need to traverse it down.
+        ASTNodes.IdentifierNode identidier=new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
+        return new ASTNodes.FunctionNode(identidier, access_modifier, modifiers, parameters, statementList);
     }
 
     // ########ANTLR########
-    // function_declaration_arg: (type IDENTIFIER)*;  TODO lexer/parser: It should be one identifier here!
+    // function_declaration_arg: type IDENTIFIER;
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
-        return new ASTNodes.ParameterNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER(0).getText())); // TODO When function_declaration_arg: (type IDENTIFIER)*; will be changed to function_declaration_arg: type IDENTIFIER; then remove the usage of index here.
+        // TODO SYMBOL link the identifier to a symboltable and put the type into the reference then.
+        // ctx.type() --> You need to traverse here.
+        return new ASTNodes.ParameterNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()));
     }
 
     // ########ANTLR########
-    // function_call: potentially_nested_identifier PAREN_OPEN function_args PAREN_CLOSE;
+    // function_call: potentially_nested_identifier PAREN_OPEN function_args? PAREN_CLOSE;
     // function_args: function_arg (COMMA function_arg)*;
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.Node nestedIdentifier = visit(ctx.potentially_nested_identifier());
         ArrayList<ASTNodes.Expression> args_expression = new ArrayList<>();
-        for (ParseTree tree : ctx.function_args().children) { // function_args: function_arg (COMMA function_arg)*;
-            args_expression.add((ASTNodes.Expression)visit(tree));// Visit those children ==>
-            //function_arg: (expressions)*;
+        if(ctx.function_args()!=null) { //If there is any function_args
+            for (ParseTree tree : ctx.function_args().children) { // function_args: function_arg (COMMA function_arg)*;
+                if(!tree.getText().equals(",")) { // Do not take the comma
+                    args_expression.add((ASTNodes.Expression) visit(tree));// Visit those children ==>
+                    //function_arg: expressions;
+                }
+            }
         }
         return new ASTNodes.CallNode((ASTNodes.Identifier) nestedIdentifier, args_expression);
     }
 
     // ########ANTLR########
-    // function_arg: (expressions)*;   TODO lexer/parser: --> function_arg: expressions;
+    // function_arg: expressions;
     public ASTNodes.Node visitFunction_arg(MainAntlrParser.Function_argContext ctx) {
-        return visit(ctx.expressions(0)); // TODO When it gets changed by the lexer/parser group remove the index.
+        return visit(ctx.expressions());
     }
 
     // ########ANTLR########
     // variable_declaration: primitive_type potentially_nested_identifier;
     public ASTNodes.Node visitVariable_declaration(MainAntlrParser.Variable_declarationContext ctx) {
-        return new ASTNodes.VariableNode((ASTNodes.PotentiallyNestedIdentifierNode) visit(ctx.potentially_nested_identifier()));
+        // TODO lexer/parser can a variable be nested when it gets declared?
+        // TODO SYMBOL Wait for lexer/parser and then resolve and reference the type to the symbol table!
+        return new ASTNodes.VariableNode((ASTNodes.PotentiallyNestedIdentifierNode) visit(ctx.potentially_nested_identifier()), null); // No value, because it is a declaration.
     }
 
     // ########ANTLR########
     // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
     public ASTNodes.Node visitAssignment(MainAntlrParser.AssignmentContext ctx) {
-        ASTNodes.Node callable= ctx.potentially_nested_identifier()!=null? visit(ctx.potentially_nested_identifier())
-                : ctx.variable_declaration()!=null? visit(ctx.variable_declaration()): null;//Error none got declared!
+        ASTNodes.Node identifier= ctx.potentially_nested_identifier()!=null? visit(ctx.potentially_nested_identifier()) : null;
         ASTNodes.Node expression= visit(ctx.expressions());
-        return new ASTNodes.AssignmentNode((ASTNodes.CallNode)callable, (ASTNodes.Expression) expression);
+
+        if(ctx.variable_declaration()!=null){
+            identifier= visit(ctx.variable_declaration().potentially_nested_identifier());
+        }// Else the identifier isnt null! Thus, always has a value.
+
+        return new ASTNodes.VariableNode((ASTNodes.Identifier) identifier, (ASTNodes.Expression) expression);
     }
 
     // ########ANTLR########
@@ -150,9 +173,9 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return ctx.function_call() != null ? visit(ctx.function_call())
                 : ctx.potentially_nested_identifier() != null ? visit(ctx.potentially_nested_identifier())
                 : ctx.IDENTIFIER() != null ? new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText())
-                : ctx.STRING() != null ? new ASTNodes.VariableNode(new ASTNodes.IdentifierNode(ctx.STRING().getText())) //TODO save value in symbol table and ref here.
-                : ctx.INTEGER() != null ? new ASTNodes.VariableNode(new ASTNodes.IdentifierNode(ctx.INTEGER().getText())) //TODO save value in symbol table and ref here.
-                : ctx.DECIMAL() != null ? new ASTNodes.VariableNode(new ASTNodes.IdentifierNode(ctx.DECIMAL().getText())) //TODO save value in symbol table and ref here.
+                : ctx.STRING() != null ? new ASTNodes.ValueNode(ctx.STRING().getText())
+                : ctx.INTEGER() != null ? new ASTNodes.ValueNode(ctx.INTEGER().getText())
+                : ctx.DECIMAL() != null ? new ASTNodes.ValueNode(ctx.DECIMAL().getText())
                 : null;//ERROR! None got declared!
     }
 
@@ -178,12 +201,14 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public  ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx){
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
-            statementList.add((ASTNodes.Statement) visit(tree.getChild(0))); // And visit those Children ==>
-            // expressions: expression (expression_operator expression)?;
-            // variable_declaration: primitive_type potentially_nested_identifier;
-            // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
-            // return_statement: RETURN_KEYWORD expressions;
-            // block_scope: if_statement | if_else_statement;
+            if(!tree.getText().equals(";")) {// But not the semicolon!
+                statementList.add((ASTNodes.Statement) visit(tree)); // And visit those Children ==>
+                // expressions: expression (expression_operator expression)?;
+                // variable_declaration: primitive_type potentially_nested_identifier;
+                // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+                // return_statement: RETURN_KEYWORD expressions;
+                // block_scope: if_statement | if_else_statement;
+            }
         }
         //Expressions
         ASTNodes.Expression expression= (ASTNodes.Expression) visit(ctx.expressions());
@@ -196,12 +221,14 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public  ASTNodes.Node visitElse_statement(MainAntlrParser.Else_statementContext ctx){
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
-            statementList.add((ASTNodes.Statement) visit(tree.getChild(0))); // And visit those Children ==>
-            // expressions: expression (expression_operator expression)?;
-            // variable_declaration: primitive_type potentially_nested_identifier;
-            // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
-            // return_statement: RETURN_KEYWORD expressions;
-            // block_scope: if_statement | if_else_statement;
+            if(!tree.getText().equals(";")) {// But not the semicolon!
+                statementList.add((ASTNodes.Statement) visit(tree)); // And visit those Children ==>
+                // expressions: expression (expression_operator expression)?;
+                // variable_declaration: primitive_type potentially_nested_identifier;
+                // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+                // return_statement: RETURN_KEYWORD expressions;
+                // block_scope: if_statement | if_else_statement;
+            }
         }
         return new ASTNodes.ElseNode( statementList);
     }

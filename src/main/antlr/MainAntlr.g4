@@ -36,12 +36,11 @@ package_declaration: PACKAGE_KEYWORD potentially_nested_identifier;
 class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
 
 // Functions
-function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
-function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
-function_declaration_arg: (type IDENTIFIER)*;
-function_call: potentially_nested_identifier PAREN_OPEN function_args PAREN_CLOSE;
+function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
+function_declaration_arg: type IDENTIFIER;
+function_call: potentially_nested_identifier PAREN_OPEN function_args? PAREN_CLOSE;
 function_args: function_arg (COMMA function_arg)*;
-function_arg: (expressions)*;
+function_arg: expressions;
 
 // Conditionals
 if_statement: IF_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;

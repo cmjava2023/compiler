@@ -53,19 +53,16 @@ public class ASTNodes {
     public record ClassNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<Statement> body) implements Node, Statement {}//TODO Identifier to symboltable
 
     // function_declaration -> FunctionNode
-    // type -> String returnType_MaybeSymbolRef TODO Maybe shift this into the symbol table
+    // type -> Identifier -> SymbolRef
     // Function_declaration_args-> ArrayList<ParameterNode>
     // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->ArrayList<Statement> body
-    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, String typeRef, ArrayList<ParameterNode> parameters, ArrayList<Statement> body) implements Node, Callable, Statement {} //TODO Identifier to symboltable
+    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<ParameterNode> parameters, ArrayList<Statement> body) implements Node, Callable, Statement {} //TODO Identifier to symboltable
 
     //Function_declaration_arg[type(->SYMBOLTABLE), IDENTIFIER (->SYMBOLTABLE)-> ParameterNode
-    // TODO lexer/parser: change IDENTIFIER* to IDENTIFIER!
     public record ParameterNode (Identifier identifier_symbolRef) implements Node {}// TODO Type and identifier to Symboltable
-
 
     // function_call -> CallNode
     public record CallNode(Identifier nested_identifier, ArrayList<Expression> values) implements Node, Statement, Callable {}// TODO Identifier to Symboltable?
-
 
     // if_statement -> IfNode
     //else_statement [expressions (->ComparisonNode<Expression>/ExpressionNode<Expression>), function_scope (->ArrayList<Statement>)]->IfNode
@@ -81,19 +78,19 @@ public class ASTNodes {
 
     // variable_declaration -> VariableNode
     // variable_declaration [primitive_type(->SYMBOLTABLE), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode TODO exclude potentially_nested_identifier -> Just Identifier. Also maybe just do a ref to symboltable here.
-    // TODO Also make sure the primitive Types are put into the symboltable? Because now we are using this Node to store the Value as the Identifier. -> Maybe shift to using ValueNode again, if that doesnt make sense!
-    public record VariableNode ( Identifier value) implements Node, Callable, Statement , Expression{} // TODO Type and Identifier to Symboltable
+    // assignment[variable_declaration(->PotentiallyNestedIdentifierNode<Identifier>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Identifier>), expressions (->ComparisonNode<Expression>)] -> VariableNode
+    public record VariableNode ( Identifier symbolRef, Expression value) implements Node, Callable, Statement {}
+
+    // Just a proper value.
+    // | DECIMAL | INTEGER | IDENTIFIER | STRING |
+    public record ValueNode(String value) implements Node , Expression{}
 
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->ArrayList<Identifier> nested_identifier ) -> PotentiallyNestedIdentifierNode TODO Maybe this can be solved with symbol tables. As to somehow shift it to there. Or an ArrayList<SymbolRef>
     public record PotentiallyNestedIdentifierNode(ArrayList<Identifier> nested_identifier) implements Node, Callable, Expression, Identifier{}
 
     //IDENTIFIER -> IdentifierNode TODO This should be a ref to symbol tables
-    public record IdentifierNode(String identifier_symbolRef) implements  Node, Callable, Expression, Identifier{}
-
-    // assignment -> AssignmentNode
-    // assignment[variable_declaration(->VariableNode<Callable>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Callable>), expressions (->ComparisonNode<Expression>)] -> AssignmentNode
-    public record AssignmentNode(Callable variable, Expression value) implements Node, Statement {}
+    public record IdentifierNode(String symbolRef) implements  Node, Callable, Expression, Identifier{}
 
     // (expresions) -> ComparisonNode
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
