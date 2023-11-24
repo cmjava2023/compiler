@@ -1,6 +1,7 @@
 package org.cmjava2023;
 
-import java.lang.reflect.Array;
+import org.cmjava2023.symboltable.Symbol;
+
 import java.util.ArrayList;
 
 public class ASTNodes {
@@ -41,6 +42,7 @@ public class ASTNodes {
     public interface Expression extends Node {}
     public interface  Condition extends Node {}
     public interface  Identifier extends Node {}
+    public interface  Type extends Node {}
 
     // start-> StartNode
     public record StartNode (ArrayList<Statement> body) implements Node {}
@@ -50,16 +52,16 @@ public class ASTNodes {
 
     // class_declaration -> ClassNode
     // class_scope[function_declaration (->FunctionNode<statement>), variable_declaration(->VariableNode<Statement>), assignment(-> AssignmentNode<statement>) -> ArrayList<Statement> body
-    public record ClassNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<Statement> body) implements Node, Statement {}//TODO Identifier to symboltable
+    public record ClassNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<Statement> body, Symbol symbol) implements Node, Statement {}//TODO Identifier to symboltable
 
     // function_declaration -> FunctionNode
     // type -> Identifier -> SymbolRef
     // Function_declaration_args-> ArrayList<ParameterNode>
     // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->ArrayList<Statement> body
-    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<ParameterNode> parameters, ArrayList<Statement> body) implements Node, Callable, Statement {} //TODO Identifier to symboltable
+    public record FunctionNode (Identifier identifier_symbolRef, Access_Modifier access_modifier, ArrayList<Modifier> modifier, ArrayList<ParameterNode> parameters, ArrayList<Statement> body, Symbol symbol) implements Node, Callable, Statement {} //TODO Identifier to symboltable
 
     //Function_declaration_arg[type(->SYMBOLTABLE), IDENTIFIER (->SYMBOLTABLE)-> ParameterNode
-    public record ParameterNode (Identifier identifier_symbolRef) implements Node {}// TODO Type and identifier to Symboltable
+    public record ParameterNode (Identifier identifier_symbolRef, Symbol symbol) implements Node {}// TODO Type and identifier to Symboltable
 
     // function_call -> CallNode
     public record CallNode(Identifier nested_identifier, ArrayList<Expression> values) implements Node, Statement, Callable {}// TODO Identifier to Symboltable?
@@ -79,7 +81,7 @@ public class ASTNodes {
     // variable_declaration -> VariableNode
     // variable_declaration [primitive_type(->SYMBOLTABLE), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode TODO exclude potentially_nested_identifier -> Just Identifier. Also maybe just do a ref to symboltable here.
     // assignment[variable_declaration(->PotentiallyNestedIdentifierNode<Identifier>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Identifier>), expressions (->ComparisonNode<Expression>)] -> VariableNode
-    public record VariableNode ( Identifier symbolRef, Expression value) implements Node, Callable, Statement {}
+    public record VariableNode (Identifier symbolRef, Expression value, Symbol symbol) implements Node, Callable, Statement {}
 
     // Just a proper value.
     // | DECIMAL | INTEGER | IDENTIFIER | STRING |
@@ -88,6 +90,7 @@ public class ASTNodes {
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->ArrayList<Identifier> nested_identifier ) -> PotentiallyNestedIdentifierNode TODO Maybe this can be solved with symbol tables. As to somehow shift it to there. Or an ArrayList<SymbolRef>
     public record PotentiallyNestedIdentifierNode(ArrayList<Identifier> nested_identifier) implements Node, Callable, Expression, Identifier{}
+
 
     //IDENTIFIER -> IdentifierNode TODO This should be a ref to symbol tables
     public record IdentifierNode(String symbolRef) implements  Node, Callable, Expression, Identifier{}
@@ -106,4 +109,7 @@ public class ASTNodes {
     // return_statement ->ReturnNode
     // return_statement[ expressions(ComparisonNode<Expression>/ExpressionNode<Expression>)]->ReturnNode;
     public record ReturnNode(Expression value) implements Node, Statement {}
+
+    public record TypeNode(String type) implements Node, Type {}
+    public record ArrayTypeNode(String type) implements Node, Type {}
 }

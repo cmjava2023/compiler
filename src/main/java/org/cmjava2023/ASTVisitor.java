@@ -1,13 +1,15 @@
 package org.cmjava2023;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.generated_from_antlr.MainAntlrBaseVisitor;
-import org.cmjava2023.symboltable.SymbolTable;
+import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
@@ -47,6 +49,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // class_scope: (function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
     public ASTNodes.Node visitClass_declaration(MainAntlrParser.Class_declarationContext ctx) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
+        Clazz currentClass = setClassScope(ctx);
         for (ParseTree tree : ctx.class_scope().children) { // class_scope: (function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
             if(!tree.getText().equals(";")){// But not the semicolon!
                 statementList.add((ASTNodes.Statement) visit(tree)); // And visit those children ==>
@@ -57,7 +60,17 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         }
         ASTNodes.Access_Modifier access_modifier= ASTNodes.Access_Modifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         ArrayList<ASTNodes.Modifier> modifiers = new ArrayList<>();
-        return new ASTNodes.ClassNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()), access_modifier, modifiers, statementList);
+        symbolTable.popScope();
+        return new ASTNodes.ClassNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()), access_modifier, modifiers, statementList, currentClass);
+    }
+
+    private Clazz setClassScope(MainAntlrParser.Class_declarationContext ctx) {
+        Clazz currentClass = new Clazz(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null, null);
+        currentClass.setType(currentClass);
+        symbolTable.addSymbol(currentClass);
+        symbolTable.setScope(currentClass);
+
+        return currentClass;
     }
 
     // ########ANTLR########
@@ -65,6 +78,22 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     // function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
     public ASTNodes.Node visitFunction_declaration(MainAntlrParser.Function_declarationContext ctx) {
+        Function currentFunction = setFunctionScope(ctx);
+
+        ArrayList<ASTNodes.ParameterNode> parameters = new ArrayList<>();
+        if(ctx.function_declaration_args()!=null) { // If there is even any function_declaration_args
+            for (ParseTree tree : ctx.function_declaration_args().children) {// function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
+                if(!tree.getText().equals(";")) { // Do not take the semicolon!
+                    parameters.add((ASTNodes.ParameterNode) visit(tree)); // And visit those children ==>
+                    // function_declaration_arg: (type IDENTIFIER)*;
+                }
+            }
+        }
+
+        LocalScope functionBody = new LocalScope(symbolTable.getCurrentScope(), new HashMap<>());
+        symbolTable.getCurrentScope().addChildScope(functionBody);
+        symbolTable.setScope(functionBody);
+
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
             if(!tree.getText().equals(";")) {// But not the semicolon!
@@ -77,33 +106,37 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             }
         }
 
+        symbolTable.popScope();
+
         ASTNodes.Access_Modifier access_modifier= ASTNodes.Access_Modifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         ArrayList<ASTNodes.Modifier> modifiers = new ArrayList<>();
         if(ctx.INSTANCE_MODIFIER()!=null) {
             modifiers.add(ASTNodes.Modifier.valueOf(ctx.INSTANCE_MODIFIER().getText().toUpperCase())); // TODO Only one modifier currently possible. But more to follow.
         }
-        ArrayList<ASTNodes.ParameterNode> parameters = new ArrayList<>();
-        if(ctx.function_declaration_args()!=null) { // If there is even any function_declaration_args
-            for (ParseTree tree : ctx.function_declaration_args().children) {// function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
-                if(!tree.getText().equals(";")) { // Do not take the semicolon!
-                    parameters.add((ASTNodes.ParameterNode) visit(tree)); // And visit those children ==>
-                    // function_declaration_arg: (type IDENTIFIER)*;
-                }
-            }
-        }
 
         // TODO SYMBOL link the identifier to a symbol ref and put the type into the symboltable
         // ctx.type().getText() --> You need to traverse it down.
         ASTNodes.IdentifierNode identidier=new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
-        return new ASTNodes.FunctionNode(identidier, access_modifier, modifiers, parameters, statementList);
+        symbolTable.popScope();
+        return new ASTNodes.FunctionNode(identidier, access_modifier, modifiers, parameters, statementList, currentFunction);
+    }
+
+    private Function setFunctionScope(MainAntlrParser.Function_declarationContext ctx) {
+        Function currentFunction = new Function(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null);
+        setType(ctx.type(), currentFunction);
+        symbolTable.addSymbol(currentFunction);
+        symbolTable.setScope(currentFunction);
+
+        return currentFunction;
     }
 
     // ########ANTLR########
     // function_declaration_arg: type IDENTIFIER;
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
-        // TODO SYMBOL link the identifier to a symboltable and put the type into the reference then.
-        // ctx.type() --> You need to traverse here.
-        return new ASTNodes.ParameterNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()));
+        Variable parameterSymbol = new Variable(ctx.IDENTIFIER().getText(), null, symbolTable.getCurrentScope());
+        setType(ctx.type(), parameterSymbol);
+        symbolTable.addSymbol(parameterSymbol);
+        return new ASTNodes.ParameterNode(new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText()), parameterSymbol);
     }
 
     // ########ANTLR########
@@ -134,20 +167,57 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitVariable_declaration(MainAntlrParser.Variable_declarationContext ctx) {
         // TODO lexer/parser can a variable be nested when it gets declared?
         // TODO SYMBOL Wait for lexer/parser and then resolve and reference the type to the symbol table!
-        return new ASTNodes.VariableNode((ASTNodes.PotentiallyNestedIdentifierNode) visit(ctx.potentially_nested_identifier()), null); // No value, because it is a declaration.
+        ASTNodes.PotentiallyNestedIdentifierNode name = (ASTNodes.PotentiallyNestedIdentifierNode) visit(ctx.potentially_nested_identifier());
+        ASTNodes.IdentifierNode identifierName =  (ASTNodes.IdentifierNode) name.nested_identifier().get(name.nested_identifier().size() - 1);
+        Variable variableSymbol = new Variable(identifierName.symbolRef(), null, symbolTable.getCurrentScope());
+        setType(ctx.primitive_type(), variableSymbol);
+        symbolTable.addSymbol(variableSymbol);
+        return new ASTNodes.VariableNode(name, null, variableSymbol); // No value, because it is a declaration.
+    }
+
+    private void setType(ParserRuleContext ctx, Symbol symbol) {
+        ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
+        if (type instanceof ASTNodes.ArrayTypeNode){
+            ASTNodes.ArrayTypeNode typeBase = (ASTNodes.ArrayTypeNode) type;
+            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
+            if (typeSymbol == null) {
+                symbol.setType(new InvalidType(typeBase.type()+"[]"));
+            } else {
+                symbol.setType(new ArrayType(typeSymbol.getType()));
+            }
+        }
+        else{
+            ASTNodes.TypeNode typeBase = (ASTNodes.TypeNode) type;
+            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
+
+            if (typeSymbol == null) {
+                symbol.setType(new InvalidType(typeBase.type()));
+            } else {
+                symbol.setType(typeSymbol.getType());
+            }
+        }
+
+
     }
 
     // ########ANTLR########
     // assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
     public ASTNodes.Node visitAssignment(MainAntlrParser.AssignmentContext ctx) {
-        ASTNodes.Node identifier= ctx.potentially_nested_identifier()!=null? visit(ctx.potentially_nested_identifier()) : null;
-        ASTNodes.Node expression= visit(ctx.expressions());
+        ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
 
         if(ctx.variable_declaration()!=null){
-            identifier= visit(ctx.variable_declaration().potentially_nested_identifier());
-        }// Else the identifier isnt null! Thus, always has a value.
-
-        return new ASTNodes.VariableNode((ASTNodes.Identifier) identifier, (ASTNodes.Expression) expression);
+            ASTNodes.VariableNode variable = (ASTNodes.VariableNode) visit(ctx.variable_declaration());
+            return new ASTNodes.VariableNode(variable.symbolRef(), expression, variable.symbol());
+        }
+        else{
+            ASTNodes.PotentiallyNestedIdentifierNode name = (ASTNodes.PotentiallyNestedIdentifierNode) visit(ctx.potentially_nested_identifier());
+            ASTNodes.IdentifierNode identifierName =  (ASTNodes.IdentifierNode) name.nested_identifier().get(name.nested_identifier().size() - 1);
+            Symbol variable = symbolTable.getCurrentScope().resolve(identifierName.symbolRef());
+            if (variable == null){
+                System.out.println("Variable not declared " + identifierName);
+            }
+            return new ASTNodes.VariableNode(identifierName,  expression, variable);
+        }
     }
 
     // ########ANTLR########
@@ -202,6 +272,9 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public  ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx){
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
+        LocalScope ifScope = new LocalScope(symbolTable.getCurrentScope(), new HashMap<>());
+        symbolTable.getCurrentScope().addChildScope(ifScope);
+        symbolTable.setScope(ifScope);
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
             if(!tree.getText().equals(";")) {// But not the semicolon!
                 statementList.add((ASTNodes.Statement) visit(tree)); // And visit those Children ==>
@@ -214,6 +287,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         }
         //Expressions
         ASTNodes.Expression expression= (ASTNodes.Expression) visit(ctx.expressions());
+        symbolTable.popScope();
         return new ASTNodes.IfNode(expression, statementList);
     }
 
@@ -222,6 +296,9 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public  ASTNodes.Node visitElse_statement(MainAntlrParser.Else_statementContext ctx){
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
+        LocalScope elseScope = new LocalScope(symbolTable.getCurrentScope(), new HashMap<>());
+        symbolTable.getCurrentScope().addChildScope(elseScope);
+        symbolTable.setScope(elseScope);
         for (ParseTree tree : ctx.function_scope().children) { // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
             if(!tree.getText().equals(";")) {// But not the semicolon!
                 statementList.add((ASTNodes.Statement) visit(tree)); // And visit those Children ==>
@@ -232,6 +309,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
                 // block_scope: if_statement | if_else_statement;
             }
         }
+        symbolTable.popScope();
         return new ASTNodes.ElseNode( statementList);
     }
 
@@ -239,5 +317,74 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // return_statement: RETURN_KEYWORD expressions;
     public ASTNodes.Node visitReturn_statement(MainAntlrParser.Return_statementContext ctx){
         return new ASTNodes.ReturnNode((ASTNodes.Expression) visit(ctx.expressions()));
+    }
+
+    public ASTNodes.Node visitType(MainAntlrParser.TypeContext ctx) {
+        if (ctx.primitive_type() != null){
+            return visit(ctx.primitive_type());
+        }
+        else if (ctx.array_type() != null){
+            ASTNodes.TypeNode arrayType = (ASTNodes.TypeNode) visit(ctx.array_type());
+            return new ASTNodes.ArrayTypeNode(arrayType.type());
+        }
+        else if (ctx.reference_type() != null){
+            return visit(ctx.reference_type());
+        }
+        else{
+            return new ASTNodes.TypeNode(ctx.VOID_KEYWORD().getText());
+        }
+    }
+
+    public ASTNodes.Node visitPrimitive_type(MainAntlrParser.Primitive_typeContext ctx) {
+        if (ctx.numeric_type() != null){
+            return visit(ctx.numeric_type());
+        }
+        else{
+            return new ASTNodes.TypeNode(ctx.BOOLEAN_KEYWORD().getText());
+        }
+    }
+    public ASTNodes.Node visitNumeric_type(MainAntlrParser.Numeric_typeContext ctx) {
+        if (ctx.integral_type() != null){
+            return visit(ctx.integral_type());
+        }
+        else{
+            return visit(ctx.floating_point_type());
+        }
+    }
+    public ASTNodes.Node visitIntegral_type(MainAntlrParser.Integral_typeContext ctx) {
+        return new ASTNodes.TypeNode(ctx.getText());
+    }
+    public ASTNodes.Node visitFloating_point_type(MainAntlrParser.Floating_point_typeContext ctx) {
+        return new ASTNodes.TypeNode(ctx.getText());
+    }
+
+    public ASTNodes.Node visitArray_type(MainAntlrParser.Array_typeContext ctx) {
+        if (ctx.primitive_type() != null){
+            return visit(ctx.primitive_type());
+        }
+        else if (ctx.class_type() != null){
+            return visit(ctx.class_type());
+        }
+        else{
+            return visit(ctx.type_variable());
+        }
+    }
+    public ASTNodes.Node visitClass_type(MainAntlrParser.Class_typeContext ctx) {
+        return new ASTNodes.TypeNode(ctx.IDENTIFIER().getText());
+    }
+
+    public ASTNodes.Node visitReference_type(MainAntlrParser.Reference_typeContext ctx) {
+        if (ctx.class_type() != null){
+            return visit(ctx.class_type());
+        }
+        else if (ctx.type_variable() != null){
+            return visit(ctx.type_variable());
+        }
+        else{
+            return visit(ctx.array_type());
+        }
+    }
+    public ASTNodes.Node visitType_variable(MainAntlrParser.Type_variableContext ctx) {
+        return new ASTNodes.TypeNode(ctx.IDENTIFIER().getText());
     }
 }

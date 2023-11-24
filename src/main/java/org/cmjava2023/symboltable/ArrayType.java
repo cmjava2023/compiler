@@ -1,18 +1,18 @@
 package org.cmjava2023.symboltable;
 
 public class ArrayType implements Type {
-    protected final Type elemType;
-    protected final int numElems;
+    protected final Type arrayType;
+    protected final int maxArraySize;
 
-    public ArrayType(Type elemType) {
-        this.elemType = elemType;
-        this.numElems = -1;
+    public ArrayType(Type arrayType) {
+        this.arrayType = arrayType;
+        this.maxArraySize = -1;
     }
 
-    public ArrayType(Type elemType, int numElems)
+    public ArrayType(Type arrayType, int maxArraySize)
     {
-        this.elemType = elemType;
-        this.numElems = numElems;
+        this.arrayType = arrayType;
+        this.maxArraySize = maxArraySize;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class ArrayType implements Type {
 
     @Override
     public String toString() {
-        return elemType+"[]";
+        return arrayType +"[]";
     }
 }

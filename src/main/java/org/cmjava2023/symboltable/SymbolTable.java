@@ -40,4 +40,8 @@ public class SymbolTable {
     public void popScope() {
         this.currentScope = currentScope.getEnclosingScope();
     }
+
+    public Scope getCurrentScope() {
+        return currentScope;
+    }
 }
