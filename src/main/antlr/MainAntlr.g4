@@ -19,10 +19,10 @@ function_scope: ((expressions | assignment | variable_declaration | return_state
 block_scope: if_statement | if_else_statement;
 
 expressions: expression (expression_operator expression)?;
-variable_declaration: primitive_type potentially_nested_identifier;
-assignment: (variable_declaration | potentially_nested_identifier) EQUALS expressions;
+variable_declaration: primitive_type IDENTIFIER;
+assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | potentially_nested_identifier;
+expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | identifier;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator;
 
@@ -30,7 +30,7 @@ numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | G
 logical_comparison_operator: LAND | LOR;
 
 // Packages
-package_declaration: PACKAGE_KEYWORD potentially_nested_identifier;
+package_declaration: PACKAGE_KEYWORD identifier;
 
 // Classes
 class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
@@ -39,7 +39,7 @@ class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_sco
 function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
-function_call: potentially_nested_identifier PAREN_OPEN function_args? PAREN_CLOSE;
+function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
 function_args: function_arg (COMMA function_arg)*;
 function_arg: expressions;
 
@@ -51,7 +51,8 @@ if_else_statement: if_statement else_statement;
 return_statement: RETURN_KEYWORD expressions;
 
 // Names
-potentially_nested_identifier: IDENTIFIER (DOT IDENTIFIER)*;
+identifier: IDENTIFIER | nested_identifier;
+nested_identifier: IDENTIFIER (DOT IDENTIFIER)+;
 type: VOID_KEYWORD | primitive_type | array_type | reference_type;
 
 //Types
