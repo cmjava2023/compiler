@@ -1,4 +1,4 @@
-package cmjava2023.helloWorld;
+package cmjava2023.helloworld;
 
 import cmjava2023.AbstractTestUsingResourceFiles;
 import cmjava2023.TreePrinter;
@@ -34,7 +34,7 @@ public class ASTTest extends AbstractTestUsingResourceFiles {
                 StartNode
                 L  body
                    |- PackageNode
-                   |  L  identifier: org.cmjava2023
+                   |  L  identifier: cmjava2023.helloworld
                    L  ClassNode
                       |- identifier: Main
                       |- modifier

@@ -44,13 +44,12 @@ tasks.register("prepareTestFilesWithJdk8") {
                         .redirectError(ProcessBuilder.Redirect.INHERIT)
                         .start()
                         .waitFor()
-                val outputFolder = File(outputRoot, it.parentFile.relativeTo(testJavaFilesRoot).path)
-                outputFolder.mkdirs()
+
+                testJavaFilesRoot.copyRecursively(outputRoot, overwrite = true)
+
                 val resultFileName = it.nameWithoutExtension + ".class"
                 val resultFile = File(it.parentFile, resultFileName)
-                resultFile.copyTo(File(outputFolder, resultFileName))
                 resultFile.delete()
-
             }
         }
 

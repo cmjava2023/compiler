@@ -1,4 +1,4 @@
-package cmjava2023.helloWorld;
+package cmjava2023.helloworld;
 
 import cmjava2023.AbstractTestUsingResourceFiles;
 import org.cmjava2023.Main;
@@ -84,7 +84,7 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
         }
 
         String[] expectedItems = new String[]{
-                "010004Main",
+                "01001Acmjava2023/helloworld/Main",
                 "070001",
                 "010010java/lang/Object",
                 "070003",

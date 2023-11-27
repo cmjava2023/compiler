@@ -13,7 +13,7 @@ public abstract class AbstractTestUsingResourceFiles {
 
     protected String GetNonRootPackagesThisClassIsInAsPath() {
         List<String> canonicalNameParts = Arrays.stream(this.getClass().getCanonicalName().split("\\.")).toList();
-        return String.join("/", canonicalNameParts.subList(1, canonicalNameParts.size() - 1));
+        return String.join("/", canonicalNameParts.subList(0, canonicalNameParts.size() - 1));
     }
 
     protected String GetPathOfJavaResourceInSamePackage(String fileName) {
@@ -59,6 +59,7 @@ public abstract class AbstractTestUsingResourceFiles {
         String pathToResultFile = GetTemporaryFolderPath() + "/" + fileName + ".javap.txt";
 
         String[] commandParts = new String[]{"javap", "-c", "-p", "-verbose", pathToFile };
+        System.out.println(String.join(" ", commandParts));
         try {
             new ProcessBuilder(commandParts)
                     .redirectOutput(new File(pathToResultFile))
@@ -72,7 +73,8 @@ public abstract class AbstractTestUsingResourceFiles {
     }
 
     protected String RunClassAndGetStdOut(String className) {
-        String[] commandParts = new String[]{"java", "-cp", GetTemporaryFolderPath(), className };
+        String[] commandParts = new String[]{"java", "-cp", TEST_TEMPORARY_FOLDER_PATH, GetNonRootPackagesThisClassIsInAsPath() + "/" +className };
+        System.out.println(String.join(" ", commandParts));
         try {
             Process process = new ProcessBuilder(commandParts).start();
             process.waitFor();

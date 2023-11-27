@@ -49,7 +49,6 @@ class ClassfileModelFromAst {
 
     private fun parseTopLevelStatements(ast: ASTNodes.StartNode) {
         var fullyQualifiedClassName = ""
-        var className = ""
 
         for (statement in ast.body) {
             if (statement is ASTNodes.PackageNode) {
@@ -58,7 +57,7 @@ class ClassfileModelFromAst {
                     PACKAGE_DELIMITER_IN_CLASS_FILES
                 )
             } else if (statement is ASTNodes.ClassNode) {
-                className = statement.identifier
+                val className = statement.identifier
                 fullyQualifiedClassName += PACKAGE_DELIMITER_IN_CLASS_FILES + className
                 for (modifierNode in statement.modifier) {
                     classAccessModifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
@@ -70,7 +69,7 @@ class ClassfileModelFromAst {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(className))) // TODO decide whether to put test files into package folders to be able to support package again
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName)))
         constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
     }
 
