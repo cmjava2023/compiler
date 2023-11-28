@@ -1,37 +1,26 @@
 package cmjava2023.helloworld;
 
 import cmjava2023.AbstractTestUsingResourceFiles;
-import org.cmjava2023.Main;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationTest extends AbstractTestUsingResourceFiles {
-    @Test
-    @Disabled
-    public void helloWorld_OurClassFileEqualsJdkEightCompiledClassFileBasedOnJavaP() throws IOException {
-        Main.main(new String[]{ GetPathOfJavaResourceInSamePackage("Main.java"), GetTemporaryFolderPath() });
-        String expectedJavaP = GetContentOfTestClassFileInSamePackage("Main.javap.txt");
-        String actualJavaP = GetJavaPForFileInTemporaryFolder("Main.class");
-        assertEquals(expectedJavaP, actualJavaP);
-    }
-
 
     @Test
-    public void helloWorld_runningPrintsHelloWorld() throws IOException {
-        Main.main(new String[]{ GetPathOfJavaResourceInSamePackage("Main.java"), GetTemporaryFolderPath() });
+    public void helloWorld_runningPrintsHelloWorld() {
         String expectedOutput = "Hello world!";
-        String actualOutput = RunClassAndGetStdOut("Main");
+        String actualOutput = RunClassCompiledByUsAndGetStdOut();
         assertEquals(expectedOutput, actualOutput);
     }
     @Test
-    public void helloWorld_testsForClassFileContent() throws IOException {
-        Main.main(new String[]{ GetPathOfJavaResourceInSamePackage("Main.java"), GetTemporaryFolderPath() });
-        Queue<String> resultClassFileByteHex = GetByteHexOfFileInTemporaryFolder("Main.class");
+    public void helloWorld_testsForClassFileContent() {
+        Queue<String> resultClassFileByteHex = GetByteHexOfFileCompiledByUs();
 
         classFileIndicatorCafeBabe(resultClassFileByteHex);
         javaVersion8(resultClassFileByteHex);

@@ -28,35 +28,28 @@ tasks.compileKotlin{
 
 tasks.register("prepareTestFilesWithJdk8") {
     doFirst {
-        val outputRoot = File("build/test-classfiles")
-        val testJavaFilesRoot = File("src/test/resources/java")
+        val testFilesFolder = File("src/test/resources/java-test-files")
+        val jdkCompiledTestFilesFolder = File("build/test-files-jdk-compiled")
 
-        outputRoot.deleteRecursively()
-        outputRoot.mkdirs()
+        jdkCompiledTestFilesFolder.deleteRecursively()
+        jdkCompiledTestFilesFolder.mkdirs()
 
-        println("Compile Java test files using jdk version 8. Files from $testJavaFilesRoot compiled to $outputRoot.")
-        testJavaFilesRoot.walk().forEach {
+        println("Compile Java test files using jdk version 8. Files from $testFilesFolder compiled to $jdkCompiledTestFilesFolder.")
+        testFilesFolder.walk().forEach {
             if (it.extension == "java") {
-                val commandParts = listOf("javac", it.path, "--release",  "8")
+                val commandParts = listOf("javac", it.path, "--release",  "8", "-d", jdkCompiledTestFilesFolder.toString())
                 println("  " + commandParts.joinToString(" "))
                 ProcessBuilder(commandParts)
                         .redirectOutput(ProcessBuilder.Redirect.PIPE)
                         .redirectError(ProcessBuilder.Redirect.INHERIT)
                         .start()
                         .waitFor()
-
-                testJavaFilesRoot.copyRecursively(outputRoot, overwrite = true)
-
-                val resultFileName = it.nameWithoutExtension + ".class"
-                val resultFile = File(it.parentFile, resultFileName)
-                resultFile.delete()
             }
         }
 
         println()
-        println("Save javap output")
 
-        outputRoot.walk().forEach {
+        jdkCompiledTestFilesFolder.walk().forEach {
             if (it.extension == "class") {
                 val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
                 println("  " + commandParts.joinToString(" "))

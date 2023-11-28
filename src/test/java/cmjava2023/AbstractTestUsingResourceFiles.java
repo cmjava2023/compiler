@@ -1,5 +1,7 @@
 package cmjava2023;
 
+import org.cmjava2023.Main;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,34 +9,51 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractTestUsingResourceFiles {
-    protected static String JAVA_RESOURCE_FOLDER_PATH = "src/test/resources/java";
-    protected static  String TEST_CLASS_FILES_FOLDER_PATH = "build/test-classfiles";
-    protected static String TEST_TEMPORARY_FOLDER_PATH = "build/test-temp";
+    protected static String JAVA_TEST_FILES_RESOURCE_FOLDER_PATH = "src/test/resources/java-test-files";
+    protected static  String JDK_COMPILED_TEST_FILES_FOLDER = "build/test-files-jdk-compiled";
+    protected static String OUR_COMPILER_COMPILED_TEST_FILES_FOLDER = "build/test-files-compiled-by-us";
+    
+    protected static String JAVA_FILE_ENDING = ".java";
+    protected static String CLASS_FILE_ENDING = ".class";
+    protected static String JAVAP_OUTPUT_FILE_ENDING = ".javap.txt";
+
+    protected String GetTestClassName() {
+        return "Main";
+    }
+
+    protected AbstractTestUsingResourceFiles() {
+        try {
+            Main.main(new String[]{ GetPathOfJavaTestResourceInSamePackage(), GetOurCompilerCompiledTestFilesFolderForThisPackage() });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        GetJavaPForFileCompiledByUs();
+    }
 
     protected String GetNonRootPackagesThisClassIsInAsPath() {
         List<String> canonicalNameParts = Arrays.stream(this.getClass().getCanonicalName().split("\\.")).toList();
         return String.join("/", canonicalNameParts.subList(0, canonicalNameParts.size() - 1));
     }
 
-    protected String GetPathOfJavaResourceInSamePackage(String fileName) {
-        return JAVA_RESOURCE_FOLDER_PATH + "/" + GetNonRootPackagesThisClassIsInAsPath() + "/" + fileName;
+    protected String GetPathOfJavaTestResourceInSamePackage() {
+        return JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/" + GetNonRootPackagesThisClassIsInAsPath() + "/" + GetTestClassName() + JAVA_FILE_ENDING;
     }
 
-    protected String GetTemporaryFolderPath() {
-        return TEST_TEMPORARY_FOLDER_PATH + "/" + GetNonRootPackagesThisClassIsInAsPath();
+    protected String GetOurCompilerCompiledTestFilesFolderForThisPackage() {
+        return OUR_COMPILER_COMPILED_TEST_FILES_FOLDER + "/" + GetNonRootPackagesThisClassIsInAsPath();
     }
 
-    protected String GetContentOfTestClassFileInSamePackage(String fileName) {
+    protected String GetContentOfJdkCompiledTestFileInSamePackage(String fileName) {
         try {
-            return Files.readString(Paths.get(TEST_CLASS_FILES_FOLDER_PATH + "/" + GetNonRootPackagesThisClassIsInAsPath() + "/" + fileName));
+            return Files.readString(Paths.get(JDK_COMPILED_TEST_FILES_FOLDER + "/" + GetNonRootPackagesThisClassIsInAsPath() + "/" + fileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected Queue<String> GetByteHexOfFileInTemporaryFolder(String fileName) {
+    protected Queue<String> GetByteHexOfFileCompiledByUs() {
         try {
-            String hexString = HexFormat.of().formatHex(Files.readAllBytes(Paths.get(GetTemporaryFolderPath() + "/" + fileName))).toUpperCase();
+            String hexString = HexFormat.of().formatHex(Files.readAllBytes(Paths.get(GetOurCompilerCompiledTestFilesFolderForThisPackage() + "/" + GetTestClassName() + CLASS_FILE_ENDING))).toUpperCase();
             Queue<String> result = new LinkedList<>();
             char[] charArray = hexString.toCharArray();
             for (int i = 0; i < charArray.length; i+=2) {
@@ -54,9 +73,10 @@ public abstract class AbstractTestUsingResourceFiles {
         return result.toString();
     }
 
-    protected String GetJavaPForFileInTemporaryFolder(String fileName) {
-        String pathToFile = GetTemporaryFolderPath() + "/" + fileName;
-        String pathToResultFile = GetTemporaryFolderPath() + "/" + fileName + ".javap.txt";
+    protected String GetJavaPForFileCompiledByUs() {
+        String ourCompilerCompiledTestFilesFolderForThisPackage = GetOurCompilerCompiledTestFilesFolderForThisPackage();
+        String pathToFile = ourCompilerCompiledTestFilesFolderForThisPackage + "/" + GetTestClassName() + CLASS_FILE_ENDING;
+        String pathToResultFile = ourCompilerCompiledTestFilesFolderForThisPackage + "/" + GetTestClassName() + JAVAP_OUTPUT_FILE_ENDING;
 
         String[] commandParts = new String[]{"javap", "-c", "-p", "-verbose", pathToFile };
         System.out.println(String.join(" ", commandParts));
@@ -72,8 +92,8 @@ public abstract class AbstractTestUsingResourceFiles {
         }
     }
 
-    protected String RunClassAndGetStdOut(String className) {
-        String[] commandParts = new String[]{"java", "-cp", TEST_TEMPORARY_FOLDER_PATH, GetNonRootPackagesThisClassIsInAsPath() + "/" +className };
+    protected String RunClassCompiledByUsAndGetStdOut() {
+        String[] commandParts = new String[]{"java", "-cp", OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, GetNonRootPackagesThisClassIsInAsPath()  + "/" + GetTestClassName() };
         System.out.println(String.join(" ", commandParts));
         try {
             Process process = new ProcessBuilder(commandParts).start();
