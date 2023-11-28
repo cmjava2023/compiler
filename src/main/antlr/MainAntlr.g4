@@ -51,11 +51,10 @@ if_else_statement: if_statement else_statement;
 return_statement: RETURN_KEYWORD expressions;
 
 // Names
-identifier: IDENTIFIER | nested_identifier;
-nested_identifier: IDENTIFIER (DOT IDENTIFIER)+;
+identifier: IDENTIFIER (DOT IDENTIFIER)*;
 type: VOID_KEYWORD | primitive_type | array_type | reference_type;
 
-//Types
+// Types
 integral_type: BYTE_KEYWORD | SHORT_KEYWORD | INT_KEYWORD | LONG_KEYWORD | CHAR_KEYWORD;
 floating_point_type: FLOAT_KEYWORD | DOUBLE_KEYWORD;
 numeric_type: integral_type | floating_point_type;
