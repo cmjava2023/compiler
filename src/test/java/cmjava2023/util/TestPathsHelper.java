@@ -10,8 +10,8 @@ public class TestPathsHelper {
 
     final String nonRootPackagePartsTheHelpedClassIsIn;
 
-    public TestPathsHelper(Object object) {
-        List<String> canonicalNameParts = Arrays.stream(object.getClass().getCanonicalName().split("\\.")).toList();
+    public TestPathsHelper(Object testClassObjectDefiningPackageForResources) {
+        List<String> canonicalNameParts = Arrays.stream(testClassObjectDefiningPackageForResources.getClass().getCanonicalName().split("\\.")).toList();
         nonRootPackagePartsTheHelpedClassIsIn = String.join("/", canonicalNameParts.subList(0, canonicalNameParts.size() - 1));
     }
 
@@ -23,7 +23,7 @@ public class TestPathsHelper {
         return JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/" + nonRootPackagePartsTheHelpedClassIsIn + "/Main" + JAVA_FILE_ENDING;
     }
 
-    public String GetPathOfMainClasCompiledByUsInSamePackage() {
+    public String GetPathOfMainClassCompiledByUsInSamePackage() {
         return OUR_COMPILER_COMPILED_TEST_FILES_FOLDER + "/" + nonRootPackagePartsTheHelpedClassIsIn + "/Main" + CLASS_FILE_ENDING;
     }
 

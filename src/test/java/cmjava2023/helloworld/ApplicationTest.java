@@ -22,7 +22,7 @@ public class ApplicationTest {
     }
     @Test
     public void helloWorld_testsForClassFileContent() {
-        Queue<String> resultClassFileByteHex = HexQueueFromBinaryFileQuery.fetch(new TestPathsHelper(this).GetPathOfMainClasCompiledByUsInSamePackage());
+        Queue<String> resultClassFileByteHex = HexQueueFromBinaryFileQuery.fetch(new TestPathsHelper(this).GetPathOfMainClassCompiledByUsInSamePackage());
 
         classFileIndicatorCafeBabe(resultClassFileByteHex);
         javaVersion8(resultClassFileByteHex);
