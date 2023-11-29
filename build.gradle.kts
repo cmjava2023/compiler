@@ -75,7 +75,7 @@ tasks.register("compileTestFilesWithOurCompiler") {
                         "java",
                         "-classpath",
                         "\"build/classes/java/main;build/classes/kotlin/main;" + configurations.compileClasspath.get().joinToString(";") { it.path } + "\"",
-                        "org/cmjava2023/Main",
+                        "org.cmjava2023.Main",
                         file.path,
                         ourCompilerCompiledTestFilesFolder.path
                     )
