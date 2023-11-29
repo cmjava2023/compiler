@@ -1,4 +1,4 @@
-package cmjava2023;
+package cmjava2023.util;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ASTNodes;

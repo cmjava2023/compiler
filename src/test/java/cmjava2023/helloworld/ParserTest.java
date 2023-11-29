@@ -1,7 +1,7 @@
 package cmjava2023.helloworld;
 
-import cmjava2023.AbstractTestUsingResourceFiles;
-import cmjava2023.TreePrinter;
+import cmjava2023.util.TestPathsHelper;
+import cmjava2023.util.TreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,10 +14,10 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserTest extends AbstractTestUsingResourceFiles {
+public class ParserTest {
     @Test
     public void helloWorld_parser() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaTestResourceInSamePackage());
+        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
         Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 

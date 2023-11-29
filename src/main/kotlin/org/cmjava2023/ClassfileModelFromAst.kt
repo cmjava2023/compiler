@@ -24,7 +24,7 @@ class ClassfileModelFromAst {
 
     fun generate(ast: ASTNodes.StartNode): ClassfileModel {
         resetFields()
-        parseTopLevelStatements(ast)
+        val packageNameWithDelimiterForClassFile = parseTopLevelStatementsAndGetPackageName(ast)
 
         methodInfos.add(MethodInfo(
             listOf(MethodAccessModifier.ACC_PUBLIC),
@@ -34,6 +34,7 @@ class ClassfileModelFromAst {
         ))
 
         return ClassfileModel(
+            packageNameWithDelimiterForClassFile,
                 constantInfos,
             classAccessModifiers,
                 0,
@@ -47,18 +48,18 @@ class ClassfileModelFromAst {
         )
     }
 
-    private fun parseTopLevelStatements(ast: ASTNodes.StartNode) {
-        var fullyQualifiedClassName = ""
+    private fun parseTopLevelStatementsAndGetPackageName(ast: ASTNodes.StartNode): String {
+        var className = ""
+        var packageNameWithDelimiterForClassFile = ""
 
         for (statement in ast.body) {
             if (statement is ASTNodes.PackageNode) {
-                fullyQualifiedClassName += statement.identifier.replace(
+                packageNameWithDelimiterForClassFile += statement.identifier.replace(
                     PACKAGE_DELIMITER_IN_JAVA_FILES,
                     PACKAGE_DELIMITER_IN_CLASS_FILES
                 )
             } else if (statement is ASTNodes.ClassNode) {
-                val className = statement.identifier
-                fullyQualifiedClassName += PACKAGE_DELIMITER_IN_CLASS_FILES + className
+                className = statement.identifier
                 for (modifierNode in statement.modifier) {
                     classAccessModifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
                 }
@@ -69,8 +70,10 @@ class ClassfileModelFromAst {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(fullyQualifiedClassName)))
+        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(packageNameWithDelimiterForClassFile + PACKAGE_DELIMITER_IN_CLASS_FILES + className)))
         constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
+
+        return packageNameWithDelimiterForClassFile
     }
 
     private fun parseStatements(statements: List<ASTNodes.Statement>) {

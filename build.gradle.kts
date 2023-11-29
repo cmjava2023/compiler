@@ -7,6 +7,10 @@ plugins {
 group = "org.cmjava2023"
 version = "1.0-SNAPSHOT"
 
+val testFilesFolder = File("src/test/resources/java-test-files")
+val jdkCompiledTestFilesFolder = File("build/test-files-jdk-compiled")
+val ourCompilerCompiledTestFilesFolder = File("build/test-files-compiled-by-us")
+
 repositories {
     mavenCentral()
 }
@@ -18,7 +22,9 @@ dependencies {
 }
 
 tasks.test {
-    dependsOn("prepareTestFilesWithJdk8")
+    dependsOn("compileTestFilesWithJdk8")
+    dependsOn("compileTestFilesWithOurCompiler")
+    dependsOn("createJavapTxtFiles")
     useJUnitPlatform()
 }
 
@@ -26,40 +32,83 @@ tasks.compileKotlin{
     dependsOn("generateGrammarSource")
 }
 
-tasks.register("prepareTestFilesWithJdk8") {
-    doFirst {
-        val testFilesFolder = File("src/test/resources/java-test-files")
-        val jdkCompiledTestFilesFolder = File("build/test-files-jdk-compiled")
-
+tasks.register("compileTestFilesWithJdk8") {
+    doLast {
         jdkCompiledTestFilesFolder.deleteRecursively()
         jdkCompiledTestFilesFolder.mkdirs()
 
         println("Compile Java test files using jdk version 8. Files from $testFilesFolder compiled to $jdkCompiledTestFilesFolder.")
         testFilesFolder.walk().forEach {
             if (it.extension == "java") {
-                val commandParts = listOf("javac", it.path, "--release",  "8", "-d", jdkCompiledTestFilesFolder.toString())
+                val commandParts = listOf(
+                    "javac",
+                    it.path,
+                    "--release",
+                    "8",
+                    "-d",
+                    jdkCompiledTestFilesFolder.toString()
+                )
                 println("  " + commandParts.joinToString(" "))
-                ProcessBuilder(commandParts)
-                        .redirectOutput(ProcessBuilder.Redirect.PIPE)
-                        .redirectError(ProcessBuilder.Redirect.INHERIT)
-                        .start()
-                        .waitFor()
+                exec {
+                    commandLine(commandParts)
+                }
             }
         }
+    }
+}
 
-        println()
+tasks.register("compileTestFilesWithOurCompiler") {
+    dependsOn(tasks.compileJava)
+    doLast {
+        ourCompilerCompiledTestFilesFolder.deleteRecursively()
+        ourCompilerCompiledTestFilesFolder.mkdirs()
 
-        jdkCompiledTestFilesFolder.walk().forEach {
-            if (it.extension == "class") {
-                val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
+        println("Compile Java test files using our compiler. Files from $testFilesFolder compiled to $ourCompilerCompiledTestFilesFolder.")
+        val classPathDelimiter = if (System.getProperty("os.name").lowercase().contains("win")) { ";" } else { ":" }
+        val classPathElements = listOf("build/classes/java/main", "build/classes/kotlin/main") + configurations.compileClasspath.get().map {it.path}
+        val classPath = classPathElements.joinToString(classPathDelimiter)
+
+        testFilesFolder.walk().forEach { file ->
+            if (file.extension == "java") {
+                val commandParts =
+                    listOf(
+                        "java",
+                        "-classpath",
+                        classPath,
+                        "org.cmjava2023.Main",
+                        file.path,
+                        ourCompilerCompiledTestFilesFolder.path
+                    )
                 println("  " + commandParts.joinToString(" "))
-                val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
-                println("  Output:$outputFile")
-                ProcessBuilder(commandParts)
-                        .redirectOutput(outputFile)
-                        .redirectError(ProcessBuilder.Redirect.INHERIT)
-                        .start()
-                        .waitFor()
+                exec {
+                    commandLine(commandParts)
+                }
+            }
+        }
+    }
+}
+
+tasks.register("createJavapTxtFiles") {
+    dependsOn("compileTestFilesWithJdk8")
+    dependsOn("compileTestFilesWithOurCompiler")
+
+    doLast {
+        createJavapTxtFilesForAllClassFilesInFolder(jdkCompiledTestFilesFolder)
+        println()
+        createJavapTxtFilesForAllClassFilesInFolder(ourCompilerCompiledTestFilesFolder)
+    }
+}
+
+fun createJavapTxtFilesForAllClassFilesInFolder(folder: File) {
+    println("Folder: $folder")
+    folder.walk().forEach {
+        if (it.extension == "class") {
+            val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
+            println("  " + commandParts.joinToString(" "))
+            val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
+            exec {
+                standardOutput = outputFile.outputStream()
+                commandLine(commandParts)
             }
         }
     }
