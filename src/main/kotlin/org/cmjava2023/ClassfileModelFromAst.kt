@@ -1,5 +1,6 @@
-package org.cmjava2023
 
+package org.cmjava2023
+/*
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.codeParts.FunctionCallCodePart
@@ -140,4 +141,4 @@ class ClassfileModelFromAst {
 
         return result
     }
-}
+}*/

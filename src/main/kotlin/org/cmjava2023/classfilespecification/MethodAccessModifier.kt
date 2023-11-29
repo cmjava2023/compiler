@@ -17,7 +17,7 @@ enum class MethodAccessModifier(val value:Short) {
     ACC_STRICT(0x0800),
     ACC_SYNTHETIC(0x1000);
 
-    companion object {
+   /* companion object {
         fun fromASTModifier(astModifier: ASTNodes.Modifier): MethodAccessModifier {
             return when(astModifier) {
                 ASTNodes.Modifier.PUBLIC -> ACC_PUBLIC
@@ -25,5 +25,5 @@ enum class MethodAccessModifier(val value:Short) {
                 else -> throw NotImplementedError()
             }
         }
-    }
+    }*/
 }

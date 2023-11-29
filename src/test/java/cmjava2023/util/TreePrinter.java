@@ -51,14 +51,19 @@ public class TreePrinter {
             result.append("\n");
         } else {
             result.append(prefix);
-            if(object instanceof Collection<?> collection) {
-                var array = collection.toArray();
+            if(object instanceof Collection<?> || object.getClass().isArray()) {
+                Object[] array;
+                if(object instanceof Collection<?> collection) {
+                    array = collection.toArray();
+                } else {
+                    array = (Object[])object;
+                }
                 result.append(fieldName);
                 result.append("\n");
-                for (int i = 0; i < collection.size(); i++) {
+                for (int i = 0; i < array.length; i++) {
                     String prefixToBe = childrenPrefix + childrenPrefixWhenNodesFollowOnLevel;
                     String childrenPrefixToBe = childrenPrefix + prefixToFill;
-                    if (i == collection.size() - 1) {
+                    if (i == array.length - 1) {
                         prefixToBe = childrenPrefix + lastNodeOnLevelPrefix;
                         childrenPrefixToBe = childrenPrefix + childrenPrefixForLastNodeOnLevel;
                     }
