@@ -77,8 +77,7 @@ tasks.register("compileTestFilesWithOurCompiler") {
                     )
                 println("  " + commandParts.joinToString(" "))
                 exec {
-                    workingDir = projectDir
-                    commandLine(commandParts)
+                    commandLine(commandParts) // TODO Fix server that server execution finds classfile
                 }
             }
         }
