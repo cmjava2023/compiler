@@ -80,7 +80,9 @@ public class TreePrinter {
                     try {
                         field.trySetAccessible();
                         var fieldValue = field.get(object);
-                        result.append(print(field.getName(), fieldValue, prefixToBe, childrenPrefixToBe));
+                        if (fieldValue != null){
+                            result.append(print(field.getName(), fieldValue, prefixToBe, childrenPrefixToBe));
+                        }
                     } catch (IllegalAccessException ignored) {
                     }
                 }

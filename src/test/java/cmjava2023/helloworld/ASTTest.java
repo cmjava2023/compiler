@@ -57,7 +57,7 @@ public class ASTTest extends AbstractTestUsingResourceFiles {
                                      L  ValueNode
                                         L  value: "Hello world!"
                 """;
-
+        System.out.println(new TreePrinter().printAst(ast));
         assertEquals(expected, new TreePrinter().printAst(ast));
     }
 }
