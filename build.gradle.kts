@@ -64,19 +64,17 @@ tasks.register("compileTestFilesWithOurCompiler") {
         ourCompilerCompiledTestFilesFolder.mkdirs()
 
         println("Compile Java test files using our compiler. Files from $testFilesFolder compiled to $ourCompilerCompiledTestFilesFolder.")
+        val classPathDelimiter = if (System.getProperty("os.name").lowercase().contains("win")) { ";" } else { ":" }
+        val classPathElements = listOf("build/classes/java/main", "build/classes/kotlin/main") + configurations.compileClasspath.get().map {it.path}
+        val classPath = classPathElements.joinToString(classPathDelimiter)
 
-        val fileOfCompilerMainClass = File("build/classes/java/main")
-        println("content of $fileOfCompilerMainClass")
-        val classPathDelimiter =  if (isWindows()) { ";" } else { ":" } // TODO detect if windows
-
-        fileOfCompilerMainClass.walk().forEach { file -> println(file.relativeTo(fileOfCompilerMainClass)) }
         testFilesFolder.walk().forEach { file ->
             if (file.extension == "java") {
                 val commandParts =
                     listOf(
                         "java",
                         "-classpath",
-                        "build/classes/java/main" + classPathDelimiter + "build/classes/kotlin/main" + classPathDelimiter + configurations.compileClasspath.get().joinToString(classPathDelimiter) { it.path },
+                        classPath,
                         "org.cmjava2023.Main",
                         file.path,
                         ourCompilerCompiledTestFilesFolder.path
