@@ -67,6 +67,8 @@ tasks.register("compileTestFilesWithOurCompiler") {
 
         val fileOfCompilerMainClass = File("build/classes/java/main")
         println("content of $fileOfCompilerMainClass")
+        val classPathDelimiter =  if (isWindows()) { ";" } else { ":" } // TODO detect if windows
+
         fileOfCompilerMainClass.walk().forEach { file -> println(file.relativeTo(fileOfCompilerMainClass)) }
         testFilesFolder.walk().forEach { file ->
             if (file.extension == "java") {
@@ -74,14 +76,14 @@ tasks.register("compileTestFilesWithOurCompiler") {
                     listOf(
                         "java",
                         "-classpath",
-                        "build/classes/java/main:build/classes/kotlin/main:" + configurations.compileClasspath.get().joinToString(":") { it.path },
+                        "build/classes/java/main" + classPathDelimiter + "build/classes/kotlin/main" + classPathDelimiter + configurations.compileClasspath.get().joinToString(classPathDelimiter) { it.path },
                         "org.cmjava2023.Main",
                         file.path,
                         ourCompilerCompiledTestFilesFolder.path
                     )
                 println("  " + commandParts.joinToString(" "))
                 exec {
-                    commandLine(commandParts) // TODO Fix server that server execution finds classfile
+                    commandLine(commandParts)
                 }
             }
         }
