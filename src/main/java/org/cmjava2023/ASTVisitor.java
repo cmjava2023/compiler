@@ -122,7 +122,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         ASTNodes.AccessModifier accessModifier = ASTNodes.AccessModifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         Function functionSymbol = setFunctionScope(ctx, accessModifier, instanceModifier);
 
-        ASTNodes.ParameterNode[] parameters = getParameters(ctx.function_declaration_args().children);
+        ASTNodes.ParameterNode[] parameters = ctx.function_declaration_args() == null ? null : getParameters(ctx.function_declaration_args().children);
 
         setLocalScope();
 
@@ -157,7 +157,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_args: function_arg (COMMA function_arg)*;
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
-        ASTNodes.Expression[] argumentExpressions = getExpressions(ctx.function_args().children);
+        ASTNodes.Expression[] argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
         return new ASTNodes.FunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions);
     }
 
