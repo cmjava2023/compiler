@@ -64,13 +64,15 @@ tasks.register("compileTestFilesWithOurCompiler") {
         ourCompilerCompiledTestFilesFolder.mkdirs()
 
         println("Compile Java test files using our compiler. Files from $testFilesFolder compiled to $ourCompilerCompiledTestFilesFolder.")
+
+        val fileOfCompilerMainClass = File("build/classes/java/main")
+        println("content of $fileOfCompilerMainClass")
+        fileOfCompilerMainClass.walk().forEach { file -> println(file.relativeTo(fileOfCompilerMainClass)) }
         testFilesFolder.walk().forEach { file ->
             if (file.extension == "java") {
                 val commandParts =
                     listOf(
                         "java",
-                        "-verbose:class",
-                        "-verbose:module",
                         "-classpath",
                         "\"build/classes/java/main;build/classes/kotlin/main;" + configurations.compileClasspath.get().joinToString(";") { it.path } + "\"",
                         "org/cmjava2023/Main",
