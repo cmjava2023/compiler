@@ -1,4 +1,4 @@
-package cmjava2023.helloWorld;
+package cmjava2023.helloworld;
 
 import cmjava2023.AbstractTestUsingResourceFiles;
 import cmjava2023.TreePrinter;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParserTest extends AbstractTestUsingResourceFiles {
     @Test
     public void helloWorld_parser() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaResourceInSamePackage("Main.java"));
+        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaTestResourceInSamePackage());
         Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 
@@ -25,11 +25,11 @@ public class ParserTest extends AbstractTestUsingResourceFiles {
 
         String expected =
                 """
-                Start: packageorg.cmjava2023;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                |- Statement: packageorg.cmjava2023;
-                |  |- Package_declaration: packageorg.cmjava2023
+                Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+                |- Statement: packagecmjava2023.helloworld;
+                |  |- Package_declaration: packagecmjava2023.helloworld
                 |  |  |- package
-                |  |  L  org.cmjava2023
+                |  |  L  cmjava2023.helloworld
                 |  L  ;
                 L  Statement: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
                    L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}

@@ -1,6 +1,7 @@
 plugins {
     id("java")
     antlr // https://docs.gradle.org/current/userguide/antlr_plugin.html
+    kotlin("jvm") version "1.9.20"
 }
 
 group = "org.cmjava2023"
@@ -21,40 +22,36 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.compileKotlin{
+    dependsOn("generateGrammarSource")
+}
+
 tasks.register("prepareTestFilesWithJdk8") {
     doFirst {
-        val outputRoot = File("build/test-classfiles")
-        val testJavaFilesRoot = File("src/test/resources/java")
+        val testFilesFolder = File("src/test/resources/java-test-files")
+        val jdkCompiledTestFilesFolder = File("build/test-files-jdk-compiled")
 
-        outputRoot.deleteRecursively()
-        outputRoot.mkdirs()
+        jdkCompiledTestFilesFolder.deleteRecursively()
+        jdkCompiledTestFilesFolder.mkdirs()
 
-        println("Compile Java test files using jdk version 8. Files from $testJavaFilesRoot compiled to $outputRoot.")
-        testJavaFilesRoot.walk().forEach {
+        println("Compile Java test files using jdk version 8. Files from $testFilesFolder compiled to $jdkCompiledTestFilesFolder.")
+        testFilesFolder.walk().forEach {
             if (it.extension == "java") {
-                val commandParts = listOf("javac", it.path, "--release",  "8")
+                val commandParts = listOf("javac", it.path, "--release",  "8", "-d", jdkCompiledTestFilesFolder.toString())
                 println("  " + commandParts.joinToString(" "))
                 ProcessBuilder(commandParts)
                         .redirectOutput(ProcessBuilder.Redirect.PIPE)
                         .redirectError(ProcessBuilder.Redirect.INHERIT)
                         .start()
                         .waitFor()
-                val outputFolder = File(outputRoot, it.parentFile.relativeTo(testJavaFilesRoot).path)
-                outputFolder.mkdirs()
-                val resultFileName = it.nameWithoutExtension + ".class"
-                val resultFile = File(it.parentFile, resultFileName)
-                resultFile.copyTo(File(outputFolder, resultFileName))
-                resultFile.delete()
-
             }
         }
 
         println()
-        println("Save javap output")
 
-        outputRoot.walk().forEach {
+        jdkCompiledTestFilesFolder.walk().forEach {
             if (it.extension == "class") {
-                val commandParts = listOf("javap", "-c", "-p", it.path)
+                val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
                 println("  " + commandParts.joinToString(" "))
                 val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
                 println("  Output:$outputFile")

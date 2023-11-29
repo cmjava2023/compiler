@@ -1,4 +1,4 @@
-package cmjava2023.helloWorld;
+package cmjava2023.helloworld;
 
 import cmjava2023.AbstractTestUsingResourceFiles;
 import cmjava2023.TreePrinter;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ASTTest extends AbstractTestUsingResourceFiles {
     @Test
     public void helloWorld_AST() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaResourceInSamePackage("Main.java"));
+        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(GetPathOfJavaTestResourceInSamePackage());
         Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 
@@ -34,7 +34,7 @@ public class ASTTest extends AbstractTestUsingResourceFiles {
                 StartNode
                 L  body
                    |- PackageNode
-                   |  L  identifier: org.cmjava2023
+                   |  L  identifier: cmjava2023.helloworld
                    L  ClassNode
                       |- identifier: Main
                       |- modifier
