@@ -7,7 +7,6 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.cmjava2023.BytecodeFromClassfileModel;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +31,7 @@ public class Main {
         var byteCodeFromClassFileModel = new BytecodeFromClassfileModel();
         var bytes = byteCodeFromClassFileModel.generate(model);
 
-        Path outputDirPath = Paths.get(args[1]);
+        Path outputDirPath = Paths.get(args[1], model.getPackageNameWithDelimiterForClassFile());
         Files.createDirectories(outputDirPath);
         Files.write(
             Paths.get(outputDirPath.toString(), fileNameWithoutExtensionOf(args[0]) + ".class"),

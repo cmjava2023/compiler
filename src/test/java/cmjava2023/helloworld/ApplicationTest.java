@@ -1,6 +1,8 @@
 package cmjava2023.helloworld;
 
-import cmjava2023.AbstractTestUsingResourceFiles;
+import cmjava2023.util.HexQueueFromBinaryFileQuery;
+import cmjava2023.util.JavaRunner;
+import cmjava2023.util.TestPathsHelper;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,17 +12,17 @@ import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ApplicationTest extends AbstractTestUsingResourceFiles {
+public class ApplicationTest {
 
     @Test
     public void helloWorld_runningPrintsHelloWorld() {
         String expectedOutput = "Hello world!";
-        String actualOutput = RunClassCompiledByUsAndGetStdOut();
+        String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, "cmjava2023/helloworld/Main");
         assertEquals(expectedOutput, actualOutput);
     }
     @Test
     public void helloWorld_testsForClassFileContent() {
-        Queue<String> resultClassFileByteHex = GetByteHexOfFileCompiledByUs();
+        Queue<String> resultClassFileByteHex = HexQueueFromBinaryFileQuery.fetch(new TestPathsHelper(this).GetPathOfMainClasCompiledByUsInSamePackage());
 
         classFileIndicatorCafeBabe(resultClassFileByteHex);
         javaVersion8(resultClassFileByteHex);
@@ -32,6 +34,14 @@ public class ApplicationTest extends AbstractTestUsingResourceFiles {
         numberOfFields(resultClassFileByteHex);
         methods(resultClassFileByteHex);
         classAttributeCount(resultClassFileByteHex);
+    }
+
+    protected static String pollMultiple(Queue<String> queue, int amount) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < amount; i++) {
+            result.append(queue.poll());
+        }
+        return result.toString();
     }
 
     private void classFileIndicatorCafeBabe(Queue<String> resultClassFileByteHex) {
