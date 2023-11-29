@@ -77,6 +77,7 @@ tasks.register("compileTestFilesWithOurCompiler") {
                     )
                 println("  " + commandParts.joinToString(" "))
                 exec {
+                    workingDir = projectDir
                     commandLine(commandParts)
                 }
             }
