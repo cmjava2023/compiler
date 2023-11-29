@@ -1,12 +1,13 @@
 package org.cmjava2023;
 
-import org.cmjava2023.symboltable.Symbol;
-
-import java.util.ArrayList;
+import org.cmjava2023.symboltable.Clazz;
+import org.cmjava2023.symboltable.Function;
+import org.cmjava2023.symboltable.Paramater;
+import org.cmjava2023.symboltable.Variable;
 
 public class ASTNodes {
 
-    public enum Access_Modifier {
+    public enum AccessModifier {
         DEFAULT, //  /Blank ==> Package-Private
         PUBLIC,
         PRIVATE,
@@ -58,70 +59,64 @@ public class ASTNodes {
     }
 
     // start-> StartNode
-    public record StartNode(ArrayList<Statement> body) implements Node {
+    public record StartNode(Statement[] body) implements Node {
     }
 
     // package_declaration -> PackageNode
     public record PackageNode(
-            NestedIdentifierNode nested_identifier) implements Node, Statement {
+            String[] nestedIdentifier) implements Node, Statement {
     } //Maybe save this nested identifier into the symbol table ?
 
     // class_declaration -> ClassNode
-    // class_scope[function_declaration (->FunctionNode<statement>), variable_declaration(->VariableNode<Statement>), assignment(-> AssignmentNode<statement>) -> ArrayList<Statement> body
-    public record ClassNode(String className, Access_Modifier access_modifier,
-                            ArrayList<Modifier> modifier,
-                            ArrayList<Statement> body,
-                            Symbol symbol) implements Node, Statement {
+    // class_scope[function_declaration (->FunctionNode<statement>), variable_declaration(->VariableNode<Statement>), assignment(-> AssignmentNode<statement>) -> Statement[] body
+    public record ClassNode(Clazz classSymbol,
+                            Statement[] body) implements Node, Statement {
     }
 
     // function_declaration -> FunctionNode
     // type -> Identifier -> SymbolRef
-    // Function_declaration_args-> ArrayList<ParameterNode>
-    // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->ArrayList<Statement> body
-    public record FunctionNode(String identifier_symbolRef,
-                               Access_Modifier access_modifier,
-                               ArrayList<Modifier> modifier,
-                               ArrayList<ParameterNode> parameters,
-                               ArrayList<Statement> body,
-                               Symbol symbol) implements Node, Callable, Statement {
+    // Function_declaration_args-> ParameterNode[]
+    // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->Statement[] body
+    public record FunctionNode(Function functionSymbol,
+                               ParameterNode[] parameters,
+                               Statement[] body) implements Node, Callable, Statement {
     }
 
     //Function_declaration_arg[type(->symbolTable), IDENTIFIER (->symbolTable)-> ParameterNode
-    public record ParameterNode(String identifier_symbolRef,
-                                Symbol symbol) implements Node {
+    public record ParameterNode(Paramater parameterSymbol) implements Node {
     }
 
     // function_call -> CallNode
-    public record CallNode(ArrayList<String> nested_identifier,
-                           ArrayList<Expression> values) implements Node, Statement, Callable {
+    public record FunctionCallNode(String[] nestedIdentifier,
+                                   Expression[] values) implements Node, Statement, Callable {
     }
 
     // if_statement -> IfNode
-    //else_statement [expressions (->ComparisonNode<Expression>/ExpressionNode<Expression>), function_scope (->ArrayList<Statement>)]->IfNode
+    //else_statement [expressions (->ComparisonNode<Expression>/ExpressionNode<Expression>), function_scope (->Statement[])]->IfNode
     public record IfNode(Expression expression,
-                         ArrayList<Statement> statements) implements Node, Condition, Statement {
+                         Statement[] statements) implements Node, Condition, Statement {
     }
 
     //else_statement -> ElseNode
-    //else_statement [function_scope (->ArrayList<Statement>)]->ElseNode
+    //else_statement [function_scope (->Statement[])]->ElseNode
     public record ElseNode(
-            ArrayList<Statement> statements) implements Node, Condition, Statement {
+            Statement[] statements) implements Node, Condition, Statement {
     }
 
     // block_scope -> BlockScopeNode
-    // block_scope [if_statement (-> IfNode<Condition>)/if_else_statement(->IfNode<Condition>, ElseNode<Condition>)]-> ArrayList<Condition> conditions
+    // block_scope [if_statement (-> IfNode<Condition>)/if_else_statement(->IfNode<Condition>, ElseNode<Condition>)]-> Condition[] conditions
     public record BlockScopeNode(
-            ArrayList<Condition> conditions) implements Node, Statement {
+            Condition[] conditions) implements Node, Statement {
     }
 
     // variable_declaration -> VariableNode
     // variable_declaration [primitive_type(->symbolTable), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode
     // assignment[variable_declaration(->PotentiallyNestedIdentifierNode<Identifier>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Identifier>), expressions (->ComparisonNode<Expression>)] -> VariableNode
-    public record VariableNode(String variableName, Expression value,
-                               Symbol symbol) implements Node, Callable, Statement {
+    public record VariableNode(Variable variableSymbol,
+                               Expression value) implements Node, Callable, Statement {
     }
 
-    public record VariableAssigmentNode(ArrayList<String> variableName,
+    public record VariableAssigmentNode(String[] variableName,
                                         Expression value) implements Node, Callable, Statement {
     }
 
@@ -131,9 +126,9 @@ public class ASTNodes {
     }
 
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
-    // potentially_nested_identifier[Identifier (->ArrayList<Identifier> nested_identifier ) -> PotentiallyNestedIdentifierNode
+    // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
-            ArrayList<String> nested_identifier) implements Node, Callable, Expression, Identifier {
+            String[] nestedIdentifier) implements Node, Callable, Expression, Identifier {
     }
 
     // (expressions) -> ComparisonNode

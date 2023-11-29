@@ -1,5 +1,7 @@
 package org.cmjava2023.symboltable;
 
+import org.cmjava2023.ASTNodes;
+
 import java.util.HashMap;
 
 public class SymbolTable {
@@ -17,8 +19,8 @@ public class SymbolTable {
             builtIn.put(type, builtInSymbol);
         }
 
-        Function printFunction = new Function(this.currentScope, new HashMap<>(), "System.out.println", builtIn.get("void").getType());
-        Variable printParameter = new Variable("x", builtIn.get("String").getType(), printFunction);
+        Function printFunction = new Function(this.currentScope, new HashMap<>(), "System.out.println", builtIn.get("void").getType(), ASTNodes.AccessModifier.PUBLIC, null);
+        Paramater printParameter = new Paramater("x", builtIn.get("String").getType(), printFunction);
         printFunction.bind(printParameter);
         builtIn.put(printFunction.getName(), printFunction);
 
