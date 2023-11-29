@@ -66,7 +66,6 @@ tasks.register("compileTestFilesWithOurCompiler") {
         println("Compile Java test files using our compiler. Files from $testFilesFolder compiled to $ourCompilerCompiledTestFilesFolder.")
         testFilesFolder.walk().forEach { file ->
             if (file.extension == "java") {
-                File("build/classes/java/main").walk().forEach { println(it) }
                 val commandParts =
                     listOf(
                         "java",
