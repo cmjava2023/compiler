@@ -69,7 +69,9 @@ tasks.register("compileTestFilesWithOurCompiler") {
                 val commandParts =
                     listOf(
                         "java",
-                        "-cp",
+                        "-verbose:class",
+                        "-verbose:module",
+                        "-classpath",
                         "\"build/classes/java/main;build/classes/kotlin/main;" + configurations.compileClasspath.get().joinToString(";") { it.path } + "\"",
                         "org/cmjava2023/Main",
                         file.path,
