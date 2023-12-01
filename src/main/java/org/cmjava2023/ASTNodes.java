@@ -134,7 +134,7 @@ public class ASTNodes {
     // (expressions) -> ComparisonNode
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
     // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
-    public record ComparisonNode(ExpressionNode expression1, Operators operator,
+    public record ComparisonNode(Expression expression1, Operators operator,
                                  Expression expression2) implements Node, Expression, Callable {
     }
 

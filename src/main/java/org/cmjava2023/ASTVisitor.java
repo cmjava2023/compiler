@@ -217,11 +217,11 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // expressions: expression (expression_operator expression)?;
     public ASTNodes.Node visitExpressions(MainAntlrParser.ExpressionsContext ctx) {
         if (ctx.expression().size() > 1) {
-            if (ctx.expression_operator().children.get(0) instanceof TerminalNode terminalNode) {
+            if (ctx.expression_operator().children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
                 int tokenType = terminalNode.getSymbol().getType();
                 String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
                 ASTNodes.Operators operator = ASTNodes.Operators.valueOf(tokenName);
-                return new ASTNodes.ComparisonNode((ASTNodes.ExpressionNode) visit(ctx.expression().get(0)), operator, (ASTNodes.ExpressionNode) visit(ctx.expression().get(1)));
+                return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
             } else {
                 throw new IllegalArgumentException("Expected a TerminalNode");
             }
