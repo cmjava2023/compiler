@@ -25,7 +25,7 @@ public class Main {
         ASTNodes.Node ast = visitor.visit(tree);
 
         // To Bytecode :)
-        /*var classFileToAst = new ClassfileModelFromAst();
+        var classFileToAst = new ClassfileModelFromAst();
         var model = classFileToAst.generate((ASTNodes.StartNode)ast);
 
         var byteCodeFromClassFileModel = new BytecodeFromClassfileModel();
@@ -36,7 +36,7 @@ public class Main {
         Files.write(
             Paths.get(outputDirPath.toString(), fileNameWithoutExtensionOf(args[0]) + ".class"),
             bytes
-        );*/
+        );
     }
 
     private static String fileNameWithoutExtensionOf(String path) {
