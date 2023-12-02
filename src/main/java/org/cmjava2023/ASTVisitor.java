@@ -8,6 +8,7 @@ import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.symboltable.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -203,7 +204,6 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // assignment: (variable_declaration | nested_identifier) EQUALS expressions;
     public ASTNodes.Node visitAssignment(MainAntlrParser.AssignmentContext ctx) {
         ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
-
         if (ctx.variable_declaration() != null) {
             ASTNodes.VariableNode variable = (ASTNodes.VariableNode) visit(ctx.variable_declaration());
             return new ASTNodes.VariableNode(variable.variableSymbol(), expression);

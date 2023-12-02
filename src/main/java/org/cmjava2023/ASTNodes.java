@@ -34,7 +34,9 @@ public class ASTNodes {
         LTE,      //  LTE '<='
         MOD,          //  MOD '%'
         LAND,      //  LAND '&&'
-        LOR        //  LOR '||'
+        LOR,        //  LOR '||'
+        DIAMOND_OPEN, // DIAMOND_CLOSE '<'
+        DIAMOND_CLOSE // DIAMOND_CLOSE '>'
     }
 
     public interface Node {
