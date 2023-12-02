@@ -5,6 +5,8 @@ import org.cmjava2023.symboltable.Function;
 import org.cmjava2023.symboltable.Parameter;
 import org.cmjava2023.symboltable.Variable;
 
+import java.util.ArrayList;
+
 public class ASTNodes {
 
     public enum AccessModifier {
@@ -61,18 +63,18 @@ public class ASTNodes {
     }
 
     // start-> StartNode
-    public record StartNode(Statement[] body) implements Node {
+    public record StartNode(ArrayList<Statement> body) implements Node {
     }
 
     // package_declaration -> PackageNode
     public record PackageNode(
-            String[] nestedIdentifier) implements Node, Statement {
+            ArrayList<String> nestedIdentifier) implements Node, Statement {
     } //Maybe save this nested identifier into the symbol table ?
 
     // class_declaration -> ClassNode
     // class_scope[function_declaration (->FunctionNode<statement>), variable_declaration(->VariableNode<Statement>), assignment(-> AssignmentNode<statement>) -> Statement[] body
     public record ClassNode(Clazz classSymbol,
-                            Statement[] body) implements Node, Statement {
+                            ArrayList<Statement> body) implements Node, Statement {
     }
 
     // function_declaration -> FunctionNode
@@ -80,8 +82,8 @@ public class ASTNodes {
     // Function_declaration_args-> ParameterNode[]
     // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->Statement[] body
     public record FunctionNode(Function functionSymbol,
-                               ParameterNode[] parameters,
-                               Statement[] body) implements Node, Callable, Statement {
+                               ArrayList<ParameterNode> parameters,
+                               ArrayList<Statement> body) implements Node, Callable, Statement {
     }
 
     //Function_declaration_arg[type(->symbolTable), IDENTIFIER (->symbolTable)-> ParameterNode
@@ -89,26 +91,26 @@ public class ASTNodes {
     }
 
     // function_call -> CallNode
-    public record FunctionCallNode(String[] nestedIdentifier,
-                                   Expression[] values) implements Node, Statement, Callable {
+    public record FunctionCallNode(ArrayList<String> nestedIdentifier,
+                                   ArrayList<Expression> values) implements Node, Statement, Callable {
     }
 
     // if_statement -> IfNode
     //else_statement [expressions (->ComparisonNode<Expression>/ExpressionNode<Expression>), function_scope (->Statement[])]->IfNode
     public record IfNode(Expression expression,
-                         Statement[] statements) implements Node, Condition, Statement {
+                         ArrayList<Statement> statements) implements Node, Condition, Statement {
     }
 
     //else_statement -> ElseNode
     //else_statement [function_scope (->Statement[])]->ElseNode
     public record ElseNode(
-            Statement[] statements) implements Node, Condition, Statement {
+            ArrayList<Statement> statements) implements Node, Condition, Statement {
     }
 
     // block_scope -> BlockScopeNode
     // block_scope [if_statement (-> IfNode<Condition>)/if_else_statement(->IfNode<Condition>, ElseNode<Condition>)]-> Condition[] conditions
     public record BlockScopeNode(
-            Condition[] conditions) implements Node, Statement {
+            ArrayList<Condition> conditions) implements Node, Statement {
     }
 
     // variable_declaration -> VariableNode
@@ -118,7 +120,7 @@ public class ASTNodes {
                                Expression value) implements Node, Callable, Statement {
     }
 
-    public record VariableAssigmentNode(String[] variableName,
+    public record VariableAssigmentNode(ArrayList<String> variableName,
                                         Expression value) implements Node, Callable, Statement {
     }
 
@@ -130,7 +132,7 @@ public class ASTNodes {
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
-            String[] nestedIdentifier) implements Node, Callable, Expression, Identifier {
+            ArrayList<String> nestedIdentifier) implements Node, Callable, Expression, Identifier {
     }
 
     // (expressions) -> ComparisonNode
