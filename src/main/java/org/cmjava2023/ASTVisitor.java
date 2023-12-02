@@ -11,7 +11,6 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
@@ -23,53 +22,50 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return new ASTNodes.StartNode(getGlobalStatements(ctx.children));
     }
 
-    private ASTNodes.Statement[] getGlobalStatements(List<ParseTree> children) {
-        int size = children.size();
-        ASTNodes.Statement[] statements = new ASTNodes.Statement[size];
+    private ArrayList<ASTNodes.Statement> getGlobalStatements(List<ParseTree> children) {
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            statements[i] = (ASTNodes.Statement) visit(children.get(i).getChild(0));
+        for (ParseTree child : children) {
+            statementList.add((ASTNodes.Statement) visit(child.getChild(0)));
         }
-        return statements;
+
+        return statementList;
     }
 
-    private ASTNodes.Statement[] getStatements(List<ParseTree> children) {
-        int size = getSize(children);
-        ASTNodes.Statement[] statements = new ASTNodes.Statement[size];
+    private ArrayList<ASTNodes.Statement> getStatements(List<ParseTree> children) {
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            statements[i] = (ASTNodes.Statement) visit(children.get(i));
+        for (ParseTree child : children) {
+            if (!child.getText().equals(";")) {
+                statementList.add((ASTNodes.Statement) visit(child));
+            }
         }
-        return statements;
+
+        return statementList;
     }
 
-    private ASTNodes.ParameterNode[] getParameters(List<ParseTree> children) {
-        int size = getSize(children);
-        ASTNodes.ParameterNode[] parameters = new ASTNodes.ParameterNode[size];
+    private ArrayList<ASTNodes.ParameterNode> getParameters(List<ParseTree> children) {
+        ArrayList<ASTNodes.ParameterNode> parameterList = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            parameters[i] = (ASTNodes.ParameterNode) visit(children.get(i));
+        for (ParseTree child : children) {
+            if (!child.getText().equals(",")) {
+                parameterList.add((ASTNodes.ParameterNode) visit(child));
+            }
         }
-        return parameters;
+
+        return parameterList;
     }
 
-    private ASTNodes.Expression[] getExpressions(List<ParseTree> children) {
-        int size = getSize(children);
-        ASTNodes.Expression[] expressions = new ASTNodes.Expression[size];
+    private ArrayList<ASTNodes.Expression> getExpressions(List<ParseTree> children) {
+        ArrayList<ASTNodes.Expression> expressionList = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            expressions[i] = (ASTNodes.Expression) visit(children.get(i));
+        for (ParseTree child : children) {
+            if (!child.getText().equals(",")) {
+                expressionList.add((ASTNodes.Expression) visit(child));
+            }
         }
-        return expressions;
-    }
 
-    private static int getSize(List<ParseTree> children) {
-        int size = children.size();
-        if (Objects.equals(children.get(size - 1).getText(), ";")) {
-            children.remove(size - 1);
-            size--;
-        }
-        return size;
+        return expressionList;
     }
 
     // ########ANTLR########
@@ -83,10 +79,10 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // nested_identifier: IDENTIFIER (DOT IDENTIFIER)*;
     public ASTNodes.Node visitIdentifier(MainAntlrParser.IdentifierContext ctx) {
         int size = ctx.IDENTIFIER().size();
-        String[] identifiers = new String[size];
+        ArrayList<String> identifiers = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            identifiers[i] = ctx.IDENTIFIER().get(i).getText();
+            identifiers.add(ctx.IDENTIFIER().get(i).getText());
         }
 
         return new ASTNodes.NestedIdentifierNode(identifiers);
@@ -99,7 +95,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         ASTNodes.AccessModifier accessModifier = ASTNodes.AccessModifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         Clazz classSymbol = setClassScope(ctx, null, accessModifier, null);
 
-        ASTNodes.Statement[] statements = getStatements(ctx.class_scope().children);
+        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.class_scope().children);
 
         symbolTable.popScope();
         return new ASTNodes.ClassNode(classSymbol, statements);
@@ -123,11 +119,11 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         ASTNodes.AccessModifier accessModifier = ASTNodes.AccessModifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         Function functionSymbol = setFunctionScope(ctx, accessModifier, instanceModifier);
 
-        ASTNodes.ParameterNode[] parameters = ctx.function_declaration_args() == null ? null : getParameters(ctx.function_declaration_args().children);
+        ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? null : getParameters(ctx.function_declaration_args().children);
 
         setLocalScope();
 
-        ASTNodes.Statement[] statements = getStatements(ctx.function_scope().children);
+        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
 
         symbolTable.popScope();
 
@@ -158,7 +154,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_args: function_arg (COMMA function_arg)*;
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
-        ASTNodes.Expression[] argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
+        ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
         return new ASTNodes.FunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions);
     }
 
@@ -247,12 +243,12 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // if_statement: IF_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
     // if_else_statement: if_statement else_statement;
     public ASTNodes.Node visitBlock_scope(MainAntlrParser.Block_scopeContext ctx) {
-        ASTNodes.Condition[] conditions = new ASTNodes.Condition[2];
+        ArrayList<ASTNodes.Condition> conditions = new ArrayList<>();
         if (ctx.if_statement() != null) {
-            conditions[0] = (ASTNodes.Condition) visit(ctx.if_statement());
+            conditions.add((ASTNodes.Condition) visit(ctx.if_statement()));
         } else {
-            conditions[0] = (ASTNodes.Condition) visit(ctx.if_else_statement().if_statement());
-            conditions[1] = (ASTNodes.Condition) visit(ctx.if_else_statement().else_statement());
+            conditions.add((ASTNodes.Condition) visit(ctx.if_else_statement().if_statement()));
+            conditions.add((ASTNodes.Condition) visit(ctx.if_else_statement().else_statement()));
         }
         return new ASTNodes.BlockScopeNode(conditions);
     }
@@ -262,7 +258,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx) {
         setLocalScope();
-        ASTNodes.Statement[] statements = getStatements(ctx.function_scope().children);
+        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
         ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
         symbolTable.popScope();
         return new ASTNodes.IfNode(expression, statements);
@@ -273,7 +269,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public ASTNodes.Node visitElse_statement(MainAntlrParser.Else_statementContext ctx) {
         setLocalScope();
-        ASTNodes.Statement[] statements = getStatements(ctx.function_scope().children);
+        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
         symbolTable.popScope();
         return new ASTNodes.ElseNode(statements);
     }
