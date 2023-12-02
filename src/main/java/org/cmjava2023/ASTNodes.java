@@ -2,7 +2,7 @@ package org.cmjava2023;
 
 import org.cmjava2023.symboltable.Clazz;
 import org.cmjava2023.symboltable.Function;
-import org.cmjava2023.symboltable.Paramater;
+import org.cmjava2023.symboltable.Parameter;
 import org.cmjava2023.symboltable.Variable;
 
 public class ASTNodes {
@@ -83,7 +83,7 @@ public class ASTNodes {
     }
 
     //Function_declaration_arg[type(->symbolTable), IDENTIFIER (->symbolTable)-> ParameterNode
-    public record ParameterNode(Paramater parameterSymbol) implements Node {
+    public record ParameterNode(Parameter parameterSymbol) implements Node {
     }
 
     // function_call -> CallNode
