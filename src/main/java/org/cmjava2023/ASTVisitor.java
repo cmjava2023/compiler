@@ -35,16 +35,12 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     private ASTNodes.Statement[] getStatements(List<ParseTree> children) {
         int size = getSize(children);
-        ArrayList<ASTNodes.Statement> statements= new ArrayList<ASTNodes.Statement>();
+        ASTNodes.Statement[] statements = new ASTNodes.Statement[size];
 
         for (int i = 0; i < size; i++) {
-            if(!children.get(i).getText().equals(";")) { // We ignore semicolons!
-                statements.add((ASTNodes.Statement) visit(children.get(i)));
-            }
+            statements[i] = (ASTNodes.Statement) visit(children.get(i));
         }
-        ASTNodes.Statement[] statementsArray = new ASTNodes.Statement[statements.size()];
-        statements.toArray(statementsArray);
-        return statementsArray;
+        return statements;
     }
 
     private ASTNodes.ParameterNode[] getParameters(List<ParseTree> children) {
