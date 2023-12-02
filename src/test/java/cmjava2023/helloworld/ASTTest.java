@@ -58,6 +58,7 @@ public class ASTTest {
                                         L  value: "Hello world!"
                 """;
         System.out.println(new TreePrinter().printAst(ast));
+        System.out.println(new TreePrinter().printSymbolTable(visitor.symbolTable));
         assertEquals(expected, new TreePrinter().printAst(ast));
     }
 }
