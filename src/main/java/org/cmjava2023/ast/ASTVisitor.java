@@ -1,4 +1,4 @@
-package org.cmjava2023;
+package org.cmjava2023.ast;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;

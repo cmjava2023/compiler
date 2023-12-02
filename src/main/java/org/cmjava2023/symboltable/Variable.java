@@ -1,6 +1,6 @@
 package org.cmjava2023.symboltable;
 
-import org.cmjava2023.ASTNodes;
+import org.cmjava2023.ast.ASTNodes;
 
 public class Variable extends BaseSymbol {
     private final ASTNodes.Expression initialExpression;
