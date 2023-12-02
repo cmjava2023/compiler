@@ -146,7 +146,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // function_declaration_arg: type IDENTIFIER;
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
-        Paramater parameterSymbol = new Paramater(ctx.IDENTIFIER().getText(), null, symbolTable.getCurrentScope());
+        Parameter parameterSymbol = new Parameter(ctx.IDENTIFIER().getText(), null, symbolTable.getCurrentScope());
         setType(ctx.type(), parameterSymbol);
         symbolTable.addSymbol(parameterSymbol);
         return new ASTNodes.ParameterNode(parameterSymbol);

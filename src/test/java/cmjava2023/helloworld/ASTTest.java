@@ -34,30 +34,30 @@ public class ASTTest {
                 StartNode
                 L  body
                    |- PackageNode
-                   |  L  identifier: cmjava2023.helloworld
+                   |  L  nestedIdentifier
+                   |     |- 0: cmjava2023
+                   |     L  1: helloworld
                    L  ClassNode
-                      |- identifier: Main
-                      |- modifier
-                      |  L  0: PUBLIC
+                      |- Clazz
+                      |  |- accessModifier: PUBLIC
                       L  body
                          L  FunctionNode
-                            |- identifier: main
-                            |- modifier
-                            |  |- 0: PUBLIC
-                            |  L  1: STATIC
-                            |- returnType: void
+                            |- Function
+                            |  |- accessModifier: PUBLIC
+                            |  L  instanceModifier: STATIC
                             |- parameters
                             |  L  ParameterNode
-                            |     |- type: String[]
-                            |     L  identifier: args
+                            |     L  Parameter
                             L  body
                                L  FunctionCallNode
-                                  |- identifier: System.out.println
+                                  |- nestedIdentifier
+                                  |  |- 0: System
+                                  |  |- 1: out
+                                  |  L  2: println
                                   L  values
                                      L  ValueNode
                                         L  value: "Hello world!"
                 """;
-        System.out.println(new TreePrinter().printAst(ast));
         assertEquals(expected, new TreePrinter().printAst(ast));
     }
 }

@@ -22,6 +22,6 @@ public class ArrayType implements Type {
 
     @Override
     public String toString() {
-        return arrayType +"[]";
+        return arrayType.getName() +"[]";
     }
 }

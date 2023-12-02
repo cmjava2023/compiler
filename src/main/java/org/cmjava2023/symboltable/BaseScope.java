@@ -14,8 +14,14 @@ public abstract class BaseScope implements Scope {
         this.symbols = symbols;
     }
 
-    public void addChildScope(Scope scope){
-        if(!(scope instanceof SymbolWithScope)) { childScopes.add(scope); }
+    public void addChildScope(Scope scope) {
+        if (!(scope instanceof SymbolWithScope)) {
+            childScopes.add(scope);
+        }
+    }
+
+    public ArrayList<Scope> getChildScopes() {
+        return childScopes;
     }
 
     public void bind(Symbol symbol) {

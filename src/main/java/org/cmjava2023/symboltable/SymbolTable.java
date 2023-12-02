@@ -20,7 +20,7 @@ public class SymbolTable {
         }
 
         Function printFunction = new Function(this.currentScope, new HashMap<>(), "System.out.println", builtIn.get("void").getType(), ASTNodes.AccessModifier.PUBLIC, null);
-        Paramater printParameter = new Paramater("x", builtIn.get("String").getType(), printFunction);
+        Parameter printParameter = new Parameter("x", builtIn.get("String").getType(), printFunction);
         printFunction.bind(printParameter);
         builtIn.put(printFunction.getName(), printFunction);
 
