@@ -109,8 +109,14 @@ class ClassfileModelFromAst {
                                 val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo(qualifiedClassName)), NameAndTypeConstantInfo(Utf8ConstantInfo(fieldName), Utf8ConstantInfo("Ljava/io/PrintStream;"))) // TODO should ast split field reference and call on field in multiple expressions?
                                 val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo("java/io/PrintStream")), NameAndTypeConstantInfo(Utf8ConstantInfo(methodName), Utf8ConstantInfo("(Ljava/lang/String;)V")))
 
-                                val whatToPrint = "Hello world!"// statement.values[0].value   //.removePrefix("\"").removeSuffix("\"") // TODO should be already removed in ast
-                                // TODO cant access value field in ValueNode ( statement.values[0] is the ValueNode )
+                                var whatToPrint: String
+
+                                val expr = statement.values[0]
+                                if(expr is ASTNodes.ValueNode){
+                                    whatToPrint = expr.value.removePrefix("\"").removeSuffix("\"") // TODO should be already removed in ast
+                                } else {
+                                    throw NotImplementedError()
+                                }
 
                                 result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(Utf8ConstantInfo(whatToPrint)))))
 
