@@ -1,5 +1,7 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.ast.ASTNodes
+
 @Suppress("unused")
 enum class ClassAccessModifier(val value:Short) {
     ACC_PUBLIC(0x0001),
