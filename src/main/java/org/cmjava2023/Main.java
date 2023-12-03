@@ -26,18 +26,14 @@ public class Main {
         ASTVisitor visitor = new ASTVisitor();
         ASTNodes.Node ast = visitor.visit(tree);
 
-        // To Bytecode :)
-        var classFileToAst = new ClassfileModelFromAst();
-        var model = classFileToAst.generate((ASTNodes.StartNode)ast);
+        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)ast);
+        var bytesForClassFile = new BytecodeFromClassfileModel().generate(classFileModel);
 
-        var byteCodeFromClassFileModel = new BytecodeFromClassfileModel();
-        var bytes = byteCodeFromClassFileModel.generate(model);
-
-        Path outputDirPath = Paths.get(args[1], model.getPackageNameWithDelimiterForClassFile());
+        Path outputDirPath = Paths.get(args[1], classFileModel.getPackageNameWithDelimiterForClassFile());
         Files.createDirectories(outputDirPath);
         Files.write(
             Paths.get(outputDirPath.toString(), fileNameWithoutExtensionOf(args[0]) + ".class"),
-            bytes
+            bytesForClassFile
         );
     }
 

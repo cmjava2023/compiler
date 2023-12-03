@@ -28,12 +28,7 @@ class ClassfileModelFromAst {
         resetFields()
         val packageNameWithDelimiterForClassFile = parseTopLevelStatementsAndGetPackageName(ast)
 
-        methodInfos.add(MethodInfo(
-            listOf(MethodAccessModifier.ACC_PUBLIC),
-            Utf8ConstantInfo("<init>"),
-            Utf8ConstantInfo("()V"),
-            listOf(CodeAttributeInfo(listOf()))
-        ))
+        methodInfos.add(createDefaultConstructorMethodInfo())
 
         return ClassfileModel(
             packageNameWithDelimiterForClassFile,
@@ -50,21 +45,20 @@ class ClassfileModelFromAst {
         )
     }
 
+    private fun createDefaultConstructorMethodInfo() = MethodInfo(
+        listOf(MethodAccessModifier.ACC_PUBLIC),
+        "<init>",
+        "()V",
+        listOf(CodeAttributeInfo(listOf()))
+    )
+
     private fun parseTopLevelStatementsAndGetPackageName(ast: ASTNodes.StartNode): String {
+        val packages = mutableListOf<String>()
         var className = ""
-        var packageNameWithDelimiterForClassFile = ""
 
         for (statement in ast.body) {
             if (statement is ASTNodes.PackageNode) {
-                var firstElement = true
-                for (element in statement.nestedIdentifier) {
-                    if (firstElement) {
-                        packageNameWithDelimiterForClassFile += element
-                        firstElement = false
-                    } else {
-                        packageNameWithDelimiterForClassFile += PACKAGE_DELIMITER_IN_CLASS_FILES + element
-                    }
-                }
+                packages.addAll(statement.nestedIdentifier)
 
             } else if (statement is ASTNodes.ClassNode) {
                 className = statement.classSymbol.name
@@ -76,10 +70,10 @@ class ClassfileModelFromAst {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo(packageNameWithDelimiterForClassFile + PACKAGE_DELIMITER_IN_CLASS_FILES + className)))
-        constantInfos.add(ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")))
+        constantInfos.add(ClassConstantInfo(packages.plus(className).joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)))
+        constantInfos.add(ClassConstantInfo("java/lang/Object"))
 
-        return packageNameWithDelimiterForClassFile
+        return packages.joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
     }
 
     private fun parseStatements(statements: List<ASTNodes.Statement>) {
@@ -107,8 +101,8 @@ class ClassfileModelFromAst {
 
                                 val qualifiedClassName = "java/lang/$className"
 
-                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo(qualifiedClassName)), NameAndTypeConstantInfo(Utf8ConstantInfo(fieldName), Utf8ConstantInfo("Ljava/io/PrintStream;"))) // TODO should ast split field reference and call on field in multiple expressions?
-                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo("java/io/PrintStream")), NameAndTypeConstantInfo(Utf8ConstantInfo(methodName), Utf8ConstantInfo("(Ljava/lang/String;)V")))
+                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(qualifiedClassName), NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;"))
+                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo("java/io/PrintStream"), NameAndTypeConstantInfo(methodName, "(Ljava/lang/String;)V"))
 
                                 var whatToPrint: String
 
@@ -119,7 +113,7 @@ class ClassfileModelFromAst {
                                     throw NotImplementedError()
                                 }
 
-                                result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(Utf8ConstantInfo(whatToPrint)))))
+                                result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(whatToPrint))))
 
                             }
                         }
@@ -132,8 +126,6 @@ class ClassfileModelFromAst {
     }
 
     private fun parseFunctionNode(functionNode: ASTNodes.FunctionNode) {
-        val returnCode = if (functionNode.functionSymbol.type.name == "void") { "V" } else {throw  NotImplementedError() }
-        val parameterCodes = parseParameterCodes(functionNode.parameters.toCollection(ArrayList()))
         val methodModifiers = listOf(
             MethodAccessModifier.fromASTAccessModifier(functionNode.functionSymbol.accessModifier),
             MethodAccessModifier.fromASTModifier(functionNode.functionSymbol.instanceModifier)
@@ -141,17 +133,27 @@ class ClassfileModelFromAst {
         methodInfos.add(
             MethodInfo(
                  methodModifiers,
-                Utf8ConstantInfo(functionNode.functionSymbol.name),
-                Utf8ConstantInfo("(${parameterCodes.joinToString("") { "$it;" }})$returnCode"),
+                functionNode.functionSymbol.name,
+                createMethodTypeDescriptor(functionNode),
                 listOf(CodeAttributeInfo(parseStatementsInCode(functionNode.body.toList()))),
             )
         )
     }
 
-    private fun parseParameterCodes(parameters: ArrayList<ASTNodes.ParameterNode>): List<String> {
+    private fun createMethodTypeDescriptor(functionNode: ASTNodes.FunctionNode): String {
+        val returnCode = if (functionNode.functionSymbol.type.name == "void") {
+            "V"
+        } else {
+            throw NotImplementedError()
+        }
+        val parameterTypeCodes = parseParameterTypeCodes(functionNode.parameters.toCollection(ArrayList()))
+        return "(${parameterTypeCodes.joinToString("") { "$it;" }})$returnCode"
+    }
+
+    private fun parseParameterTypeCodes(parameters: ArrayList<ASTNodes.ParameterNode>): List<String> {
         val result = mutableListOf<String>()
         for (parameter in parameters) {
-            if (true) { // TODO parameter.parameterSymbol.name == "String[]"
+            if (parameter.parameterSymbol.type.name == "String[]") {
                 result.add("[Ljava/lang/String")
             } else {
                 throw NotImplementedError()

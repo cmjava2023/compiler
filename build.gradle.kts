@@ -80,8 +80,14 @@ tasks.register("compileTestFilesWithOurCompiler") {
                         ourCompilerCompiledTestFilesFolder.path
                     )
                 println("  " + commandParts.joinToString(" "))
-                exec {
-                    commandLine(commandParts)
+                try {
+                    exec {
+                        commandLine(commandParts)
+                    }
+                } catch (e: Exception) {
+                    if (System.getProperty("CI") == "true") {
+                       throw e
+                    }
                 }
             }
         }
@@ -106,9 +112,15 @@ fun createJavapTxtFilesForAllClassFilesInFolder(folder: File) {
             val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
             println("  " + commandParts.joinToString(" "))
             val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
-            exec {
-                standardOutput = outputFile.outputStream()
-                commandLine(commandParts)
+            try {
+                exec {
+                    standardOutput = outputFile.outputStream()
+                    commandLine(commandParts)
+                }
+            } catch (e: Exception) {
+                if (System.getProperty("CI") == "true") {
+                    throw e
+                }
             }
         }
     }

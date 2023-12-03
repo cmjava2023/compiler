@@ -1,3 +1,6 @@
 package org.cmjava2023.classfilespecification.constantpool
 
-class NameAndTypeConstantInfo(val name: Utf8ConstantInfo, val type: Utf8ConstantInfo): ConstantInfo(ConstantInfoTag.CONSTANT_NameAndType)
+class NameAndTypeConstantInfo(name: String, type: String): ConstantInfo(ConstantInfoTag.CONSTANT_NameAndType) {
+    val name = Utf8ConstantInfo(name)
+    val type = Utf8ConstantInfo(type)
+}

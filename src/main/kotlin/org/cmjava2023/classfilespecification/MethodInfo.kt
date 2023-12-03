@@ -5,7 +5,10 @@ import org.cmjava2023.classfilespecification.constantpool.Utf8ConstantInfo
 
 class MethodInfo(
     val accessModifiers: List<MethodAccessModifier>,
-    val nameConstant: Utf8ConstantInfo,
-    val methodType: Utf8ConstantInfo,
+    name: String,
+    typeDescriptor: String,
     val attributes: List<AbstractAttributeInfo>
-)
+) {
+    val name = Utf8ConstantInfo(name)
+    val typeDescriptor = Utf8ConstantInfo(typeDescriptor)
+}
