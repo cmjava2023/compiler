@@ -1,5 +1,7 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.ast.ASTNodes
+
 @Suppress("unused")
 enum class ClassAccessModifier(val value:Short) {
     ACC_PUBLIC(0x0001),
@@ -11,14 +13,14 @@ enum class ClassAccessModifier(val value:Short) {
     ACC_ANNOTATION(0x2000),
     ACC_ENUM(0x4000);
 
-    /*companion object {
-        fun fromASTModifier(astModifier: ASTNodes.Modifier): ClassAccessModifier {
+    companion object {
+        fun fromASTModifier(astModifier: ASTNodes.AccessModifier): ClassAccessModifier {
             return when(astModifier) {
-                ASTNodes.Modifier.PUBLIC -> ACC_PUBLIC
+                ASTNodes.AccessModifier.PUBLIC -> ACC_PUBLIC
                 else -> throw NotImplementedError()
             }
         }
-    }*/
+    }
 }
 
 

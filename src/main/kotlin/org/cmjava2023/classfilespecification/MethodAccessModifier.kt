@@ -1,5 +1,7 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.ast.ASTNodes
+
 @Suppress("unused")
 enum class MethodAccessModifier(val value:Short) {
     ACC_PUBLIC(0x0001),
@@ -15,13 +17,18 @@ enum class MethodAccessModifier(val value:Short) {
     ACC_STRICT(0x0800),
     ACC_SYNTHETIC(0x1000);
 
-   /* companion object {
+    companion object {
         fun fromASTModifier(astModifier: ASTNodes.Modifier): MethodAccessModifier {
             return when(astModifier) {
-                ASTNodes.Modifier.PUBLIC -> ACC_PUBLIC
                 ASTNodes.Modifier.STATIC -> ACC_STATIC
                 else -> throw NotImplementedError()
             }
         }
-    }*/
+        fun fromASTAccessModifier(astModifier: ASTNodes.AccessModifier): MethodAccessModifier {
+            return when(astModifier) {
+                ASTNodes.AccessModifier.PUBLIC -> ACC_PUBLIC
+                else -> throw NotImplementedError()
+            }
+        }
+    }
 }

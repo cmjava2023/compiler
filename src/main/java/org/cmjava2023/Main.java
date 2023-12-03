@@ -11,6 +11,8 @@ import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
@@ -25,7 +27,7 @@ public class Main {
         ASTNodes.Node ast = visitor.visit(tree);
 
         // To Bytecode :)
-        /*var classFileToAst = new ClassfileModelFromAst();
+        var classFileToAst = new ClassfileModelFromAst();
         var model = classFileToAst.generate((ASTNodes.StartNode)ast);
 
         var byteCodeFromClassFileModel = new BytecodeFromClassfileModel();
@@ -36,7 +38,7 @@ public class Main {
         Files.write(
             Paths.get(outputDirPath.toString(), fileNameWithoutExtensionOf(args[0]) + ".class"),
             bytes
-        );*/
+        );
     }
 
     private static String fileNameWithoutExtensionOf(String path) {

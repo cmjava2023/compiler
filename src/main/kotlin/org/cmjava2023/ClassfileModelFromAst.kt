@@ -1,6 +1,7 @@
 
 package org.cmjava2023
-/*
+
+import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.codeParts.FunctionCallCodePart
@@ -55,16 +56,20 @@ class ClassfileModelFromAst {
 
         for (statement in ast.body) {
             if (statement is ASTNodes.PackageNode) {
-                packageNameWithDelimiterForClassFile += statement.identifier.replace(
-                    PACKAGE_DELIMITER_IN_JAVA_FILES,
-                    PACKAGE_DELIMITER_IN_CLASS_FILES
-                )
-            } else if (statement is ASTNodes.ClassNode) {
-                className = statement.identifier
-                for (modifierNode in statement.modifier) {
-                    classAccessModifiers.add(ClassAccessModifier.fromASTModifier(modifierNode))
+                var firstElement = true
+                for (element in statement.nestedIdentifier) {
+                    if (firstElement) {
+                        packageNameWithDelimiterForClassFile += element
+                        firstElement = false
+                    } else {
+                        packageNameWithDelimiterForClassFile += PACKAGE_DELIMITER_IN_CLASS_FILES + element
+                    }
                 }
-                parseStatements(statement.body)
+
+            } else if (statement is ASTNodes.ClassNode) {
+                className = statement.classSymbol.name
+                classAccessModifiers.add(ClassAccessModifier.fromASTModifier(statement.classSymbol.accessModifier))
+                parseStatements(statement.body.toList())
             }
         }
         if (!classAccessModifiers.contains(ClassAccessModifier.ACC_FINAL)) {
@@ -93,21 +98,32 @@ class ClassfileModelFromAst {
         for (statement in statements) {
             when (statement) {
                 is ASTNodes.FunctionCallNode -> {
-                    if (statement.identifier == "System.out.println") {
-                        val identifierElements = statement.identifier.split(".")
-                        val className = identifierElements.first()
-                        val fieldName = identifierElements[1]
-                        val methodName = identifierElements.last()
+                    if (statement.nestedIdentifier[0] == "System") {
+                        if (statement.nestedIdentifier[1] == "out") {
+                            if (statement.nestedIdentifier[2] == "println") {
+                                val className = statement.nestedIdentifier[0]
+                                val fieldName = statement.nestedIdentifier[1]
+                                val methodName = statement.nestedIdentifier[2]
 
-                        val qualifiedClassName = "java/lang/$className"
+                                val qualifiedClassName = "java/lang/$className"
 
-                        val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo(qualifiedClassName)), NameAndTypeConstantInfo(Utf8ConstantInfo(fieldName), Utf8ConstantInfo("Ljava/io/PrintStream;"))) // TODO should ast split field reference and call on field in multiple expressions?
-                        val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo("java/io/PrintStream")), NameAndTypeConstantInfo(Utf8ConstantInfo(methodName), Utf8ConstantInfo("(Ljava/lang/String;)V")))
+                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo(qualifiedClassName)), NameAndTypeConstantInfo(Utf8ConstantInfo(fieldName), Utf8ConstantInfo("Ljava/io/PrintStream;"))) // TODO should ast split field reference and call on field in multiple expressions?
+                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo(Utf8ConstantInfo("java/io/PrintStream")), NameAndTypeConstantInfo(Utf8ConstantInfo(methodName), Utf8ConstantInfo("(Ljava/lang/String;)V")))
 
-                        val whatToPrint = statement.values.single().value.removePrefix("\"").removeSuffix("\"") // TODO should be already removed in ast
+                                var whatToPrint: String
 
-                        result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(Utf8ConstantInfo(whatToPrint)))))
-                    }
+                                val expr = statement.values[0]
+                                if(expr is ASTNodes.ValueNode){
+                                    whatToPrint = expr.value.removePrefix("\"").removeSuffix("\"") // TODO should be already removed in ast
+                                } else {
+                                    throw NotImplementedError()
+                                }
+
+                                result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(Utf8ConstantInfo(whatToPrint)))))
+
+                            }
+                        }
+                        }
                 }
             }
         }
@@ -116,15 +132,18 @@ class ClassfileModelFromAst {
     }
 
     private fun parseFunctionNode(functionNode: ASTNodes.FunctionNode) {
-        val returnCode = if (functionNode.returnType == "void") { "V" } else { throw  NotImplementedError() }
-        val parameterCodes = parseParameterCodes(functionNode.parameters)
-
+        val returnCode = if (functionNode.functionSymbol.type.name == "void") { "V" } else {throw  NotImplementedError() }
+        val parameterCodes = parseParameterCodes(functionNode.parameters.toCollection(ArrayList()))
+        val methodModifiers = listOf(
+            MethodAccessModifier.fromASTAccessModifier(functionNode.functionSymbol.accessModifier),
+            MethodAccessModifier.fromASTModifier(functionNode.functionSymbol.instanceModifier)
+        )
         methodInfos.add(
             MethodInfo(
-                functionNode.modifier.map { MethodAccessModifier.fromASTModifier(it) },
-                Utf8ConstantInfo(functionNode.identifier),
+                 methodModifiers,
+                Utf8ConstantInfo(functionNode.functionSymbol.name),
                 Utf8ConstantInfo("(${parameterCodes.joinToString("") { "$it;" }})$returnCode"),
-                listOf(CodeAttributeInfo(parseStatementsInCode(functionNode.body)))
+                listOf(CodeAttributeInfo(parseStatementsInCode(functionNode.body.toList()))),
             )
         )
     }
@@ -132,7 +151,7 @@ class ClassfileModelFromAst {
     private fun parseParameterCodes(parameters: ArrayList<ASTNodes.ParameterNode>): List<String> {
         val result = mutableListOf<String>()
         for (parameter in parameters) {
-            if (parameter.type == "String[]") {
+            if (true) { // TODO parameter.parameterSymbol.name == "String[]"
                 result.add("[Ljava/lang/String")
             } else {
                 throw NotImplementedError()
@@ -141,4 +160,4 @@ class ClassfileModelFromAst {
 
         return result
     }
-}*/
+}
