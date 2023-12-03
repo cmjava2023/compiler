@@ -1,11 +1,11 @@
 package org.cmjava2023
 
-import org.cmjava2023.ByteListUtil.Companion.add
+import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.MethodInfo
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.*
-import kotlin.experimental.or
+import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 class ConstantPoolToByteList {
 
@@ -19,8 +19,9 @@ class ConstantPoolToByteList {
     companion object {
         private var lastOccupiedConstantPoolIndex: Short = 0
         private var constantPoolBytes = mutableListOf<Byte>()
+        private val methodInfosBytes = mutableListOf<Byte>()
         
-        fun mapToByteList(constantPool: List<ConstantInfo>, methodInfos: List<MethodInfo>): ClassFileBytes {
+        fun mapToClassFileBytes(constantPool: List<ConstantInfo>, methodInfos: List<MethodInfo>): ClassFileBytes {
             constantPoolBytes = mutableListOf()
             lastOccupiedConstantPoolIndex = 0
             for (constantInfo in constantPool) {
@@ -28,80 +29,8 @@ class ConstantPoolToByteList {
                     is ClassConstantInfo -> addClassConstantInfoAndGetStartIndex(constantInfo)
                 }
             }
-
-            val methodInfosBytes = mutableListOf<Byte>()
             for (methodInfo in methodInfos) {
-                methodInfosBytes.add(
-                    methodInfo.accessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag }
-                )
-                val methodNameIndex = addUtf8ConstantAndGetStartIndex(methodInfo.nameConstant)
-                methodInfosBytes.add(methodNameIndex)
-
-                val methodTypeIndex = addUtf8ConstantAndGetStartIndex(methodInfo.methodType)
-                methodInfosBytes.add(methodTypeIndex)
-
-                methodInfosBytes.add(methodInfo.attributes.size.toShort())
-
-                val singleAttribute = methodInfo.attributes.singleOrNull()
-                if (singleAttribute is CodeAttributeInfo) {
-                    val attributeNameIndex = addUtf8ConstantAndGetStartIndex(singleAttribute.name)
-                    methodInfosBytes.add(attributeNameIndex)
-
-
-                    if (methodInfo.nameConstant.name  == "<init>") {
-                        val attributeLength = 17u
-                        methodInfosBytes.add(attributeLength)
-                        val maxStackSize: Short = 2
-                        val maxLocalVarSize: Short = 1
-                        val sizeOfCode = 5u
-
-                        methodInfosBytes.add(maxStackSize)
-                        methodInfosBytes.add(maxLocalVarSize)
-                        methodInfosBytes.add(sizeOfCode)
-
-                        methodInfosBytes.add(OpCode.aload_0.value)
-
-                        methodInfosBytes.add(OpCode.invokespecial.value)
-                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(MethodReferenceConstantInfo(
-                            ClassConstantInfo(Utf8ConstantInfo("java/lang/Object")),
-                            NameAndTypeConstantInfo(Utf8ConstantInfo("<init>"), Utf8ConstantInfo("()V")))))
-
-                        methodInfosBytes.add(OpCode.returnVoid.value)
-                    }
-                    else {
-                        val attributeLength = 21u
-                        methodInfosBytes.add(attributeLength)
-
-                        val functionCallCodePart = singleAttribute.functionCallCodeParts.singleOrNull() ?: throw NotImplementedError()
-
-                        val maxStackSize: Short = 2
-                        val maxLocalVarSize: Short = 1
-                        val sizeOfCode = 9u
-
-                        methodInfosBytes.add(maxStackSize)
-                        methodInfosBytes.add(maxLocalVarSize)
-                        methodInfosBytes.add(sizeOfCode)
-
-                        methodInfosBytes.add(OpCode.getstatic.value)
-                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo))
-
-                        methodInfosBytes.add(OpCode.loaDConstant.value) //ldc only takes a byte sized index, ldc_w is used when a byte is not sufficient for index
-                        methodInfosBytes.add(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte())
-
-                        methodInfosBytes.add(OpCode.invokevirtual.value)
-                        methodInfosBytes.add(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo))
-
-                        methodInfosBytes.add(OpCode.returnVoid.value)
-                    }
-
-                    val exceptionTableLength: Short = 0
-                    methodInfosBytes.add(exceptionTableLength)
-
-                    val attributesCount: Short = 0
-                    methodInfosBytes.add(attributesCount)
-                } else if (singleAttribute != null) {
-                    throw NotImplementedError()
-                }
+                addMethodInfo(methodInfo)
             }
 
             return ClassFileBytes(
@@ -110,6 +39,77 @@ class ConstantPoolToByteList {
                 methodInfosBytes,
                 methodInfos.size.toShort()
             )
+        }
+
+        private fun addMethodInfo(methodInfo: MethodInfo) {
+            methodInfosBytes.add(
+                methodInfo.accessModifiers.map { it.value }.bitwiseOrCombine()
+            )
+            val methodNameIndex = addUtf8ConstantAndGetStartIndex(methodInfo.name)
+            methodInfosBytes.add(methodNameIndex)
+
+            val methodTypeIndex = addUtf8ConstantAndGetStartIndex(methodInfo.typeDescriptor)
+            methodInfosBytes.add(methodTypeIndex)
+
+            methodInfosBytes.add(methodInfo.attributes.size.toShort())
+
+            val codeAttributeInfo = methodInfo.attributes.filterIsInstance<CodeAttributeInfo>().singleOrNull()
+            if (codeAttributeInfo != null) {
+                val codeAttributeNameIndex = addUtf8ConstantAndGetStartIndex(codeAttributeInfo.name)
+                val code: List<OpCode>
+
+                if (methodInfo.name.name == "<init>") {
+                    code = listOf(
+                        OpCode.Aload_0(),
+                        OpCode.InvokeSpecial(addReferenceConstantInfoAndGetStartIndex(
+                            MethodReferenceConstantInfo(
+                                ClassConstantInfo("java/lang/Object"),
+                                NameAndTypeConstantInfo("<init>", "()V")
+                            )
+                        )),
+                        OpCode.ReturnVoid()
+                    )
+                } else {
+                    val functionCallCodePart =
+                        codeAttributeInfo.functionCallCodeParts.singleOrNull() ?: throw NotImplementedError()
+
+                    code = listOf(
+                        OpCode.GetStatic(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo)),
+                        OpCode.LoaDConstant(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte()),
+                        OpCode.InvokeVirtual(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo)),
+                        OpCode.ReturnVoid()
+                    )
+                }
+
+                addCodeAttributeBytesToMethodInfoBytes(code, codeAttributeNameIndex)
+            } else {
+                throw NotImplementedError()
+            }
+        }
+
+        private fun addCodeAttributeBytesToMethodInfoBytes(code: List<OpCode>, codeAttributeNameIndex: Short) {
+            val attributeBytesCountedForLength = mutableListOf<Byte>()
+
+            val maxStackSize: Short = 2
+            attributeBytesCountedForLength.add(maxStackSize)
+
+            val maxLocalVarSize: Short = 1
+            attributeBytesCountedForLength.add(maxLocalVarSize)
+
+            val codeBytes = code.flatMap { it.toBytes() }
+            val sizeOfCode = codeBytes.size.toUInt()
+            attributeBytesCountedForLength.add(sizeOfCode)
+            attributeBytesCountedForLength.addAll(codeBytes)
+
+            val exceptionTableLength: Short = 0
+            attributeBytesCountedForLength.add(exceptionTableLength)
+            val attributesCount: Short = 0
+            attributeBytesCountedForLength.add(attributesCount)
+
+            methodInfosBytes.add(codeAttributeNameIndex)
+            val sizeOfAttribute = attributeBytesCountedForLength.size.toUInt()
+            methodInfosBytes.add(sizeOfAttribute)
+            methodInfosBytes.addAll(attributeBytesCountedForLength)
         }
 
         private fun addUtf8ConstantAndGetStartIndex(utf8ConstantInfo: Utf8ConstantInfo): Short {
@@ -126,7 +126,7 @@ class ConstantPoolToByteList {
         }
 
         private fun addClassConstantInfoAndGetStartIndex(constantInfo: ClassConstantInfo): Short {
-            val nameIndex = addUtf8ConstantAndGetStartIndex(constantInfo.nameConstant)
+            val nameIndex = addUtf8ConstantAndGetStartIndex(constantInfo.name)
 
             val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
             constantPoolBytes.add(nameIndex)
@@ -135,7 +135,7 @@ class ConstantPoolToByteList {
         }
 
         private fun addStringConstantInfoAndGetStartIndex(constantInfo: StringConstantInfo): Short {
-            val valueIndex = addUtf8ConstantAndGetStartIndex(constantInfo.valueConstantInfo)
+            val valueIndex = addUtf8ConstantAndGetStartIndex(constantInfo.value)
 
             val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
             constantPoolBytes.add(valueIndex)

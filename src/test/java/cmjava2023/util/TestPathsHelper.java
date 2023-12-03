@@ -8,7 +8,7 @@ public class TestPathsHelper {
     protected static String JAVA_FILE_ENDING = ".java";
     protected static String CLASS_FILE_ENDING = ".class";
 
-    final String nonRootPackagePartsTheHelpedClassIsIn;
+    public final String nonRootPackagePartsTheHelpedClassIsIn;
 
     public TestPathsHelper(Object testClassObjectDefiningPackageForResources) {
         List<String> canonicalNameParts = Arrays.stream(testClassObjectDefiningPackageForResources.getClass().getCanonicalName().split("\\.")).toList();

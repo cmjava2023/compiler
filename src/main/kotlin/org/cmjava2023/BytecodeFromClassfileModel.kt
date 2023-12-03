@@ -1,14 +1,14 @@
 package org.cmjava2023
 
-import org.cmjava2023.ByteListUtil.Companion.add
+import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileModel
-import kotlin.experimental.or
+import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 
 class BytecodeFromClassfileModel {
 
     fun generate(model: ClassfileModel): ByteArray {
-        val classFileBytes = ConstantPoolToByteList.mapToByteList(model.constantPool, model.methodDefinitions)
+        val classFileBytes = ConstantPoolToByteList.mapToClassFileBytes(model.constantPool, model.methodDefinitions)
 
         val result: MutableList<Byte> = mutableListOf()
         result.add(MAGIC_NUMBER)
@@ -16,7 +16,7 @@ class BytecodeFromClassfileModel {
         result.add(MAJOR_VERSION)
         result.add(classFileBytes.constantPoolItemCount)
         result.addAll(classFileBytes.constantPoolBytes)
-        result.add(model.classClassAccessModifiers.map { it.value }.reduce { combinedFlag, flag -> combinedFlag or flag })
+        result.add(model.classClassAccessModifiers.map { it.value }.bitwiseOrCombine())
         result.add(INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL)
         result.add(INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL)
         result.add(model.numberOfInterfaces)
