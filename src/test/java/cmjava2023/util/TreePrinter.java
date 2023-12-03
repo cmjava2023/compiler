@@ -1,7 +1,7 @@
 package cmjava2023.util;
 
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.ASTNodes;
+import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.symboltable.Scope;
 import org.cmjava2023.symboltable.Symbol;
 import org.cmjava2023.symboltable.SymbolTable;

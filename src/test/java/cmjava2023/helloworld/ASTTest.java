@@ -7,10 +7,10 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.ASTNodes;
-import org.cmjava2023.ASTVisitor;
-import org.junit.jupiter.api.Test;
+import org.cmjava2023.ast.ASTNodes;
+import org.cmjava2023.ast.ASTVisitor;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
