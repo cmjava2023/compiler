@@ -1,4 +1,4 @@
-package cmjava2023.primitive;
+package cmjava2023.primitive.longs.logicops;
 
 public class Main {
     public static void main(String[] args) {

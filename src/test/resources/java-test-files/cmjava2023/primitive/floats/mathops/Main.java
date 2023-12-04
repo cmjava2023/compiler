@@ -1,4 +1,4 @@
-package cmjava2023.primitive;
+package cmjava2023.primitive.floats.mathops;
 
 public class Main {
     public static void main(String[] args) {
