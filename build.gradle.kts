@@ -79,7 +79,13 @@ tasks.register("compileTestFilesWithOurCompiler") {
                         file.path,
                         ourCompilerCompiledTestFilesFolder.path
                     )
-                println("  " + commandParts.joinToString(" "))
+                println("  " + commandParts.joinToString(" ") {
+                    if (it == "org.cmjava2023.Main") {
+                        "$it\n      "
+                    } else {
+                        it
+                    }
+                })
                 try {
                     exec {
                         commandLine(commandParts)
