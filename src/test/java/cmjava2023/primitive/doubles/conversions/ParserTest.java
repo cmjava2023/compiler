@@ -1,4 +1,4 @@
-package cmjava2023.helloworld;
+package cmjava2023.primitive.doubles.conversions;
 
 import cmjava2023.util.TestPathsHelper;
 import cmjava2023.util.TreePrinter;
