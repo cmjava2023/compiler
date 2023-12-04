@@ -31,33 +31,33 @@ public class ASTTest {
 
         String expected =
                 """
-                StartNode
-                L  body
-                   |- PackageNode
-                   |  L  nestedIdentifier
-                   |     |- 0: cmjava2023
-                   |     L  1: helloworld
-                   L  ClassNode
-                      |- Clazz
-                      |  |- accessModifier: PUBLIC
-                      L  body
-                         L  FunctionNode
-                            |- Function
-                            |  |- accessModifier: PUBLIC
-                            |  L  instanceModifier: STATIC
-                            |- parameters
-                            |  L  ParameterNode
-                            |     L  Parameter
-                            L  body
-                               L  FunctionCallNode
-                                  |- nestedIdentifier
-                                  |  |- 0: System
-                                  |  |- 1: out
-                                  |  L  2: println
-                                  L  values
-                                     L  ValueNode
-                                        L  value: "Hello world!"
-                """;
+                        StartNode
+                        L  body
+                           |- PackageNode
+                           |  L  nestedIdentifier
+                           |     |- 0: cmjava2023
+                           |     L  1: helloworld
+                           L  ClassNode
+                              |- Clazz
+                              |  |- accessModifier: PUBLIC
+                              L  body
+                                 L  FunctionNode
+                                    |- Function
+                                    |  |- accessModifier: PUBLIC
+                                    |  L  instanceModifier: STATIC
+                                    |- parameters
+                                    |  L  ParameterNode
+                                    |     L  Parameter
+                                    L  body
+                                       L  FunctionCallNode
+                                          |- nestedIdentifier
+                                          |  |- 0: System
+                                          |  |- 1: out
+                                          |  L  2: println
+                                          L  values
+                                             L  ValueNode
+                                                L  value: Hello world!
+                        """;
         assertEquals(expected, new TreePrinter().printAst(ast));
     }
 }

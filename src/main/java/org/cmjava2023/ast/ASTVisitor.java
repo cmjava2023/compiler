@@ -229,13 +229,26 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | nested_identifier;
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
-        return ctx.function_call() != null ? visit(ctx.function_call())
-                : ctx.identifier() != null ? visit(ctx.identifier())
-                : ctx.IDENTIFIER() != null ? new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText())
-                : ctx.STRING() != null ? new ASTNodes.ValueNode(ctx.STRING().getText())
-                : ctx.INTEGER() != null ? new ASTNodes.ValueNode(ctx.INTEGER().getText())
-                : ctx.DECIMAL() != null ? new ASTNodes.ValueNode(ctx.DECIMAL().getText())
-                : null;//ERROR! None got declared!
+        if (ctx.function_call() != null) {
+            return visit(ctx.function_call());
+        } else if (ctx.identifier() != null) {
+            return visit(ctx.identifier());
+        } else if (ctx.IDENTIFIER() != null) {
+            return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
+        } else if (ctx.STRING() != null) {
+            String string = ctx.STRING().getText();
+            if (string.startsWith("\"") && string.endsWith("\"")) {
+                return new ASTNodes.ValueNode(string.substring(1, string.length() - 1));
+            } else {
+                return new ASTNodes.ValueNode(string);
+            }
+        } else if (ctx.INTEGER() != null) {
+            return new ASTNodes.ValueNode(ctx.INTEGER().getText());
+        } else if (ctx.DECIMAL() != null) {
+            return new ASTNodes.ValueNode(ctx.DECIMAL().getText());
+        } else {
+            return null;
+        }
     }
 
     // ########ANTLR########
