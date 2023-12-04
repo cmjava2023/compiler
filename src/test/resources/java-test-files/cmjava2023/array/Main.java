@@ -1,4 +1,4 @@
-package org.cmjava2023;
+package cmjava2023.array;
 
 public class Main {
     public static void main(String[] args) {
