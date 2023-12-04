@@ -22,17 +22,23 @@ dependencies {
 }
 
 tasks.test {
-    dependsOn("compileTestFilesWithJdk8")
-    dependsOn("compileTestFilesWithOurCompiler")
-    dependsOn("createJavapTxtFiles")
     useJUnitPlatform()
+    doFirst {
+        ourCompilerCompiledTestFilesFolder.deleteRecursively()
+    }
 }
 
 tasks.compileKotlin{
     dependsOn("generateGrammarSource")
 }
 
-tasks.register("compileTestFilesWithJdk8") {
+tasks.withType<Exec>() {
+    doFirst {
+        println(commandLine)
+    }
+}
+
+tasks.register("compileTestFilesWithJdk8AndCreateJavaP") {
     doLast {
         jdkCompiledTestFilesFolder.deleteRecursively()
         jdkCompiledTestFilesFolder.mkdirs()
@@ -50,14 +56,17 @@ tasks.register("compileTestFilesWithJdk8") {
                 )
                 println("  " + commandParts.joinToString(" "))
                 exec {
+                    isIgnoreExitValue = true
                     commandLine(commandParts)
                 }
             }
         }
+
+        createJavapTxtFilesForAllClassFilesInFolder(jdkCompiledTestFilesFolder)
     }
 }
 
-tasks.register("compileTestFilesWithOurCompiler") {
+tasks.register("compileTestFilesWithOurCompilerAndCreateJavaP") {
     dependsOn(tasks.compileJava)
     doLast {
         ourCompilerCompiledTestFilesFolder.deleteRecursively()
@@ -86,27 +95,13 @@ tasks.register("compileTestFilesWithOurCompiler") {
                         it
                     }
                 })
-                try {
-                    exec {
-                        commandLine(commandParts)
-                    }
-                } catch (e: Exception) {
-                    if (System.getProperty("CI") == "true") {
-                       throw e
-                    }
+                exec {
+                    isIgnoreExitValue = true
+                    commandLine(commandParts)
                 }
             }
         }
-    }
-}
 
-tasks.register("createJavapTxtFiles") {
-    dependsOn("compileTestFilesWithJdk8")
-    dependsOn("compileTestFilesWithOurCompiler")
-
-    doLast {
-        createJavapTxtFilesForAllClassFilesInFolder(jdkCompiledTestFilesFolder)
-        println()
         createJavapTxtFilesForAllClassFilesInFolder(ourCompilerCompiledTestFilesFolder)
     }
 }
@@ -118,15 +113,10 @@ fun createJavapTxtFilesForAllClassFilesInFolder(folder: File) {
             val commandParts = listOf("javap", "-c", "-p", "-verbose", it.path)
             println("  " + commandParts.joinToString(" "))
             val outputFile = File(it.parentFile, it.nameWithoutExtension + ".javap.txt")
-            try {
-                exec {
-                    standardOutput = outputFile.outputStream()
-                    commandLine(commandParts)
-                }
-            } catch (e: Exception) {
-                if (System.getProperty("CI") == "true") {
-                    throw e
-                }
+            exec {
+                isIgnoreExitValue = true
+                standardOutput = outputFile.outputStream()
+                commandLine(commandParts)
             }
         }
     }

@@ -4,8 +4,8 @@ import cmjava2023.util.HexQueueFromBinaryFileQuery;
 import cmjava2023.util.JavaRunner;
 import cmjava2023.util.TestPathsHelper;
 import org.cmjava2023.Main;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,13 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationTest {
 
-    @Test
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
-    public void helloWorld_debugCompiling() throws IOException {
-        TestPathsHelper testPathsHelper = new TestPathsHelper(this);
+    @BeforeAll
+    static void compileWithOurCompiler() throws IOException {
+        TestPathsHelper testPathsHelper = new TestPathsHelper(new ApplicationTest());
         Main.main(new String[] {
             testPathsHelper.GetPathOfMainJavaTestResourceInSamePackage(),
-            TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER + "/" + testPathsHelper.nonRootPackagePartsTheHelpedClassIsIn
+            TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER
         });
     }
 
