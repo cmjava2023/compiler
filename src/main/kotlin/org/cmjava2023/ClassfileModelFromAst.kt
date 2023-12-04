@@ -108,7 +108,7 @@ class ClassfileModelFromAst {
 
                                 val expr = statement.values[0]
                                 if(expr is ASTNodes.ValueNode){
-                                    whatToPrint = expr.value.removePrefix("\"").removeSuffix("\"") // TODO should be already removed in ast
+                                    whatToPrint = expr.value
                                 } else {
                                     throw NotImplementedError()
                                 }
