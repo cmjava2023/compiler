@@ -7,7 +7,7 @@ import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class HexQueueFromBinaryFileQuery {
+public class BytesInHexQueueFromBinaryFileQuery {
     public static Queue<String> fetch(String path) {
         try {
             String hexString = HexFormat.of().formatHex(Files.readAllBytes(Paths.get(path))).toUpperCase();
