@@ -1,8 +1,8 @@
 package cmjava2023.helloworld;
 
 import cmjava2023.util.HexClassFileTester;
-import cmjava2023.util.MethodTestData;
-import cmjava2023.util.HexQueueFromBinaryFileQuery;
+import cmjava2023.util.MethodDescription;
+import cmjava2023.util.BytesInHexQueueFromBinaryFileQuery;
 import cmjava2023.util.JavaRunner;
 import cmjava2023.util.TestPathsHelper;
 import org.cmjava2023.Main;
@@ -35,20 +35,20 @@ public class ApplicationTest {
 
     @Test
     public void helloWorld_testsForClassFileContent() {
-        Queue<String> resultClassFileByteHex = HexQueueFromBinaryFileQuery.fetch(new TestPathsHelper(this).GetPathOfMainClassCompiledByUsInSamePackage());
+        Queue<String> bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(new TestPathsHelper(this).GetPathOfMainClassCompiledByUsInSamePackage());
 
         String classAccessModifierHex = "0021";
         String thisClass = "cmjava2023/helloworld/Main";
         String superClass = "java/lang/Object";
 
         HexClassFileTester.test(
-            resultClassFileByteHex,
+            bytesInHex,
             classAccessModifierHex,
             thisClass,
             superClass,
-            new MethodTestData[] {
-                new MethodTestData( "0009", "main", "([Ljava/lang/String;)V", "B2000D120FB60015B1"),
-                new MethodTestData( "0001", "<init>", "()V", "2AB7001EB1"),
+            new MethodDescription[] {
+                new MethodDescription( "0009", "main", "([Ljava/lang/String;)V", "B2000D120FB60015B1"),
+                new MethodDescription( "0001", "<init>", "()V", "2AB7001EB1"),
             }
         );
     }

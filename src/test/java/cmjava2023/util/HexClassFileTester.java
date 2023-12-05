@@ -1,190 +1,165 @@
 package cmjava2023.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Queue;
+import kotlin.NotImplementedError;
+
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HexClassFileTester {
-    public static void test(Queue<String> resultClassFileByteHex, String classAccessModifierHex, String thisClass, String superClass, MethodTestData[] methodTestData) {
-        classFileIndicatorCafeBabe(resultClassFileByteHex);
-        javaVersion8(resultClassFileByteHex);
-        constantPool(resultClassFileByteHex);
-        classAccessModifier(resultClassFileByteHex);
-        thisClassIndex(resultClassFileByteHex);
-        superClassIndex(resultClassFileByteHex);
-        numberOfInterfaces(resultClassFileByteHex);
-        numberOfFields(resultClassFileByteHex);
-        methods(resultClassFileByteHex);
-        classAttributeCount(resultClassFileByteHex);
+    private static Queue<String> bytesInHex;
+    private static String classAccessModifierHex;
+    private static String thisClass;
+    private static String superClass;
+    private static MethodDescription[] methodDescriptions;
+    private static List<String> constantPoolItems;
+
+    private record ConstantPoolItemToResolve(short index) {
     }
 
-    protected static String pollMultiple(Queue<String> queue, int amount) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < amount; i++) {
-            result.append(queue.poll());
-        }
-        return result.toString();
+    public static void test(Queue<String> bytesInHex, String classAccessModifierHex, String thisClass, String superClass, MethodDescription[] methodDescriptions) {
+        HexClassFileTester.bytesInHex = bytesInHex;
+        HexClassFileTester.classAccessModifierHex = classAccessModifierHex;
+        HexClassFileTester.thisClass = thisClass;
+        HexClassFileTester.superClass = superClass;
+        HexClassFileTester.methodDescriptions = methodDescriptions;
+        HexClassFileTester.constantPoolItems = new ArrayList<>();
+
+        classFileIndicatorCafeBabe();
+        javaVersion8();
+        parseConstantPool();
+        classAccessModifier();
+        thisClass();
+        superClass();
+        noInterfaces();
+        noFields();
+        methods();
+        noClassAttributes();
     }
 
-    private static void classFileIndicatorCafeBabe(Queue<String> resultClassFileByteHex) {
-        assertEquals("CAFEBABE", pollMultiple(resultClassFileByteHex, 4));
+    private static void classFileIndicatorCafeBabe() {
+        assertEquals("CAFEBABE", dequeueHexBytes(4));
     }
 
-    private static void javaVersion8(Queue<String> resultClassFileByteHex) {
-        assertEquals("00000034", pollMultiple(resultClassFileByteHex, 4));
+    private static void javaVersion8() {
+        assertEquals(52, dequeue4ByteInt());
     }
 
-    private static void constantPool(Queue<String> resultClassFileByteHex) {
-        String constantPoolSizeHex = pollMultiple(resultClassFileByteHex, 2);
-        assertEquals("001F", constantPoolSizeHex);
-        ArrayList<String> constantPoolItems = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(constantPoolSizeHex, 16) - 1; i++) {
-            String constantInfoTag = resultClassFileByteHex.poll();
-            String constantPoolItem = constantInfoTag;
-            switch(constantInfoTag){
+    private static void parseConstantPool() {
+        short constantPoolSize = dequeue2ByteShort();
+        ArrayList<Object> unresolvedConstantPool = new ArrayList<>();
+        unresolvedConstantPool.add("emptyElementBecauseConstantPoolIndicesStartWith1");
+        for (int i = 0; i < constantPoolSize - 1; i++) {
+            String constantInfoTag = bytesInHex.poll();
+            switch (Objects.requireNonNull(constantInfoTag)) {
                 case "07":
                 case "08":
-                    constantPoolItem += pollMultiple(resultClassFileByteHex, 2);
+                    unresolvedConstantPool.add(new ConstantPoolItemToResolve(dequeue2ByteShort()));
                     break;
                 case "01":
-                    String lengthHex = pollMultiple(resultClassFileByteHex, 2);
-                    constantPoolItem += lengthHex;
-                    int length = Integer.parseInt(lengthHex, 16);
-                    constantPoolItem += utf8FromHexString(pollMultiple(resultClassFileByteHex, length));
+                    short length = dequeue2ByteShort();
+                    unresolvedConstantPool.add(utf8FromHexString(dequeueHexBytes(length)));
                     break;
                 case "09":
                 case "0A":
                 case "0C":
-                    constantPoolItem += pollMultiple(resultClassFileByteHex, 4);
+                    unresolvedConstantPool.add(constantInfoTag + " " + dequeueHexBytes(2) + "." + dequeueHexBytes(2));
                     break;
                 default:
                     fail("test does not support constant pool type " + constantInfoTag);
                     break;
             }
-            constantPoolItems.add(constantPoolItem);
         }
-
-        String[] expectedItems = new String[]{
-                "01001Acmjava2023/helloworld/Main",
-                "070001",
-                "010010java/lang/Object",
-                "070003",
-                "010004main",
-                "010016([Ljava/lang/String;)V",
-                "010004Code",
-                "010010java/lang/System",
-                "070008",
-                "010003out",
-                "010015Ljava/io/PrintStream;",
-                "0C000A000B",
-                "090009000C",
-                "01000CHello world!",
-                "08000E",
-                "010013java/io/PrintStream",
-                "070010",
-                "010007println",
-                "010015(Ljava/lang/String;)V",
-                "0C00120013",
-                "0A00110014",
-                "010006<init>",
-                "010003()V",
-                "010004Code",
-                "010010java/lang/Object",
-                "070019",
-                "010006<init>",
-                "010003()V",
-                "0C001B001C",
-                "0A001A001D",
-        };
-        List<String> expectedItemList = new ArrayList<>(Arrays.stream(expectedItems).toList());
-        expectedItemList.addAll(Arrays.stream(new String[constantPoolItems.size() - expectedItems.length]).map( s -> "").toList());
-        assertArrayEquals(expectedItemList.toArray(), constantPoolItems.toArray());
-        assertArrayEquals(expectedItems, constantPoolItems.toArray());
+        constantPoolItems = unresolvedConstantPool.stream().map(e -> {
+            if (e instanceof String s) {
+                return s;
+            } else if (e instanceof ConstantPoolItemToResolve c) {
+                return (String) unresolvedConstantPool.get(c.index);
+            } else {
+                throw new NotImplementedError();
+            }
+        }).toList();
     }
 
     private static String utf8FromHexString(String hexString) {
         StringBuilder builder = new StringBuilder();
-        for ( int i = 0 ; i < hexString.length() ; i += 2 ) {
-            String substring = hexString.substring( i , i + 2 );
-            int codePoint = Integer.parseInt( substring , 16 );
-            builder.appendCodePoint( codePoint );
+        for (int i = 0; i < hexString.length(); i += 2) {
+            String substring = hexString.substring(i, i + 2);
+            int codePoint = Integer.parseInt(substring, 16);
+            builder.appendCodePoint(codePoint);
         }
         return builder.toString();
     }
 
-    private static void classAccessModifier(Queue<String> resultClassFileByteHex) {
-        assertEquals("0021", pollMultiple(resultClassFileByteHex, 2));
+    private static void classAccessModifier() {
+        assertEquals(classAccessModifierHex, dequeueHexBytes(2));
     }
 
-    private static void thisClassIndex(Queue<String> resultClassFileByteHex) {
-        assertEquals("0002", pollMultiple(resultClassFileByteHex, 2));
+    private static void thisClass() {
+        dequeueResolveAssertConstantPoolIndex(thisClass, "thisClass");
     }
 
-    private static void superClassIndex(Queue<String> resultClassFileByteHex) {
-        assertEquals("0004", pollMultiple(resultClassFileByteHex, 2));
+    private static void superClass() {
+        dequeueResolveAssertConstantPoolIndex(superClass, "superClass");
     }
 
-    private static void numberOfInterfaces(Queue<String> resultClassFileByteHex) {
-        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+    private static void noInterfaces() {
+        assertEquals((short) 0, dequeue2ByteShort(), "interfaceCount");
     }
 
-    private static void numberOfFields(Queue<String> resultClassFileByteHex) {
-        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+    private static void noFields() {
+        assertEquals((short) 0, dequeue2ByteShort(), "FieldCount");
     }
 
-    private static void methods(Queue<String> resultClassFileByteHex) {
-        assertEquals("0002", pollMultiple(resultClassFileByteHex, 2));
+    private static void methods() {
+        assertEquals((short) methodDescriptions.length, dequeue2ByteShort());
 
-        methodAccessFlags(resultClassFileByteHex, "0009");
-        methodNameIndex(resultClassFileByteHex, "0005");
-        typeDescriptorIndex(resultClassFileByteHex, "0006");
-        methodAttributeCount(resultClassFileByteHex, "0001");
-        codeAttribute(resultClassFileByteHex, "0007" , "00000015", "0002", "0001", "00000009", "B2000D120FB60015B1");
-
-
-        methodAccessFlags(resultClassFileByteHex, "0001");
-        methodNameIndex(resultClassFileByteHex, "0016");
-        typeDescriptorIndex(resultClassFileByteHex, "0017");
-        methodAttributeCount(resultClassFileByteHex, "0001");
-        codeAttribute(resultClassFileByteHex, "0018", "00000011", "0002", "0001", "00000005", "2AB7001EB1");
+        for (MethodDescription methodDescription : methodDescriptions) {
+            assertEquals(methodDescription.accessModifierHex(), dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
+            dequeueResolveAssertConstantPoolIndex(methodDescription.name(), methodDescription.getAssertMessage("name"));
+            dequeueResolveAssertConstantPoolIndex(methodDescription.typeDescriptor(), methodDescription.getAssertMessage("typeDescriptor"));
+            assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeCount"));
+            codeAttribute(methodDescription);
+        }
     }
 
-    private static void methodAccessFlags(Queue<String> resultClassFileByteHex, String expected) {
-        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    private static void codeAttribute(MethodDescription methodDescription) {
+        dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
+        int codeSize = methodDescription.code().length() / 2;
+        int attributeSize = 2 + 2 + 4 + codeSize + 2 + 2;
+        assertEquals(attributeSize, dequeue4ByteInt(), methodDescription.getAssertMessage("attributeSize"));
+        assertEquals((short) 2, dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
+        assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
+
+        assertEquals(codeSize, dequeue4ByteInt(), methodDescription.getAssertMessage("codeSize"));
+        assertEquals(methodDescription.code(), dequeueHexBytes(codeSize), methodDescription.getAssertMessage("code"));
+        assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
+        assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
     }
 
-    private static void methodNameIndex(Queue<String> resultClassFileByteHex, String expected) {
-        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    private static void noClassAttributes() {
+        assertEquals((short) 0, dequeue2ByteShort());
     }
 
-    private static void typeDescriptorIndex(Queue<String> resultClassFileByteHex, String expected) {
-        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    private static String dequeueHexBytes(int amountOfBytes) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < amountOfBytes; i++) {
+            result.append(bytesInHex.poll());
+        }
+        return result.toString();
     }
 
-    private static void methodAttributeCount(Queue<String> resultClassFileByteHex, String expected) {
-        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
+    private static void dequeueResolveAssertConstantPoolIndex(String expected, String context) {
+        short index = dequeue2ByteShort();
+        assertEquals(expected, constantPoolItems.get(index), context + ": ConstantPoolItem at index " + index);
     }
 
-    private static void codeAttribute(Queue<String> resultClassFileByteHex,  String indexToAttributeName, String expectedAttributeLength, String maxStack, String maxLocals, String codeLength, String expectedCode) {
-        indexToAttributeNameCode(resultClassFileByteHex, indexToAttributeName);
-        assertEquals(expectedAttributeLength, pollMultiple(resultClassFileByteHex, 4));
-        assertEquals(maxStack, pollMultiple(resultClassFileByteHex, 2));
-        assertEquals(maxLocals, pollMultiple(resultClassFileByteHex, 2));
-        assertEquals(codeLength, pollMultiple(resultClassFileByteHex, 4));
-        assertEquals(expectedCode, pollMultiple(resultClassFileByteHex, expectedCode.length() / 2));
-        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
-        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+    private static short dequeue2ByteShort() {
+        return Short.parseShort(dequeueHexBytes(2), 16);
     }
 
-    private static void indexToAttributeNameCode(Queue<String> resultClassFileByteHex, String expected) {
-        assertEquals(expected, pollMultiple(resultClassFileByteHex, 2));
-    }
-
-    private static void classAttributeCount(Queue<String> resultClassFileByteHex) {
-        assertEquals("0000", pollMultiple(resultClassFileByteHex, 2));
+    private static int dequeue4ByteInt() {
+        return Integer.parseInt(dequeueHexBytes(4), 16);
     }
 }
