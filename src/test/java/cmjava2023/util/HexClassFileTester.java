@@ -39,11 +39,11 @@ public class HexClassFileTester {
     }
 
     private static void classFileIndicatorCafeBabe() {
-        assertEquals("CAFEBABE", dequeueHexBytes(4));
+        assertEquals("CAFEBABE", dequeueHexBytes(4), "ClassFile Start");
     }
 
     private static void javaVersion8() {
-        assertEquals(52, dequeue4ByteInt());
+        assertEquals(52, dequeue4ByteInt(), "JavaVersion");
     }
 
     private static void parseConstantPool() {
@@ -93,7 +93,7 @@ public class HexClassFileTester {
     }
 
     private static void classAccessModifier() {
-        assertEquals(classAccessModifierHex, dequeueHexBytes(2));
+        assertEquals(classAccessModifierHex, dequeueHexBytes(2), "classAccessModifier");
     }
 
     private static void thisClass() {
@@ -113,7 +113,7 @@ public class HexClassFileTester {
     }
 
     private static void methods() {
-        assertEquals((short) methodDescriptions.length, dequeue2ByteShort());
+        assertEquals((short) methodDescriptions.length, dequeue2ByteShort(), "methodCount");
 
         for (MethodDescription methodDescription : methodDescriptions) {
             assertEquals(methodDescription.accessModifierHex(), dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
@@ -139,7 +139,7 @@ public class HexClassFileTester {
     }
 
     private static void noClassAttributes() {
-        assertEquals((short) 0, dequeue2ByteShort());
+        assertEquals((short) 0, dequeue2ByteShort(), "classAttributesCount");
     }
 
     private static String dequeueHexBytes(int amountOfBytes) {
