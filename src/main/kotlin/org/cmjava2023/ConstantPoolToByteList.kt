@@ -67,7 +67,7 @@ class ConstantPoolToByteList {
                                 NameAndTypeConstantInfo("<init>", "()V")
                             )
                         )),
-                        OpCode.ReturnVoid()
+                        OpCode.Return()
                     )
                 } else {
                     val functionCallCodePart =
@@ -77,7 +77,7 @@ class ConstantPoolToByteList {
                         OpCode.GetStatic(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo)),
                         OpCode.LoaDConstant(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte()),
                         OpCode.InvokeVirtual(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo)),
-                        OpCode.ReturnVoid()
+                        OpCode.Return()
                     )
                 }
 
