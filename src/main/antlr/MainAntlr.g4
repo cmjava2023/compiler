@@ -22,9 +22,10 @@ expressions: expression (expression_operator expression)?;
 variable_declaration: primitive_type IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | identifier;
+expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator;
+expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD;
 
 numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD;
 logical_comparison_operator: LAND | LOR;
@@ -70,6 +71,9 @@ wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
 type_variable: IDENTIFIER;
 array_type: (primitive_type | class_type |type_variable) BRACKET_OPEN BRACKET_CLOSE;
 
+// Casting
+casting: PAREN_OPEN type PAREN_CLOSE expression;
+
 // Modifiers
 access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
 
@@ -78,6 +82,10 @@ access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
 // Keywords, need to be on top!
 PACKAGE_KEYWORD: 'package';
 CLASS_KEYWORD: 'class';
+
+// Constants
+FALSE: 'false';
+TRUE: 'true';
 
 // Modifiers, need to be on top!
 INSTANCE_MODIFIER: 'static';
@@ -127,17 +135,33 @@ NEQ: '!=';
 GTE: '>=';
 LTE: '<=';
 MOD: '%';
+PLUS: '+';
+MINUS: '-';
+MULTIPLICATION: '*';
+DIVISION: '/';
 
 // Logical Operators
 LAND: '&&';
 LOR: '||';
 
+// Comments
+COMMENT : '/*' .*? '*/' -> skip;
+LINE_COMMENT : '//' ~[\r\n]* -> skip;
+
 // Misc
 WHITESPACE  : (' ' | '\t' | '\r' | '\n') -> skip;
 STRING : '"' (~'"'|'/"')* '"'; // Danke https://stackoverflow.com/a/36615281
+CHARACTER : '\'' (~'"'|'/"')* '\''; // Danke https://stackoverflow.com/a/36615281
 
+FLOAT: (((INTEGER DOT INTEGER) | (DOT INTEGER)| (INTEGER DOT) | INTEGER | (INTEGER DOT )? INTEGER FLOAT_EXPONENT_SUFFIX (PLUS | MINUS)? INTEGER) FLOATING_POINT_SUFFIX);
+DECIMAL: ([1-9] DIGIT* | [0]) DOT INTEGER;
 INTEGER: DIGIT+;
-DECIMAL: [1-9] DIGIT* DOT DIGIT+;
+
+LONG: INTEGER LONG_SUFFIX;
+
+FLOAT_EXPONENT_SUFFIX: 'e';
+FLOATING_POINT_SUFFIX: 'f';
+LONG_SUFFIX: 'L';
 
 // Fragments
 fragment
