@@ -4,6 +4,7 @@ import org.cmjava2023.util.ByteListUtil.Companion.add
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
+ * https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
  */
 abstract class OpCode(private val opCodeValue:UByte, private vararg val values: Any) {
     fun toBytes(): List<Byte> {
@@ -24,9 +25,6 @@ abstract class OpCode(private val opCodeValue:UByte, private vararg val values: 
     class GetStatic(referenceIndex: Short): OpCode(0xb2u, referenceIndex)
     class InvokeVirtual(referenceIndex: Short): OpCode(0xb6u, referenceIndex)
     class InvokeSpecial(referenceIndex: Short): OpCode(0xb7u, referenceIndex)
-    class LoaDConstant(private val constantIndex: UByte): OpCode(0x12u, constantIndex)
-    // Opcodes taken from https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
-    // some Opcodes are not yet created as a class
     class Aaload: OpCode(0x32u)
     class Aastore: OpCode(0x53u)
     class Aconst_null: OpCode(0x01u)
@@ -154,7 +152,7 @@ abstract class OpCode(private val opCodeValue:UByte, private vararg val values: 
     class Lcmp: OpCode(0x94u)
     class Lconst_0: OpCode(0x09u)
     class Lconst_1: OpCode(0x0au)
-    class Ldc(constantIndex: Short): OpCode(0x12u, constantIndex)
+    class Ldc(constantIndex: UByte): OpCode(0x12u, constantIndex)
     class Ldc_w(referenceIndexByte1: Short, referenceIndexByte2: Short): OpCode(0x13u, referenceIndexByte1, referenceIndexByte2)
     class Ldc2_w(referenceIndexByte1: Short, referenceIndexByte2: Short): OpCode(0x14u, referenceIndexByte1, referenceIndexByte2)
     class Ldiv: OpCode(0x6du)
