@@ -4,28 +4,15 @@ import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantInfo
-import org.cmjava2023.util.ByteListUtil.Companion.add
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
  * https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
  */
 @Suppress("unused")
-abstract class OpCode(private val opCodeValue:UByte, private vararg val values: Any) {
-    fun toBytes(): List<Byte> {
-        val result = mutableListOf<Byte>()
-        result.add(opCodeValue)
-        for (value in values) {
-            when(value) {
-                is Short -> result.add(value)
-                is UByte -> result.add(value)
-                is Byte -> result.add(value)
-                else -> throw NotImplementedError()
-            }
-        }
-        return result
-    }
+abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
+    class LoadConstant(constantInfo: ConstantInfo): OpCode(0xcbu, constantInfo)
     class Aaload: OpCode(0x32u)
     class Aastore: OpCode(0x53u)
     class Aconst_null: OpCode(0x01u)
@@ -157,9 +144,9 @@ abstract class OpCode(private val opCodeValue:UByte, private vararg val values: 
     class Lcmp: OpCode(0x94u)
     class Lconst_0: OpCode(0x09u)
     class Lconst_1: OpCode(0x0au)
-    class Ldc(constantToLoadWithIndexFittingInByte: ConstantInfo): OpCode(0x12u, constantToLoadWithIndexFittingInByte)
+    class Ldc(indexInConstantPool: UByte): OpCode(0x12u, indexInConstantPool)
     class Ldc2_w(longOrDoubleToLoad: ConstantInfo): OpCode(0x14u, longOrDoubleToLoad)
-    class Ldc_w(constantToLoad: ConstantInfo): OpCode(0x13u, constantToLoad)
+    class Ldc_w(indexInConstantPool: UShort): OpCode(0x13u, indexInConstantPool)
     class Ldiv: OpCode(0x6du)
     class Lload(indexInsideLocalVariableArray: UByte): OpCode(0x16u, indexInsideLocalVariableArray)
     class Lload_0: OpCode(0x1eu)
@@ -199,6 +186,6 @@ abstract class OpCode(private val opCodeValue:UByte, private vararg val values: 
     class Return: OpCode(0xb1u)
     class Saload: OpCode(0x35u)
     class Sastore: OpCode(0x56u)
-    class Sipush(valueToPush: Short): OpCode(0x11u, valueToPush)
+    class Sipush(valueToPush: UShort): OpCode(0x11u, valueToPush)
     class Swap: OpCode(0x5fu)
 }

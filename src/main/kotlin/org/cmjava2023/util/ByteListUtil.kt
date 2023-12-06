@@ -10,7 +10,7 @@ class ByteListUtil {
             this.addAll(item.toByteList())
         }
 
-        fun MutableList<Byte>.add(item: Short){
+        fun MutableList<Byte>.add(item: UShort){
             this.addAll(item.toByteList())
         }
 
@@ -26,8 +26,8 @@ class ByteListUtil {
             return ByteBuffer.allocate(UByte.SIZE_BYTES).put(this.toByte()).array().toList()
         }
 
-        fun Short.toByteList(): List<Byte> {
-            return ByteBuffer.allocate(Short.SIZE_BYTES).putShort(this).array().toList()
+        fun UShort.toByteList(): List<Byte> {
+            return ByteBuffer.allocate(Short.SIZE_BYTES).putShort(this.toShort()).array().toList()
         }
     }
 }

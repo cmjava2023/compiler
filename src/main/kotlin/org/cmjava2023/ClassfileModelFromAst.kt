@@ -31,13 +31,13 @@ class ClassfileModelFromAst {
             packageNameWithDelimiterForClassFile,
             constantInfos,
             classAccessModifiers,
-            0,
-            0,
+            0u,
+            0u,
             listOf(),
-            0,
+            0u,
             listOf(),
             methodInfos,
-            0,
+            0u,
             listOf()
         )
     }
@@ -132,7 +132,7 @@ class ClassfileModelFromAst {
                                 result.addAll(
                                     listOf(
                                         OpCode.Getstatic(fieldReferenceConstantInfo),
-                                        OpCode.Ldc(StringConstantInfo(whatToPrint)),
+                                        OpCode.LoadConstant(StringConstantInfo(whatToPrint)),
                                         OpCode.Invokevirtual(methodReferenceConstantInfo),
                                         OpCode.Return()
                                     )
