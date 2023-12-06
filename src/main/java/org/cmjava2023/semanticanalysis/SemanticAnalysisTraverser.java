@@ -2,11 +2,19 @@ package org.cmjava2023.semanticanalysis;
 
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ASTTraverser;
+import org.cmjava2023.symboltable.*;
+
+import java.util.ArrayList;
 
 public class SemanticAnalysisTraverser implements ASTTraverser {
+    public ArrayList<String> errors;
+
+    public SemanticAnalysisTraverser(ArrayList<String> errors) {
+        this.errors = errors;
+    }
+
     @Override
     public void visit(ASTNodes.StartNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
@@ -14,12 +22,10 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.PackageNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ClassNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
@@ -27,7 +33,10 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.FunctionNode node) {
-        System.out.println(node);
+        Function functionSymbol = node.functionSymbol();
+        if (functionSymbol.getType() instanceof InvalidType invalidType) {
+            checkForType(invalidType, "return type of Function", functionSymbol);
+        }
         for (ASTNodes.ParameterNode statement : node.parameters()) {
             statement.accept(this);
         }
@@ -38,17 +47,18 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.ParameterNode node) {
-        System.out.println(node);
+        Parameter parameterSymbol = node.parameterSymbol();
+        if (parameterSymbol.getType() instanceof InvalidType invalidType) {
+            checkForType(invalidType, "Parameter", parameterSymbol);
+        }
     }
 
     @Override
     public void visit(ASTNodes.FunctionCallNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.IfNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
@@ -56,7 +66,6 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.ElseNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
@@ -64,56 +73,58 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.BlockScopeNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.VariableNode node) {
-        System.out.println(node);
+        Variable variableSymbol = node.variableSymbol();
+        if (variableSymbol.getType() instanceof InvalidType invalidType) {
+            checkForType(invalidType, "Variable", variableSymbol);
+        }
+    }
+
+    private void checkForType(InvalidType invalidType, String errorMessagePart, Symbol symbol) {
+        Symbol typeSymbol = symbol.getScope().resolve(invalidType.getName());
+        if (typeSymbol != null) {
+            symbol.setType(typeSymbol.getType());
+        } else {
+            errors.add(String.format("Cannot find type %s for %s %s", invalidType.getName(), errorMessagePart, symbol.getName()));
+        }
     }
 
     @Override
     public void visit(ASTNodes.VariableAssigmentNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ValueNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.NestedIdentifierNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ComparisonNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ExpressionNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.IdentifierNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ReturnNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.TypeNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ArrayTypeNode node) {
-        System.out.println(node);
     }
 }

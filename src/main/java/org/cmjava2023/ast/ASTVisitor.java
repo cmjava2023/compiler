@@ -11,6 +11,7 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
@@ -187,7 +188,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         Scope currentScope = symbolTable.getCurrentScope();
         checkAlreadyDeclared("Variable", variableName, currentScope);
         Function enclosingFunction = getEnclosingFunction(currentScope);
-        if (enclosingFunction != null){
+        if (enclosingFunction != null) {
             checkAlreadyDeclared("Variable", variableName, enclosingFunction);
         }
         Variable variableSymbol = new Variable(variableName, null, currentScope, null);
@@ -196,12 +197,12 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return new ASTNodes.VariableNode(variableSymbol, null);
     }
 
-    private Function getEnclosingFunction(Scope scope){
-        if (scope instanceof Function functionScope){
+    private Function getEnclosingFunction(Scope scope) {
+        if (scope instanceof Function functionScope) {
             return functionScope;
         }
 
-        if (scope.getEnclosingScope() != null){
+        if (scope.getEnclosingScope() != null) {
             return getEnclosingFunction(scope.getEnclosingScope());
         }
 
@@ -210,23 +211,36 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     private void setType(ParserRuleContext ctx, Symbol symbol) {
         ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
-        if (type instanceof ASTNodes.ArrayTypeNode) {
-            ASTNodes.ArrayTypeNode typeBase = (ASTNodes.ArrayTypeNode) type;
-            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
+        Symbol typeSymbol = symbolTable.getCurrentScope().resolve(type.getType());
+
+        if (typeSymbol != null) {
+            if (symbol instanceof Variable) {
+                checkForVoidType("Variable", symbol, typeSymbol);
+            }
+
+            if (symbol instanceof Parameter) {
+                checkForVoidType("Parameter", symbol, typeSymbol);
+            }
+        }
+
+        if (type instanceof ASTNodes.ArrayTypeNode arrayType) {
             if (typeSymbol == null) {
-                symbol.setType(new InvalidType(typeBase.type() + "[]"));
+                symbol.setType(new InvalidType(arrayType.type() + "[]"));
             } else {
                 symbol.setType(new ArrayType(typeSymbol.getType()));
             }
-        } else {
-            ASTNodes.TypeNode typeBase = (ASTNodes.TypeNode) type;
-            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
-
+        } else if (type instanceof ASTNodes.TypeNode baseType) {
             if (typeSymbol == null) {
-                symbol.setType(new InvalidType(typeBase.type()));
+                symbol.setType(new InvalidType(baseType.type()));
             } else {
                 symbol.setType(typeSymbol.getType());
             }
+        }
+    }
+
+    private void checkForVoidType(String objectName, Symbol symbol, Symbol typeSymbol) {
+        if (Objects.equals(typeSymbol.getName(), "void")) {
+            errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
         }
     }
 

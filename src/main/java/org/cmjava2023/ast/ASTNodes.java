@@ -61,6 +61,7 @@ public class ASTNodes {
     }
 
     public interface Type extends Node {
+        String getType();
     }
 
     // start-> StartNode
@@ -215,11 +216,21 @@ public class ASTNodes {
         public void accept(ASTTraverser visitor) {
             visitor.visit(this);
         }
+
+        @Override
+        public String getType() {
+            return type;
+        }
     }
 
     public record ArrayTypeNode(String type) implements Node, Type {
         public void accept(ASTTraverser visitor) {
             visitor.visit(this);
+        }
+
+        @Override
+        public String getType() {
+            return type;
         }
     }
 }
