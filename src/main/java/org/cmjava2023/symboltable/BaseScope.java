@@ -40,6 +40,14 @@ public abstract class BaseScope implements Scope {
         return null;
     }
 
+    public Symbol resolveInScope(String name) {
+        if (symbols.containsKey(name)) {
+            return symbols.get(name);
+        }
+
+        return null;
+    }
+
     public Scope getEnclosingScope() {
         return enclosingScope;
     }

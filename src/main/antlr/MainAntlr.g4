@@ -12,7 +12,7 @@ start : (global_scope)+;
 // Statements and expressions
 global_scope: class_declaration | package_declaration SEMICOLON;
 
-class_scope: (function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
+class_scope: (class_declaration | function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
 
 function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
 
