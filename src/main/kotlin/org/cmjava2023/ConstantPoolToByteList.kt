@@ -56,32 +56,7 @@ class ConstantPoolToByteList {
             val codeAttributeInfo = methodInfo.attributes.filterIsInstance<CodeAttributeInfo>().singleOrNull()
             if (codeAttributeInfo != null) {
                 val codeAttributeNameIndex = addUtf8ConstantAndGetStartIndex(codeAttributeInfo.name)
-                val code: List<OpCode>
-
-                if (methodInfo.name.name == "<init>") {
-                    code = listOf(
-                        OpCode.Aload_0(),
-                        OpCode.InvokeSpecial(addReferenceConstantInfoAndGetStartIndex(
-                            MethodReferenceConstantInfo(
-                                ClassConstantInfo("java/lang/Object"),
-                                NameAndTypeConstantInfo("<init>", "()V")
-                            )
-                        )),
-                        OpCode.Return()
-                    )
-                } else {
-                    val functionCallCodePart =
-                        codeAttributeInfo.functionCallCodeParts.singleOrNull() ?: throw NotImplementedError()
-
-                    code = listOf(
-                        OpCode.GetStatic(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.fieldReferenceConstantInfo)),
-                        OpCode.Ldc(addStringConstantInfoAndGetStartIndex(functionCallCodePart.arguments.single()).toUByte()),
-                        OpCode.InvokeVirtual(addReferenceConstantInfoAndGetStartIndex(functionCallCodePart.methodReferenceConstantInfo)),
-                        OpCode.Return()
-                    )
-                }
-
-                addCodeAttributeBytesToMethodInfoBytes(code, codeAttributeNameIndex)
+                addCodeAttributeBytesToMethodInfoBytes(codeAttributeInfo.code, codeAttributeNameIndex)
             } else {
                 throw NotImplementedError()
             }
@@ -96,6 +71,10 @@ class ConstantPoolToByteList {
             val maxLocalVarSize: Short = 1
             attributeBytesCountedForLength.add(maxLocalVarSize)
 
+            /*
+             TODO: when an OpCode has a ConstantInfo add it to the constantPool
+                    then construct the bytecode out of the OpCode and the data it needs (constantPoolIndices or other values)
+             */
             val codeBytes = code.flatMap { it.toBytes() }
             val sizeOfCode = codeBytes.size.toUInt()
             attributeBytesCountedForLength.add(sizeOfCode)
