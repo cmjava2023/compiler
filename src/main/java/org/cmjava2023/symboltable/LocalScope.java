@@ -6,4 +6,9 @@ public class LocalScope extends BaseScope {
     public LocalScope(Scope enclosingScope, HashMap<String, Symbol> symbols) {
         super(enclosingScope, symbols);
     }
+
+    @Override
+    public String getName() {
+        return "LocalScope";
+    }
 }

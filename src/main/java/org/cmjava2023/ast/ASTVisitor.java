@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
+    public ArrayList<String> errors = new ArrayList<>();
 
     // ########ANTLR########
     // start : (global_scope)+;
@@ -102,7 +103,10 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     private Clazz setClassScope(MainAntlrParser.Class_declarationContext ctx, Clazz parentClazz, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier instanceModifier) {
-        Clazz classSymbol = new Clazz(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null, parentClazz, accessModifier, instanceModifier);
+        String className = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Class", className, currentScope);
+        Clazz classSymbol = new Clazz(currentScope, new HashMap<>(), className, null, parentClazz, accessModifier, instanceModifier);
         classSymbol.setType(classSymbol);
         symbolTable.addSymbol(classSymbol);
         symbolTable.setScope(classSymbol);
@@ -132,7 +136,10 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     private Function setFunctionScope(MainAntlrParser.Function_declarationContext ctx, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier modifier) {
-        Function functionSymbol = new Function(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null, accessModifier, modifier);
+        String functionName = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Function", functionName, currentScope);
+        Function functionSymbol = new Function(currentScope, new HashMap<>(), functionName, null, accessModifier, modifier);
         setType(ctx.type(), functionSymbol);
         symbolTable.addSymbol(functionSymbol);
         symbolTable.setScope(functionSymbol);
@@ -140,10 +147,19 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return functionSymbol;
     }
 
+    private void checkAlreadyDeclared(String typeNameOfObject, String name, Scope scope) {
+        if (scope.resolveInScope(name) != null) {
+            errors.add(String.format("%s %s already defined in %s", typeNameOfObject, name, scope.getName()));
+        }
+    }
+
     // ########ANTLR########
     // function_declaration_arg: type IDENTIFIER;
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
-        Parameter parameterSymbol = new Parameter(ctx.IDENTIFIER().getText(), null, symbolTable.getCurrentScope());
+        String parameterName = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Parameter", parameterName, currentScope);
+        Parameter parameterSymbol = new Parameter(parameterName, null, currentScope);
         setType(ctx.type(), parameterSymbol);
         symbolTable.addSymbol(parameterSymbol);
         return new ASTNodes.ParameterNode(parameterSymbol);
@@ -168,10 +184,28 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // variable_declaration: primitive_type nested_identifier;
     public ASTNodes.Node visitVariable_declaration(MainAntlrParser.Variable_declarationContext ctx) {
         String variableName = ctx.IDENTIFIER().getText();
-        Variable variableSymbol = new Variable(variableName, null, symbolTable.getCurrentScope(), null);
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Variable", variableName, currentScope);
+        Function enclosingFunction = getEnclosingFunction(currentScope);
+        if (enclosingFunction != null){
+            checkAlreadyDeclared("Variable", variableName, enclosingFunction);
+        }
+        Variable variableSymbol = new Variable(variableName, null, currentScope, null);
         setType(ctx.primitive_type(), variableSymbol);
         symbolTable.addSymbol(variableSymbol);
         return new ASTNodes.VariableNode(variableSymbol, null);
+    }
+
+    private Function getEnclosingFunction(Scope scope){
+        if (scope instanceof Function functionScope){
+            return functionScope;
+        }
+
+        if (scope.getEnclosingScope() != null){
+            return getEnclosingFunction(scope.getEnclosingScope());
+        }
+
+        return null;
     }
 
     private void setType(ParserRuleContext ctx, Symbol symbol) {
