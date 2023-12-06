@@ -1,17 +1,14 @@
-
 package org.cmjava2023
 
 import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
-import org.cmjava2023.classfilespecification.codeParts.FunctionCallCodePart
 import org.cmjava2023.classfilespecification.constantpool.*
 import java.util.ArrayList
 
 class ClassfileModelFromAst {
     companion object {
         private const val PACKAGE_DELIMITER_IN_CLASS_FILES = "/"
-        private const val PACKAGE_DELIMITER_IN_JAVA_FILES = "."
     }
 
     private val constantInfos = mutableListOf<ConstantInfo>()
@@ -32,16 +29,16 @@ class ClassfileModelFromAst {
 
         return ClassfileModel(
             packageNameWithDelimiterForClassFile,
-                constantInfos,
+            constantInfos,
             classAccessModifiers,
-                0,
-                0,
-                listOf(),
-                0,
-                listOf(),
-                methodInfos,
-                0,
-                listOf()
+            0u,
+            0u,
+            listOf(),
+            0u,
+            listOf(),
+            methodInfos,
+            0u,
+            listOf()
         )
     }
 
@@ -49,7 +46,20 @@ class ClassfileModelFromAst {
         listOf(MethodAccessModifier.ACC_PUBLIC),
         "<init>",
         "()V",
-        listOf(CodeAttributeInfo(listOf()))
+        listOf(
+            CodeAttributeInfo(
+                listOf(
+                    OpCode.Aload_0(),
+                    OpCode.Invokespecial(
+                        MethodReferenceConstantInfo(
+                            ClassConstantInfo("java/lang/Object"),
+                            NameAndTypeConstantInfo("<init>", "()V")
+                        )
+                    ),
+                    OpCode.Return()
+                )
+            )
+        )
     )
 
     private fun parseTopLevelStatementsAndGetPackageName(ast: ASTNodes.StartNode): String {
@@ -87,8 +97,8 @@ class ClassfileModelFromAst {
         return
     }
 
-    private fun parseStatementsInCode(statements: List<ASTNodes.Statement>): List<FunctionCallCodePart> {
-        val result = mutableListOf<FunctionCallCodePart>()
+    private fun parseStatementsInCode(statements: List<ASTNodes.Statement>): List<OpCode> {
+        val result = mutableListOf<OpCode>()
         for (statement in statements) {
             when (statement) {
                 is ASTNodes.FunctionCallNode -> {
@@ -101,23 +111,36 @@ class ClassfileModelFromAst {
 
                                 val qualifiedClassName = "java/lang/$className"
 
-                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(ClassConstantInfo(qualifiedClassName), NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;"))
-                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(ClassConstantInfo("java/io/PrintStream"), NameAndTypeConstantInfo(methodName, "(Ljava/lang/String;)V"))
+                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(
+                                    ClassConstantInfo(qualifiedClassName),
+                                    NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;")
+                                )
+                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(
+                                    ClassConstantInfo("java/io/PrintStream"),
+                                    NameAndTypeConstantInfo(methodName, "(Ljava/lang/String;)V")
+                                )
 
                                 var whatToPrint: String
 
                                 val expr = statement.values[0]
-                                if(expr is ASTNodes.ValueNode){
+                                if (expr is ASTNodes.ValueNode) {
                                     whatToPrint = expr.value
                                 } else {
                                     throw NotImplementedError()
                                 }
 
-                                result.add(FunctionCallCodePart(fieldReferenceConstantInfo, methodReferenceConstantInfo, listOf(StringConstantInfo(whatToPrint))))
+                                result.addAll(
+                                    listOf(
+                                        OpCode.Getstatic(fieldReferenceConstantInfo),
+                                        OpCode.LoadConstant(StringConstantInfo(whatToPrint)),
+                                        OpCode.Invokevirtual(methodReferenceConstantInfo),
+                                        OpCode.Return()
+                                    )
+                                )
 
                             }
                         }
-                        }
+                    }
                 }
             }
         }
@@ -132,7 +155,7 @@ class ClassfileModelFromAst {
         )
         methodInfos.add(
             MethodInfo(
-                 methodModifiers,
+                methodModifiers,
                 functionNode.functionSymbol.name,
                 createMethodTypeDescriptor(functionNode),
                 listOf(CodeAttributeInfo(parseStatementsInCode(functionNode.body.toList()))),

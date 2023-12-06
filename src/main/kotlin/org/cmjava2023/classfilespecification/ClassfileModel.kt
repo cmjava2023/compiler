@@ -6,12 +6,12 @@ data class ClassfileModel(
         val packageNameWithDelimiterForClassFile: String,
         val constantPool: List<ConstantInfo>,
         val classClassAccessModifiers: List<ClassAccessModifier>,
-        val constantPoolIndex: Short,
-        val numberOfInterfaces: Short,
+        val constantPoolIndex: UShort,
+        val numberOfInterfaces: UShort,
         val interfaceDefinitions: List<Byte>,  // Array of own class?
-        val numberOfFields: Short,
+        val numberOfFields: UShort,
         val fieldDefinitions: List<Byte>,  // Array of own class?
         val methodDefinitions: List<MethodInfo>,
-        val attributesCount: Short,
+        val attributesCount: UShort,
         val attributeDefinitions: List<Byte>
 )

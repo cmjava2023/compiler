@@ -6,7 +6,7 @@ class Utf8ConstantInfo(val name: String): ConstantInfo(ConstantInfoTag.CONSTANT_
     private val utf8encodedName: String = String(name.toByteArray(), Charsets.UTF_8)
 
     fun getStringLengthBytes(): List<Byte> {
-       return utf8encodedName.length.toShort().toByteList()
+       return utf8encodedName.length.toUShort().toByteList()
     }
 
     fun getUtf8Bytes(): List<Byte> {

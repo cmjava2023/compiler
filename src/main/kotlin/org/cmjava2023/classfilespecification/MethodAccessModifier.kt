@@ -3,19 +3,19 @@ package org.cmjava2023.classfilespecification
 import org.cmjava2023.ast.ASTNodes
 
 @Suppress("unused")
-enum class MethodAccessModifier(val value:Short) {
-    ACC_PUBLIC(0x0001),
-    ACC_PRIVATE(0x0002),
-    ACC_PROTECTED(0x0004),
-    ACC_STATIC(0x0008),
-    ACC_FINAL(0x0010),
-    ACC_SYNCHRONIZED(0x0020),
-    ACC_BRIDGE(0x0040),
-    ACC_VARARGS(0x0080),
-    ACC_NATIVE(0x0100),
-    ACC_ABSTRACT(0x0400),
-    ACC_STRICT(0x0800),
-    ACC_SYNTHETIC(0x1000);
+enum class MethodAccessModifier(val value:UShort) {
+    ACC_PUBLIC(0x0001u),
+    ACC_PRIVATE(0x0002u),
+    ACC_PROTECTED(0x0004u),
+    ACC_STATIC(0x0008u),
+    ACC_FINAL(0x0010u),
+    ACC_SYNCHRONIZED(0x0020u),
+    ACC_BRIDGE(0x0040u),
+    ACC_VARARGS(0x0080u),
+    ACC_NATIVE(0x0100u),
+    ACC_ABSTRACT(0x0400u),
+    ACC_STRICT(0x0800u),
+    ACC_SYNTHETIC(0x1000u);
 
     companion object {
         fun fromASTModifier(astModifier: ASTNodes.Modifier): MethodAccessModifier {
