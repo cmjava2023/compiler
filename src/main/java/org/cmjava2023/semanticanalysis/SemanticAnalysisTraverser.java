@@ -5,6 +5,7 @@ import org.cmjava2023.ast.ASTTraverser;
 import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SemanticAnalysisTraverser implements ASTTraverser {
     public ArrayList<String> errors;
@@ -49,6 +50,7 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
     public void visit(ASTNodes.ParameterNode node) {
         Parameter parameterSymbol = node.parameterSymbol();
         if (parameterSymbol.getType() instanceof InvalidType invalidType) {
+            checkForVoidType("Parameter", parameterSymbol, invalidType);
             checkForType(invalidType, "Parameter", parameterSymbol);
         }
     }
@@ -79,16 +81,36 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
     public void visit(ASTNodes.VariableNode node) {
         Variable variableSymbol = node.variableSymbol();
         if (variableSymbol.getType() instanceof InvalidType invalidType) {
+            checkForVoidType("Variable", variableSymbol, invalidType);
             checkForType(invalidType, "Variable", variableSymbol);
         }
     }
 
     private void checkForType(InvalidType invalidType, String errorMessagePart, Symbol symbol) {
-        Symbol typeSymbol = symbol.getScope().resolve(invalidType.getName());
+        String type = invalidType.getName();
+        String arrayIndicator = "[]";
+        boolean isArray = type.contains(arrayIndicator);
+
+        if (isArray) {
+            type = type.replace(arrayIndicator, "");
+        }
+
+        Symbol typeSymbol = symbol.getScope().resolve(type);
+
         if (typeSymbol != null) {
-            symbol.setType(typeSymbol.getType());
+            if (isArray) {
+                symbol.setType(new ArrayType(typeSymbol.getType()));
+            } else {
+                symbol.setType(typeSymbol.getType());
+            }
         } else {
             errors.add(String.format("Cannot find type %s for %s %s", invalidType.getName(), errorMessagePart, symbol.getName()));
+        }
+    }
+
+    private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
+        if (Objects.equals(invalidType.getName(), "void")) {
+            errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
         }
     }
 

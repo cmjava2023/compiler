@@ -9,6 +9,7 @@ import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ASTVisitor;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
+import org.cmjava2023.semanticanalysis.SemanticAnalysisTraverser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,6 +26,8 @@ public class Main {
         ParseTree tree = parser.start();
         ASTVisitor visitor = new ASTVisitor();
         ASTNodes.Node ast = visitor.visit(tree);
+        SemanticAnalysisTraverser semanticAnalysisTraverser = new SemanticAnalysisTraverser(visitor.errors);
+        semanticAnalysisTraverser.visit((ASTNodes.StartNode) ast);
 
         var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)ast);
         var bytesForClassFile = new BytecodeFromClassfileModel().generate(classFileModel);

@@ -11,7 +11,6 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
@@ -141,7 +140,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         Scope currentScope = symbolTable.getCurrentScope();
         checkAlreadyDeclared("Function", functionName, currentScope);
         Function functionSymbol = new Function(currentScope, new HashMap<>(), functionName, null, accessModifier, modifier);
-        setType(ctx.type(), functionSymbol);
+        setInvalidType(ctx.type(), functionSymbol);
         symbolTable.addSymbol(functionSymbol);
         symbolTable.setScope(functionSymbol);
 
@@ -161,7 +160,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         Scope currentScope = symbolTable.getCurrentScope();
         checkAlreadyDeclared("Parameter", parameterName, currentScope);
         Parameter parameterSymbol = new Parameter(parameterName, null, currentScope);
-        setType(ctx.type(), parameterSymbol);
+        setInvalidType(ctx.type(), parameterSymbol);
         symbolTable.addSymbol(parameterSymbol);
         return new ASTNodes.ParameterNode(parameterSymbol);
     }
@@ -192,7 +191,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             checkAlreadyDeclared("Variable", variableName, enclosingFunction);
         }
         Variable variableSymbol = new Variable(variableName, null, currentScope, null);
-        setType(ctx.primitive_type(), variableSymbol);
+        setInvalidType(ctx.primitive_type(), variableSymbol);
         symbolTable.addSymbol(variableSymbol);
         return new ASTNodes.VariableNode(variableSymbol, null);
     }
@@ -209,38 +208,13 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return null;
     }
 
-    private void setType(ParserRuleContext ctx, Symbol symbol) {
+    private void setInvalidType(ParserRuleContext ctx, Symbol symbol) {
         ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
-        Symbol typeSymbol = symbolTable.getCurrentScope().resolve(type.getType());
-
-        if (typeSymbol != null) {
-            if (symbol instanceof Variable) {
-                checkForVoidType("Variable", symbol, typeSymbol);
-            }
-
-            if (symbol instanceof Parameter) {
-                checkForVoidType("Parameter", symbol, typeSymbol);
-            }
-        }
 
         if (type instanceof ASTNodes.ArrayTypeNode arrayType) {
-            if (typeSymbol == null) {
-                symbol.setType(new InvalidType(arrayType.type() + "[]"));
-            } else {
-                symbol.setType(new ArrayType(typeSymbol.getType()));
-            }
+            symbol.setType(new InvalidType(arrayType.type() + "[]"));
         } else if (type instanceof ASTNodes.TypeNode baseType) {
-            if (typeSymbol == null) {
-                symbol.setType(new InvalidType(baseType.type()));
-            } else {
-                symbol.setType(typeSymbol.getType());
-            }
-        }
-    }
-
-    private void checkForVoidType(String objectName, Symbol symbol, Symbol typeSymbol) {
-        if (Objects.equals(typeSymbol.getName(), "void")) {
-            errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
+            symbol.setType(new InvalidType(baseType.type()));
         }
     }
 
