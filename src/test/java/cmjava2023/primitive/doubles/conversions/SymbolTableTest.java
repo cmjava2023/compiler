@@ -1,4 +1,4 @@
-package cmjava2023.helloworld;
+package cmjava2023.primitive.doubles.conversions;
 
 import cmjava2023.util.TestPathsHelper;
 import cmjava2023.util.treePrinter.SymbolTableTreePrinter;
@@ -44,6 +44,13 @@ public class SymbolTableTest {
                     |  L  main: void
                     |     |- args: String[]
                     |     L  LocalScope
+                    |        |- force_const: double
+                    |        |- d: double
+                    |        |- f: float
+                    |        |- i: int
+                    |        |- l: long
+                    |        |- force_store: double
+                    |        L  force_load: double
                     |- int: int
                     |- long: long
                     L  System.out.println: void
