@@ -1,9 +1,9 @@
 package cmjava2023.helloworld;
 
-import cmjava2023.util.HexClassFileTester;
-import cmjava2023.util.MethodDescription;
-import cmjava2023.util.BytesInHexQueueFromBinaryFileQuery;
-import cmjava2023.util.JavaRunner;
+import cmjava2023.util.classFIleTesting.HexClassFileTester;
+import cmjava2023.util.classFIleTesting.MethodDescription;
+import cmjava2023.util.classFIleTesting.BytesInHexQueueFromBinaryFileQuery;
+import cmjava2023.util.classFIleTesting.JavaRunner;
 import cmjava2023.util.TestPathsHelper;
 import org.cmjava2023.Main;
 import org.junit.jupiter.api.BeforeAll;
