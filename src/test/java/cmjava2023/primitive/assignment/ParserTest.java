@@ -27,62 +27,557 @@ public class ParserTest {
 
                 String expected =
                 """
-                <Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                          |- Global_scope: packagecmjava2023.helloworld;
-                          |  |- Package_declaration: packagecmjava2023.helloworld
-                          |  |  |- package
-                          |  |  L  Identifier: cmjava2023.helloworld
-                          |  |     |- cmjava2023
-                          |  |     |- .
-                          |  |     L  helloworld
-                          |  L  ;
-                          L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                             L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                                |- Access_modifier: public
-                                |  L  public
-                                |- class
-                                |- Main
-                                |- {
-                                |- Class_scope: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |     |- Access_modifier: public
-                                |     |  L  public
-                                |     |- static
-                                |     |- Type: void
-                                |     |  L  void
-                                |     |- main
-                                |     |- (
-                                |     |- Function_declaration_args: String[]args
-                                |     |  L  Function_declaration_arg: String[]args
-                                |     |     |- Type: String[]
-                                |     |     |  L  Array_type: String[]
-                                |     |     |     |- Class_type: String
-                                |     |     |     |  L  String
-                                |     |     |     |- [
-                                |     |     |     L  ]
-                                |     |     L  args
-                                |     |- )
-                                |     |- {
-                                |     |- Function_scope: System.out.println("Hello world!");
-                                |     |  |- Expressions: System.out.println("Hello world!")
-                                |     |  |  L  Expression: System.out.println("Hello world!")
-                                |     |  |     L  Function_call: System.out.println("Hello world!")
-                                |     |  |        |- Identifier: System.out.println
-                                |     |  |        |  |- System
-                                |     |  |        |  |- .
-                                |     |  |        |  |- out
-                                |     |  |        |  |- .
-                                |     |  |        |  L  println
-                                |     |  |        |- (
-                                |     |  |        |- Function_args: "Hello world!"
-                                |     |  |        |  L  Function_arg: "Hello world!"
-                                |     |  |        |     L  Expressions: "Hello world!"
-                                |     |  |        |        L  Expression: "Hello world!"
-                                |     |  |        |           L  "Hello world!"
-                                |     |  |        L  )
-                                |     |  L  ;
-                                |     L  }
-                                L  }
+Start: packagecmjava2023.primitive.assignment;publicclassMain{publicstaticvoidmain(String[]args){intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);}}
+|- Global_scope: packagecmjava2023.primitive.assignment;
+|  |- Package_declaration: packagecmjava2023.primitive.assignment
+|  |  |- package
+|  |  L  Identifier: cmjava2023.primitive.assignment
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- primitive
+|  |     |- .
+|  |     L  assignment
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: intinteger=8;System.out.println("integer: "+integer);integer=9;System.out.println("integer: "+integer);booleanbool=false;System.out.println("bool: "+bool);bool=true;System.out.println("bool: "+bool);floatfloatingPoint=0.88f;System.out.println("floatingPoint: "+floatingPoint);floatingPoint=0.99f;System.out.println("floatingPoint: "+floatingPoint);longlongVariable=8888L;System.out.println("longVariable: "+longVariable);longVariable=99999L;System.out.println("longVariable: "+longVariable);charcharacter='8';System.out.println("character: "+character);character='9';System.out.println("character: "+character);bytebyteVariable=88;System.out.println("byteVariable: "+byteVariable);byteVariable=99;System.out.println("byteVariable: "+byteVariable);shortshortVariable=888;System.out.println("shortVariable: "+shortVariable);shortVariable=9999;System.out.println("shortVariable: "+shortVariable);doubledoubleVariable=0.888888888f;System.out.println("doubleVariable: "+doubleVariable);doubleVariable=0.999999999f;System.out.println("doubleVariable: "+doubleVariable);
+      |     |  |- Assignment: intinteger=8
+      |     |  |  |- Variable_declaration: intinteger
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  integer
+      |     |  |  |- =
+      |     |  |  L  Expressions: 8
+      |     |  |     L  Expression: 8
+      |     |  |        L  8
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("integer: "+integer)
+      |     |  |  L  Expression: System.out.println("integer: "+integer)
+      |     |  |     L  Function_call: System.out.println("integer: "+integer)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "integer: "+integer
+      |     |  |        |  L  Function_arg: "integer: "+integer
+      |     |  |        |     L  Expressions: "integer: "+integer
+      |     |  |        |        L  Expression: "integer: "+integer
+      |     |  |        |           |- Expression: "integer: "
+      |     |  |        |           |  L  "integer: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: integer
+      |     |  |        |              L  integer
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: integer=9
+      |     |  |  |- Identifier: integer
+      |     |  |  |  L  integer
+      |     |  |  |- =
+      |     |  |  L  Expressions: 9
+      |     |  |     L  Expression: 9
+      |     |  |        L  9
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("integer: "+integer)
+      |     |  |  L  Expression: System.out.println("integer: "+integer)
+      |     |  |     L  Function_call: System.out.println("integer: "+integer)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "integer: "+integer
+      |     |  |        |  L  Function_arg: "integer: "+integer
+      |     |  |        |     L  Expressions: "integer: "+integer
+      |     |  |        |        L  Expression: "integer: "+integer
+      |     |  |        |           |- Expression: "integer: "
+      |     |  |        |           |  L  "integer: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: integer
+      |     |  |        |              L  integer
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: booleanbool=false
+      |     |  |  |- Variable_declaration: booleanbool
+      |     |  |  |  |- Primitive_type: boolean
+      |     |  |  |  |  L  boolean
+      |     |  |  |  L  bool
+      |     |  |  |- =
+      |     |  |  L  Expressions: false
+      |     |  |     L  Expression: false
+      |     |  |        L  false
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("bool: "+bool)
+      |     |  |  L  Expression: System.out.println("bool: "+bool)
+      |     |  |     L  Function_call: System.out.println("bool: "+bool)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "bool: "+bool
+      |     |  |        |  L  Function_arg: "bool: "+bool
+      |     |  |        |     L  Expressions: "bool: "+bool
+      |     |  |        |        L  Expression: "bool: "+bool
+      |     |  |        |           |- Expression: "bool: "
+      |     |  |        |           |  L  "bool: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: bool
+      |     |  |        |              L  bool
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: bool=true
+      |     |  |  |- Identifier: bool
+      |     |  |  |  L  bool
+      |     |  |  |- =
+      |     |  |  L  Expressions: true
+      |     |  |     L  Expression: true
+      |     |  |        L  true
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("bool: "+bool)
+      |     |  |  L  Expression: System.out.println("bool: "+bool)
+      |     |  |     L  Function_call: System.out.println("bool: "+bool)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "bool: "+bool
+      |     |  |        |  L  Function_arg: "bool: "+bool
+      |     |  |        |     L  Expressions: "bool: "+bool
+      |     |  |        |        L  Expression: "bool: "+bool
+      |     |  |        |           |- Expression: "bool: "
+      |     |  |        |           |  L  "bool: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: bool
+      |     |  |        |              L  bool
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: floatfloatingPoint=0.88f
+      |     |  |  |- Variable_declaration: floatfloatingPoint
+      |     |  |  |  |- Primitive_type: float
+      |     |  |  |  |  L  Numeric_type: float
+      |     |  |  |  |     L  Floating_point_type: float
+      |     |  |  |  |        L  float
+      |     |  |  |  L  floatingPoint
+      |     |  |  |- =
+      |     |  |  L  Expressions: 0.88f
+      |     |  |     L  Expression: 0.88f
+      |     |  |        L  0.88f
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |  L  Expression: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |     L  Function_call: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "floatingPoint: "+floatingPoint
+      |     |  |        |  L  Function_arg: "floatingPoint: "+floatingPoint
+      |     |  |        |     L  Expressions: "floatingPoint: "+floatingPoint
+      |     |  |        |        L  Expression: "floatingPoint: "+floatingPoint
+      |     |  |        |           |- Expression: "floatingPoint: "
+      |     |  |        |           |  L  "floatingPoint: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: floatingPoint
+      |     |  |        |              L  floatingPoint
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: floatingPoint=0.99f
+      |     |  |  |- Identifier: floatingPoint
+      |     |  |  |  L  floatingPoint
+      |     |  |  |- =
+      |     |  |  L  Expressions: 0.99f
+      |     |  |     L  Expression: 0.99f
+      |     |  |        L  0.99f
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |  L  Expression: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |     L  Function_call: System.out.println("floatingPoint: "+floatingPoint)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "floatingPoint: "+floatingPoint
+      |     |  |        |  L  Function_arg: "floatingPoint: "+floatingPoint
+      |     |  |        |     L  Expressions: "floatingPoint: "+floatingPoint
+      |     |  |        |        L  Expression: "floatingPoint: "+floatingPoint
+      |     |  |        |           |- Expression: "floatingPoint: "
+      |     |  |        |           |  L  "floatingPoint: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: floatingPoint
+      |     |  |        |              L  floatingPoint
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: longlongVariable=8888L
+      |     |  |  |- Variable_declaration: longlongVariable
+      |     |  |  |  |- Primitive_type: long
+      |     |  |  |  |  L  Numeric_type: long
+      |     |  |  |  |     L  Integral_type: long
+      |     |  |  |  |        L  long
+      |     |  |  |  L  longVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 8888L
+      |     |  |     L  Expression: 8888L
+      |     |  |        L  8888L
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("longVariable: "+longVariable)
+      |     |  |  L  Expression: System.out.println("longVariable: "+longVariable)
+      |     |  |     L  Function_call: System.out.println("longVariable: "+longVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "longVariable: "+longVariable
+      |     |  |        |  L  Function_arg: "longVariable: "+longVariable
+      |     |  |        |     L  Expressions: "longVariable: "+longVariable
+      |     |  |        |        L  Expression: "longVariable: "+longVariable
+      |     |  |        |           |- Expression: "longVariable: "
+      |     |  |        |           |  L  "longVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: longVariable
+      |     |  |        |              L  longVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: longVariable=99999L
+      |     |  |  |- Identifier: longVariable
+      |     |  |  |  L  longVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 99999L
+      |     |  |     L  Expression: 99999L
+      |     |  |        L  99999L
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("longVariable: "+longVariable)
+      |     |  |  L  Expression: System.out.println("longVariable: "+longVariable)
+      |     |  |     L  Function_call: System.out.println("longVariable: "+longVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "longVariable: "+longVariable
+      |     |  |        |  L  Function_arg: "longVariable: "+longVariable
+      |     |  |        |     L  Expressions: "longVariable: "+longVariable
+      |     |  |        |        L  Expression: "longVariable: "+longVariable
+      |     |  |        |           |- Expression: "longVariable: "
+      |     |  |        |           |  L  "longVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: longVariable
+      |     |  |        |              L  longVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: charcharacter='8'
+      |     |  |  |- Variable_declaration: charcharacter
+      |     |  |  |  |- Primitive_type: char
+      |     |  |  |  |  L  Numeric_type: char
+      |     |  |  |  |     L  Integral_type: char
+      |     |  |  |  |        L  char
+      |     |  |  |  L  character
+      |     |  |  |- =
+      |     |  |  L  Expressions: '8'
+      |     |  |     L  Expression: '8'
+      |     |  |        L  '8'
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("character: "+character)
+      |     |  |  L  Expression: System.out.println("character: "+character)
+      |     |  |     L  Function_call: System.out.println("character: "+character)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "character: "+character
+      |     |  |        |  L  Function_arg: "character: "+character
+      |     |  |        |     L  Expressions: "character: "+character
+      |     |  |        |        L  Expression: "character: "+character
+      |     |  |        |           |- Expression: "character: "
+      |     |  |        |           |  L  "character: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: character
+      |     |  |        |              L  character
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: character='9'
+      |     |  |  |- Identifier: character
+      |     |  |  |  L  character
+      |     |  |  |- =
+      |     |  |  L  Expressions: '9'
+      |     |  |     L  Expression: '9'
+      |     |  |        L  '9'
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("character: "+character)
+      |     |  |  L  Expression: System.out.println("character: "+character)
+      |     |  |     L  Function_call: System.out.println("character: "+character)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "character: "+character
+      |     |  |        |  L  Function_arg: "character: "+character
+      |     |  |        |     L  Expressions: "character: "+character
+      |     |  |        |        L  Expression: "character: "+character
+      |     |  |        |           |- Expression: "character: "
+      |     |  |        |           |  L  "character: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: character
+      |     |  |        |              L  character
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: bytebyteVariable=88
+      |     |  |  |- Variable_declaration: bytebyteVariable
+      |     |  |  |  |- Primitive_type: byte
+      |     |  |  |  |  L  Numeric_type: byte
+      |     |  |  |  |     L  Integral_type: byte
+      |     |  |  |  |        L  byte
+      |     |  |  |  L  byteVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 88
+      |     |  |     L  Expression: 88
+      |     |  |        L  88
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("byteVariable: "+byteVariable)
+      |     |  |  L  Expression: System.out.println("byteVariable: "+byteVariable)
+      |     |  |     L  Function_call: System.out.println("byteVariable: "+byteVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "byteVariable: "+byteVariable
+      |     |  |        |  L  Function_arg: "byteVariable: "+byteVariable
+      |     |  |        |     L  Expressions: "byteVariable: "+byteVariable
+      |     |  |        |        L  Expression: "byteVariable: "+byteVariable
+      |     |  |        |           |- Expression: "byteVariable: "
+      |     |  |        |           |  L  "byteVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: byteVariable
+      |     |  |        |              L  byteVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: byteVariable=99
+      |     |  |  |- Identifier: byteVariable
+      |     |  |  |  L  byteVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 99
+      |     |  |     L  Expression: 99
+      |     |  |        L  99
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("byteVariable: "+byteVariable)
+      |     |  |  L  Expression: System.out.println("byteVariable: "+byteVariable)
+      |     |  |     L  Function_call: System.out.println("byteVariable: "+byteVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "byteVariable: "+byteVariable
+      |     |  |        |  L  Function_arg: "byteVariable: "+byteVariable
+      |     |  |        |     L  Expressions: "byteVariable: "+byteVariable
+      |     |  |        |        L  Expression: "byteVariable: "+byteVariable
+      |     |  |        |           |- Expression: "byteVariable: "
+      |     |  |        |           |  L  "byteVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: byteVariable
+      |     |  |        |              L  byteVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: shortshortVariable=888
+      |     |  |  |- Variable_declaration: shortshortVariable
+      |     |  |  |  |- Primitive_type: short
+      |     |  |  |  |  L  Numeric_type: short
+      |     |  |  |  |     L  Integral_type: short
+      |     |  |  |  |        L  short
+      |     |  |  |  L  shortVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 888
+      |     |  |     L  Expression: 888
+      |     |  |        L  888
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("shortVariable: "+shortVariable)
+      |     |  |  L  Expression: System.out.println("shortVariable: "+shortVariable)
+      |     |  |     L  Function_call: System.out.println("shortVariable: "+shortVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "shortVariable: "+shortVariable
+      |     |  |        |  L  Function_arg: "shortVariable: "+shortVariable
+      |     |  |        |     L  Expressions: "shortVariable: "+shortVariable
+      |     |  |        |        L  Expression: "shortVariable: "+shortVariable
+      |     |  |        |           |- Expression: "shortVariable: "
+      |     |  |        |           |  L  "shortVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: shortVariable
+      |     |  |        |              L  shortVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: shortVariable=9999
+      |     |  |  |- Identifier: shortVariable
+      |     |  |  |  L  shortVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 9999
+      |     |  |     L  Expression: 9999
+      |     |  |        L  9999
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("shortVariable: "+shortVariable)
+      |     |  |  L  Expression: System.out.println("shortVariable: "+shortVariable)
+      |     |  |     L  Function_call: System.out.println("shortVariable: "+shortVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "shortVariable: "+shortVariable
+      |     |  |        |  L  Function_arg: "shortVariable: "+shortVariable
+      |     |  |        |     L  Expressions: "shortVariable: "+shortVariable
+      |     |  |        |        L  Expression: "shortVariable: "+shortVariable
+      |     |  |        |           |- Expression: "shortVariable: "
+      |     |  |        |           |  L  "shortVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: shortVariable
+      |     |  |        |              L  shortVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: doubledoubleVariable=0.888888888f
+      |     |  |  |- Variable_declaration: doubledoubleVariable
+      |     |  |  |  |- Primitive_type: double
+      |     |  |  |  |  L  Numeric_type: double
+      |     |  |  |  |     L  Floating_point_type: double
+      |     |  |  |  |        L  double
+      |     |  |  |  L  doubleVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 0.888888888f
+      |     |  |     L  Expression: 0.888888888f
+      |     |  |        L  0.888888888f
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |  L  Expression: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |     L  Function_call: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "doubleVariable: "+doubleVariable
+      |     |  |        |  L  Function_arg: "doubleVariable: "+doubleVariable
+      |     |  |        |     L  Expressions: "doubleVariable: "+doubleVariable
+      |     |  |        |        L  Expression: "doubleVariable: "+doubleVariable
+      |     |  |        |           |- Expression: "doubleVariable: "
+      |     |  |        |           |  L  "doubleVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: doubleVariable
+      |     |  |        |              L  doubleVariable
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: doubleVariable=0.999999999f
+      |     |  |  |- Identifier: doubleVariable
+      |     |  |  |  L  doubleVariable
+      |     |  |  |- =
+      |     |  |  L  Expressions: 0.999999999f
+      |     |  |     L  Expression: 0.999999999f
+      |     |  |        L  0.999999999f
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |  L  Expression: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |     L  Function_call: System.out.println("doubleVariable: "+doubleVariable)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "doubleVariable: "+doubleVariable
+      |     |  |        |  L  Function_arg: "doubleVariable: "+doubleVariable
+      |     |  |        |     L  Expressions: "doubleVariable: "+doubleVariable
+      |     |  |        |        L  Expression: "doubleVariable: "+doubleVariable
+      |     |  |        |           |- Expression: "doubleVariable: "
+      |     |  |        |           |  L  "doubleVariable: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: doubleVariable
+      |     |  |        |              L  doubleVariable
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }
                         """;
 
         assertEquals(expected, new TreePrinter().printParseTree(tree));

@@ -27,62 +27,62 @@ public class ParserTest {
 
                 String expected =
                 """
-                <Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                          |- Global_scope: packagecmjava2023.helloworld;
-                          |  |- Package_declaration: packagecmjava2023.helloworld
-                          |  |  |- package
-                          |  |  L  Identifier: cmjava2023.helloworld
-                          |  |     |- cmjava2023
-                          |  |     |- .
-                          |  |     L  helloworld
-                          |  L  ;
-                          L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                             L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                                |- Access_modifier: public
-                                |  L  public
-                                |- class
-                                |- Main
-                                |- {
-                                |- Class_scope: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |     |- Access_modifier: public
-                                |     |  L  public
-                                |     |- static
-                                |     |- Type: void
-                                |     |  L  void
-                                |     |- main
-                                |     |- (
-                                |     |- Function_declaration_args: String[]args
-                                |     |  L  Function_declaration_arg: String[]args
-                                |     |     |- Type: String[]
-                                |     |     |  L  Array_type: String[]
-                                |     |     |     |- Class_type: String
-                                |     |     |     |  L  String
-                                |     |     |     |- [
-                                |     |     |     L  ]
-                                |     |     L  args
-                                |     |- )
-                                |     |- {
-                                |     |- Function_scope: System.out.println("Hello world!");
-                                |     |  |- Expressions: System.out.println("Hello world!")
-                                |     |  |  L  Expression: System.out.println("Hello world!")
-                                |     |  |     L  Function_call: System.out.println("Hello world!")
-                                |     |  |        |- Identifier: System.out.println
-                                |     |  |        |  |- System
-                                |     |  |        |  |- .
-                                |     |  |        |  |- out
-                                |     |  |        |  |- .
-                                |     |  |        |  L  println
-                                |     |  |        |- (
-                                |     |  |        |- Function_args: "Hello world!"
-                                |     |  |        |  L  Function_arg: "Hello world!"
-                                |     |  |        |     L  Expressions: "Hello world!"
-                                |     |  |        |        L  Expression: "Hello world!"
-                                |     |  |        |           L  "Hello world!"
-                                |     |  |        L  )
-                                |     |  L  ;
-                                |     L  }
-                                L  }
+Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+|- Global_scope: packagecmjava2023.helloworld;
+|  |- Package_declaration: packagecmjava2023.helloworld
+|  |  |- package
+|  |  L  Identifier: cmjava2023.helloworld
+|  |     |- cmjava2023
+|  |     |- .
+|  |     L  helloworld
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: System.out.println("Hello world!");
+      |     |  |- Expressions: System.out.println("Hello world!")
+      |     |  |  L  Expression: System.out.println("Hello world!")
+      |     |  |     L  Function_call: System.out.println("Hello world!")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "Hello world!"
+      |     |  |        |  L  Function_arg: "Hello world!"
+      |     |  |        |     L  Expressions: "Hello world!"
+      |     |  |        |        L  Expression: "Hello world!"
+      |     |  |        |           L  "Hello world!"
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }
                         """;
 
         assertEquals(expected, new TreePrinter().printParseTree(tree));

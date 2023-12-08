@@ -19,16 +19,23 @@ function_scope: ((expressions | assignment | variable_declaration | return_state
 block_scope: if_statement | if_else_statement;
 
 expressions: expression (expression_operator expression)?;
-variable_declaration: primitive_type IDENTIFIER;
+variable_declaration: (primitive_type | reference_type) IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE;
+expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_attribute | access_index | numerical_prefix expression | expression expression_suffix;
 
-expression_operator: logical_comparison_operator | numerical_comparison_operator;
-expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD;
+expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
+expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
+expression_suffix: DEC | INC;
 
+instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
+
+access_index: IDENTIFIER (DOT IDENTIFIER)+;
+access_attribute: IDENTIFIER (BRACKET_OPEN INTEGER BRACKET_CLOSE)+;
 numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD;
+numerical_prefix: PLUS | MINUS;
 logical_comparison_operator: LAND | LOR;
+bit_comparison_operator: BAND | BOR | BXOR | BIT_SHIFT_L | BIT_SHIFT_R;
 
 // Packages
 package_declaration: PACKAGE_KEYWORD identifier;
@@ -69,8 +76,8 @@ type_argument_list: type_argument (COMMA type_argument)*;
 type_argument: reference_type | wildcard;
 wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
 type_variable: IDENTIFIER;
-array_type: (primitive_type | class_type |type_variable) BRACKET_OPEN BRACKET_CLOSE;
-
+array_type: (primitive_type | class_type |type_variable) (BRACKET_OPEN BRACKET_CLOSE)+;
+array_expression: CURLY_OPEN (STRING | (expression (COMMA expression)*)) CURLY_CLOSE;
 // Casting
 casting: PAREN_OPEN type PAREN_CLOSE expression;
 
@@ -105,6 +112,7 @@ PUBLIC_KEYWORD: 'public';
 PRIVATE_KEYWORD: 'private';
 PROTECTED_KEYWORD: 'protected';
 RETURN_KEYWORD: 'return';
+INSTANCE_KEYWORD: 'new';
 
 IF_KEYWORD: 'if';
 ELSE_KEYWORD: 'else';
@@ -139,11 +147,19 @@ PLUS: '+';
 MINUS: '-';
 MULTIPLICATION: '*';
 DIVISION: '/';
+INC: '++';
+DEC: '--';
 
 // Logical Operators
 LAND: '&&';
 LOR: '||';
 
+// Bit Operators
+BAND: '&';
+BOR: '|';
+BIT_SHIFT_L: '<'+;
+BIT_SHIFT_R: '>'+;
+BXOR: '^';
 // Comments
 COMMENT : '/*' .*? '*/' -> skip;
 LINE_COMMENT : '//' ~[\r\n]* -> skip;

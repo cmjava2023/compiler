@@ -169,7 +169,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitVariable_declaration(MainAntlrParser.Variable_declarationContext ctx) {
         String variableName = ctx.IDENTIFIER().getText();
         Variable variableSymbol = new Variable(variableName, null, symbolTable.getCurrentScope(), null);
-        setType(ctx.primitive_type(), variableSymbol);
+        setType(ctx.reference_type(), variableSymbol);
         symbolTable.addSymbol(variableSymbol);
         return new ASTNodes.VariableNode(variableSymbol, null);
     }

@@ -27,62 +27,696 @@ public class ParserTest {
 
                 String expected =
                 """
-                <Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                          |- Global_scope: packagecmjava2023.helloworld;
-                          |  |- Package_declaration: packagecmjava2023.helloworld
-                          |  |  |- package
-                          |  |  L  Identifier: cmjava2023.helloworld
-                          |  |     |- cmjava2023
-                          |  |     |- .
-                          |  |     L  helloworld
-                          |  L  ;
-                          L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                             L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                                |- Access_modifier: public
-                                |  L  public
-                                |- class
-                                |- Main
-                                |- {
-                                |- Class_scope: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |     |- Access_modifier: public
-                                |     |  L  public
-                                |     |- static
-                                |     |- Type: void
-                                |     |  L  void
-                                |     |- main
-                                |     |- (
-                                |     |- Function_declaration_args: String[]args
-                                |     |  L  Function_declaration_arg: String[]args
-                                |     |     |- Type: String[]
-                                |     |     |  L  Array_type: String[]
-                                |     |     |     |- Class_type: String
-                                |     |     |     |  L  String
-                                |     |     |     |- [
-                                |     |     |     L  ]
-                                |     |     L  args
-                                |     |- )
-                                |     |- {
-                                |     |- Function_scope: System.out.println("Hello world!");
-                                |     |  |- Expressions: System.out.println("Hello world!")
-                                |     |  |  L  Expression: System.out.println("Hello world!")
-                                |     |  |     L  Function_call: System.out.println("Hello world!")
-                                |     |  |        |- Identifier: System.out.println
-                                |     |  |        |  |- System
-                                |     |  |        |  |- .
-                                |     |  |        |  |- out
-                                |     |  |        |  |- .
-                                |     |  |        |  L  println
-                                |     |  |        |- (
-                                |     |  |        |- Function_args: "Hello world!"
-                                |     |  |        |  L  Function_arg: "Hello world!"
-                                |     |  |        |     L  Expressions: "Hello world!"
-                                |     |  |        |        L  Expression: "Hello world!"
-                                |     |  |        |           L  "Hello world!"
-                                |     |  |        L  )
-                                |     |  L  ;
-                                |     L  }
-                                L  }
+Start: packagecmjava2023.array;publicclassMain{publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}}
+|- Global_scope: packagecmjava2023.array;
+|  |- Package_declaration: packagecmjava2023.array
+|  |  |- package
+|  |  L  Identifier: cmjava2023.array
+|  |     |- cmjava2023
+|  |     |- .
+|  |     L  array
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);
+      |     |  |- Assignment: String[]o={"Hello World"}
+      |     |  |  |- Variable_declaration: String[]o
+      |     |  |  |  |- Reference_type: String[]
+      |     |  |  |  |  L  Array_type: String[]
+      |     |  |  |  |     |- Class_type: String
+      |     |  |  |  |     |  L  String
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  o
+      |     |  |  |- =
+      |     |  |  L  Expressions: {"Hello World"}
+      |     |  |     L  Expression: {"Hello World"}
+      |     |  |        L  Array_expression: {"Hello World"}
+      |     |  |           |- {
+      |     |  |           |- "Hello World"
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: byte[]by={10,11}
+      |     |  |  |- Variable_declaration: byte[]by
+      |     |  |  |  |- Reference_type: byte[]
+      |     |  |  |  |  L  Array_type: byte[]
+      |     |  |  |  |     |- Primitive_type: byte
+      |     |  |  |  |     |  L  Numeric_type: byte
+      |     |  |  |  |     |     L  Integral_type: byte
+      |     |  |  |  |     |        L  byte
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  by
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: boolean[]boo={true,false}
+      |     |  |  |- Variable_declaration: boolean[]boo
+      |     |  |  |  |- Reference_type: boolean[]
+      |     |  |  |  |  L  Array_type: boolean[]
+      |     |  |  |  |     |- Primitive_type: boolean
+      |     |  |  |  |     |  L  boolean
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  boo
+      |     |  |  |- =
+      |     |  |  L  Expressions: {true,false}
+      |     |  |     L  Expression: {true,false}
+      |     |  |        L  Array_expression: {true,false}
+      |     |  |           |- {
+      |     |  |           |- Expression: true
+      |     |  |           |  L  true
+      |     |  |           |- ,
+      |     |  |           |- Expression: false
+      |     |  |           |  L  false
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: char[]c={10,11}
+      |     |  |  |- Variable_declaration: char[]c
+      |     |  |  |  |- Reference_type: char[]
+      |     |  |  |  |  L  Array_type: char[]
+      |     |  |  |  |     |- Primitive_type: char
+      |     |  |  |  |     |  L  Numeric_type: char
+      |     |  |  |  |     |     L  Integral_type: char
+      |     |  |  |  |     |        L  char
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  c
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: double[]d={10,11}
+      |     |  |  |- Variable_declaration: double[]d
+      |     |  |  |  |- Reference_type: double[]
+      |     |  |  |  |  L  Array_type: double[]
+      |     |  |  |  |     |- Primitive_type: double
+      |     |  |  |  |     |  L  Numeric_type: double
+      |     |  |  |  |     |     L  Floating_point_type: double
+      |     |  |  |  |     |        L  double
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  d
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: float[]f={10,11}
+      |     |  |  |- Variable_declaration: float[]f
+      |     |  |  |  |- Reference_type: float[]
+      |     |  |  |  |  L  Array_type: float[]
+      |     |  |  |  |     |- Primitive_type: float
+      |     |  |  |  |     |  L  Numeric_type: float
+      |     |  |  |  |     |     L  Floating_point_type: float
+      |     |  |  |  |     |        L  float
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  f
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: int[]i={10,11}
+      |     |  |  |- Variable_declaration: int[]i
+      |     |  |  |  |- Reference_type: int[]
+      |     |  |  |  |  L  Array_type: int[]
+      |     |  |  |  |     |- Primitive_type: int
+      |     |  |  |  |     |  L  Numeric_type: int
+      |     |  |  |  |     |     L  Integral_type: int
+      |     |  |  |  |     |        L  int
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  i
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: long[]l={10,11}
+      |     |  |  |- Variable_declaration: long[]l
+      |     |  |  |  |- Reference_type: long[]
+      |     |  |  |  |  L  Array_type: long[]
+      |     |  |  |  |     |- Primitive_type: long
+      |     |  |  |  |     |  L  Numeric_type: long
+      |     |  |  |  |     |     L  Integral_type: long
+      |     |  |  |  |     |        L  long
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  l
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Assignment: int[][]i2=newint[10][10]
+      |     |  |  |- Variable_declaration: int[][]i2
+      |     |  |  |  |- Reference_type: int[][]
+      |     |  |  |  |  L  Array_type: int[][]
+      |     |  |  |  |     |- Primitive_type: int
+      |     |  |  |  |     |  L  Numeric_type: int
+      |     |  |  |  |     |     L  Integral_type: int
+      |     |  |  |  |     |        L  int
+      |     |  |  |  |     |- [
+      |     |  |  |  |     |- ]
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  i2
+      |     |  |  |- =
+      |     |  |  L  Expressions: newint[10][10]
+      |     |  |     L  Expression: newint[10][10]
+      |     |  |        L  Instantiation: newint[10][10]
+      |     |  |           |- new
+      |     |  |           |- Type: int
+      |     |  |           |  L  Primitive_type: int
+      |     |  |           |     L  Numeric_type: int
+      |     |  |           |        L  Integral_type: int
+      |     |  |           |           L  int
+      |     |  |           |- [
+      |     |  |           |- 10
+      |     |  |           |- ]
+      |     |  |           |- [
+      |     |  |           |- 10
+      |     |  |           L  ]
+      |     |  |- ;
+      |     |  |- Assignment: short[]s={10,11}
+      |     |  |  |- Variable_declaration: short[]s
+      |     |  |  |  |- Reference_type: short[]
+      |     |  |  |  |  L  Array_type: short[]
+      |     |  |  |  |     |- Primitive_type: short
+      |     |  |  |  |     |  L  Numeric_type: short
+      |     |  |  |  |     |     L  Integral_type: short
+      |     |  |  |  |     |        L  short
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  s
+      |     |  |  |- =
+      |     |  |  L  Expressions: {10,11}
+      |     |  |     L  Expression: {10,11}
+      |     |  |        L  Array_expression: {10,11}
+      |     |  |           |- {
+      |     |  |           |- Expression: 10
+      |     |  |           |  L  10
+      |     |  |           |- ,
+      |     |  |           |- Expression: 11
+      |     |  |           |  L  11
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("o:")
+      |     |  |  L  Expression: System.out.println("o:")
+      |     |  |     L  Function_call: System.out.println("o:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "o:"
+      |     |  |        |  L  Function_arg: "o:"
+      |     |  |        |     L  Expressions: "o:"
+      |     |  |        |        L  Expression: "o:"
+      |     |  |        |           L  "o:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(o[0])
+      |     |  |  L  Expression: System.out.println(o[0])
+      |     |  |     L  Function_call: System.out.println(o[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: o[0]
+      |     |  |        |  L  Function_arg: o[0]
+      |     |  |        |     L  Expressions: o[0]
+      |     |  |        |        L  Expression: o[0]
+      |     |  |        |           L  Access_attribute: o[0]
+      |     |  |        |              |- o
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("by:")
+      |     |  |  L  Expression: System.out.println("by:")
+      |     |  |     L  Function_call: System.out.println("by:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "by:"
+      |     |  |        |  L  Function_arg: "by:"
+      |     |  |        |     L  Expressions: "by:"
+      |     |  |        |        L  Expression: "by:"
+      |     |  |        |           L  "by:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(by[0])
+      |     |  |  L  Expression: System.out.println(by[0])
+      |     |  |     L  Function_call: System.out.println(by[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: by[0]
+      |     |  |        |  L  Function_arg: by[0]
+      |     |  |        |     L  Expressions: by[0]
+      |     |  |        |        L  Expression: by[0]
+      |     |  |        |           L  Access_attribute: by[0]
+      |     |  |        |              |- by
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("boo:")
+      |     |  |  L  Expression: System.out.println("boo:")
+      |     |  |     L  Function_call: System.out.println("boo:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "boo:"
+      |     |  |        |  L  Function_arg: "boo:"
+      |     |  |        |     L  Expressions: "boo:"
+      |     |  |        |        L  Expression: "boo:"
+      |     |  |        |           L  "boo:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(boo[0])
+      |     |  |  L  Expression: System.out.println(boo[0])
+      |     |  |     L  Function_call: System.out.println(boo[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: boo[0]
+      |     |  |        |  L  Function_arg: boo[0]
+      |     |  |        |     L  Expressions: boo[0]
+      |     |  |        |        L  Expression: boo[0]
+      |     |  |        |           L  Access_attribute: boo[0]
+      |     |  |        |              |- boo
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("c:")
+      |     |  |  L  Expression: System.out.println("c:")
+      |     |  |     L  Function_call: System.out.println("c:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "c:"
+      |     |  |        |  L  Function_arg: "c:"
+      |     |  |        |     L  Expressions: "c:"
+      |     |  |        |        L  Expression: "c:"
+      |     |  |        |           L  "c:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(c[0])
+      |     |  |  L  Expression: System.out.println(c[0])
+      |     |  |     L  Function_call: System.out.println(c[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: c[0]
+      |     |  |        |  L  Function_arg: c[0]
+      |     |  |        |     L  Expressions: c[0]
+      |     |  |        |        L  Expression: c[0]
+      |     |  |        |           L  Access_attribute: c[0]
+      |     |  |        |              |- c
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("d:")
+      |     |  |  L  Expression: System.out.println("d:")
+      |     |  |     L  Function_call: System.out.println("d:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "d:"
+      |     |  |        |  L  Function_arg: "d:"
+      |     |  |        |     L  Expressions: "d:"
+      |     |  |        |        L  Expression: "d:"
+      |     |  |        |           L  "d:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(d[0])
+      |     |  |  L  Expression: System.out.println(d[0])
+      |     |  |     L  Function_call: System.out.println(d[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: d[0]
+      |     |  |        |  L  Function_arg: d[0]
+      |     |  |        |     L  Expressions: d[0]
+      |     |  |        |        L  Expression: d[0]
+      |     |  |        |           L  Access_attribute: d[0]
+      |     |  |        |              |- d
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("f:")
+      |     |  |  L  Expression: System.out.println("f:")
+      |     |  |     L  Function_call: System.out.println("f:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "f:"
+      |     |  |        |  L  Function_arg: "f:"
+      |     |  |        |     L  Expressions: "f:"
+      |     |  |        |        L  Expression: "f:"
+      |     |  |        |           L  "f:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(f[0])
+      |     |  |  L  Expression: System.out.println(f[0])
+      |     |  |     L  Function_call: System.out.println(f[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: f[0]
+      |     |  |        |  L  Function_arg: f[0]
+      |     |  |        |     L  Expressions: f[0]
+      |     |  |        |        L  Expression: f[0]
+      |     |  |        |           L  Access_attribute: f[0]
+      |     |  |        |              |- f
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("i:")
+      |     |  |  L  Expression: System.out.println("i:")
+      |     |  |     L  Function_call: System.out.println("i:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "i:"
+      |     |  |        |  L  Function_arg: "i:"
+      |     |  |        |     L  Expressions: "i:"
+      |     |  |        |        L  Expression: "i:"
+      |     |  |        |           L  "i:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(i[0])
+      |     |  |  L  Expression: System.out.println(i[0])
+      |     |  |     L  Function_call: System.out.println(i[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: i[0]
+      |     |  |        |  L  Function_arg: i[0]
+      |     |  |        |     L  Expressions: i[0]
+      |     |  |        |        L  Expression: i[0]
+      |     |  |        |           L  Access_attribute: i[0]
+      |     |  |        |              |- i
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("l:")
+      |     |  |  L  Expression: System.out.println("l:")
+      |     |  |     L  Function_call: System.out.println("l:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "l:"
+      |     |  |        |  L  Function_arg: "l:"
+      |     |  |        |     L  Expressions: "l:"
+      |     |  |        |        L  Expression: "l:"
+      |     |  |        |           L  "l:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(l[0])
+      |     |  |  L  Expression: System.out.println(l[0])
+      |     |  |     L  Function_call: System.out.println(l[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: l[0]
+      |     |  |        |  L  Function_arg: l[0]
+      |     |  |        |     L  Expressions: l[0]
+      |     |  |        |        L  Expression: l[0]
+      |     |  |        |           L  Access_attribute: l[0]
+      |     |  |        |              |- l
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("i2:")
+      |     |  |  L  Expression: System.out.println("i2:")
+      |     |  |     L  Function_call: System.out.println("i2:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "i2:"
+      |     |  |        |  L  Function_arg: "i2:"
+      |     |  |        |     L  Expressions: "i2:"
+      |     |  |        |        L  Expression: "i2:"
+      |     |  |        |           L  "i2:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(i2[0][0])
+      |     |  |  L  Expression: System.out.println(i2[0][0])
+      |     |  |     L  Function_call: System.out.println(i2[0][0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: i2[0][0]
+      |     |  |        |  L  Function_arg: i2[0][0]
+      |     |  |        |     L  Expressions: i2[0][0]
+      |     |  |        |        L  Expression: i2[0][0]
+      |     |  |        |           L  Access_attribute: i2[0][0]
+      |     |  |        |              |- i2
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              |- ]
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("s:")
+      |     |  |  L  Expression: System.out.println("s:")
+      |     |  |     L  Function_call: System.out.println("s:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "s:"
+      |     |  |        |  L  Function_arg: "s:"
+      |     |  |        |     L  Expressions: "s:"
+      |     |  |        |        L  Expression: "s:"
+      |     |  |        |           L  "s:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(s[0])
+      |     |  |  L  Expression: System.out.println(s[0])
+      |     |  |     L  Function_call: System.out.println(s[0])
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: s[0]
+      |     |  |        |  L  Function_arg: s[0]
+      |     |  |        |     L  Expressions: s[0]
+      |     |  |        |        L  Expression: s[0]
+      |     |  |        |           L  Access_attribute: s[0]
+      |     |  |        |              |- s
+      |     |  |        |              |- [
+      |     |  |        |              |- 0
+      |     |  |        |              L  ]
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("len:")
+      |     |  |  L  Expression: System.out.println("len:")
+      |     |  |     L  Function_call: System.out.println("len:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "len:"
+      |     |  |        |  L  Function_arg: "len:"
+      |     |  |        |     L  Expressions: "len:"
+      |     |  |        |        L  Expression: "len:"
+      |     |  |        |           L  "len:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(i2.length)
+      |     |  |  L  Expression: System.out.println(i2.length)
+      |     |  |     L  Function_call: System.out.println(i2.length)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: i2.length
+      |     |  |        |  L  Function_arg: i2.length
+      |     |  |        |     L  Expressions: i2.length
+      |     |  |        |        L  Expression: i2.length
+      |     |  |        |           |- Expression: i2
+      |     |  |        |           |  L  i2
+      |     |  |        |           |- Expression_concatinator: .
+      |     |  |        |           |  L  .
+      |     |  |        |           L  Expression: length
+      |     |  |        |              L  length
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }
                         """;
 
         assertEquals(expected, new TreePrinter().printParseTree(tree));

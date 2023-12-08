@@ -27,62 +27,471 @@ public class ParserTest {
 
                 String expected =
                 """
-                <Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                          |- Global_scope: packagecmjava2023.helloworld;
-                          |  |- Package_declaration: packagecmjava2023.helloworld
-                          |  |  |- package
-                          |  |  L  Identifier: cmjava2023.helloworld
-                          |  |     |- cmjava2023
-                          |  |     |- .
-                          |  |     L  helloworld
-                          |  L  ;
-                          L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                             L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
-                                |- Access_modifier: public
-                                |  L  public
-                                |- class
-                                |- Main
-                                |- {
-                                |- Class_scope: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |  L  Function_declaration: publicstaticvoidmain(String[]args){System.out.println("Hello world!");}
-                                |     |- Access_modifier: public
-                                |     |  L  public
-                                |     |- static
-                                |     |- Type: void
-                                |     |  L  void
-                                |     |- main
-                                |     |- (
-                                |     |- Function_declaration_args: String[]args
-                                |     |  L  Function_declaration_arg: String[]args
-                                |     |     |- Type: String[]
-                                |     |     |  L  Array_type: String[]
-                                |     |     |     |- Class_type: String
-                                |     |     |     |  L  String
-                                |     |     |     |- [
-                                |     |     |     L  ]
-                                |     |     L  args
-                                |     |- )
-                                |     |- {
-                                |     |- Function_scope: System.out.println("Hello world!");
-                                |     |  |- Expressions: System.out.println("Hello world!")
-                                |     |  |  L  Expression: System.out.println("Hello world!")
-                                |     |  |     L  Function_call: System.out.println("Hello world!")
-                                |     |  |        |- Identifier: System.out.println
-                                |     |  |        |  |- System
-                                |     |  |        |  |- .
-                                |     |  |        |  |- out
-                                |     |  |        |  |- .
-                                |     |  |        |  L  println
-                                |     |  |        |- (
-                                |     |  |        |- Function_args: "Hello world!"
-                                |     |  |        |  L  Function_arg: "Hello world!"
-                                |     |  |        |     L  Expressions: "Hello world!"
-                                |     |  |        |        L  Expression: "Hello world!"
-                                |     |  |        |           L  "Hello world!"
-                                |     |  |        L  )
-                                |     |  L  ;
-                                |     L  }
-                                L  }
+Start: packagecmjava2023.primitive.ints.conversions;publicclassMain{publicstaticvoidmain(String[]args){inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);}}
+|- Global_scope: packagecmjava2023.primitive.ints.conversions;
+|  |- Package_declaration: packagecmjava2023.primitive.ints.conversions
+|  |  |- package
+|  |  L  Identifier: cmjava2023.primitive.ints.conversions
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- primitive
+|  |     |- .
+|  |     |- ints
+|  |     |- .
+|  |     L  conversions
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: inti=10;byteb=(byte)i;charc=(char)i;doubled=(double)i;floatf=(float)i;longl=(long)i;shorts=(short)i;intforce_load=s;System.out.println("i:");System.out.println(i);System.out.println("b:");System.out.println(b);System.out.println("c:");System.out.println(c);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("l:");System.out.println(l);System.out.println("s:");System.out.println(s);System.out.println("force_load:");System.out.println(force_load);
+      |     |  |- Assignment: inti=10
+      |     |  |  |- Variable_declaration: inti
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  i
+      |     |  |  |- =
+      |     |  |  L  Expressions: 10
+      |     |  |     L  Expression: 10
+      |     |  |        L  10
+      |     |  |- ;
+      |     |  |- Assignment: byteb=(byte)i
+      |     |  |  |- Variable_declaration: byteb
+      |     |  |  |  |- Primitive_type: byte
+      |     |  |  |  |  L  Numeric_type: byte
+      |     |  |  |  |     L  Integral_type: byte
+      |     |  |  |  |        L  byte
+      |     |  |  |  L  b
+      |     |  |  |- =
+      |     |  |  L  Expressions: (byte)i
+      |     |  |     L  Expression: (byte)i
+      |     |  |        L  Casting: (byte)i
+      |     |  |           |- (
+      |     |  |           |- Type: byte
+      |     |  |           |  L  Primitive_type: byte
+      |     |  |           |     L  Numeric_type: byte
+      |     |  |           |        L  Integral_type: byte
+      |     |  |           |           L  byte
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: charc=(char)i
+      |     |  |  |- Variable_declaration: charc
+      |     |  |  |  |- Primitive_type: char
+      |     |  |  |  |  L  Numeric_type: char
+      |     |  |  |  |     L  Integral_type: char
+      |     |  |  |  |        L  char
+      |     |  |  |  L  c
+      |     |  |  |- =
+      |     |  |  L  Expressions: (char)i
+      |     |  |     L  Expression: (char)i
+      |     |  |        L  Casting: (char)i
+      |     |  |           |- (
+      |     |  |           |- Type: char
+      |     |  |           |  L  Primitive_type: char
+      |     |  |           |     L  Numeric_type: char
+      |     |  |           |        L  Integral_type: char
+      |     |  |           |           L  char
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: doubled=(double)i
+      |     |  |  |- Variable_declaration: doubled
+      |     |  |  |  |- Primitive_type: double
+      |     |  |  |  |  L  Numeric_type: double
+      |     |  |  |  |     L  Floating_point_type: double
+      |     |  |  |  |        L  double
+      |     |  |  |  L  d
+      |     |  |  |- =
+      |     |  |  L  Expressions: (double)i
+      |     |  |     L  Expression: (double)i
+      |     |  |        L  Casting: (double)i
+      |     |  |           |- (
+      |     |  |           |- Type: double
+      |     |  |           |  L  Primitive_type: double
+      |     |  |           |     L  Numeric_type: double
+      |     |  |           |        L  Floating_point_type: double
+      |     |  |           |           L  double
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: floatf=(float)i
+      |     |  |  |- Variable_declaration: floatf
+      |     |  |  |  |- Primitive_type: float
+      |     |  |  |  |  L  Numeric_type: float
+      |     |  |  |  |     L  Floating_point_type: float
+      |     |  |  |  |        L  float
+      |     |  |  |  L  f
+      |     |  |  |- =
+      |     |  |  L  Expressions: (float)i
+      |     |  |     L  Expression: (float)i
+      |     |  |        L  Casting: (float)i
+      |     |  |           |- (
+      |     |  |           |- Type: float
+      |     |  |           |  L  Primitive_type: float
+      |     |  |           |     L  Numeric_type: float
+      |     |  |           |        L  Floating_point_type: float
+      |     |  |           |           L  float
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: longl=(long)i
+      |     |  |  |- Variable_declaration: longl
+      |     |  |  |  |- Primitive_type: long
+      |     |  |  |  |  L  Numeric_type: long
+      |     |  |  |  |     L  Integral_type: long
+      |     |  |  |  |        L  long
+      |     |  |  |  L  l
+      |     |  |  |- =
+      |     |  |  L  Expressions: (long)i
+      |     |  |     L  Expression: (long)i
+      |     |  |        L  Casting: (long)i
+      |     |  |           |- (
+      |     |  |           |- Type: long
+      |     |  |           |  L  Primitive_type: long
+      |     |  |           |     L  Numeric_type: long
+      |     |  |           |        L  Integral_type: long
+      |     |  |           |           L  long
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: shorts=(short)i
+      |     |  |  |- Variable_declaration: shorts
+      |     |  |  |  |- Primitive_type: short
+      |     |  |  |  |  L  Numeric_type: short
+      |     |  |  |  |     L  Integral_type: short
+      |     |  |  |  |        L  short
+      |     |  |  |  L  s
+      |     |  |  |- =
+      |     |  |  L  Expressions: (short)i
+      |     |  |     L  Expression: (short)i
+      |     |  |        L  Casting: (short)i
+      |     |  |           |- (
+      |     |  |           |- Type: short
+      |     |  |           |  L  Primitive_type: short
+      |     |  |           |     L  Numeric_type: short
+      |     |  |           |        L  Integral_type: short
+      |     |  |           |           L  short
+      |     |  |           |- )
+      |     |  |           L  Expression: i
+      |     |  |              L  i
+      |     |  |- ;
+      |     |  |- Assignment: intforce_load=s
+      |     |  |  |- Variable_declaration: intforce_load
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  force_load
+      |     |  |  |- =
+      |     |  |  L  Expressions: s
+      |     |  |     L  Expression: s
+      |     |  |        L  s
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("i:")
+      |     |  |  L  Expression: System.out.println("i:")
+      |     |  |     L  Function_call: System.out.println("i:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "i:"
+      |     |  |        |  L  Function_arg: "i:"
+      |     |  |        |     L  Expressions: "i:"
+      |     |  |        |        L  Expression: "i:"
+      |     |  |        |           L  "i:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(i)
+      |     |  |  L  Expression: System.out.println(i)
+      |     |  |     L  Function_call: System.out.println(i)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: i
+      |     |  |        |  L  Function_arg: i
+      |     |  |        |     L  Expressions: i
+      |     |  |        |        L  Expression: i
+      |     |  |        |           L  i
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("b:")
+      |     |  |  L  Expression: System.out.println("b:")
+      |     |  |     L  Function_call: System.out.println("b:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "b:"
+      |     |  |        |  L  Function_arg: "b:"
+      |     |  |        |     L  Expressions: "b:"
+      |     |  |        |        L  Expression: "b:"
+      |     |  |        |           L  "b:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(b)
+      |     |  |  L  Expression: System.out.println(b)
+      |     |  |     L  Function_call: System.out.println(b)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: b
+      |     |  |        |  L  Function_arg: b
+      |     |  |        |     L  Expressions: b
+      |     |  |        |        L  Expression: b
+      |     |  |        |           L  b
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("c:")
+      |     |  |  L  Expression: System.out.println("c:")
+      |     |  |     L  Function_call: System.out.println("c:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "c:"
+      |     |  |        |  L  Function_arg: "c:"
+      |     |  |        |     L  Expressions: "c:"
+      |     |  |        |        L  Expression: "c:"
+      |     |  |        |           L  "c:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(c)
+      |     |  |  L  Expression: System.out.println(c)
+      |     |  |     L  Function_call: System.out.println(c)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: c
+      |     |  |        |  L  Function_arg: c
+      |     |  |        |     L  Expressions: c
+      |     |  |        |        L  Expression: c
+      |     |  |        |           L  c
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("d:")
+      |     |  |  L  Expression: System.out.println("d:")
+      |     |  |     L  Function_call: System.out.println("d:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "d:"
+      |     |  |        |  L  Function_arg: "d:"
+      |     |  |        |     L  Expressions: "d:"
+      |     |  |        |        L  Expression: "d:"
+      |     |  |        |           L  "d:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(d)
+      |     |  |  L  Expression: System.out.println(d)
+      |     |  |     L  Function_call: System.out.println(d)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: d
+      |     |  |        |  L  Function_arg: d
+      |     |  |        |     L  Expressions: d
+      |     |  |        |        L  Expression: d
+      |     |  |        |           L  d
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("f:")
+      |     |  |  L  Expression: System.out.println("f:")
+      |     |  |     L  Function_call: System.out.println("f:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "f:"
+      |     |  |        |  L  Function_arg: "f:"
+      |     |  |        |     L  Expressions: "f:"
+      |     |  |        |        L  Expression: "f:"
+      |     |  |        |           L  "f:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(f)
+      |     |  |  L  Expression: System.out.println(f)
+      |     |  |     L  Function_call: System.out.println(f)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: f
+      |     |  |        |  L  Function_arg: f
+      |     |  |        |     L  Expressions: f
+      |     |  |        |        L  Expression: f
+      |     |  |        |           L  f
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("l:")
+      |     |  |  L  Expression: System.out.println("l:")
+      |     |  |     L  Function_call: System.out.println("l:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "l:"
+      |     |  |        |  L  Function_arg: "l:"
+      |     |  |        |     L  Expressions: "l:"
+      |     |  |        |        L  Expression: "l:"
+      |     |  |        |           L  "l:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(l)
+      |     |  |  L  Expression: System.out.println(l)
+      |     |  |     L  Function_call: System.out.println(l)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: l
+      |     |  |        |  L  Function_arg: l
+      |     |  |        |     L  Expressions: l
+      |     |  |        |        L  Expression: l
+      |     |  |        |           L  l
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("s:")
+      |     |  |  L  Expression: System.out.println("s:")
+      |     |  |     L  Function_call: System.out.println("s:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "s:"
+      |     |  |        |  L  Function_arg: "s:"
+      |     |  |        |     L  Expressions: "s:"
+      |     |  |        |        L  Expression: "s:"
+      |     |  |        |           L  "s:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(s)
+      |     |  |  L  Expression: System.out.println(s)
+      |     |  |     L  Function_call: System.out.println(s)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: s
+      |     |  |        |  L  Function_arg: s
+      |     |  |        |     L  Expressions: s
+      |     |  |        |        L  Expression: s
+      |     |  |        |           L  s
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("force_load:")
+      |     |  |  L  Expression: System.out.println("force_load:")
+      |     |  |     L  Function_call: System.out.println("force_load:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "force_load:"
+      |     |  |        |  L  Function_arg: "force_load:"
+      |     |  |        |     L  Expressions: "force_load:"
+      |     |  |        |        L  Expression: "force_load:"
+      |     |  |        |           L  "force_load:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(force_load)
+      |     |  |  L  Expression: System.out.println(force_load)
+      |     |  |     L  Function_call: System.out.println(force_load)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: force_load
+      |     |  |        |  L  Function_arg: force_load
+      |     |  |        |     L  Expressions: force_load
+      |     |  |        |        L  Expression: force_load
+      |     |  |        |           L  force_load
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }
                         """;
 
         assertEquals(expected, new TreePrinter().printParseTree(tree));
