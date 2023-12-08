@@ -162,8 +162,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;inti
       |     |  |     L  Expression: -i2
       |     |  |        |- Numerical_prefix: -
       |     |  |        |  L  -
-      |     |  |        L  Expression: i2
-      |     |  |           L  i2
+      |     |  |        L  Expressions: i2
+      |     |  |           L  Expression: i2
+      |     |  |              L  i2
       |     |  |- ;
       |     |  |- Assignment: inti7=i2%10
       |     |  |  |- Variable_declaration: inti7

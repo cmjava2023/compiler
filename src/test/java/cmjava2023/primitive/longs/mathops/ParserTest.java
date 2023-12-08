@@ -143,8 +143,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;lon
       |     |  |     L  Expression: -l2
       |     |  |        |- Numerical_prefix: -
       |     |  |        |  L  -
-      |     |  |        L  Expression: l2
-      |     |  |           L  l2
+      |     |  |        L  Expressions: l2
+      |     |  |           L  Expression: l2
+      |     |  |              L  l2
       |     |  |- ;
       |     |  |- Assignment: longl6=l2%10
       |     |  |  |- Variable_declaration: longl6

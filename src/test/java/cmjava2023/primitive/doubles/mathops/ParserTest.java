@@ -143,8 +143,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){doubled=10;d
       |     |  |     L  Expression: -d2
       |     |  |        |- Numerical_prefix: -
       |     |  |        |  L  -
-      |     |  |        L  Expression: d2
-      |     |  |           L  d2
+      |     |  |        L  Expressions: d2
+      |     |  |           L  Expression: d2
+      |     |  |              L  d2
       |     |  |- ;
       |     |  |- Assignment: doubled6=d2%10
       |     |  |  |- Variable_declaration: doubled6
