@@ -143,8 +143,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;fl
       |     |  |     L  Expression: -f2
       |     |  |        |- Numerical_prefix: -
       |     |  |        |  L  -
-      |     |  |        L  Expression: f2
-      |     |  |           L  f2
+      |     |  |        L  Expressions: f2
+      |     |  |           L  Expression: f2
+      |     |  |              L  f2
       |     |  |- ;
       |     |  |- Assignment: floatf6=f2%10
       |     |  |  |- Variable_declaration: floatf6

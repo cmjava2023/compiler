@@ -98,8 +98,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;dou
       |     |  |           |        L  Floating_point_type: double
       |     |  |           |           L  double
       |     |  |           |- )
-      |     |  |           L  Expression: l
-      |     |  |              L  l
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
       |     |  |- ;
       |     |  |- Assignment: floatf=(float)l
       |     |  |  |- Variable_declaration: floatf
@@ -119,8 +120,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;dou
       |     |  |           |        L  Floating_point_type: float
       |     |  |           |           L  float
       |     |  |           |- )
-      |     |  |           L  Expression: l
-      |     |  |              L  l
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
       |     |  |- ;
       |     |  |- Assignment: inti=(int)l
       |     |  |  |- Variable_declaration: inti
@@ -140,8 +142,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;dou
       |     |  |           |        L  Integral_type: int
       |     |  |           |           L  int
       |     |  |           |- )
-      |     |  |           L  Expression: l
-      |     |  |              L  l
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
       |     |  |- ;
       |     |  |- Assignment: longforce_store=l
       |     |  |  |- Variable_declaration: longforce_store

@@ -98,8 +98,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Integral_type: byte
       |     |  |           |           L  byte
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: charc=(char)i
       |     |  |  |- Variable_declaration: charc
@@ -119,8 +120,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Integral_type: char
       |     |  |           |           L  char
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: doubled=(double)i
       |     |  |  |- Variable_declaration: doubled
@@ -140,8 +142,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Floating_point_type: double
       |     |  |           |           L  double
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: floatf=(float)i
       |     |  |  |- Variable_declaration: floatf
@@ -161,8 +164,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Floating_point_type: float
       |     |  |           |           L  float
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: longl=(long)i
       |     |  |  |- Variable_declaration: longl
@@ -182,8 +186,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Integral_type: long
       |     |  |           |           L  long
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: shorts=(short)i
       |     |  |  |- Variable_declaration: shorts
@@ -203,8 +208,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;byte
       |     |  |           |        L  Integral_type: short
       |     |  |           |           L  short
       |     |  |           |- )
-      |     |  |           L  Expression: i
-      |     |  |              L  i
+      |     |  |           L  Expressions: i
+      |     |  |              L  Expression: i
+      |     |  |                 L  i
       |     |  |- ;
       |     |  |- Assignment: intforce_load=s
       |     |  |  |- Variable_declaration: intforce_load
