@@ -98,8 +98,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){doubled=10.0
       |     |  |           |        L  Floating_point_type: float
       |     |  |           |           L  float
       |     |  |           |- )
-      |     |  |           L  Expression: d
-      |     |  |              L  d
+      |     |  |           L  Expressions: d
+      |     |  |              L  Expression: d
+      |     |  |                 L  d
       |     |  |- ;
       |     |  |- Assignment: inti=(int)d
       |     |  |  |- Variable_declaration: inti
@@ -119,8 +120,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){doubled=10.0
       |     |  |           |        L  Integral_type: int
       |     |  |           |           L  int
       |     |  |           |- )
-      |     |  |           L  Expression: d
-      |     |  |              L  d
+      |     |  |           L  Expressions: d
+      |     |  |              L  Expression: d
+      |     |  |                 L  d
       |     |  |- ;
       |     |  |- Assignment: longl=(long)d
       |     |  |  |- Variable_declaration: longl
@@ -140,8 +142,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){doubled=10.0
       |     |  |           |        L  Integral_type: long
       |     |  |           |           L  long
       |     |  |           |- )
-      |     |  |           L  Expression: d
-      |     |  |              L  d
+      |     |  |           L  Expressions: d
+      |     |  |              L  Expression: d
+      |     |  |                 L  d
       |     |  |- ;
       |     |  |- Assignment: doubleforce_store=d
       |     |  |  |- Variable_declaration: doubleforce_store

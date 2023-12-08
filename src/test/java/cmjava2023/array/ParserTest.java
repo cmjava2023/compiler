@@ -97,11 +97,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: boolean[]boo={true,false}
@@ -118,11 +120,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {true,false}
       |     |  |        L  Array_expression: {true,false}
       |     |  |           |- {
-      |     |  |           |- Expression: true
-      |     |  |           |  L  true
+      |     |  |           |- Expressions: true
+      |     |  |           |  L  Expression: true
+      |     |  |           |     L  true
       |     |  |           |- ,
-      |     |  |           |- Expression: false
-      |     |  |           |  L  false
+      |     |  |           |- Expressions: false
+      |     |  |           |  L  Expression: false
+      |     |  |           |     L  false
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: char[]c={10,11}
@@ -141,11 +145,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: double[]d={10,11}
@@ -164,11 +170,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: float[]f={10,11}
@@ -187,11 +195,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: int[]i={10,11}
@@ -210,11 +220,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: long[]l={10,11}
@@ -233,11 +245,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: int[][]i2=newint[10][10]
@@ -286,11 +300,13 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {10,11}
       |     |  |        L  Array_expression: {10,11}
       |     |  |           |- {
-      |     |  |           |- Expression: 10
-      |     |  |           |  L  10
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
       |     |  |           |- ,
-      |     |  |           |- Expression: 11
-      |     |  |           |  L  11
+      |     |  |           |- Expressions: 11
+      |     |  |           |  L  Expression: 11
+      |     |  |           |     L  11
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Expressions: System.out.println("o:")
