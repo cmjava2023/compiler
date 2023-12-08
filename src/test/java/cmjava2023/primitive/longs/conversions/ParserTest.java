@@ -1,7 +1,7 @@
 package cmjava2023.primitive.longs.conversions;
 
 import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.TreePrinter;
+import cmjava2023.util.treePrinter.ParseTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -421,6 +421,6 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;dou
       L  }
                         """;
 
-        assertEquals(expected, new TreePrinter().printParseTree(tree));
+        assertEquals(expected, new ParseTreePrinter().print(tree));
     }
 }

@@ -1,7 +1,7 @@
 package cmjava2023.helloworld;
 
 import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.TreePrinter;
+import cmjava2023.util.treePrinter.ParseTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -85,6 +85,6 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.p
       L  }
                         """;
 
-        assertEquals(expected, new TreePrinter().printParseTree(tree));
+        assertEquals(expected, new ParseTreePrinter().print(tree));
     }
 }

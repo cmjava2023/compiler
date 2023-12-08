@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
+    public ArrayList<String> errors = new ArrayList<>();
 
     // ########ANTLR########
     // start : (global_scope)+;
@@ -102,7 +103,10 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     private Clazz setClassScope(MainAntlrParser.Class_declarationContext ctx, Clazz parentClazz, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier instanceModifier) {
-        Clazz classSymbol = new Clazz(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null, parentClazz, accessModifier, instanceModifier);
+        String className = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Class", className, currentScope);
+        Clazz classSymbol = new Clazz(currentScope, new HashMap<>(), className, null, parentClazz, accessModifier, instanceModifier);
         classSymbol.setType(classSymbol);
         symbolTable.addSymbol(classSymbol);
         symbolTable.setScope(classSymbol);
@@ -132,19 +136,31 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     private Function setFunctionScope(MainAntlrParser.Function_declarationContext ctx, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier modifier) {
-        Function functionSymbol = new Function(symbolTable.getCurrentScope(), new HashMap<>(), ctx.IDENTIFIER().getText(), null, accessModifier, modifier);
-        setType(ctx.type(), functionSymbol);
+        String functionName = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Function", functionName, currentScope);
+        Function functionSymbol = new Function(currentScope, new HashMap<>(), functionName, null, accessModifier, modifier);
+        setInvalidType(ctx.type(), functionSymbol);
         symbolTable.addSymbol(functionSymbol);
         symbolTable.setScope(functionSymbol);
 
         return functionSymbol;
     }
 
+    private void checkAlreadyDeclared(String typeNameOfObject, String name, Scope scope) {
+        if (scope.resolveInScope(name) != null) {
+            errors.add(String.format("%s %s already defined in %s", typeNameOfObject, name, scope.getName()));
+        }
+    }
+
     // ########ANTLR########
     // function_declaration_arg: type IDENTIFIER;
     public ASTNodes.Node visitFunction_declaration_arg(MainAntlrParser.Function_declaration_argContext ctx) {
-        Parameter parameterSymbol = new Parameter(ctx.IDENTIFIER().getText(), null, symbolTable.getCurrentScope());
-        setType(ctx.type(), parameterSymbol);
+        String parameterName = ctx.IDENTIFIER().getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Parameter", parameterName, currentScope);
+        Parameter parameterSymbol = new Parameter(parameterName, null, currentScope);
+        setInvalidType(ctx.type(), parameterSymbol);
         symbolTable.addSymbol(parameterSymbol);
         return new ASTNodes.ParameterNode(parameterSymbol);
     }
@@ -168,31 +184,37 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // variable_declaration: primitive_type nested_identifier;
     public ASTNodes.Node visitVariable_declaration(MainAntlrParser.Variable_declarationContext ctx) {
         String variableName = ctx.IDENTIFIER().getText();
-        Variable variableSymbol = new Variable(variableName, null, symbolTable.getCurrentScope(), null);
-        setType(ctx.reference_type(), variableSymbol);
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Variable", variableName, currentScope);
+        Function enclosingFunction = getEnclosingFunction(currentScope);
+        if (enclosingFunction != null) {
+            checkAlreadyDeclared("Variable", variableName, enclosingFunction);
+        }
+        Variable variableSymbol = new Variable(variableName, null, currentScope, null);
+        setInvalidType(ctx.primitive_type(), variableSymbol);
         symbolTable.addSymbol(variableSymbol);
         return new ASTNodes.VariableNode(variableSymbol, null);
     }
 
-    private void setType(ParserRuleContext ctx, Symbol symbol) {
-        ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
-        if (type instanceof ASTNodes.ArrayTypeNode) {
-            ASTNodes.ArrayTypeNode typeBase = (ASTNodes.ArrayTypeNode) type;
-            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
-            if (typeSymbol == null) {
-                symbol.setType(new InvalidType(typeBase.type() + "[]"));
-            } else {
-                symbol.setType(new ArrayType(typeSymbol.getType()));
-            }
-        } else {
-            ASTNodes.TypeNode typeBase = (ASTNodes.TypeNode) type;
-            Symbol typeSymbol = symbolTable.getCurrentScope().resolve(typeBase.type());
+    private Function getEnclosingFunction(Scope scope) {
+        if (scope instanceof Function functionScope) {
+            return functionScope;
+        }
 
-            if (typeSymbol == null) {
-                symbol.setType(new InvalidType(typeBase.type()));
-            } else {
-                symbol.setType(typeSymbol.getType());
-            }
+        if (scope.getEnclosingScope() != null) {
+            return getEnclosingFunction(scope.getEnclosingScope());
+        }
+
+        return null;
+    }
+
+    private void setInvalidType(ParserRuleContext ctx, Symbol symbol) {
+        ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
+
+        if (type instanceof ASTNodes.ArrayTypeNode arrayType) {
+            symbol.setType(new InvalidType(arrayType.type() + "[]"));
+        } else if (type instanceof ASTNodes.TypeNode baseType) {
+            symbol.setType(new InvalidType(baseType.type()));
         }
     }
 
@@ -229,13 +251,26 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | nested_identifier;
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
-        return ctx.function_call() != null ? visit(ctx.function_call())
-                : ctx.identifier() != null ? visit(ctx.identifier())
-                : ctx.IDENTIFIER() != null ? new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText())
-                : ctx.STRING() != null ? new ASTNodes.ValueNode(ctx.STRING().getText())
-                : ctx.INTEGER() != null ? new ASTNodes.ValueNode(ctx.INTEGER().getText())
-                : ctx.DECIMAL() != null ? new ASTNodes.ValueNode(ctx.DECIMAL().getText())
-                : null;//ERROR! None got declared!
+        if (ctx.function_call() != null) {
+            return visit(ctx.function_call());
+        } else if (ctx.identifier() != null) {
+            return visit(ctx.identifier());
+        } else if (ctx.IDENTIFIER() != null) {
+            return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
+        } else if (ctx.STRING() != null) {
+            String string = ctx.STRING().getText();
+            if (string.startsWith("\"") && string.endsWith("\"")) {
+                return new ASTNodes.ValueNode(string.substring(1, string.length() - 1));
+            } else {
+                return new ASTNodes.ValueNode(string);
+            }
+        } else if (ctx.INTEGER() != null) {
+            return new ASTNodes.ValueNode(ctx.INTEGER().getText());
+        } else if (ctx.DECIMAL() != null) {
+            return new ASTNodes.ValueNode(ctx.DECIMAL().getText());
+        } else {
+            return null;
+        }
     }
 
     // ########ANTLR########

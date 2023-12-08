@@ -12,7 +12,7 @@ start : (global_scope)+;
 // Statements and expressions
 global_scope: class_declaration | package_declaration SEMICOLON;
 
-class_scope: (function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
+class_scope: (class_declaration | function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
 
 function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
 
@@ -78,6 +78,7 @@ wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
 type_variable: IDENTIFIER;
 array_type: (primitive_type | class_type |type_variable) (BRACKET_OPEN BRACKET_CLOSE)+;
 array_expression: CURLY_OPEN (STRING | (expression (COMMA expression)*)) CURLY_CLOSE;
+
 // Casting
 casting: PAREN_OPEN type PAREN_CLOSE expression;
 
@@ -160,6 +161,7 @@ BOR: '|';
 BIT_SHIFT_L: '<'+;
 BIT_SHIFT_R: '>'+;
 BXOR: '^';
+
 // Comments
 COMMENT : '/*' .*? '*/' -> skip;
 LINE_COMMENT : '//' ~[\r\n]* -> skip;

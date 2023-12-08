@@ -2,11 +2,20 @@ package org.cmjava2023.semanticanalysis;
 
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ASTTraverser;
+import org.cmjava2023.symboltable.*;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class SemanticAnalysisTraverser implements ASTTraverser {
+    public ArrayList<String> errors;
+
+    public SemanticAnalysisTraverser(ArrayList<String> errors) {
+        this.errors = errors;
+    }
+
     @Override
     public void visit(ASTNodes.StartNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
@@ -14,12 +23,10 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.PackageNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ClassNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
@@ -27,7 +34,10 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.FunctionNode node) {
-        System.out.println(node);
+        Function functionSymbol = node.functionSymbol();
+        if (functionSymbol.getType() instanceof InvalidType invalidType) {
+            checkForType(invalidType, "return type of Function", functionSymbol);
+        }
         for (ASTNodes.ParameterNode statement : node.parameters()) {
             statement.accept(this);
         }
@@ -38,17 +48,19 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.ParameterNode node) {
-        System.out.println(node);
+        Parameter parameterSymbol = node.parameterSymbol();
+        if (parameterSymbol.getType() instanceof InvalidType invalidType) {
+            checkForVoidType("Parameter", parameterSymbol, invalidType);
+            checkForType(invalidType, "Parameter", parameterSymbol);
+        }
     }
 
     @Override
     public void visit(ASTNodes.FunctionCallNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.IfNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
@@ -56,7 +68,6 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.ElseNode node) {
-        System.out.println(node);
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
@@ -64,56 +75,78 @@ public class SemanticAnalysisTraverser implements ASTTraverser {
 
     @Override
     public void visit(ASTNodes.BlockScopeNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.VariableNode node) {
-        System.out.println(node);
+        Variable variableSymbol = node.variableSymbol();
+        if (variableSymbol.getType() instanceof InvalidType invalidType) {
+            checkForVoidType("Variable", variableSymbol, invalidType);
+            checkForType(invalidType, "Variable", variableSymbol);
+        }
+    }
+
+    private void checkForType(InvalidType invalidType, String errorMessagePart, Symbol symbol) {
+        String type = invalidType.getName();
+        String arrayIndicator = "[]";
+        boolean isArray = type.contains(arrayIndicator);
+
+        if (isArray) {
+            type = type.replace(arrayIndicator, "");
+        }
+
+        Symbol typeSymbol = symbol.getScope().resolve(type);
+
+        if (typeSymbol != null) {
+            if (isArray) {
+                symbol.setType(new ArrayType(typeSymbol.getType()));
+            } else {
+                symbol.setType(typeSymbol.getType());
+            }
+        } else {
+            errors.add(String.format("Cannot find type %s for %s %s", invalidType.getName(), errorMessagePart, symbol.getName()));
+        }
+    }
+
+    private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
+        if (Objects.equals(invalidType.getName(), "void")) {
+            errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
+        }
     }
 
     @Override
     public void visit(ASTNodes.VariableAssigmentNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ValueNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.NestedIdentifierNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ComparisonNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ExpressionNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.IdentifierNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ReturnNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.TypeNode node) {
-        System.out.println(node);
     }
 
     @Override
     public void visit(ASTNodes.ArrayTypeNode node) {
-        System.out.println(node);
     }
 }

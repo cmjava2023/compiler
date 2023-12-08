@@ -1,7 +1,7 @@
 package cmjava2023.primitive.doubles.conversions;
 
 import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.TreePrinter;
+import cmjava2023.util.treePrinter.ParseTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -421,7 +421,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){doubled=10.0
       L  }
                         """;
 
-        String actual = new TreePrinter().printParseTree(tree);
+        String actual = new ParseTreePrinter().print(tree);
         assertEquals(expected, actual);
     }
 }

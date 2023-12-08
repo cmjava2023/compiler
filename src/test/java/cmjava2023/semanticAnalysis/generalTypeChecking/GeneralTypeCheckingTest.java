@@ -1,7 +1,6 @@
-package cmjava2023.helloworld;
+package cmjava2023.semanticAnalysis.generalTypeChecking;
 
 import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.SymbolTableTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class SymbolTableTest {
+public class GeneralTypeCheckingTest {
     @Test
     public void snapshot() throws IOException {
         CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
@@ -35,26 +34,8 @@ public class SymbolTableTest {
 
         semanticAnalysisTraverser.visit((ASTNodes.StartNode) ast);
 
-        String expected =
-                """
-                        GlobalScope
-                        |- boolean: boolean
-                        |- void: void
-                        |- byte: byte
-                        |- double: double
-                        |- char: char
-                        |- short: short
-                        |- String: String
-                        |- float: float
-                        |- Main: Main
-                        |  L  main: void
-                        |     |- args: String[]
-                        |     L  LocalScope
-                        |- int: int
-                        |- long: long
-                        L  System.out.println: void
-                           L  x: String
-                        """;
-        assertEquals(expected, new SymbolTableTreePrinter().print(visitor.symbolTable));
+        semanticAnalysisTraverser.errors.forEach(System.out::println);
+
+        assertEquals(semanticAnalysisTraverser.errors.size(), 3);
     }
 }
