@@ -4,6 +4,8 @@ import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantInfo
+import org.cmjava2023.symboltable.Symbol
+import org.cmjava2023.symboltable.Variable
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
@@ -12,7 +14,12 @@ import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstan
 @Suppress("unused")
 abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
-    class LoadConstant(constantInfo: ConstantInfo): OpCode(0xcbu, constantInfo)
+    abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(0xcbu, *values)
+
+    class LoadConstant(constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
+    class StoreDouble(variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadDouble(value: Double): MultiplePossibleOpcode()
+
     class Aaload: OpCode(0x32u)
     class Aastore: OpCode(0x53u)
     class Aconst_null: OpCode(0x01u)

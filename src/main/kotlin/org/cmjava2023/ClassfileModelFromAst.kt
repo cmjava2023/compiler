@@ -4,6 +4,7 @@ import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.*
+import java.util.ArrayList
 
 class ClassfileModelFromAst {
     companion object {
@@ -22,8 +23,7 @@ class ClassfileModelFromAst {
 
     fun generate(ast: ASTNodes.StartNode): ClassfileModel {
         resetFields()
-        val packageNameWithDelimiterForClassFile =
-            parseTopLevelStatementsAndGetPackageName(ast)
+        val packageNameWithDelimiterForClassFile = parseTopLevelStatementsAndGetPackageName(ast)
 
         methodInfos.add(createDefaultConstructorMethodInfo())
 
@@ -106,64 +106,6 @@ class ClassfileModelFromAst {
         return
     }
 
-    private fun parseStatementsInCode(statements: List<ASTNodes.Statement>): List<OpCode> {
-        val result = mutableListOf<OpCode>()
-        for (statement in statements) {
-            when (statement) {
-                is ASTNodes.FunctionCallNode -> {
-                    if (statement.function.name == "System.out.println") {
-                        val printFunction = statement.function.name.split(".")
-                        val className = printFunction[0]
-                        val fieldName = printFunction[1]
-                        val methodName = printFunction[2]
-
-                        val qualifiedClassName = "java/lang/$className"
-
-                        val fieldReferenceConstantInfo =
-                            FieldReferenceConstantInfo(
-                                ClassConstantInfo(qualifiedClassName),
-                                NameAndTypeConstantInfo(
-                                    fieldName,
-                                    "Ljava/io/PrintStream;"
-                                )
-                            )
-                        val methodReferenceConstantInfo =
-                            MethodReferenceConstantInfo(
-                                ClassConstantInfo("java/io/PrintStream"),
-                                NameAndTypeConstantInfo(
-                                    methodName,
-                                    "(Ljava/lang/String;)V"
-                                )
-                            )
-
-                        var whatToPrint: String
-
-                        val expr = statement.values[0]
-                        whatToPrint = when (expr){
-                            is ASTNodes.StringNode -> expr.value
-                            else -> throw NotImplementedError()
-                        }
-
-                        result.addAll(
-                            listOf(
-                                OpCode.Getstatic(fieldReferenceConstantInfo),
-                                OpCode.LoadConstant(
-                                    StringConstantInfo(
-                                        whatToPrint
-                                    )
-                                ),
-                                OpCode.Invokevirtual(methodReferenceConstantInfo),
-                                OpCode.Return()
-                            )
-                        )
-                    }
-                }
-            }
-        }
-
-        return result
-    }
-
     private fun parseFunctionNode(functionNode: ASTNodes.FunctionNode) {
         val methodModifiers = listOf(
             MethodAccessModifier.fromASTAccessModifier(functionNode.functionSymbol.accessModifier),
@@ -174,7 +116,7 @@ class ClassfileModelFromAst {
                 methodModifiers,
                 functionNode.functionSymbol.name,
                 createMethodTypeDescriptor(functionNode),
-                listOf(CodeAttributeInfo(parseStatementsInCode(functionNode.body.toList()))),
+                listOf(CodeAttributeInfo(FunctionCodeAstTraverser().visit(functionNode))),
             )
         )
     }

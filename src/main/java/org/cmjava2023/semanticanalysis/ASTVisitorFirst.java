@@ -7,7 +7,7 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
+public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ArrayList<String> errors;
 
     public ASTVisitorFirst(ArrayList<String> errors) {
@@ -93,7 +93,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
     public ASTNodes.Node visit(ASTNodes.RawFunctionCallNode node) {
         Symbol functionSymbol = resolveNestedIdentifier(null, node.nestedIdentifier(), node.scope());
 
-        if (functionSymbol instanceof Function function){
+        if (functionSymbol instanceof Function function) {
             return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
         }
 
@@ -111,26 +111,26 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
     }
 
     public static Symbol resolveNestedIdentifier(Symbol currentSymbol, ArrayList<String> strings, Scope scope) {
-        if (strings.isEmpty()){
+        if (strings.isEmpty()) {
             return currentSymbol;
         }
 
-        if (currentSymbol == null){
+        if (currentSymbol == null) {
             Symbol builtIn = scope.resolve(String.join(".", strings));
 
-            if (builtIn != null){
+            if (builtIn != null) {
                 return builtIn;
             }
 
             Symbol symbol = scope.resolve(strings.get(0));
 
-            if (symbol == null){
+            if (symbol == null) {
                 return null;
             }
             return resolveNestedIdentifier(symbol, removeFirstElement(strings), scope);
         }
 
-        if (currentSymbol instanceof Clazz newScope){
+        if (currentSymbol instanceof Clazz newScope) {
             Symbol classSymbol = newScope.resolveMember(strings.get(0));
             return resolveNestedIdentifier(classSymbol, removeFirstElement(strings), newScope);
         }
@@ -197,9 +197,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.Value node) {
-        return node;
-    }
+    public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) { return rawFunctionCallNode; }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
