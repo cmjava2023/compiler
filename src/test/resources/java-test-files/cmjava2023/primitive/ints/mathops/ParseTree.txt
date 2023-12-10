@@ -1,54 +1,25 @@
-package cmjava2023.primitive.ints.logicops;
-
-import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.ParseTreePrinter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ParserTest {
-    @Test
-    public void snapshot() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
-        Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
-        MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
-
-        ParseTree tree = parser.start();
-
-                String expected =
-                """
-Start: packagecmjava2023.primitive.ints.logicops;publicclassMain{publicstaticvoidmain(String[]args){inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);}}
-|- Global_scope: packagecmjava2023.primitive.ints.logicops;
-|  |- Package_declaration: packagecmjava2023.primitive.ints.logicops
+Start: packagecmjava2023.primitive.ints.mathops;publicclassMain{publicstaticvoidmain(String[]args){inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);}}
+|- Global_scope: packagecmjava2023.primitive.ints.mathops;
+|  |- Package_declaration: packagecmjava2023.primitive.ints.mathops
 |  |  |- package
-|  |  L  Identifier: cmjava2023.primitive.ints.logicops
+|  |  L  Identifier: cmjava2023.primitive.ints.mathops
 |  |     |- cmjava2023
 |  |     |- .
 |  |     |- primitive
 |  |     |- .
 |  |     |- ints
 |  |     |- .
-|  |     L  logicops
+|  |     L  mathops
 |  L  ;
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);}
+      |- Class_scope: publicstaticvoidmain(String[]args){inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -67,8 +38,8 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: inti=4;inteight=8;intsipush=257;inti2=i&2;inti3=i|2;inti4=eight<<1;inti5=eight>>1;inti6=eight>>>1;inti7=i2^2;System.out.println("i:");System.out.println(i);System.out.println("eight:");System.out.println(eight);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);
-      |     |  |- Assignment: inti=4
+      |     |- Function_scope: inti=10;inti2=i+i;inti3=i2/2;inti4=i2;i4++;inti5=i2*2;inti6=-i2;inti7=i2%10;inti8=i-i;System.out.println("i:");System.out.println(i);System.out.println("i2:");System.out.println(i2);System.out.println("i3:");System.out.println(i3);System.out.println("i4:");System.out.println(i4);System.out.println("i5:");System.out.println(i5);System.out.println("i6:");System.out.println(i6);System.out.println("i7:");System.out.println(i7);System.out.println("i8:");System.out.println(i8);
+      |     |  |- Assignment: inti=10
       |     |  |  |- Variable_declaration: inti
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -76,35 +47,11 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i
       |     |  |  |- =
-      |     |  |  L  Expressions: 4
-      |     |  |     L  Expression: 4
-      |     |  |        L  4
+      |     |  |  L  Expressions: 10
+      |     |  |     L  Expression: 10
+      |     |  |        L  10
       |     |  |- ;
-      |     |  |- Assignment: inteight=8
-      |     |  |  |- Variable_declaration: inteight
-      |     |  |  |  |- Primitive_type: int
-      |     |  |  |  |  L  Numeric_type: int
-      |     |  |  |  |     L  Integral_type: int
-      |     |  |  |  |        L  int
-      |     |  |  |  L  eight
-      |     |  |  |- =
-      |     |  |  L  Expressions: 8
-      |     |  |     L  Expression: 8
-      |     |  |        L  8
-      |     |  |- ;
-      |     |  |- Assignment: intsipush=257
-      |     |  |  |- Variable_declaration: intsipush
-      |     |  |  |  |- Primitive_type: int
-      |     |  |  |  |  L  Numeric_type: int
-      |     |  |  |  |     L  Integral_type: int
-      |     |  |  |  |        L  int
-      |     |  |  |  L  sipush
-      |     |  |  |- =
-      |     |  |  L  Expressions: 257
-      |     |  |     L  Expression: 257
-      |     |  |        L  257
-      |     |  |- ;
-      |     |  |- Assignment: inti2=i&2
+      |     |  |- Assignment: inti2=i+i
       |     |  |  |- Variable_declaration: inti2
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -112,16 +59,16 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i2
       |     |  |  |- =
-      |     |  |  L  Expressions: i&2
-      |     |  |     |- Expression: i
-      |     |  |     |  L  i
-      |     |  |     |- Expression_operator: &
-      |     |  |     |  L  Bit_comparison_operator: &
-      |     |  |     |     L  &
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |  L  Expressions: i+i
+      |     |  |     L  Expression: i+i
+      |     |  |        |- Expression: i
+      |     |  |        |  L  i
+      |     |  |        |- Expression_concatinator: +
+      |     |  |        |  L  +
+      |     |  |        L  Expression: i
+      |     |  |           L  i
       |     |  |- ;
-      |     |  |- Assignment: inti3=i|2
+      |     |  |- Assignment: inti3=i2/2
       |     |  |  |- Variable_declaration: inti3
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -129,16 +76,16 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i3
       |     |  |  |- =
-      |     |  |  L  Expressions: i|2
-      |     |  |     |- Expression: i
-      |     |  |     |  L  i
-      |     |  |     |- Expression_operator: |
-      |     |  |     |  L  Bit_comparison_operator: |
-      |     |  |     |     L  |
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |  L  Expressions: i2/2
+      |     |  |     L  Expression: i2/2
+      |     |  |        |- Expression: i2
+      |     |  |        |  L  i2
+      |     |  |        |- Expression_concatinator: /
+      |     |  |        |  L  /
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
-      |     |  |- Assignment: inti4=eight<<1
+      |     |  |- Assignment: inti4=i2
       |     |  |  |- Variable_declaration: inti4
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -146,16 +93,18 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i4
       |     |  |  |- =
-      |     |  |  L  Expressions: eight<<1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: <<
-      |     |  |     |  L  Bit_comparison_operator: <<
-      |     |  |     |     L  <<
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |  L  Expressions: i2
+      |     |  |     L  Expression: i2
+      |     |  |        L  i2
       |     |  |- ;
-      |     |  |- Assignment: inti5=eight>>1
+      |     |  |- Expressions: i4++
+      |     |  |  L  Expression: i4++
+      |     |  |     |- Expression: i4
+      |     |  |     |  L  i4
+      |     |  |     L  Expression_suffix: ++
+      |     |  |        L  ++
+      |     |  |- ;
+      |     |  |- Assignment: inti5=i2*2
       |     |  |  |- Variable_declaration: inti5
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -163,16 +112,16 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i5
       |     |  |  |- =
-      |     |  |  L  Expressions: eight>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>
-      |     |  |     |  L  Bit_comparison_operator: >>
-      |     |  |     |     L  >>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |  L  Expressions: i2*2
+      |     |  |     L  Expression: i2*2
+      |     |  |        |- Expression: i2
+      |     |  |        |  L  i2
+      |     |  |        |- Expression_concatinator: *
+      |     |  |        |  L  *
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
-      |     |  |- Assignment: inti6=eight>>>1
+      |     |  |- Assignment: inti6=-i2
       |     |  |  |- Variable_declaration: inti6
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -180,16 +129,15 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i6
       |     |  |  |- =
-      |     |  |  L  Expressions: eight>>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>>
-      |     |  |     |  L  Bit_comparison_operator: >>>
-      |     |  |     |     L  >>>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |  L  Expressions: -i2
+      |     |  |     L  Expression: -i2
+      |     |  |        |- Numerical_prefix: -
+      |     |  |        |  L  -
+      |     |  |        L  Expressions: i2
+      |     |  |           L  Expression: i2
+      |     |  |              L  i2
       |     |  |- ;
-      |     |  |- Assignment: inti7=i2^2
+      |     |  |- Assignment: inti7=i2%10
       |     |  |  |- Variable_declaration: inti7
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -197,14 +145,31 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  |        L  int
       |     |  |  |  L  i7
       |     |  |  |- =
-      |     |  |  L  Expressions: i2^2
-      |     |  |     |- Expression: i2
-      |     |  |     |  L  i2
-      |     |  |     |- Expression_operator: ^
-      |     |  |     |  L  Bit_comparison_operator: ^
-      |     |  |     |     L  ^
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |  L  Expressions: i2%10
+      |     |  |     L  Expression: i2%10
+      |     |  |        |- Expression: i2
+      |     |  |        |  L  i2
+      |     |  |        |- Expression_concatinator: %
+      |     |  |        |  L  %
+      |     |  |        L  Expression: 10
+      |     |  |           L  10
+      |     |  |- ;
+      |     |  |- Assignment: inti8=i-i
+      |     |  |  |- Variable_declaration: inti8
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  i8
+      |     |  |  |- =
+      |     |  |  L  Expressions: i-i
+      |     |  |     L  Expression: i-i
+      |     |  |        |- Expression: i
+      |     |  |        |  L  i
+      |     |  |        |- Expression_concatinator: -
+      |     |  |        |  L  -
+      |     |  |        L  Expression: i
+      |     |  |           L  i
       |     |  |- ;
       |     |  |- Expressions: System.out.println("i:")
       |     |  |  L  Expression: System.out.println("i:")
@@ -238,40 +203,6 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |        |     L  Expressions: i
       |     |  |        |        L  Expression: i
       |     |  |        |           L  i
-      |     |  |        L  )
-      |     |  |- ;
-      |     |  |- Expressions: System.out.println("eight:")
-      |     |  |  L  Expression: System.out.println("eight:")
-      |     |  |     L  Function_call: System.out.println("eight:")
-      |     |  |        |- Identifier: System.out.println
-      |     |  |        |  |- System
-      |     |  |        |  |- .
-      |     |  |        |  |- out
-      |     |  |        |  |- .
-      |     |  |        |  L  println
-      |     |  |        |- (
-      |     |  |        |- Function_args: "eight:"
-      |     |  |        |  L  Function_arg: "eight:"
-      |     |  |        |     L  Expressions: "eight:"
-      |     |  |        |        L  Expression: "eight:"
-      |     |  |        |           L  "eight:"
-      |     |  |        L  )
-      |     |  |- ;
-      |     |  |- Expressions: System.out.println(eight)
-      |     |  |  L  Expression: System.out.println(eight)
-      |     |  |     L  Function_call: System.out.println(eight)
-      |     |  |        |- Identifier: System.out.println
-      |     |  |        |  |- System
-      |     |  |        |  |- .
-      |     |  |        |  |- out
-      |     |  |        |  |- .
-      |     |  |        |  L  println
-      |     |  |        |- (
-      |     |  |        |- Function_args: eight
-      |     |  |        |  L  Function_arg: eight
-      |     |  |        |     L  Expressions: eight
-      |     |  |        |        L  Expression: eight
-      |     |  |        |           L  eight
       |     |  |        L  )
       |     |  |- ;
       |     |  |- Expressions: System.out.println("i2:")
@@ -477,11 +408,40 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |        |        L  Expression: i7
       |     |  |        |           L  i7
       |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("i8:")
+      |     |  |  L  Expression: System.out.println("i8:")
+      |     |  |     L  Function_call: System.out.println("i8:")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "i8:"
+      |     |  |        |  L  Function_arg: "i8:"
+      |     |  |        |     L  Expressions: "i8:"
+      |     |  |        |        L  Expression: "i8:"
+      |     |  |        |           L  "i8:"
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println(i8)
+      |     |  |  L  Expression: System.out.println(i8)
+      |     |  |     L  Function_call: System.out.println(i8)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: i8
+      |     |  |        |  L  Function_arg: i8
+      |     |  |        |     L  Expressions: i8
+      |     |  |        |        L  Expression: i8
+      |     |  |        |           L  i8
+      |     |  |        L  )
       |     |  L  ;
       |     L  }
       L  }
-                        """;
-
-        assertEquals(expected, new ParseTreePrinter().print(tree));
-    }
-}

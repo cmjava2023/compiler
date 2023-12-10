@@ -1,0 +1,34 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     L  1: helloworld
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           L  maxArraySize: -1
+            L  body
+               L  0 (field of type FunctionCallNode)
+                  |- nestedIdentifier
+                  |  |- 0: System
+                  |  |- 1: out
+                  |  L  2: println
+                  L  values
+                     L  0 (field of type ValueNode)
+                        L  value: Hello world!
