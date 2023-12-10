@@ -1,32 +1,3 @@
-package cmjava2023.helloworld;
-
-import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.ParseTreePrinter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ParserTest {
-    @Test
-    public void snapshot() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
-        Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
-        MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
-
-        ParseTree tree = parser.start();
-
-                String expected =
-                """
 Start: packagecmjava2023.helloworld;publicclassMain{publicstaticvoidmain(String[]args){System.out.println("Hello world!");}}
 |- Global_scope: packagecmjava2023.helloworld;
 |  |- Package_declaration: packagecmjava2023.helloworld
@@ -83,8 +54,3 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){System.out.p
       |     |  L  ;
       |     L  }
       L  }
-                        """;
-
-        assertEquals(expected, new ParseTreePrinter().print(tree));
-    }
-}

@@ -8,11 +8,12 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class GenericTreePrinter {
-    public String print(Object root) {
-        return print("root", root, new TreePrefixData());
+    public static String print(Object root) {
+        String resultWithEmptyLineAtEnd = print("root", root, new TreePrefixData());
+        return resultWithEmptyLineAtEnd.stripTrailing();
     }
 
-    private String print(String fieldName, Object object, TreePrefixData treePrefixData) {
+    private static String print(String fieldName, Object object, TreePrefixData treePrefixData) {
         StringBuilder builder = treePrefixData.getStringBuilderStartingWithPrefix();
         if (object == null || object.getClass().isPrimitive() || object instanceof Integer || object instanceof String || object instanceof Enum<?>) {
             builder.append(fieldName).append(": ").append(object).append("\n");

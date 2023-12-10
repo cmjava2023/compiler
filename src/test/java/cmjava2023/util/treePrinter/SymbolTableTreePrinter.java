@@ -8,13 +8,12 @@ import org.cmjava2023.symboltable.SymbolWithScope;
 import java.util.*;
 
 public class SymbolTableTreePrinter {
-
-
-    public String print(SymbolTable symbolTable) {
-        return print(symbolTable.getCurrentScope(), new TreePrefixData());
+    public static String print(SymbolTable symbolTable) {
+        String resultWithEmptyLineAtEnd = print(symbolTable.getCurrentScope(), new TreePrefixData());
+        return resultWithEmptyLineAtEnd.stripTrailing();
     }
 
-    private String print(Scope scope, TreePrefixData treePrefixData) {
+    private static String print(Scope scope, TreePrefixData treePrefixData) {
         StringBuilder builder = new StringBuilder();
 
         if (!(scope instanceof SymbolWithScope)) {

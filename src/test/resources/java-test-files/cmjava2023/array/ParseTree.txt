@@ -1,32 +1,3 @@
-package cmjava2023.array;
-
-import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.ParseTreePrinter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ParserTest {
-    @Test
-    public void snapshot() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
-        Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
-        MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
-
-        ParseTree tree = parser.start();
-
-                String expected =
-                """
 Start: packagecmjava2023.array;publicclassMain{publicstaticvoidmain(String[]args){String[]o={"Hello World"};byte[]by={10,11};boolean[]boo={true,false};char[]c={10,11};double[]d={10,11};float[]f={10,11};int[]i={10,11};long[]l={10,11};int[][]i2=newint[10][10];short[]s={10,11};System.out.println("o:");System.out.println(o[0]);System.out.println("by:");System.out.println(by[0]);System.out.println("boo:");System.out.println(boo[0]);System.out.println("c:");System.out.println(c[0]);System.out.println("d:");System.out.println(d[0]);System.out.println("f:");System.out.println(f[0]);System.out.println("i:");System.out.println(i[0]);System.out.println("l:");System.out.println(l[0]);System.out.println("i2:");System.out.println(i2[0][0]);System.out.println("s:");System.out.println(s[0]);System.out.println("len:");System.out.println(i2.length);}}
 |- Global_scope: packagecmjava2023.array;
 |  |- Package_declaration: packagecmjava2023.array
@@ -733,8 +704,3 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  L  ;
       |     L  }
       L  }
-                        """;
-
-        assertEquals(expected, new ParseTreePrinter().print(tree));
-    }
-}

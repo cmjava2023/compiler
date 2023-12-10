@@ -1,32 +1,3 @@
-package cmjava2023.primitive.floats.mathops;
-
-import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.ParseTreePrinter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ParserTest {
-    @Test
-    public void snapshot() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
-        Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
-        MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
-
-        ParseTree tree = parser.start();
-
-                String expected =
-                """
 Start: packagecmjava2023.primitive.floats.mathops;publicclassMain{publicstaticvoidmain(String[]args){floatf=10;floatf2=f+f;floatf3=f2/2;floatf4=f2*2;floatf5=-f2;floatf6=f2%10;floatf7=f-f;System.out.println("f:");System.out.println(f);System.out.println("f2:");System.out.println(f2);System.out.println("f3:");System.out.println(f3);System.out.println("f4:");System.out.println(f4);System.out.println("f5:");System.out.println(f5);System.out.println("f6:");System.out.println(f6);System.out.println("f7:");System.out.println(f7);}}
 |- Global_scope: packagecmjava2023.primitive.floats.mathops;
 |  |- Package_declaration: packagecmjava2023.primitive.floats.mathops
@@ -421,8 +392,3 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;fl
       |     |  L  ;
       |     L  }
       L  }
-                        """;
-
-        assertEquals(expected, new ParseTreePrinter().print(tree));
-    }
-}

@@ -3,11 +3,12 @@ package cmjava2023.util.treePrinter;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class ParseTreePrinter {
-    public String print(ParseTree parseTree) {
-        return print(parseTree, new TreePrefixData());
+    public static String print(ParseTree parseTree) {
+        String resultWithEmptyLineAtEnd = print(parseTree, new TreePrefixData());
+        return resultWithEmptyLineAtEnd.stripTrailing();
     }
 
-    private String print(ParseTree parseTree, TreePrefixData treePrefixData) {
+    private static String print(ParseTree parseTree, TreePrefixData treePrefixData) {
         StringBuilder builder = treePrefixData.getStringBuilderStartingWithPrefix();
         if (!parseTree.getClass().getSimpleName().equals("TerminalNodeImpl")) {
             builder.append(parseTree.getClass().getSimpleName().split("Context")[0]);

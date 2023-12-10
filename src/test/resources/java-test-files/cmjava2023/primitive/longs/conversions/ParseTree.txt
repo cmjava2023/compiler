@@ -1,54 +1,25 @@
-package cmjava2023.primitive.floats.conversions;
-
-import cmjava2023.util.TestPathsHelper;
-import cmjava2023.util.treePrinter.ParseTreePrinter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ParserTest {
-    @Test
-    public void snapshot() throws IOException {
-        CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
-        Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
-        MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
-
-        ParseTree tree = parser.start();
-
-                String expected =
-                """
-Start: packagecmjava2023.primitive.floats.conversions;publicclassMain{publicstaticvoidmain(String[]args){floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
-|- Global_scope: packagecmjava2023.primitive.floats.conversions;
-|  |- Package_declaration: packagecmjava2023.primitive.floats.conversions
+Start: packagecmjava2023.primitive.longs.conversions;publicclassMain{publicstaticvoidmain(String[]args){longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
+|- Global_scope: packagecmjava2023.primitive.longs.conversions;
+|  |- Package_declaration: packagecmjava2023.primitive.longs.conversions
 |  |  |- package
-|  |  L  Identifier: cmjava2023.primitive.floats.conversions
+|  |  L  Identifier: cmjava2023.primitive.longs.conversions
 |  |     |- cmjava2023
 |  |     |- .
 |  |     |- primitive
 |  |     |- .
-|  |     |- floats
+|  |     |- longs
 |  |     |- .
 |  |     L  conversions
 |  L  ;
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}
+      |- Class_scope: publicstaticvoidmain(String[]args){longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -67,42 +38,8 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: floatf=10;doubled=(double)f;longl=(long)f;inti=(int)f;floatforce_store=f;floatforce_load=force_store;floatforce_const=1;System.out.println("f:");System.out.println(f);System.out.println("d:");System.out.println(d);System.out.println("l:");System.out.println(l);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);
-      |     |  |- Assignment: floatf=10
-      |     |  |  |- Variable_declaration: floatf
-      |     |  |  |  |- Primitive_type: float
-      |     |  |  |  |  L  Numeric_type: float
-      |     |  |  |  |     L  Floating_point_type: float
-      |     |  |  |  |        L  float
-      |     |  |  |  L  f
-      |     |  |  |- =
-      |     |  |  L  Expressions: 10
-      |     |  |     L  Expression: 10
-      |     |  |        L  10
-      |     |  |- ;
-      |     |  |- Assignment: doubled=(double)f
-      |     |  |  |- Variable_declaration: doubled
-      |     |  |  |  |- Primitive_type: double
-      |     |  |  |  |  L  Numeric_type: double
-      |     |  |  |  |     L  Floating_point_type: double
-      |     |  |  |  |        L  double
-      |     |  |  |  L  d
-      |     |  |  |- =
-      |     |  |  L  Expressions: (double)f
-      |     |  |     L  Expression: (double)f
-      |     |  |        L  Casting: (double)f
-      |     |  |           |- (
-      |     |  |           |- Type: double
-      |     |  |           |  L  Primitive_type: double
-      |     |  |           |     L  Numeric_type: double
-      |     |  |           |        L  Floating_point_type: double
-      |     |  |           |           L  double
-      |     |  |           |- )
-      |     |  |           L  Expressions: f
-      |     |  |              L  Expression: f
-      |     |  |                 L  f
-      |     |  |- ;
-      |     |  |- Assignment: longl=(long)f
+      |     |- Function_scope: longl=10;doubled=(double)l;floatf=(float)l;inti=(int)l;longforce_store=l;longforce_load=force_store;longforce_const=1;System.out.println("l:");System.out.println(l);System.out.println("d:");System.out.println(d);System.out.println("f:");System.out.println(f);System.out.println("i:");System.out.println(i);System.out.println("force_load:");System.out.println(force_load);System.out.println("force_store:");System.out.println(force_store);System.out.println("force_const:");System.out.println(force_const);
+      |     |  |- Assignment: longl=10
       |     |  |  |- Variable_declaration: longl
       |     |  |  |  |- Primitive_type: long
       |     |  |  |  |  L  Numeric_type: long
@@ -110,21 +47,55 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |  |  |        L  long
       |     |  |  |  L  l
       |     |  |  |- =
-      |     |  |  L  Expressions: (long)f
-      |     |  |     L  Expression: (long)f
-      |     |  |        L  Casting: (long)f
-      |     |  |           |- (
-      |     |  |           |- Type: long
-      |     |  |           |  L  Primitive_type: long
-      |     |  |           |     L  Numeric_type: long
-      |     |  |           |        L  Integral_type: long
-      |     |  |           |           L  long
-      |     |  |           |- )
-      |     |  |           L  Expressions: f
-      |     |  |              L  Expression: f
-      |     |  |                 L  f
+      |     |  |  L  Expressions: 10
+      |     |  |     L  Expression: 10
+      |     |  |        L  10
       |     |  |- ;
-      |     |  |- Assignment: inti=(int)f
+      |     |  |- Assignment: doubled=(double)l
+      |     |  |  |- Variable_declaration: doubled
+      |     |  |  |  |- Primitive_type: double
+      |     |  |  |  |  L  Numeric_type: double
+      |     |  |  |  |     L  Floating_point_type: double
+      |     |  |  |  |        L  double
+      |     |  |  |  L  d
+      |     |  |  |- =
+      |     |  |  L  Expressions: (double)l
+      |     |  |     L  Expression: (double)l
+      |     |  |        L  Casting: (double)l
+      |     |  |           |- (
+      |     |  |           |- Type: double
+      |     |  |           |  L  Primitive_type: double
+      |     |  |           |     L  Numeric_type: double
+      |     |  |           |        L  Floating_point_type: double
+      |     |  |           |           L  double
+      |     |  |           |- )
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
+      |     |  |- ;
+      |     |  |- Assignment: floatf=(float)l
+      |     |  |  |- Variable_declaration: floatf
+      |     |  |  |  |- Primitive_type: float
+      |     |  |  |  |  L  Numeric_type: float
+      |     |  |  |  |     L  Floating_point_type: float
+      |     |  |  |  |        L  float
+      |     |  |  |  L  f
+      |     |  |  |- =
+      |     |  |  L  Expressions: (float)l
+      |     |  |     L  Expression: (float)l
+      |     |  |        L  Casting: (float)l
+      |     |  |           |- (
+      |     |  |           |- Type: float
+      |     |  |           |  L  Primitive_type: float
+      |     |  |           |     L  Numeric_type: float
+      |     |  |           |        L  Floating_point_type: float
+      |     |  |           |           L  float
+      |     |  |           |- )
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
+      |     |  |- ;
+      |     |  |- Assignment: inti=(int)l
       |     |  |  |- Variable_declaration: inti
       |     |  |  |  |- Primitive_type: int
       |     |  |  |  |  L  Numeric_type: int
@@ -132,9 +103,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |  |  |        L  int
       |     |  |  |  L  i
       |     |  |  |- =
-      |     |  |  L  Expressions: (int)f
-      |     |  |     L  Expression: (int)f
-      |     |  |        L  Casting: (int)f
+      |     |  |  L  Expressions: (int)l
+      |     |  |     L  Expression: (int)l
+      |     |  |        L  Casting: (int)l
       |     |  |           |- (
       |     |  |           |- Type: int
       |     |  |           |  L  Primitive_type: int
@@ -142,49 +113,49 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |           |        L  Integral_type: int
       |     |  |           |           L  int
       |     |  |           |- )
-      |     |  |           L  Expressions: f
-      |     |  |              L  Expression: f
-      |     |  |                 L  f
+      |     |  |           L  Expressions: l
+      |     |  |              L  Expression: l
+      |     |  |                 L  l
       |     |  |- ;
-      |     |  |- Assignment: floatforce_store=f
-      |     |  |  |- Variable_declaration: floatforce_store
-      |     |  |  |  |- Primitive_type: float
-      |     |  |  |  |  L  Numeric_type: float
-      |     |  |  |  |     L  Floating_point_type: float
-      |     |  |  |  |        L  float
+      |     |  |- Assignment: longforce_store=l
+      |     |  |  |- Variable_declaration: longforce_store
+      |     |  |  |  |- Primitive_type: long
+      |     |  |  |  |  L  Numeric_type: long
+      |     |  |  |  |     L  Integral_type: long
+      |     |  |  |  |        L  long
       |     |  |  |  L  force_store
       |     |  |  |- =
-      |     |  |  L  Expressions: f
-      |     |  |     L  Expression: f
-      |     |  |        L  f
+      |     |  |  L  Expressions: l
+      |     |  |     L  Expression: l
+      |     |  |        L  l
       |     |  |- ;
-      |     |  |- Assignment: floatforce_load=force_store
-      |     |  |  |- Variable_declaration: floatforce_load
-      |     |  |  |  |- Primitive_type: float
-      |     |  |  |  |  L  Numeric_type: float
-      |     |  |  |  |     L  Floating_point_type: float
-      |     |  |  |  |        L  float
+      |     |  |- Assignment: longforce_load=force_store
+      |     |  |  |- Variable_declaration: longforce_load
+      |     |  |  |  |- Primitive_type: long
+      |     |  |  |  |  L  Numeric_type: long
+      |     |  |  |  |     L  Integral_type: long
+      |     |  |  |  |        L  long
       |     |  |  |  L  force_load
       |     |  |  |- =
       |     |  |  L  Expressions: force_store
       |     |  |     L  Expression: force_store
       |     |  |        L  force_store
       |     |  |- ;
-      |     |  |- Assignment: floatforce_const=1
-      |     |  |  |- Variable_declaration: floatforce_const
-      |     |  |  |  |- Primitive_type: float
-      |     |  |  |  |  L  Numeric_type: float
-      |     |  |  |  |     L  Floating_point_type: float
-      |     |  |  |  |        L  float
+      |     |  |- Assignment: longforce_const=1
+      |     |  |  |- Variable_declaration: longforce_const
+      |     |  |  |  |- Primitive_type: long
+      |     |  |  |  |  L  Numeric_type: long
+      |     |  |  |  |     L  Integral_type: long
+      |     |  |  |  |        L  long
       |     |  |  |  L  force_const
       |     |  |  |- =
       |     |  |  L  Expressions: 1
       |     |  |     L  Expression: 1
       |     |  |        L  1
       |     |  |- ;
-      |     |  |- Expressions: System.out.println("f:")
-      |     |  |  L  Expression: System.out.println("f:")
-      |     |  |     L  Function_call: System.out.println("f:")
+      |     |  |- Expressions: System.out.println("l:")
+      |     |  |  L  Expression: System.out.println("l:")
+      |     |  |     L  Function_call: System.out.println("l:")
       |     |  |        |- Identifier: System.out.println
       |     |  |        |  |- System
       |     |  |        |  |- .
@@ -192,16 +163,16 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |        |  |- .
       |     |  |        |  L  println
       |     |  |        |- (
-      |     |  |        |- Function_args: "f:"
-      |     |  |        |  L  Function_arg: "f:"
-      |     |  |        |     L  Expressions: "f:"
-      |     |  |        |        L  Expression: "f:"
-      |     |  |        |           L  "f:"
+      |     |  |        |- Function_args: "l:"
+      |     |  |        |  L  Function_arg: "l:"
+      |     |  |        |     L  Expressions: "l:"
+      |     |  |        |        L  Expression: "l:"
+      |     |  |        |           L  "l:"
       |     |  |        L  )
       |     |  |- ;
-      |     |  |- Expressions: System.out.println(f)
-      |     |  |  L  Expression: System.out.println(f)
-      |     |  |     L  Function_call: System.out.println(f)
+      |     |  |- Expressions: System.out.println(l)
+      |     |  |  L  Expression: System.out.println(l)
+      |     |  |     L  Function_call: System.out.println(l)
       |     |  |        |- Identifier: System.out.println
       |     |  |        |  |- System
       |     |  |        |  |- .
@@ -209,11 +180,11 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |        |  |- .
       |     |  |        |  L  println
       |     |  |        |- (
-      |     |  |        |- Function_args: f
-      |     |  |        |  L  Function_arg: f
-      |     |  |        |     L  Expressions: f
-      |     |  |        |        L  Expression: f
-      |     |  |        |           L  f
+      |     |  |        |- Function_args: l
+      |     |  |        |  L  Function_arg: l
+      |     |  |        |     L  Expressions: l
+      |     |  |        |        L  Expression: l
+      |     |  |        |           L  l
       |     |  |        L  )
       |     |  |- ;
       |     |  |- Expressions: System.out.println("d:")
@@ -250,9 +221,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |        |           L  d
       |     |  |        L  )
       |     |  |- ;
-      |     |  |- Expressions: System.out.println("l:")
-      |     |  |  L  Expression: System.out.println("l:")
-      |     |  |     L  Function_call: System.out.println("l:")
+      |     |  |- Expressions: System.out.println("f:")
+      |     |  |  L  Expression: System.out.println("f:")
+      |     |  |     L  Function_call: System.out.println("f:")
       |     |  |        |- Identifier: System.out.println
       |     |  |        |  |- System
       |     |  |        |  |- .
@@ -260,16 +231,16 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |        |  |- .
       |     |  |        |  L  println
       |     |  |        |- (
-      |     |  |        |- Function_args: "l:"
-      |     |  |        |  L  Function_arg: "l:"
-      |     |  |        |     L  Expressions: "l:"
-      |     |  |        |        L  Expression: "l:"
-      |     |  |        |           L  "l:"
+      |     |  |        |- Function_args: "f:"
+      |     |  |        |  L  Function_arg: "f:"
+      |     |  |        |     L  Expressions: "f:"
+      |     |  |        |        L  Expression: "f:"
+      |     |  |        |           L  "f:"
       |     |  |        L  )
       |     |  |- ;
-      |     |  |- Expressions: System.out.println(l)
-      |     |  |  L  Expression: System.out.println(l)
-      |     |  |     L  Function_call: System.out.println(l)
+      |     |  |- Expressions: System.out.println(f)
+      |     |  |  L  Expression: System.out.println(f)
+      |     |  |     L  Function_call: System.out.println(f)
       |     |  |        |- Identifier: System.out.println
       |     |  |        |  |- System
       |     |  |        |  |- .
@@ -277,11 +248,11 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  |        |  |- .
       |     |  |        |  L  println
       |     |  |        |- (
-      |     |  |        |- Function_args: l
-      |     |  |        |  L  Function_arg: l
-      |     |  |        |     L  Expressions: l
-      |     |  |        |        L  Expression: l
-      |     |  |        |           L  l
+      |     |  |        |- Function_args: f
+      |     |  |        |  L  Function_arg: f
+      |     |  |        |     L  Expressions: f
+      |     |  |        |        L  Expression: f
+      |     |  |        |           L  f
       |     |  |        L  )
       |     |  |- ;
       |     |  |- Expressions: System.out.println("i:")
@@ -422,8 +393,3 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){floatf=10;do
       |     |  L  ;
       |     L  }
       L  }
-                        """;
-
-        assertEquals(expected, new ParseTreePrinter().print(tree));
-    }
-}
