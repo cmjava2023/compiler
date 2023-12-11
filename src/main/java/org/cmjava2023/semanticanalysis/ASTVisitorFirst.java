@@ -91,7 +91,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.RawFunctionCallNode node) {
-        Symbol functionSymbol = resolveNestedIdentifier(node.nestedIdentifier(), node.scope());
+        Symbol functionSymbol = resolveNestedIdentifier(null, node.nestedIdentifier(), node.scope());
 
         if (functionSymbol instanceof Function function){
             return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
@@ -102,14 +102,40 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
 
     }
 
-    private Symbol resolveNestedIdentifier(ArrayList<String> strings, Scope scope) {
-        Symbol builtIn = scope.resolve(String.join(".", strings));
+    private static ArrayList<String> removeFirstElement(ArrayList<String> list) {
+        if (list.size() > 1) {
+            return new ArrayList<>(list.subList(1, list.size()));
+        } else {
+            return new ArrayList<>();
+        }
+    }
 
-        if (builtIn != null){
-            return builtIn;
+    public static Symbol resolveNestedIdentifier(Symbol currentSymbol, ArrayList<String> strings, Scope scope) {
+        if (strings.isEmpty()){
+            return currentSymbol;
         }
 
-        return scope.resolve(strings.get(strings.size()-1));
+        if (currentSymbol == null){
+            Symbol builtIn = scope.resolve(String.join(".", strings));
+
+            if (builtIn != null){
+                return builtIn;
+            }
+
+            Symbol symbol = scope.resolve(strings.get(0));
+
+            if (symbol == null){
+                return null;
+            }
+            return resolveNestedIdentifier(symbol, removeFirstElement(strings), scope);
+        }
+
+        if (currentSymbol instanceof Clazz newScope){
+            Symbol classSymbol = newScope.resolve(strings.get(0));
+            return resolveNestedIdentifier(classSymbol, removeFirstElement(strings), newScope);
+        }
+
+        return null;
     }
 
     @Override

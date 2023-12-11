@@ -157,7 +157,14 @@ public class ASTNodes {
         }
     }
 
-    public record VariableAssigmentNode(ArrayList<String> variableName,
+    public record VariableAssigmentNode(Variable variable,
+                                        Expression value) implements Node, Callable, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ParameterAssigmentNode(Parameter variable,
                                         Expression value) implements Node, Callable, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
