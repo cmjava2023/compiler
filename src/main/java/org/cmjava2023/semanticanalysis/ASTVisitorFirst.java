@@ -90,8 +90,26 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
-        return new ASTNodes.FunctionCallNode(node.nestedIdentifier(), getModifiedExpressions(node.values()));
+    public ASTNodes.Node visit(ASTNodes.RawFunctionCallNode node) {
+        Symbol functionSymbol = resolveNestedIdentifier(node.nestedIdentifier(), node.scope());
+
+        if (functionSymbol instanceof Function function){
+            return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
+        }
+
+        errors.add(String.format("Function %s is not declared", node.nestedIdentifier()));
+        return new ASTNodes.FunctionCallNode(null, getModifiedExpressions(node.values()));
+
+    }
+
+    private Symbol resolveNestedIdentifier(ArrayList<String> strings, Scope scope) {
+        Symbol builtIn = scope.resolve(String.join(".", strings));
+
+        if (builtIn != null){
+            return builtIn;
+        }
+
+        return scope.resolve(strings.get(strings.size()-1));
     }
 
     @Override
@@ -189,6 +207,11 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ArrayTypeNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.Node node) {
         return node;
     }
 }

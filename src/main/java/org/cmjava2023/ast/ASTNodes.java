@@ -1,9 +1,6 @@
 package org.cmjava2023.ast;
 
-import org.cmjava2023.symboltable.Clazz;
-import org.cmjava2023.symboltable.Function;
-import org.cmjava2023.symboltable.Parameter;
-import org.cmjava2023.symboltable.Variable;
+import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
 
@@ -108,8 +105,16 @@ public class ASTNodes {
     }
 
     // function_call -> CallNode
-    public record FunctionCallNode(ArrayList<String> nestedIdentifier,
-                                   ArrayList<Expression> values) implements Node, Statement, Callable {
+    public record RawFunctionCallNode(ArrayList<String> nestedIdentifier,
+                                      ArrayList<Expression> values,
+                                      Scope scope) implements Node, Statement, Callable {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record FunctionCallNode(Function function,
+                                      ArrayList<Expression> values) implements Node, Statement, Callable {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

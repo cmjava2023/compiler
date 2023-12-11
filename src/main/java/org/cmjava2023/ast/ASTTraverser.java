@@ -11,7 +11,7 @@ public interface ASTTraverser<T> {
 
     T visit(ASTNodes.ParameterNode node);
 
-    T visit(ASTNodes.FunctionCallNode node);
+    T visit(ASTNodes.RawFunctionCallNode node);
 
     T visit(ASTNodes.IfNode node);
 
@@ -38,4 +38,6 @@ public interface ASTTraverser<T> {
     T visit(ASTNodes.TypeNode node);
 
     T visit(ASTNodes.ArrayTypeNode node);
+
+    T visit(T functionCallNode);
 }

@@ -171,7 +171,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
         ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
-        return new ASTNodes.FunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions);
+        return new ASTNodes.RawFunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions, symbolTable.getCurrentScope());
     }
 
     // ########ANTLR########
