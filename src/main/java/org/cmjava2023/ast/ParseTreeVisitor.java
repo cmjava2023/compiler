@@ -239,7 +239,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
                 return new ASTNodes.ParameterAssigmentNode(parameter, expression);
             }
 
-            errors.add(String.format("Variable %s is not declared", variableName.nestedIdentifier()));
+            errors.add(String.format("Variable %s is not declared", String.join(".", variableName.nestedIdentifier())));
             return new ASTNodes.VariableAssigmentNode(null, expression);
         }
     }

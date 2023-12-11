@@ -97,7 +97,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
             return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
         }
 
-        errors.add(String.format("Function %s is not declared", node.nestedIdentifier()));
+        errors.add(String.format("Function %s is not declared", String.join(".", node.nestedIdentifier())));
         return new ASTNodes.FunctionCallNode(null, getModifiedExpressions(node.values()));
 
     }
