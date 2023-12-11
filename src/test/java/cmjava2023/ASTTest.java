@@ -9,8 +9,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
-import org.cmjava2023.ast.ASTVisitor;
-import org.cmjava2023.semanticanalysis.SemanticAnalysisTraverser;
+import org.cmjava2023.ast.ParseTreeVisitor;
+import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
@@ -34,13 +34,13 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
 
             ParseTree tree = parser.start();
 
-            ASTVisitor visitor = new ASTVisitor();
+            ParseTreeVisitor visitor = new ParseTreeVisitor();
 
             ASTNodes.Node ast = visitor.visit(tree);
 
-            SemanticAnalysisTraverser semanticAnalysisTraverser = new SemanticAnalysisTraverser(visitor.errors);
+            ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
 
-            semanticAnalysisTraverser.visit((ASTNodes.StartNode) ast);
+            astVisitorFirst.visit((ASTNodes.StartNode) ast);
 
             String actual = GenericTreePrinter.print(ast);
 

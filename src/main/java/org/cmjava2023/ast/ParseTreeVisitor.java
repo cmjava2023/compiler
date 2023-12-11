@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
+public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
     public ArrayList<String> errors = new ArrayList<>();
 

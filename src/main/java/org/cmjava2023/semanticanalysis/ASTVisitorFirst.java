@@ -7,10 +7,10 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SemanticAnalysisTraverser implements ASTTraverser {
+public class ASTVisitorFirst implements ASTTraverser {
     public ArrayList<String> errors;
 
-    public SemanticAnalysisTraverser(ArrayList<String> errors) {
+    public ASTVisitorFirst(ArrayList<String> errors) {
         this.errors = errors;
     }
 

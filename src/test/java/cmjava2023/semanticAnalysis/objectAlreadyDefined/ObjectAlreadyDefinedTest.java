@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
-import org.cmjava2023.ast.ASTVisitor;
+import org.cmjava2023.ast.ParseTreeVisitor;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ public class ObjectAlreadyDefinedTest {
 
         ParseTree tree = parser.start();
 
-        ASTVisitor visitor = new ASTVisitor();
+        ParseTreeVisitor visitor = new ParseTreeVisitor();
 
         ASTNodes.Node ast = visitor.visit(tree);
 
