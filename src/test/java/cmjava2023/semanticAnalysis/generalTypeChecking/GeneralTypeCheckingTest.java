@@ -32,7 +32,7 @@ public class GeneralTypeCheckingTest {
 
         ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
 
-        astVisitorFirst.visit((ASTNodes.StartNode) ast);
+        ast.accept(astVisitorFirst);
 
         astVisitorFirst.errors.forEach(System.out::println);
 

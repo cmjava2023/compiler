@@ -7,7 +7,7 @@ import org.cmjava2023.symboltable.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ASTVisitorFirst implements ASTTraverser {
+public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
     public ArrayList<String> errors;
 
     public ASTVisitorFirst(ArrayList<String> errors) {
@@ -15,25 +15,28 @@ public class ASTVisitorFirst implements ASTTraverser {
     }
 
     @Override
-    public void visit(ASTNodes.StartNode node) {
+    public ASTNodes.Node visit(ASTNodes.StartNode node) {
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.PackageNode node) {
+    public ASTNodes.Node visit(ASTNodes.PackageNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ClassNode node) {
+    public ASTNodes.Node visit(ASTNodes.ClassNode node) {
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.FunctionNode node) {
+    public ASTNodes.Node visit(ASTNodes.FunctionNode node) {
         Function functionSymbol = node.functionSymbol();
         if (functionSymbol.getType() instanceof InvalidType invalidType) {
             checkForType(invalidType, "return type of Function", functionSymbol);
@@ -44,46 +47,53 @@ public class ASTVisitorFirst implements ASTTraverser {
         for (ASTNodes.Statement statement : node.body()) {
             statement.accept(this);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ParameterNode node) {
+    public ASTNodes.Node visit(ASTNodes.ParameterNode node) {
         Parameter parameterSymbol = node.parameterSymbol();
         if (parameterSymbol.getType() instanceof InvalidType invalidType) {
             checkForVoidType("Parameter", parameterSymbol, invalidType);
             checkForType(invalidType, "Parameter", parameterSymbol);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.FunctionCallNode node) {
+    public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.IfNode node) {
+    public ASTNodes.Node visit(ASTNodes.IfNode node) {
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ElseNode node) {
+    public ASTNodes.Node visit(ASTNodes.ElseNode node) {
         for (ASTNodes.Statement statement : node.statements()) {
             statement.accept(this);
         }
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.BlockScopeNode node) {
+    public ASTNodes.Node visit(ASTNodes.BlockScopeNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.VariableNode node) {
+    public ASTNodes.Node visit(ASTNodes.VariableNode node) {
         Variable variableSymbol = node.variableSymbol();
         if (variableSymbol.getType() instanceof InvalidType invalidType) {
             checkForVoidType("Variable", variableSymbol, invalidType);
             checkForType(invalidType, "Variable", variableSymbol);
         }
+        return node;
     }
 
     private void checkForType(InvalidType invalidType, String errorMessagePart, Symbol symbol) {
@@ -115,38 +125,47 @@ public class ASTVisitorFirst implements ASTTraverser {
     }
 
     @Override
-    public void visit(ASTNodes.VariableAssigmentNode node) {
+    public ASTNodes.Node visit(ASTNodes.VariableAssigmentNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ValueNode node) {
+    public ASTNodes.Node visit(ASTNodes.ValueNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.NestedIdentifierNode node) {
+    public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ComparisonNode node) {
+    public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ExpressionNode node) {
+    public ASTNodes.Node visit(ASTNodes.ExpressionNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.IdentifierNode node) {
+    public ASTNodes.Node visit(ASTNodes.IdentifierNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ReturnNode node) {
+    public ASTNodes.Node visit(ASTNodes.ReturnNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.TypeNode node) {
+    public ASTNodes.Node visit(ASTNodes.TypeNode node) {
+        return node;
     }
 
     @Override
-    public void visit(ASTNodes.ArrayTypeNode node) {
+    public ASTNodes.Node visit(ASTNodes.ArrayTypeNode node) {
+        return node;
     }
 }

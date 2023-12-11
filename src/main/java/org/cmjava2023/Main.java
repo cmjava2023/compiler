@@ -27,9 +27,9 @@ public class Main {
         ParseTreeVisitor visitor = new ParseTreeVisitor();
         ASTNodes.Node ast = visitor.visit(tree);
         ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
-        astVisitorFirst.visit((ASTNodes.StartNode) ast);
+        ASTNodes.Node modifiedAST = ast.accept(astVisitorFirst);
 
-        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)ast);
+        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)modifiedAST);
         var bytesForClassFile = new BytecodeFromClassfileModel().generate(classFileModel);
 
         Path outputDirPath = Paths.get(args[1], classFileModel.getPackageNameWithDelimiterForClassFile());

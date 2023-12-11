@@ -39,8 +39,7 @@ public class SymbolTableTest implements DynamicTestsForTestFilesHelper.DynamicTe
             ASTNodes.Node ast = visitor.visit(tree);
 
             ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
-
-            astVisitorFirst.visit((ASTNodes.StartNode) ast);
+            ast.accept(astVisitorFirst);
 
             String actual = SymbolTableTreePrinter.print(visitor.symbolTable);
             assertEquals(contentOfExpectationFile, actual);

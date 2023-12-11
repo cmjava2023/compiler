@@ -40,9 +40,9 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
 
             ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
 
-            astVisitorFirst.visit((ASTNodes.StartNode) ast);
+            ASTNodes.Node modifiedAst = ast.accept(astVisitorFirst);
 
-            String actual = GenericTreePrinter.print(ast);
+            String actual = GenericTreePrinter.print(modifiedAst);
 
             assertEquals(contentOfExpectationFile, actual);
         });
