@@ -131,7 +131,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
         }
 
         if (currentSymbol instanceof Clazz newScope){
-            Symbol classSymbol = newScope.resolve(strings.get(0));
+            Symbol classSymbol = newScope.resolveMember(strings.get(0));
             return resolveNestedIdentifier(classSymbol, removeFirstElement(strings), newScope);
         }
 
