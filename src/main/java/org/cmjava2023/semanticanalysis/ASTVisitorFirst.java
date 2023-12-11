@@ -14,12 +14,49 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
         this.errors = errors;
     }
 
+    private ArrayList<ASTNodes.Statement> getModifiedStatements(ArrayList<ASTNodes.Statement> statements) {
+        ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
+
+        for (ASTNodes.Statement statement : statements) {
+            statementList.add((ASTNodes.Statement) statement.accept(this));
+        }
+
+        return statementList;
+    }
+
+    private ArrayList<ASTNodes.Condition> getModifiedConditions(ArrayList<ASTNodes.Condition> conditions) {
+        ArrayList<ASTNodes.Condition> conditionList = new ArrayList<>();
+
+        for (ASTNodes.Condition condition : conditions) {
+            conditionList.add((ASTNodes.Condition) condition.accept(this));
+        }
+
+        return conditionList;
+    }
+
+    private ArrayList<ASTNodes.ParameterNode> getModifiedParameters(ArrayList<ASTNodes.ParameterNode> parameters) {
+        ArrayList<ASTNodes.ParameterNode> conditionList = new ArrayList<>();
+
+        for (ASTNodes.ParameterNode parameter : parameters) {
+            conditionList.add((ASTNodes.ParameterNode) parameter.accept(this));
+        }
+
+        return conditionList;
+    }
+
+    private ArrayList<ASTNodes.Expression> getModifiedExpressions(ArrayList<ASTNodes.Expression> expressions) {
+        ArrayList<ASTNodes.Expression> expressionList = new ArrayList<>();
+
+        for (ASTNodes.Expression expression : expressions) {
+            expressionList.add((ASTNodes.Expression) expression.accept(this));
+        }
+
+        return expressionList;
+    }
+
     @Override
     public ASTNodes.Node visit(ASTNodes.StartNode node) {
-        for (ASTNodes.Statement statement : node.body()) {
-            statement.accept(this);
-        }
-        return node;
+        return new ASTNodes.StartNode(getModifiedStatements(node.body()));
     }
 
     @Override
@@ -29,10 +66,7 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ClassNode node) {
-        for (ASTNodes.Statement statement : node.body()) {
-            statement.accept(this);
-        }
-        return node;
+        return new ASTNodes.ClassNode(node.classSymbol(), getModifiedStatements(node.body()));
     }
 
     @Override
@@ -41,13 +75,8 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
         if (functionSymbol.getType() instanceof InvalidType invalidType) {
             checkForType(invalidType, "return type of Function", functionSymbol);
         }
-        for (ASTNodes.ParameterNode statement : node.parameters()) {
-            statement.accept(this);
-        }
-        for (ASTNodes.Statement statement : node.body()) {
-            statement.accept(this);
-        }
-        return node;
+
+        return new ASTNodes.FunctionNode(node.functionSymbol(), getModifiedParameters(node.parameters()), getModifiedStatements(node.body()));
     }
 
     @Override
@@ -62,28 +91,22 @@ public class ASTVisitorFirst implements ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
-        return node;
+        return new ASTNodes.FunctionCallNode(node.nestedIdentifier(), getModifiedExpressions(node.values()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.IfNode node) {
-        for (ASTNodes.Statement statement : node.statements()) {
-            statement.accept(this);
-        }
-        return node;
+        return new ASTNodes.IfNode(node.expression(), getModifiedStatements(node.statements()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ElseNode node) {
-        for (ASTNodes.Statement statement : node.statements()) {
-            statement.accept(this);
-        }
-        return node;
+        return new ASTNodes.ElseNode(getModifiedStatements(node.statements()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.BlockScopeNode node) {
-        return node;
+        return new ASTNodes.BlockScopeNode(getModifiedConditions(node.conditions()));
     }
 
     @Override
