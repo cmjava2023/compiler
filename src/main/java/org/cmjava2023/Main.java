@@ -6,10 +6,10 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
-import org.cmjava2023.ast.ASTVisitor;
+import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.cmjava2023.semanticanalysis.SemanticAnalysisTraverser;
+import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,12 +24,12 @@ public class Main {
         MainAntlrParser parser = new MainAntlrParser(new CommonTokenStream(lexer));
 
         ParseTree tree = parser.start();
-        ASTVisitor visitor = new ASTVisitor();
+        ParseTreeVisitor visitor = new ParseTreeVisitor();
         ASTNodes.Node ast = visitor.visit(tree);
-        SemanticAnalysisTraverser semanticAnalysisTraverser = new SemanticAnalysisTraverser(visitor.errors);
-        semanticAnalysisTraverser.visit((ASTNodes.StartNode) ast);
+        ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
+        ASTNodes.Node modifiedAST = ast.accept(astVisitorFirst);
 
-        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)ast);
+        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)modifiedAST);
         var bytesForClassFile = new BytecodeFromClassfileModel().generate(classFileModel);
 
         Path outputDirPath = Paths.get(args[1], classFileModel.getPackageNameWithDelimiterForClassFile());

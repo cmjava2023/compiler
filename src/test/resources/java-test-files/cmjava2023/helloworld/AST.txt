@@ -25,10 +25,12 @@ L  body
             |           L  maxArraySize: -1
             L  body
                L  0 (field of type FunctionCallNode)
-                  |- nestedIdentifier
-                  |  |- 0: System
-                  |  |- 1: out
-                  |  L  2: println
+                  |- function (field of type Function)
+                  |  |- accessModifier: PUBLIC
+                  |  |- instanceModifier: null
+                  |  |- name: System.out.println
+                  |  L  type (field of type BuiltIn)
+                  |     L  name: void
                   L  values
                      L  0 (field of type ValueNode)
                         L  value: Hello world!

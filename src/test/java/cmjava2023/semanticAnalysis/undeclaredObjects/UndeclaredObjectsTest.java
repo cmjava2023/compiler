@@ -1,4 +1,4 @@
-package cmjava2023.semanticAnalysis.objectAlreadyDefined;
+package cmjava2023.semanticAnalysis.undeclaredObjects;
 
 import cmjava2023.util.TestPathsHelper;
 import org.antlr.v4.runtime.CharStream;
@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
+import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
-public class ObjectAlreadyDefinedTest {
+public class UndeclaredObjectsTest {
     @Test
     public void snapshot() throws IOException {
         CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(new TestPathsHelper(this).GetPathOfMainJavaTestResourceInSamePackage());
@@ -29,8 +30,12 @@ public class ObjectAlreadyDefinedTest {
 
         ASTNodes.Node ast = visitor.visit(tree);
 
-        visitor.errors.forEach(System.out::println);
+        ASTVisitorFirst visitorFirst = new ASTVisitorFirst(visitor.errors);
 
-        assertEquals(visitor.errors.size(), 5);
+        ASTNodes.Node modifiedAst = ast.accept(visitorFirst);
+
+        visitorFirst.errors.forEach(System.out::println);
+
+        assertEquals(visitorFirst.errors.size(), 2);
     }
 }

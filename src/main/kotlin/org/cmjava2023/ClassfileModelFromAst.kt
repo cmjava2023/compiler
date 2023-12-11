@@ -4,7 +4,6 @@ import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.*
-import java.util.ArrayList
 
 class ClassfileModelFromAst {
     companion object {
@@ -23,7 +22,8 @@ class ClassfileModelFromAst {
 
     fun generate(ast: ASTNodes.StartNode): ClassfileModel {
         resetFields()
-        val packageNameWithDelimiterForClassFile = parseTopLevelStatementsAndGetPackageName(ast)
+        val packageNameWithDelimiterForClassFile =
+            parseTopLevelStatementsAndGetPackageName(ast)
 
         methodInfos.add(createDefaultConstructorMethodInfo())
 
@@ -72,7 +72,11 @@ class ClassfileModelFromAst {
 
             } else if (statement is ASTNodes.ClassNode) {
                 className = statement.classSymbol.name
-                classAccessModifiers.add(ClassAccessModifier.fromASTModifier(statement.classSymbol.accessModifier))
+                classAccessModifiers.add(
+                    ClassAccessModifier.fromASTModifier(
+                        statement.classSymbol.accessModifier
+                    )
+                )
                 parseStatements(statement.body.toList())
             }
         }
@@ -80,7 +84,12 @@ class ClassfileModelFromAst {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        constantInfos.add(ClassConstantInfo(packages.plus(className).joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)))
+        constantInfos.add(
+            ClassConstantInfo(
+                packages.plus(className)
+                    .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
+            )
+        )
         constantInfos.add(ClassConstantInfo("java/lang/Object"))
 
         return packages.joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
@@ -102,44 +111,52 @@ class ClassfileModelFromAst {
         for (statement in statements) {
             when (statement) {
                 is ASTNodes.FunctionCallNode -> {
-                    if (statement.nestedIdentifier[0] == "System") {
-                        if (statement.nestedIdentifier[1] == "out") {
-                            if (statement.nestedIdentifier[2] == "println") {
-                                val className = statement.nestedIdentifier[0]
-                                val fieldName = statement.nestedIdentifier[1]
-                                val methodName = statement.nestedIdentifier[2]
+                    if (statement.function.name == "System.out.println") {
+                        val printFunction = statement.function.name.split(".")
+                        val className = printFunction[0]
+                        val fieldName = printFunction[1]
+                        val methodName = printFunction[2]
 
-                                val qualifiedClassName = "java/lang/$className"
+                        val qualifiedClassName = "java/lang/$className"
 
-                                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(
-                                    ClassConstantInfo(qualifiedClassName),
-                                    NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;")
+                        val fieldReferenceConstantInfo =
+                            FieldReferenceConstantInfo(
+                                ClassConstantInfo(qualifiedClassName),
+                                NameAndTypeConstantInfo(
+                                    fieldName,
+                                    "Ljava/io/PrintStream;"
                                 )
-                                val methodReferenceConstantInfo = MethodReferenceConstantInfo(
-                                    ClassConstantInfo("java/io/PrintStream"),
-                                    NameAndTypeConstantInfo(methodName, "(Ljava/lang/String;)V")
+                            )
+                        val methodReferenceConstantInfo =
+                            MethodReferenceConstantInfo(
+                                ClassConstantInfo("java/io/PrintStream"),
+                                NameAndTypeConstantInfo(
+                                    methodName,
+                                    "(Ljava/lang/String;)V"
                                 )
+                            )
 
-                                var whatToPrint: String
+                        var whatToPrint: String
 
-                                val expr = statement.values[0]
-                                if (expr is ASTNodes.ValueNode) {
-                                    whatToPrint = expr.value
-                                } else {
-                                    throw NotImplementedError()
-                                }
-
-                                result.addAll(
-                                    listOf(
-                                        OpCode.Getstatic(fieldReferenceConstantInfo),
-                                        OpCode.LoadConstant(StringConstantInfo(whatToPrint)),
-                                        OpCode.Invokevirtual(methodReferenceConstantInfo),
-                                        OpCode.Return()
-                                    )
-                                )
-
-                            }
+                        val expr = statement.values[0]
+                        if (expr is ASTNodes.ValueNode) {
+                            whatToPrint = expr.value
+                        } else {
+                            throw NotImplementedError()
                         }
+
+                        result.addAll(
+                            listOf(
+                                OpCode.Getstatic(fieldReferenceConstantInfo),
+                                OpCode.LoadConstant(
+                                    StringConstantInfo(
+                                        whatToPrint
+                                    )
+                                ),
+                                OpCode.Invokevirtual(methodReferenceConstantInfo),
+                                OpCode.Return()
+                            )
+                        )
                     }
                 }
             }
@@ -169,7 +186,9 @@ class ClassfileModelFromAst {
         } else {
             throw NotImplementedError()
         }
-        val parameterTypeCodes = parseParameterTypeCodes(functionNode.parameters.toCollection(ArrayList()))
+        val parameterTypeCodes = parseParameterTypeCodes(
+            functionNode.parameters.toCollection(ArrayList())
+        )
         return "(${parameterTypeCodes.joinToString("") { "$it;" }})$returnCode"
     }
 

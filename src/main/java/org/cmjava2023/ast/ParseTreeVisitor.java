@@ -6,13 +6,14 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.cmjava2023.generated_from_antlr.MainAntlrBaseVisitor;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
+import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
+public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public final SymbolTable symbolTable = new SymbolTable();
     public ArrayList<String> errors = new ArrayList<>();
 
@@ -171,7 +172,7 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
         ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
-        return new ASTNodes.FunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions);
+        return new ASTNodes.RawFunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions, symbolTable.getCurrentScope());
     }
 
     // ########ANTLR########
@@ -227,7 +228,19 @@ public class ASTVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return new ASTNodes.VariableNode(variable.variableSymbol(), expression);
         } else {
             ASTNodes.NestedIdentifierNode variableName = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
-            return new ASTNodes.VariableAssigmentNode(variableName.nestedIdentifier(), expression);
+
+            Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
+
+            if (variableSymbol instanceof Variable variable){
+                return new ASTNodes.VariableAssigmentNode(variable, expression);
+            }
+
+            if (variableSymbol instanceof Parameter parameter){
+                return new ASTNodes.ParameterAssigmentNode(parameter, expression);
+            }
+
+            errors.add(String.format("Variable %s is not declared", String.join(".", variableName.nestedIdentifier())));
+            return new ASTNodes.VariableAssigmentNode(null, expression);
         }
     }
 
