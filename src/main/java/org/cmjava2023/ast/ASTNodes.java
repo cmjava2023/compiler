@@ -61,6 +61,9 @@ public class ASTNodes {
         String getType();
     }
 
+    public interface Value extends Node{
+    }
+
     // start-> StartNode
     public record StartNode(ArrayList<Statement> body) implements Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -173,7 +176,25 @@ public class ASTNodes {
 
     // Just a proper value.
     // | DECIMAL | INTEGER | IDENTIFIER | STRING |
-    public record ValueNode(String value) implements Node, Expression {
+    public record ValueNode(Value value) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record IntegerNode(String value) implements Node, Value {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record DecimalNode(String value) implements Node, Value {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record StringNode(String value) implements Node, Value {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
