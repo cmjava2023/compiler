@@ -139,10 +139,9 @@ class ClassfileModelFromAst {
                         var whatToPrint: String
 
                         val expr = statement.values[0]
-                        if (expr is ASTNodes.ValueNode) {
-                            whatToPrint = expr.value
-                        } else {
-                            throw NotImplementedError()
+                        whatToPrint = when (expr){
+                            is ASTNodes.StringNode -> expr.value
+                            else -> throw NotImplementedError()
                         }
 
                         result.addAll(

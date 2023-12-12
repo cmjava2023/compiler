@@ -23,7 +23,7 @@ public interface ASTTraverser<T> {
 
     T visit(ASTNodes.VariableAssigmentNode node);
 
-    T visit(ASTNodes.ValueNode node);
+    T visit(ASTNodes.Value node);
 
     T visit(ASTNodes.NestedIdentifierNode node);
 
