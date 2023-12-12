@@ -174,27 +174,19 @@ public class ASTNodes {
         }
     }
 
-    // Just a proper value.
-    // | DECIMAL | INTEGER | IDENTIFIER | STRING |
-    public record ValueNode(Value value) implements Node, Expression {
+    public record IntegerNode(long value) implements Node, Value, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    public record IntegerNode(String value) implements Node, Value {
+    public record DecimalNode(double value) implements Node, Value, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    public record DecimalNode(String value) implements Node, Value {
-        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
-            return visitor.visit(this);
-        }
-    }
-
-    public record StringNode(String value) implements Node, Value {
+    public record StringNode(String value) implements Node, Value, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

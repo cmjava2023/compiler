@@ -32,5 +32,5 @@ L  body
                   |  L  type (field of type BuiltIn)
                   |     L  name: void
                   L  values
-                     L  0 (field of type ValueNode)
+                     L  0 (field of type StringNode)
                         L  value: Hello world!

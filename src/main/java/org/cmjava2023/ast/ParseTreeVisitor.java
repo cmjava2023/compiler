@@ -273,14 +273,14 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (ctx.STRING() != null) {
             String string = ctx.STRING().getText();
             if (string.startsWith("\"") && string.endsWith("\"")) {
-                return new ASTNodes.ValueNode(new ASTNodes.StringNode(string.substring(1, string.length() - 1)));
+                return new ASTNodes.StringNode(string.substring(1, string.length() - 1));
             } else {
-                return new ASTNodes.ValueNode(new ASTNodes.StringNode(string));
+                return new ASTNodes.StringNode(string);
             }
         } else if (ctx.INTEGER() != null) {
-            return new ASTNodes.ValueNode(new ASTNodes.IntegerNode(ctx.INTEGER().getText()));
+            return new ASTNodes.IntegerNode(Long.parseLong(ctx.INTEGER().getText()));
         } else if (ctx.DECIMAL() != null) {
-            return new ASTNodes.ValueNode(new ASTNodes.DecimalNode(ctx.DECIMAL().getText()));
+            return new ASTNodes.DecimalNode(Double.parseDouble(ctx.DECIMAL().getText()));
         } else {
             return null;
         }
