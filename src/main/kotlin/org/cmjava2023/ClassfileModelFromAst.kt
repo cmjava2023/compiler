@@ -140,7 +140,13 @@ class ClassfileModelFromAst {
 
                         val expr = statement.values[0]
                         if (expr is ASTNodes.ValueNode) {
-                            whatToPrint = expr.value
+                            val valueType = expr.value
+                            whatToPrint = when (valueType){
+                                is ASTNodes.IntegerNode -> valueType.value
+                                is ASTNodes.DecimalNode -> valueType.value
+                                is ASTNodes.StringNode -> valueType.value
+                                else -> throw NotImplementedError()
+                            }
                         } else {
                             throw NotImplementedError()
                         }
