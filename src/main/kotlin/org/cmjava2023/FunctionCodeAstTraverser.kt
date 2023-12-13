@@ -4,13 +4,9 @@ import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.constantpool.*
-import org.cmjava2023.symboltable.Scope
-import org.cmjava2023.symboltable.Type
 import org.cmjava2023.symboltable.Variable
 
 class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
-    private lateinit var currentScope: Scope
-
     override fun visit(startNode: ASTNodes.StartNode): List<OpCode> {
         throw NotImplementedError()
     }
@@ -24,8 +20,12 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(functionNode: ASTNodes.FunctionNode): List<OpCode> {
-        currentScope = functionNode.functionSymbol.scope
-        return functionNode.body.flatMap { dispatch(it) }
+        val opCodes = functionNode.body.flatMap { dispatch(it) }
+        return if (opCodes.lastOrNull() !is OpCode.ReturnAnything) {
+            opCodes.plus(OpCode.Return())
+        } else {
+            opCodes
+        }
     }
 
     override fun visit(node: ASTNodes.ParameterNode?): List<OpCode> {
@@ -58,8 +58,11 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
             val whatToPrint: String
 
             val expr = functionCallNode.values[0]
-            if (expr is ASTNodes.StringNode) {
-                whatToPrint = expr.value
+            if (expr is ASTNodes.ValueNode<*>) {
+                when(val value = expr.value) {
+                    is String -> whatToPrint = value
+                    else -> throw NotImplementedError()
+                }
             } else {
                 throw NotImplementedError()
             }
@@ -92,7 +95,7 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
-        val opCodesLoadingExpressionValueOnStack = if (value is ASTNodes.Value) { generateTypeSpecificLoadingOpCodes(value, variableSymbol.type) } else { dispatch(value) }
+        val opCodesLoadingExpressionValueOnStack = dispatch(value)
         val storingOpCode = when(variableSymbol.type.name) {
             "double" -> OpCode.StoreDouble(variableSymbol)
             else -> throw NotImplementedError()
@@ -106,10 +109,11 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
-    private fun generateTypeSpecificLoadingOpCodes(valueNode: ASTNodes.Value, type: Type): List<OpCode> {
-        return listOf(when (valueNode) {
-            is ASTNodes.StringNode -> OpCode.LoadConstant(StringConstantInfo(valueNode.value))
-            is ASTNodes.DecimalNode -> if(type.name == "double") { OpCode.LoadDouble(valueNode.value) } else { throw NotImplementedError() }
+    override fun visit(valueNode: ASTNodes.ValueNode<*>): List<OpCode> {
+        val value = valueNode.value
+        return listOf(when (value) {
+            is String -> OpCode.LoadConstant(StringConstantInfo(value))
+            is Double -> OpCode.LoadDouble(value)
             else -> throw NotImplementedError()
         })
     }

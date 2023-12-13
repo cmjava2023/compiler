@@ -197,6 +197,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
+    public ASTNodes.Node visit(ASTNodes.ValueNode<?> valueNode) { return valueNode; }
+
+    @Override
     public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) { return rawFunctionCallNode; }
 
     @Override

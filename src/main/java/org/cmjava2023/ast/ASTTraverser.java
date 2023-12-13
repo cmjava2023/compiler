@@ -19,6 +19,7 @@ public abstract class ASTTraverser<T> {
     }
 
     public T dispatch(ASTNodes.Expression expressionNode) {
+        if (expressionNode instanceof ASTNodes.ValueNode<?>) { return visit((ASTNodes.ValueNode<?>)expressionNode); }
         if (expressionNode instanceof ASTNodes.NestedIdentifierNode) { return visit((ASTNodes.NestedIdentifierNode)expressionNode); }
         else if (expressionNode instanceof ASTNodes.ComparisonNode) { return visit((ASTNodes.ComparisonNode)expressionNode); }
         else if (expressionNode instanceof ASTNodes.ExpressionNode) { return visit((ASTNodes.ExpressionNode)expressionNode); }
@@ -49,6 +50,8 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.VariableNode variableNode);
 
     public abstract T visit(ASTNodes.VariableAssigmentNode variableAssigmentNode);
+
+    public abstract T visit(ASTNodes.ValueNode<?> valueNode);
 
     public abstract T visit(ASTNodes.NestedIdentifierNode nestedIdentifierNode);
 

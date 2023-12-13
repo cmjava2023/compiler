@@ -133,7 +133,7 @@ public class HexClassFileTester {
         assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
 
         int actualCodeSize = dequeue4ByteInt();
-        assertEquals(methodDescription.code(), dequeueHexBytes(expectedCodeSize), methodDescription.getAssertMessage("code"));
+        assertEquals(methodDescription.code(), dequeueHexBytes(actualCodeSize), methodDescription.getAssertMessage("code"));
         assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
         assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
 
