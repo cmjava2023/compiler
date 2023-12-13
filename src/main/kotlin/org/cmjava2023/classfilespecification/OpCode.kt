@@ -4,6 +4,7 @@ import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantInfo
+import org.cmjava2023.symboltable.Variable
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
@@ -12,7 +13,14 @@ import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstan
 @Suppress("unused")
 abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
-    class LoadConstant(constantInfo: ConstantInfo): OpCode(0xcbu, constantInfo)
+    abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(0xcbu, *values)
+
+    class LoadConstant(constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
+    class StoreDouble(variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadDouble(value: Double): MultiplePossibleOpcode()
+
+    interface ReturnAnything
+
     class Aaload: OpCode(0x32u)
     class Aastore: OpCode(0x53u)
     class Aconst_null: OpCode(0x01u)
@@ -22,7 +30,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Aload_2: OpCode(0x2cu)
     class Aload_3: OpCode(0x2du)
     class Anewarray(classConstantInfo: ClassConstantInfo): OpCode(0xbdu, classConstantInfo)
-    class Areturn: OpCode(0xb0u)
+    class Areturn: OpCode(0xb0u), ReturnAnything
     class Arraylength: OpCode(0xbeu)
     class Astore(indexInsideLocalVariableArray: UByte): OpCode(0x3au, indexInsideLocalVariableArray)
     class Astore_0: OpCode(0x4bu)
@@ -52,7 +60,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Dmul: OpCode(0x6bu)
     class Dneg: OpCode(0x77u)
     class Drem: OpCode(0x73u)
-    class Dreturn: OpCode(0xafu)
+    class Dreturn: OpCode(0xafu), ReturnAnything
     class Dstore(indexInsideLocalVariableArray: UByte): OpCode(0x39u, indexInsideLocalVariableArray)
     class Dstore_0: OpCode(0x47u)
     class Dstore_1: OpCode(0x48u)
@@ -85,7 +93,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Fmul: OpCode(0x6au)
     class Fneg: OpCode(0x76u)
     class Freg: OpCode(0x72u)
-    class Freturn: OpCode(0xaeu)
+    class Freturn: OpCode(0xaeu), ReturnAnything
     class Fstore(indexInsideLocalVariableArray: UByte): OpCode(0x38u, indexInsideLocalVariableArray)
     class Fstore_0: OpCode(0x43u)
     class Fstore_1: OpCode(0x44u)
@@ -123,7 +131,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Invokevirtual(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(0xb6u, methodReferenceConstantInfo)
     class Ior: OpCode(0x80u)
     class Irem: OpCode(0x70u)
-    class Ireturn: OpCode(0xacu)
+    class Ireturn: OpCode(0xacu), ReturnAnything
     class Ishl: OpCode(0x78u)
     class Ishr: OpCode(0x7au)
     class Istore(indexInsideLocalVariableArray: UByte): OpCode(0x36u, indexInsideLocalVariableArray)
@@ -157,7 +165,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Lneg: OpCode(0x75u)
     class Lor: OpCode(0x81u)
     class Lrem: OpCode(0x71u)
-    class Lreturn: OpCode(0xadu)
+    class Lreturn: OpCode(0xadu), ReturnAnything
     class Lshl: OpCode(0x79u)
     class Lshr: OpCode(0x7bu)
     class Lstore(indexInsideLocalVariableArray: UByte): OpCode(0x37u, indexInsideLocalVariableArray)
@@ -183,7 +191,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Nop: OpCode(0x00u)
     class Pop2: OpCode(0x58u)
     class Pop: OpCode(0x57u)
-    class Return: OpCode(0xb1u)
+    class Return: OpCode(0xb1u), ReturnAnything
     class Saload: OpCode(0x35u)
     class Sastore: OpCode(0x56u)
     class Sipush(valueToPush: UShort): OpCode(0x11u, valueToPush)

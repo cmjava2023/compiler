@@ -126,16 +126,19 @@ public class HexClassFileTester {
 
     private static void codeAttribute(MethodDescription methodDescription) {
         dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
-        int codeSize = methodDescription.code().length() / 2;
-        int attributeSize = 2 + 2 + 4 + codeSize + 2 + 2;
-        assertEquals(attributeSize, dequeue4ByteInt(), methodDescription.getAssertMessage("attributeSize"));
+        int expectedCodeSize = methodDescription.code().length() / 2;
+        int expectedAttributeSize = 2 + 2 + 4 + expectedCodeSize + 2 + 2;
+        int actualAttributeSize = dequeue4ByteInt();
         assertEquals((short) 2, dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
         assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
 
-        assertEquals(codeSize, dequeue4ByteInt(), methodDescription.getAssertMessage("codeSize"));
-        assertEquals(methodDescription.code(), dequeueHexBytes(codeSize), methodDescription.getAssertMessage("code"));
+        int actualCodeSize = dequeue4ByteInt();
+        assertEquals(methodDescription.code(), dequeueHexBytes(actualCodeSize), methodDescription.getAssertMessage("code"));
         assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
         assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
+
+        assertEquals(expectedAttributeSize, actualAttributeSize, methodDescription.getAssertMessage("attributeSize"));
+        assertEquals(expectedCodeSize, actualCodeSize, methodDescription.getAssertMessage("codeSize"));
     }
 
     private static void noClassAttributes() {
