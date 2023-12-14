@@ -18,12 +18,12 @@ public class HexClassFileTester {
     private record ConstantPoolItemToResolve(short index) {
     }
 
-    public static void test(Queue<String> bytesInHex, String classAccessModifierHex, String thisClass, String superClass, MethodDescription[] methodDescriptions) {
+    public static void test(Queue<String> bytesInHex, ClassFileContent classFileContent) {
         HexClassFileTester.bytesInHex = bytesInHex;
-        HexClassFileTester.classAccessModifierHex = classAccessModifierHex;
-        HexClassFileTester.thisClass = thisClass;
-        HexClassFileTester.superClass = superClass;
-        HexClassFileTester.methodDescriptions = methodDescriptions;
+        HexClassFileTester.classAccessModifierHex = classFileContent.classAccessModifierHex();
+        HexClassFileTester.thisClass = classFileContent.thisClass();
+        HexClassFileTester.superClass = classFileContent.superClass();
+        HexClassFileTester.methodDescriptions = classFileContent.methodDescriptions();
         HexClassFileTester.constantPoolItems = new ArrayList<>();
 
         classFileIndicatorCafeBabe();
