@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-public class OutputOfJdkCompiledClassFIleQuery {
+public class OutputOfJdkCompiledClassFileQuery {
     public static String fetch(String pathToMainJava) {
         String[] commandParts = new String[]{"javac", pathToMainJava, "--release", "8", "-d", TestPathsHelper.JDK_COMPILED_TEST_FILES_FOLDER };
         System.out.println(String.join(" ", commandParts));

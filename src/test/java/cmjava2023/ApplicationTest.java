@@ -27,23 +27,19 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
     public Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheHelpedClassIsIn, String pathToMain, String contentOfExpectationFile) {
         runOurCompiler(pathToMain);
         return List.of(DynamicTest.dynamicTest(nonRootPackagePartsTheHelpedClassIsIn + " ClassFileAsExpected", () -> {
-                ClassFileContent expectedClassFileContent = new Gson().fromJson(contentOfExpectationFile, ClassFileContent.class);
-                Queue<String> bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheHelpedClassIsIn).GetPathOfMainClassCompiledByUsInSamePackage());
-                HexClassFileTester.test(bytesInHex, expectedClassFileContent);
-            }),
-                DynamicTest.dynamicTest(nonRootPackagePartsTheHelpedClassIsIn + " outputSameAsJdk", () -> {
-                    String expectedOutput = OutputOfJdkCompiledClassFIleQuery.fetch(pathToMain);
-                    String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, "cmjava2023/helloworld/Main");
-                    assertEquals(expectedOutput, actualOutput);
-            }));
+            ClassFileContent expectedClassFileContent = new Gson().fromJson(contentOfExpectationFile, ClassFileContent.class);
+            Queue<String> bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheHelpedClassIsIn).GetPathOfMainClassCompiledByUsInSamePackage());
+            HexClassFileTester.test(bytesInHex, expectedClassFileContent);
+        }), DynamicTest.dynamicTest(nonRootPackagePartsTheHelpedClassIsIn + " outputSameAsJdk", () -> {
+            String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain);
+            String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, "cmjava2023/helloworld/Main");
+            assertEquals(expectedOutput, actualOutput);
+        }));
     }
 
     private void runOurCompiler(String pathToMain) {
         try {
-            Main.main(new String[]{
-                    pathToMain,
-                    TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER
-            });
+            Main.main(new String[]{pathToMain, TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER});
         } catch (IOException e) {
             fail(e);
         }
