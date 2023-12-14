@@ -13,18 +13,19 @@ import org.junit.jupiter.api.TestFactory;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> snapshotTests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithTxtOfNameBeside("ParseTree", this);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ParseTree.txt", this);
     }
 
     @Override
-    public DynamicTest createTestForMainAndExpectedContent(String testName, String pathToMain, String contentOfExpectationFile) {
-        return DynamicTest.dynamicTest(testName, () -> {
+    public Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheHelpedClassIsIn, String pathToMain, String contentOfExpectationFile) {
+        return List.of(DynamicTest.dynamicTest(nonRootPackagePartsTheHelpedClassIsIn, () -> {
             CharStream charStreamOfGivenFilePath = CharStreams.fromFileName(pathToMain);
             Lexer lexer = new org.cmjava2023.generated_from_antlr.MainAntlrLexer(charStreamOfGivenFilePath);
             org.cmjava2023.generated_from_antlr.MainAntlrParser parser = new org.cmjava2023.generated_from_antlr.MainAntlrParser(new CommonTokenStream(lexer));
@@ -32,6 +33,6 @@ public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTest
             ParseTree tree = parser.start();
             String actual = ParseTreePrinter.print(tree);
             assertEquals(contentOfExpectationFile, actual);
-        });
+        }));
     }
 }

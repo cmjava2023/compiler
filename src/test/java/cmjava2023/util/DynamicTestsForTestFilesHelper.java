@@ -11,22 +11,22 @@ import java.util.Collection;
 public class DynamicTestsForTestFilesHelper {
 
     public interface DynamicTestCallback {
-        DynamicTest createTestForMainAndExpectedContent(String testName, String pathToMain, String contentOfExpectationFile);
+        Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheHelpedClassIsIn, String pathToMain, String contentOfExpectationFile);
     }
 
-    public static Collection<DynamicTest> createForAllTestMainsWithTxtOfNameBeside(String expectationTxtFileName, DynamicTestCallback dynamicTestCallback) throws IOException {
+    public static Collection<DynamicTest> createForAllTestMainsWithFileOfNameBeside(String expectedFileName, DynamicTestCallback dynamicTestCallback) throws IOException {
         ArrayList<DynamicTest> result = new ArrayList<>();
             Files.walkFileTree(Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH), new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     if (file.endsWith("Main.java")) {
-                        Path txtFileWithExpected = file.resolveSibling(expectationTxtFileName + ".txt");
+                        Path txtFileWithExpected = file.resolveSibling(expectedFileName);
 
                         if (Files.exists(txtFileWithExpected)) {
-                            String testName = Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/cmjava2023").relativize(file.getParent()).toString();
-                            result.add(dynamicTestCallback.createTestForMainAndExpectedContent(
-                                    testName,
-                                    file.toAbsolutePath().toString(),
+                            String nonRootPackagePartsTheHelpedClassIsIn = Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/cmjava2023").relativize(file.getParent()).toString();
+                            result.addAll(dynamicTestCallback.createTestForMainAndExpectedContent(
+                                    nonRootPackagePartsTheHelpedClassIsIn,
+                                    file.toString(),
                                     Files.readString(txtFileWithExpected.toAbsolutePath()).replaceAll("\r\n", "\n")));
                         }
                     }

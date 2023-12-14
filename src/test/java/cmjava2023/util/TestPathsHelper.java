@@ -15,6 +15,10 @@ public class TestPathsHelper {
         nonRootPackagePartsTheHelpedClassIsIn = String.join("/", canonicalNameParts.subList(0, canonicalNameParts.size() - 1));
     }
 
+    public TestPathsHelper(String nonRootPackagePartsTheHelpedClassIsIn) {
+        this.nonRootPackagePartsTheHelpedClassIsIn = nonRootPackagePartsTheHelpedClassIsIn;
+    }
+
     public static String JAVA_TEST_FILES_RESOURCE_FOLDER_PATH = "src/test/resources/java-test-files";
     public static String OUR_COMPILER_COMPILED_TEST_FILES_FOLDER = "build/test-files-compiled-by-us";
     public static String JDK_COMPILED_TEST_FILES_FOLDER = "build/test-files-jdk-compiled";
