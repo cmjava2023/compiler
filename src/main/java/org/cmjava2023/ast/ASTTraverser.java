@@ -64,4 +64,18 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.ArrayTypeNode arrayTypeNode);
 
     public abstract T visit(T functionCallNode);
+    public abstract T visit(ASTNodes.ParameterAssigmentNode parameterAssigmentNode);
+    public abstract T visit(ASTNodes.InfixNode infixNode);
+    public abstract T visit(ASTNodes.UnaryPrefixNode unaryPrefixNode);
+    public abstract T visit(ASTNodes.UnarySuffixNode unarySuffixNode);
+    public abstract T visit(ASTNodes.ParenthesesNode parenthesesNode);
+    public abstract T visit(ASTNodes.CastNode castNode);
+    public abstract T visit(ASTNodes.ArrayInstantiationWithValuesNode arrayInstantiationWithValuesNode);
+    public abstract T visit(ASTNodes.ArrayInstantiationNode arrayInstantiationNode);
+    public abstract T visit(ASTNodes.ArrayAccessNode arrayAccessNode);
+    public abstract T visit(ASTNodes.ObjectInstantiationNode objectInstantiationNode);
+    public abstract T visit(ASTNodes.ForLoopNode forLoopNode);
+    public abstract T visit(ASTNodes.WhileLoopNode whileLoopNode);
+    public abstract T visit(ASTNodes.DoWhileLoopNode doWhileLoopNode);
+    public abstract T visit(ASTNodes.OperatorNode operatorNode);
 }

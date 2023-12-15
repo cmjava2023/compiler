@@ -236,4 +236,74 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ASTNodes.Node visit(ASTNodes.Node node) {
         return node;
     }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ParameterAssigmentNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.InfixNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.UnaryPrefixNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.UnarySuffixNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ParenthesesNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.CastNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ArrayInstantiationWithValuesNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ArrayInstantiationNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ArrayAccessNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ObjectInstantiationNode node) {
+        return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
+        return new ASTNodes.ForLoopNode(node.loopVariable(), node.termination(), node.increment(),getModifiedStatements(node.body()));
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.WhileLoopNode node) {
+        return new ASTNodes.WhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.DoWhileLoopNode node) {
+        return new ASTNodes.DoWhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.OperatorNode node) {
+        return node;
+    }
 }
