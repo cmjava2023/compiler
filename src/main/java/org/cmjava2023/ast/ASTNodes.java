@@ -39,6 +39,12 @@ public class ASTNodes {
         LOR,        //  LOR '||'
         DIAMOND_OPEN, // DIAMOND_CLOSE '<'
         DIAMOND_CLOSE // DIAMOND_CLOSE '>'
+        ,
+        BAND,
+        BOR,
+        BXOR,
+        BIT_SHIFT_L,
+        BIT_SHIFT_R
     }
 
     public enum InfixOperator implements Operator {
@@ -204,7 +210,7 @@ public class ASTNodes {
     }
 
     public record UnarySuffixNode(SuffixOperator operator,
-                                  Expression Expression) implements Node, Expression {
+                                  Expression Expression) implements Node, Expression, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -239,7 +245,7 @@ public class ASTNodes {
     }
 
     public record ArrayAccessNode(Variable array,
-                                         ArrayList<Integer> elementIndicesAccessed) implements Node, Expression {
+                                  ArrayList<Integer> elementIndicesAccessed) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

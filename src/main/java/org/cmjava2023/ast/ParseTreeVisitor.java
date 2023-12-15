@@ -125,7 +125,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         ASTNodes.AccessModifier accessModifier = ASTNodes.AccessModifier.valueOf(ctx.access_modifier().getText().toUpperCase());
         Function functionSymbol = setFunctionScope(ctx, accessModifier, instanceModifier);
 
-        ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? null : getParameters(ctx.function_declaration_args().children);
+        ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? new ArrayList<>() : getParameters(ctx.function_declaration_args().children);
 
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
 
@@ -189,7 +189,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             checkAlreadyDeclared("Variable", variableName, enclosingFunction);
         }
         Variable variableSymbol = new Variable(variableName, null, currentScope);
-        setInvalidType(ctx.primitive_type(), variableSymbol);
+        if (ctx.primitive_type() != null) {
+            setInvalidType(ctx.primitive_type(), variableSymbol);
+        } else {
+            setInvalidType(ctx.reference_type(), variableSymbol);
+        }
         symbolTable.addSymbol(variableSymbol);
         return new ASTNodes.VariableNode(variableSymbol);
     }
@@ -246,15 +250,16 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // expressions: expression (expression_operator expression)?;
     public ASTNodes.Node visitExpressions(MainAntlrParser.ExpressionsContext ctx) {
         if (ctx.expression().size() > 1) {
-            ASTNodes.Operator operator = getOperator(ctx.expression_operator());
+            ASTNodes.Operator operator = getOperator(ctx.expression_operator(), ASTNodes.ComparisonOperator.class);
             return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), (ASTNodes.ComparisonOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
             return visit(ctx.expression().get(0));
         }
     }
 
-    private ASTNodes.Operator getOperator(ParserRuleContext ctx) {
-        ASTNodes.OperatorNode operatorNode = getOperatorNode(ctx);
+    private static <T extends Enum<T> & ASTNodes.Operator> ASTNodes.Operator getOperator(
+            ParserRuleContext ctx, Class<T> operatorEnum) {
+        ASTNodes.OperatorNode operatorNode = getOperatorNode(ctx, operatorEnum);
         return operatorNode.operator();
     }
 
@@ -275,19 +280,20 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
                 return new ASTNodes.ValueNode<>(string);
             }
         } else if (ctx.CHARACTER() != null) {
-            return new ASTNodes.ValueNode<>(ctx.INTEGER().getText().charAt(0));
+            return new ASTNodes.ValueNode<>(ctx.CHARACTER().getText().charAt(0));
         } else if (ctx.FLOAT() != null) {
-            return new ASTNodes.ValueNode<>(Float.parseFloat(ctx.INTEGER().getText()));
+            return new ASTNodes.ValueNode<>(Float.parseFloat(ctx.FLOAT().getText()));
         } else if (ctx.DECIMAL() != null) {
             return new ASTNodes.ValueNode<>(Double.parseDouble(ctx.DECIMAL().getText()));
         } else if (ctx.INTEGER() != null) {
             return new ASTNodes.ValueNode<>(Integer.parseInt(ctx.INTEGER().getText()));
         } else if (ctx.LONG() != null) {
-            return new ASTNodes.ValueNode<>(Long.parseLong(ctx.INTEGER().getText()));
+            String longWithoutL = ctx.LONG().getText().replace("L", "");
+            return new ASTNodes.ValueNode<>(Long.parseLong(longWithoutL));
         } else if (ctx.FALSE() != null) {
-            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.FALSE().getText()));
         } else if (ctx.TRUE() != null) {
-            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.TRUE().getText()));
         } else if (ctx.identifier() != null) {
             return visit(ctx.identifier());
         } else if (ctx.casting() != null) {
@@ -295,7 +301,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (ctx.expression_concatinator() != null) {
             ASTNodes.Expression leftExpression = (ASTNodes.Expression) visit(ctx.expression().get(0));
             ASTNodes.Expression rightExpression = (ASTNodes.Expression) visit(ctx.expression().get(1));
-            ASTNodes.Operator operator = getOperator(ctx.expression_concatinator());
+            ASTNodes.Operator operator = getOperator(ctx.expression_concatinator(), ASTNodes.InfixOperator.class);
             return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
         } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null) {
             return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
@@ -306,27 +312,43 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (ctx.access_index() != null) {
             return visit(ctx.access_index());
         } else if (ctx.numerical_prefix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.numerical_prefix());
-            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+            ASTNodes.Operator operator = getOperator(ctx.numerical_prefix(), ASTNodes.PrefixOperator.class);
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expressions()));
         } else if (ctx.logical_prefix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.logical_prefix());
-            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+            ASTNodes.Operator operator = getOperator(ctx.logical_prefix(), ASTNodes.PrefixOperator.class);
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expressions()));
         } else if (ctx.expression_suffix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.expression_suffix());
-            return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+            ASTNodes.Operator operator = getOperator(ctx.expression_suffix(), ASTNodes.SuffixOperator.class);
+            return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression(0)));
         } else {
             return null;
         }
     }
 
-    private static ASTNodes.OperatorNode getOperatorNode(ParserRuleContext ctx) {
-        if (ctx.children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
-            int tokenType = terminalNode.getSymbol().getType();
-            String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
-            ASTNodes.InfixOperator infixOperator = ASTNodes.InfixOperator.valueOf(tokenName);
-            return new ASTNodes.OperatorNode(infixOperator);
+    private static <T extends Enum<T> & ASTNodes.Operator> ASTNodes.OperatorNode getOperatorNode(
+            ParserRuleContext ctx, Class<T> operatorEnum) {
+        if (ctx.children.get(0) instanceof TerminalNode terminalNode) {
+            return getOperatorNode(operatorEnum, terminalNode);
+        } else if (ctx.children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
+            return getOperatorNode(operatorEnum, terminalNode);
         } else {
             throw new IllegalArgumentException("Expected a TerminalNode");
+        }
+    }
+
+    private static <T extends Enum<T> & ASTNodes.Operator> ASTNodes.OperatorNode getOperatorNode(Class<T> operatorEnum, TerminalNode terminalNode) {
+        int tokenType = terminalNode.getSymbol().getType();
+        String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
+
+        if (tokenName != null) {
+            try {
+                T operator = Enum.valueOf(operatorEnum, tokenName);
+                return new ASTNodes.OperatorNode(operator);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid operator: " + tokenName);
+            }
+        } else {
+            throw new IllegalArgumentException("Unknown token type: " + tokenType);
         }
     }
 
