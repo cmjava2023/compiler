@@ -248,17 +248,16 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // expressions: expression (expression_operator expression)?;
     public ASTNodes.Node visitExpressions(MainAntlrParser.ExpressionsContext ctx) {
         if (ctx.expression().size() > 1) {
-            if (ctx.expression_operator().children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
-                int tokenType = terminalNode.getSymbol().getType();
-                String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
-                ASTNodes.Operators operator = ASTNodes.Operators.valueOf(tokenName);
-                return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
-            } else {
-                throw new IllegalArgumentException("Expected a TerminalNode");
-            }
+            ASTNodes.Operator operator = getOperator(ctx.expression_operator());
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), (ASTNodes.ComparisonOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
             return visit(ctx.expression().get(0));
         }
+    }
+
+    private ASTNodes.Operator getOperator(ParserRuleContext ctx) {
+        ASTNodes.OperatorNode operatorNode = getOperatorNode(ctx);
+        return operatorNode.operator();
     }
 
     // ########ANTLR########
@@ -295,8 +294,35 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return visit(ctx.identifier());
         } else if (ctx.casting() != null) {
             return visit(ctx.casting());
+        } else if (ctx.expression_concatinator() != null) {
+            ASTNodes.Expression leftExpression = (ASTNodes.Expression) visit(ctx.expression().get(0));
+            ASTNodes.Expression rightExpression = (ASTNodes.Expression) visit(ctx.expression().get(1));
+            ASTNodes.Operator operator = getOperator(ctx.expression_concatinator());
+            return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
+        } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null) {
+            return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.numerical_prefix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.numerical_prefix());
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.logical_prefix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.logical_prefix());
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.expression_suffix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.expression_suffix());
+            return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
         } else {
             return null;
+        }
+    }
+
+    private static ASTNodes.OperatorNode getOperatorNode(ParserRuleContext ctx) {
+        if (ctx.children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
+            int tokenType = terminalNode.getSymbol().getType();
+            String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
+            ASTNodes.InfixOperator infixOperator = ASTNodes.InfixOperator.valueOf(tokenName);
+            return new ASTNodes.OperatorNode(infixOperator);
+        } else {
+            throw new IllegalArgumentException("Expected a TerminalNode");
         }
     }
 
