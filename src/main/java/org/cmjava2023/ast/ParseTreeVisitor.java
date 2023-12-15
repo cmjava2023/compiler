@@ -231,11 +231,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
             Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
 
-            if (variableSymbol instanceof Variable variable){
+            if (variableSymbol instanceof Variable variable) {
                 return new ASTNodes.VariableAssigmentNode(variable, expression);
             }
 
-            if (variableSymbol instanceof Parameter parameter){
+            if (variableSymbol instanceof Parameter parameter) {
                 return new ASTNodes.ParameterAssigmentNode(parameter, expression);
             }
 
@@ -262,12 +262,13 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     // ########ANTLR########
-    // expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | nested_identifier;
+    // expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE
+    // | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE
+    // | array_expression | instantiation | access_attribute | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
-        } else if (ctx.identifier() != null) {
-            return visit(ctx.identifier());
+
         } else if (ctx.IDENTIFIER() != null) {
             return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
         } else if (ctx.STRING() != null) {
@@ -277,10 +278,22 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             } else {
                 return new ASTNodes.ValueNode<>(string);
             }
-        } else if (ctx.INTEGER() != null) {
-            return new ASTNodes.ValueNode<>(Long.parseLong(ctx.INTEGER().getText()));
+        } else if (ctx.CHARACTER() != null) {
+            return new ASTNodes.ValueNode<>(ctx.INTEGER().getText().charAt(0));
+        } else if (ctx.FLOAT() != null) {
+            return new ASTNodes.ValueNode<>(Float.parseFloat(ctx.INTEGER().getText()));
         } else if (ctx.DECIMAL() != null) {
             return new ASTNodes.ValueNode<>(Double.parseDouble(ctx.DECIMAL().getText()));
+        } else if (ctx.INTEGER() != null) {
+            return new ASTNodes.ValueNode<>(Integer.parseInt(ctx.INTEGER().getText()));
+        } else if (ctx.LONG() != null) {
+            return new ASTNodes.ValueNode<>(Long.parseLong(ctx.INTEGER().getText()));
+        } else if (ctx.FALSE() != null) {
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+        } else if (ctx.TRUE() != null) {
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+        } else if (ctx.identifier() != null) {
+            return visit(ctx.identifier());
         } else {
             return null;
         }
