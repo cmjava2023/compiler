@@ -268,7 +268,6 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
-
         } else if (ctx.IDENTIFIER() != null) {
             return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
         } else if (ctx.STRING() != null) {
@@ -294,9 +293,25 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
         } else if (ctx.identifier() != null) {
             return visit(ctx.identifier());
+        } else if (ctx.casting() != null) {
+            return visit(ctx.casting());
         } else {
             return null;
         }
+    }
+
+    public ASTNodes.Node visitCasting(MainAntlrParser.CastingContext ctx) {
+        ASTNodes.Type type = (ASTNodes.Type) visit(ctx.type());
+
+        Type castType = null;
+
+        if (type instanceof ASTNodes.ArrayTypeNode arrayType) {
+            castType = new InvalidType(arrayType.type() + "[]");
+        } else if (type instanceof ASTNodes.TypeNode baseType) {
+            castType = new InvalidType(baseType.type());
+        }
+
+        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()));
     }
 
     // ########ANTLR########

@@ -177,6 +177,12 @@ public class ASTNodes {
         }
     }
 
+    public record CastNode(org.cmjava2023.symboltable.Type type, Expression expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
