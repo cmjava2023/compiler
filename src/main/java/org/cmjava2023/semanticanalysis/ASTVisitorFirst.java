@@ -213,11 +213,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.ExpressionNode node) {
-        return node;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.IdentifierNode node) {
         return node;
     }

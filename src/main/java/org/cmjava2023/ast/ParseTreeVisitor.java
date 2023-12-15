@@ -126,11 +126,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
         ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? null : getParameters(ctx.function_declaration_args().children);
 
-        setLocalScope();
-
-        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
-
-        symbolTable.popScope();
+        ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
 
         symbolTable.popScope();
         return new ASTNodes.FunctionNode(functionSymbol, parameters, statements);
@@ -191,10 +187,10 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         if (enclosingFunction != null) {
             checkAlreadyDeclared("Variable", variableName, enclosingFunction);
         }
-        Variable variableSymbol = new Variable(variableName, null, currentScope, null);
+        Variable variableSymbol = new Variable(variableName, null, currentScope);
         setInvalidType(ctx.primitive_type(), variableSymbol);
         symbolTable.addSymbol(variableSymbol);
-        return new ASTNodes.VariableNode(variableSymbol, null);
+        return new ASTNodes.VariableNode(variableSymbol);
     }
 
     private Function getEnclosingFunction(Scope scope) {
@@ -225,17 +221,18 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
         if (ctx.variable_declaration() != null) {
             ASTNodes.VariableNode variable = (ASTNodes.VariableNode) visit(ctx.variable_declaration());
-            return new ASTNodes.VariableNode(variable.variableSymbol(), expression);
+            variable.variableSymbol().setInitialExpression(expression);
+            return new ASTNodes.VariableNode(variable.variableSymbol());
         } else {
             ASTNodes.NestedIdentifierNode variableName = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
 
             Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
 
-            if (variableSymbol instanceof Variable variable){
+            if (variableSymbol instanceof Variable variable) {
                 return new ASTNodes.VariableAssigmentNode(variable, expression);
             }
 
-            if (variableSymbol instanceof Parameter parameter){
+            if (variableSymbol instanceof Parameter parameter) {
                 return new ASTNodes.ParameterAssigmentNode(parameter, expression);
             }
 
@@ -397,5 +394,32 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     public ASTNodes.Node visitType_variable(MainAntlrParser.Type_variableContext ctx) {
         return new ASTNodes.TypeNode(ctx.IDENTIFIER().getText());
+    }
+
+    public ASTNodes.Node visitFor_loop(MainAntlrParser.For_loopContext ctx) {
+        ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
+
+        return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init()), (ASTNodes.Expression) null, (ASTNodes.Expression) ctx.for_update(), statements);
+    }
+
+    public ASTNodes.Node visitDo_while_loop(MainAntlrParser.Do_while_loopContext ctx) {
+        ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
+
+        return new ASTNodes.DoWhileLoopNode((ASTNodes.Expression) visit(ctx.expressions()), statements);
+    }
+
+    public ASTNodes.Node visitWhile_loop(MainAntlrParser.While_loopContext ctx) {
+        ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
+
+        return new ASTNodes.WhileLoopNode((ASTNodes.Expression) visit(ctx.expressions()), statements);
+    }
+
+    private ArrayList<ASTNodes.Statement> getLocalScopeStatements(List<ParseTree> children) {
+        setLocalScope();
+
+        ArrayList<ASTNodes.Statement> statements = getStatements(children);
+
+        symbolTable.popScope();
+        return statements;
     }
 }

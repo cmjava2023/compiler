@@ -13,7 +13,6 @@ public abstract class ASTTraverser<T> {
         else if (statementNode instanceof ASTNodes.ElseNode) { return visit((ASTNodes.ElseNode)statementNode); }
         else if (statementNode instanceof ASTNodes.BlockScopeNode) { return visit((ASTNodes.BlockScopeNode)statementNode); }
         else if (statementNode instanceof ASTNodes.VariableNode) { return visit((ASTNodes.VariableNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.ExpressionNode) { return visit((ASTNodes.ExpressionNode)statementNode); }
         else if (statementNode instanceof ASTNodes.ReturnNode) { return visit((ASTNodes.ReturnNode)statementNode); }
         else { throw new NotImplementedError(); }
     }
@@ -22,7 +21,6 @@ public abstract class ASTTraverser<T> {
         if (expressionNode instanceof ASTNodes.ValueNode<?>) { return visit((ASTNodes.ValueNode<?>)expressionNode); }
         if (expressionNode instanceof ASTNodes.NestedIdentifierNode) { return visit((ASTNodes.NestedIdentifierNode)expressionNode); }
         else if (expressionNode instanceof ASTNodes.ComparisonNode) { return visit((ASTNodes.ComparisonNode)expressionNode); }
-        else if (expressionNode instanceof ASTNodes.ExpressionNode) { return visit((ASTNodes.ExpressionNode)expressionNode); }
         else if (expressionNode instanceof ASTNodes.IdentifierNode) { return visit((ASTNodes.IdentifierNode)expressionNode); }
         else { throw new NotImplementedError(); }
     }
@@ -56,8 +54,6 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.NestedIdentifierNode nestedIdentifierNode);
 
     public abstract T visit(ASTNodes.ComparisonNode comparisonNode);
-
-    public abstract T visit(ASTNodes.ExpressionNode expressionNode);
 
     public abstract T visit(ASTNodes.IdentifierNode identifierNode);
 

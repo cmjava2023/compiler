@@ -45,16 +45,13 @@ public class ASTNodes {
     public interface Statement extends Node {
     }
 
-    public interface Callable extends Node {
-    }
-
     public interface Expression extends Node {
     }
 
     public interface Condition extends Node {
     }
 
-    public interface Identifier extends Node {
+    public interface VariableUsage extends Node {
     }
 
     public interface Type extends Node {
@@ -91,7 +88,7 @@ public class ASTNodes {
     // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->Statement[] body
     public record FunctionNode(Function functionSymbol,
                                ArrayList<ParameterNode> parameters,
-                               ArrayList<Statement> body) implements Node, Callable, Statement {
+                               ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -107,14 +104,14 @@ public class ASTNodes {
     // function_call -> CallNode
     public record RawFunctionCallNode(ArrayList<String> nestedIdentifier,
                                       ArrayList<Expression> values,
-                                      Scope scope) implements Node, Statement, Callable {
+                                      Scope scope) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     public record FunctionCallNode(Function function,
-                                      ArrayList<Expression> values) implements Node, Statement, Callable {
+                                   ArrayList<Expression> values) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -150,22 +147,22 @@ public class ASTNodes {
     // variable_declaration -> VariableNode
     // variable_declaration [primitive_type(->symbolTable), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode
     // assignment[variable_declaration(->PotentiallyNestedIdentifierNode<Identifier>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Identifier>), expressions (->ComparisonNode<Expression>)] -> VariableNode
-    public record VariableNode(Variable variableSymbol,
-                               Expression value) implements Node, Callable, Statement {
+    public record VariableNode(
+            Variable variableSymbol) implements Node, Statement, VariableUsage {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     public record VariableAssigmentNode(Variable variable,
-                                        Expression value) implements Node, Callable, Statement {
+                                        Expression expression) implements Node, Statement, VariableUsage {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     public record ParameterAssigmentNode(Parameter variable,
-                                        Expression value) implements Node, Callable, Statement {
+                                         Expression value) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -180,7 +177,7 @@ public class ASTNodes {
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
-            ArrayList<String> nestedIdentifier) implements Node, Callable, Expression, Identifier {
+            ArrayList<String> nestedIdentifier) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -190,25 +187,14 @@ public class ASTNodes {
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
     // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
     public record ComparisonNode(Expression expression1, Operators operator,
-                                 Expression expression2) implements Node, Expression, Callable {
-        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
-            return visitor.visit(this);
-        }
-    }
-
-    // expression -> ExpressionNode
-    // (expressions) -> ExpressionNode
-    // expression[function_call(->CallNode<Callable>), potentially_nested_identifier(->PotentiallyNestedIdentifierNode<Callable>), DECIMAL+INTEGER+IDENTIFIER+STRING (->VariableNode<Callable>)] -> ExpressionNode
-    // NOTE: When expressions only got one Argument, then this ExpressionNode will cover this case.
-    public record ExpressionNode(
-            Callable callable) implements Node, Expression, Statement {
+                                 Expression expression2) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     public record IdentifierNode(
-            String name) implements Node, Callable, Expression, Identifier {
+            String name) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -217,6 +203,29 @@ public class ASTNodes {
     // return_statement ->ReturnNode
     // return_statement[ expressions(ComparisonNode<Expression>/ExpressionNode<Expression>)]->ReturnNode;
     public record ReturnNode(Expression value) implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ForLoopNode(VariableUsage loopVariable,
+                              Expression termination,
+                              Expression increment,
+                              ArrayList<Statement> body) implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record WhileLoopNode(Expression expression,
+                                ArrayList<Statement> body) implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record DoWhileLoopNode(Expression expression,
+                                  ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

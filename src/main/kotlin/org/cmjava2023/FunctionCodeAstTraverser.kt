@@ -90,7 +90,7 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
     override fun visit(variableNode: ASTNodes.VariableNode): List<OpCode> {
         val variableSymbol = variableNode.variableSymbol
-        val value = variableNode.value
+        val value = variableSymbol.initialExpression
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
@@ -105,7 +105,7 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
 
     override fun visit(variableAssigmentNode: ASTNodes.VariableAssigmentNode): List<OpCode> {
         val variableSymbol = variableAssigmentNode.variable
-        val value = variableAssigmentNode.value
+        val value = variableAssigmentNode.expression
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
@@ -123,10 +123,6 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(comparisonNode: ASTNodes.ComparisonNode): List<OpCode> {
-        TODO("Not yet implemented")
-    }
-
-    override fun visit(expressionNode: ASTNodes.ExpressionNode): List<OpCode> {
         TODO("Not yet implemented")
     }
 
