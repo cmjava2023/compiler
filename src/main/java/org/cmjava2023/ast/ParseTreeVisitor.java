@@ -399,7 +399,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFor_loop(MainAntlrParser.For_loopContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
 
-        return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init()), (ASTNodes.Expression) null, (ASTNodes.Expression) ctx.for_update(), statements);
+        return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init()), (ASTNodes.Expression) visit(ctx.for_termination()), (ASTNodes.Expression) visit(ctx.for_update()), statements);
     }
 
     public ASTNodes.Node visitDo_while_loop(MainAntlrParser.Do_while_loopContext ctx) {
