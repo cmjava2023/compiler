@@ -24,9 +24,12 @@ public class ASTNodes {
         STRICTFP
     }
 
+    public interface Operator {
+    }
+
     //Numerical and logical operators
     //expression_operator->Operators
-    public enum Operators {
+    public enum ComparisonOperator implements Operator {
         EQ,          //  EQ '=='
         NEQ,       //  NEQ '!='
         GTE,   //  GTE '>='
@@ -36,6 +39,18 @@ public class ASTNodes {
         LOR,        //  LOR '||'
         DIAMOND_OPEN, // DIAMOND_CLOSE '<'
         DIAMOND_CLOSE // DIAMOND_CLOSE '>'
+    }
+
+    public enum InfixOperator implements Operator {
+        PLUS, DIVISION, MULTIPLICATION, MINUS, MOD, DOT
+    }
+
+    public enum PrefixOperator implements Operator {
+        PLUS, MINUS, NOT, NOTNOT
+    }
+
+    public enum SuffixOperator implements Operator {
+        DEC, INC
     }
 
     public interface Node {
@@ -174,6 +189,69 @@ public class ASTNodes {
         }
     }
 
+    public record InfixNode(Expression leftExpression, InfixOperator operator,
+                            Expression rightExpression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record UnaryPrefixNode(PrefixOperator operator,
+                                  Expression Expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record UnarySuffixNode(SuffixOperator operator,
+                                  Expression Expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ParenthesesNode(
+            Expression Expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record CastNode(org.cmjava2023.symboltable.Type type,
+                           Expression expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayInstantiationWithValuesNode(
+            ArrayList<Expression> expressions) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayInstantiationNode(org.cmjava2023.symboltable.Type type,
+                                         ArrayList<Integer> dimensionSizes) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayAccessNode(Variable array,
+                                         ArrayList<Integer> elementIndicesAccessed) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ObjectInstantiationNode(
+            org.cmjava2023.symboltable.Type type) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
     // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
@@ -186,7 +264,8 @@ public class ASTNodes {
     // (expressions) -> ComparisonNode
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
     // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
-    public record ComparisonNode(Expression expression1, Operators operator,
+    public record ComparisonNode(Expression expression1,
+                                 ComparisonOperator comparisonOperator,
                                  Expression expression2) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
@@ -250,6 +329,12 @@ public class ASTNodes {
         @Override
         public String getType() {
             return type;
+        }
+    }
+
+    public record OperatorNode(Operator operator) implements Node {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
         }
     }
 }
