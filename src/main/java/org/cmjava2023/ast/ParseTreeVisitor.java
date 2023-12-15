@@ -8,6 +8,7 @@ import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.cmjava2023.symboltable.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,11 +232,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
             Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
 
-            if (variableSymbol instanceof Variable variable){
+            if (variableSymbol instanceof Variable variable) {
                 return new ASTNodes.VariableAssigmentNode(variable, expression);
             }
 
-            if (variableSymbol instanceof Parameter parameter){
+            if (variableSymbol instanceof Parameter parameter) {
                 return new ASTNodes.ParameterAssigmentNode(parameter, expression);
             }
 
@@ -248,26 +249,25 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // expressions: expression (expression_operator expression)?;
     public ASTNodes.Node visitExpressions(MainAntlrParser.ExpressionsContext ctx) {
         if (ctx.expression().size() > 1) {
-            if (ctx.expression_operator().children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
-                int tokenType = terminalNode.getSymbol().getType();
-                String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
-                ASTNodes.Operators operator = ASTNodes.Operators.valueOf(tokenName);
-                return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
-            } else {
-                throw new IllegalArgumentException("Expected a TerminalNode");
-            }
+            ASTNodes.Operator operator = getOperator(ctx.expression_operator());
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), (ASTNodes.ComparisonOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
             return visit(ctx.expression().get(0));
         }
     }
 
+    private ASTNodes.Operator getOperator(ParserRuleContext ctx) {
+        ASTNodes.OperatorNode operatorNode = getOperatorNode(ctx);
+        return operatorNode.operator();
+    }
+
     // ########ANTLR########
-    // expression: function_call | DECIMAL | INTEGER | IDENTIFIER | STRING | nested_identifier;
+    // expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE
+    // | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE
+    // | array_expression | instantiation | access_attribute | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
-        } else if (ctx.identifier() != null) {
-            return visit(ctx.identifier());
         } else if (ctx.IDENTIFIER() != null) {
             return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
         } else if (ctx.STRING() != null) {
@@ -277,13 +277,119 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             } else {
                 return new ASTNodes.ValueNode<>(string);
             }
-        } else if (ctx.INTEGER() != null) {
-            return new ASTNodes.ValueNode<>(Long.parseLong(ctx.INTEGER().getText()));
+        } else if (ctx.CHARACTER() != null) {
+            return new ASTNodes.ValueNode<>(ctx.INTEGER().getText().charAt(0));
+        } else if (ctx.FLOAT() != null) {
+            return new ASTNodes.ValueNode<>(Float.parseFloat(ctx.INTEGER().getText()));
         } else if (ctx.DECIMAL() != null) {
             return new ASTNodes.ValueNode<>(Double.parseDouble(ctx.DECIMAL().getText()));
+        } else if (ctx.INTEGER() != null) {
+            return new ASTNodes.ValueNode<>(Integer.parseInt(ctx.INTEGER().getText()));
+        } else if (ctx.LONG() != null) {
+            return new ASTNodes.ValueNode<>(Long.parseLong(ctx.INTEGER().getText()));
+        } else if (ctx.FALSE() != null) {
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+        } else if (ctx.TRUE() != null) {
+            return new ASTNodes.ValueNode<>(Boolean.parseBoolean(ctx.INTEGER().getText()));
+        } else if (ctx.identifier() != null) {
+            return visit(ctx.identifier());
+        } else if (ctx.casting() != null) {
+            return visit(ctx.casting());
+        } else if (ctx.expression_concatinator() != null) {
+            ASTNodes.Expression leftExpression = (ASTNodes.Expression) visit(ctx.expression().get(0));
+            ASTNodes.Expression rightExpression = (ASTNodes.Expression) visit(ctx.expression().get(1));
+            ASTNodes.Operator operator = getOperator(ctx.expression_concatinator());
+            return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
+        } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null) {
+            return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.array_expression() != null) {
+            return visit(ctx.array_expression());
+        } else if (ctx.instantiation() != null) {
+            return visit(ctx.instantiation());
+        } else if (ctx.access_index() != null) {
+            return visit(ctx.access_index());
+        } else if (ctx.numerical_prefix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.numerical_prefix());
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.logical_prefix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.logical_prefix());
+            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.expression_suffix() != null) {
+            ASTNodes.Operator operator = getOperator(ctx.expression_suffix());
+            return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
         } else {
             return null;
         }
+    }
+
+    private static ASTNodes.OperatorNode getOperatorNode(ParserRuleContext ctx) {
+        if (ctx.children.get(0).getChild(0) instanceof TerminalNode terminalNode) {
+            int tokenType = terminalNode.getSymbol().getType();
+            String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
+            ASTNodes.InfixOperator infixOperator = ASTNodes.InfixOperator.valueOf(tokenName);
+            return new ASTNodes.OperatorNode(infixOperator);
+        } else {
+            throw new IllegalArgumentException("Expected a TerminalNode");
+        }
+    }
+
+    public ASTNodes.Node visitCasting(MainAntlrParser.CastingContext ctx) {
+        Type castType = getInvalidType(ctx.type());
+
+        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()));
+    }
+
+    public ASTNodes.Node visitAccess_index(MainAntlrParser.Access_indexContext ctx) {
+        String variableName = ctx.IDENTIFIER().getText();
+
+        Symbol variableSymbol = symbolTable.getCurrentScope().resolve(variableName);
+
+        if (variableSymbol instanceof Variable variable && variable.getType() instanceof ArrayType) {
+            return new ASTNodes.ArrayAccessNode(variable, getArrayIntegers(ctx.INTEGER()));
+        }
+
+        errors.add(String.format("Variable %s is not declared or not an Array", variableSymbol));
+
+        return new ASTNodes.ArrayAccessNode(null, null);
+    }
+
+    public ASTNodes.Node visitArray_expression(MainAntlrParser.Array_expressionContext ctx) {
+        ArrayList<ASTNodes.Expression> expressions = getExpressions(ctx.children);
+
+        return new ASTNodes.ArrayInstantiationWithValuesNode(expressions);
+    }
+
+    public ASTNodes.Node visitInstantiation(MainAntlrParser.InstantiationContext ctx) {
+        Type objectType = getInvalidType(ctx.type());
+
+        if (ctx.INTEGER().isEmpty()) {
+            return new ASTNodes.ObjectInstantiationNode(objectType);
+        } else {
+            return new ASTNodes.ArrayInstantiationNode(objectType, getArrayIntegers(ctx.INTEGER()));
+        }
+    }
+
+    private static ArrayList<Integer> getArrayIntegers(List<TerminalNode> integerTerminalNodes) {
+        ArrayList<Integer> dimensionSizes = new ArrayList<>();
+
+        for (TerminalNode integerTerminalNode : integerTerminalNodes) {
+            dimensionSizes.add(Integer.parseInt(integerTerminalNode.getText()));
+        }
+        return dimensionSizes;
+    }
+
+    @Nullable
+    private Type getInvalidType(MainAntlrParser.TypeContext ctx) {
+        ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
+
+        Type castType = null;
+
+        if (type instanceof ASTNodes.ArrayTypeNode arrayType) {
+            castType = new InvalidType(arrayType.type() + "[]");
+        } else if (type instanceof ASTNodes.TypeNode baseType) {
+            castType = new InvalidType(baseType.type());
+        }
+        return castType;
     }
 
     // ########ANTLR########
