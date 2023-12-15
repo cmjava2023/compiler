@@ -311,7 +311,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: o[0]
       |     |  |        |     L  Expressions: o[0]
       |     |  |        |        L  Expression: o[0]
-      |     |  |        |           L  Access_attribute: o[0]
+      |     |  |        |           L  Access_index: o[0]
       |     |  |        |              |- o
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -349,7 +349,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: by[0]
       |     |  |        |     L  Expressions: by[0]
       |     |  |        |        L  Expression: by[0]
-      |     |  |        |           L  Access_attribute: by[0]
+      |     |  |        |           L  Access_index: by[0]
       |     |  |        |              |- by
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -387,7 +387,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: boo[0]
       |     |  |        |     L  Expressions: boo[0]
       |     |  |        |        L  Expression: boo[0]
-      |     |  |        |           L  Access_attribute: boo[0]
+      |     |  |        |           L  Access_index: boo[0]
       |     |  |        |              |- boo
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -425,7 +425,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: c[0]
       |     |  |        |     L  Expressions: c[0]
       |     |  |        |        L  Expression: c[0]
-      |     |  |        |           L  Access_attribute: c[0]
+      |     |  |        |           L  Access_index: c[0]
       |     |  |        |              |- c
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -463,7 +463,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: d[0]
       |     |  |        |     L  Expressions: d[0]
       |     |  |        |        L  Expression: d[0]
-      |     |  |        |           L  Access_attribute: d[0]
+      |     |  |        |           L  Access_index: d[0]
       |     |  |        |              |- d
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -501,7 +501,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: f[0]
       |     |  |        |     L  Expressions: f[0]
       |     |  |        |        L  Expression: f[0]
-      |     |  |        |           L  Access_attribute: f[0]
+      |     |  |        |           L  Access_index: f[0]
       |     |  |        |              |- f
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -539,7 +539,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: i[0]
       |     |  |        |     L  Expressions: i[0]
       |     |  |        |        L  Expression: i[0]
-      |     |  |        |           L  Access_attribute: i[0]
+      |     |  |        |           L  Access_index: i[0]
       |     |  |        |              |- i
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -577,7 +577,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: l[0]
       |     |  |        |     L  Expressions: l[0]
       |     |  |        |        L  Expression: l[0]
-      |     |  |        |           L  Access_attribute: l[0]
+      |     |  |        |           L  Access_index: l[0]
       |     |  |        |              |- l
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -615,7 +615,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: i2[0][0]
       |     |  |        |     L  Expressions: i2[0][0]
       |     |  |        |        L  Expression: i2[0][0]
-      |     |  |        |           L  Access_attribute: i2[0][0]
+      |     |  |        |           L  Access_index: i2[0][0]
       |     |  |        |              |- i2
       |     |  |        |              |- [
       |     |  |        |              |- 0
@@ -656,7 +656,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |        |  L  Function_arg: s[0]
       |     |  |        |     L  Expressions: s[0]
       |     |  |        |        L  Expression: s[0]
-      |     |  |        |           L  Access_attribute: s[0]
+      |     |  |        |           L  Access_index: s[0]
       |     |  |        |              |- s
       |     |  |        |              |- [
       |     |  |        |              |- 0

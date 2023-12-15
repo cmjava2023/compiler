@@ -268,6 +268,8 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
+        } else if (ctx.IDENTIFIER() != null) {
+            return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
         } else if (ctx.STRING() != null) {
             String string = ctx.STRING().getText();
             if (string.startsWith("\"") && string.endsWith("\"")) {
@@ -338,15 +340,15 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     public ASTNodes.Node visitAccess_index(MainAntlrParser.Access_indexContext ctx) {
-        ASTNodes.NestedIdentifierNode variableName = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
+        String variableName = ctx.IDENTIFIER().getText();
 
-        Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
+        Symbol variableSymbol = symbolTable.getCurrentScope().resolve(variableName);
 
         if (variableSymbol instanceof Variable variable && variable.getType() instanceof ArrayType) {
             return new ASTNodes.ArrayAccessNode(variable, getArrayIntegers(ctx.INTEGER()));
         }
 
-        errors.add(String.format("Variable %s is not declared or not an Array", String.join(".", variableName.nestedIdentifier())));
+        errors.add(String.format("Variable %s is not declared or not an Array", variableSymbol));
 
         return new ASTNodes.ArrayAccessNode(null, null);
     }
