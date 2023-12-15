@@ -8,6 +8,7 @@ import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.cmjava2023.symboltable.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -267,8 +268,6 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitExpression(MainAntlrParser.ExpressionContext ctx) {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
-        } else if (ctx.IDENTIFIER() != null) {
-            return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
         } else if (ctx.STRING() != null) {
             String string = ctx.STRING().getText();
             if (string.startsWith("\"") && string.endsWith("\"")) {
@@ -301,6 +300,12 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
         } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null) {
             return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.array_expression() != null) {
+            return visit(ctx.array_expression());
+        } else if (ctx.instantiation() != null) {
+            return visit(ctx.instantiation());
+        } else if (ctx.access_index() != null) {
+            return visit(ctx.access_index());
         } else if (ctx.numerical_prefix() != null) {
             ASTNodes.Operator operator = getOperator(ctx.numerical_prefix());
             return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
@@ -327,7 +332,53 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     public ASTNodes.Node visitCasting(MainAntlrParser.CastingContext ctx) {
-        ASTNodes.Type type = (ASTNodes.Type) visit(ctx.type());
+        Type castType = getInvalidType(ctx.type());
+
+        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()));
+    }
+
+    public ASTNodes.Node visitAccess_index(MainAntlrParser.Access_indexContext ctx) {
+        ASTNodes.NestedIdentifierNode variableName = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
+
+        Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
+
+        if (variableSymbol instanceof Variable variable && variable.getType() instanceof ArrayType) {
+            return new ASTNodes.ArrayAccessNode(variable, getArrayIntegers(ctx.INTEGER()));
+        }
+
+        errors.add(String.format("Variable %s is not declared or not an Array", String.join(".", variableName.nestedIdentifier())));
+
+        return new ASTNodes.ArrayAccessNode(null, null);
+    }
+
+    public ASTNodes.Node visitArray_expression(MainAntlrParser.Array_expressionContext ctx) {
+        ArrayList<ASTNodes.Expression> expressions = getExpressions(ctx.children);
+
+        return new ASTNodes.ArrayInstantiationWithValuesNode(expressions);
+    }
+
+    public ASTNodes.Node visitInstantiation(MainAntlrParser.InstantiationContext ctx) {
+        Type objectType = getInvalidType(ctx.type());
+
+        if (ctx.INTEGER().isEmpty()) {
+            return new ASTNodes.ObjectInstantiationNode(objectType);
+        } else {
+            return new ASTNodes.ArrayInstantiationNode(objectType, getArrayIntegers(ctx.INTEGER()));
+        }
+    }
+
+    private static ArrayList<Integer> getArrayIntegers(List<TerminalNode> integerTerminalNodes) {
+        ArrayList<Integer> dimensionSizes = new ArrayList<>();
+
+        for (TerminalNode integerTerminalNode : integerTerminalNodes) {
+            dimensionSizes.add(Integer.parseInt(integerTerminalNode.getText()));
+        }
+        return dimensionSizes;
+    }
+
+    @Nullable
+    private Type getInvalidType(MainAntlrParser.TypeContext ctx) {
+        ASTNodes.Type type = (ASTNodes.Type) visit(ctx);
 
         Type castType = null;
 
@@ -336,8 +387,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (type instanceof ASTNodes.TypeNode baseType) {
             castType = new InvalidType(baseType.type());
         }
-
-        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()));
+        return castType;
     }
 
     // ########ANTLR########

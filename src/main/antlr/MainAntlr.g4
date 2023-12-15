@@ -22,7 +22,7 @@ expressions: expression (expression_operator expression)?;
 variable_declaration: (primitive_type | reference_type) IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_attribute | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
+expression: function_call | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
 expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
@@ -30,8 +30,7 @@ expression_suffix: DEC | INC;
 
 instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
 
-access_index: IDENTIFIER (DOT IDENTIFIER)+;
-access_attribute: IDENTIFIER (BRACKET_OPEN INTEGER BRACKET_CLOSE)+;
+access_index: identifier (BRACKET_OPEN INTEGER BRACKET_CLOSE)+;
 numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD;
 numerical_prefix: PLUS | MINUS;
 logical_prefix: NOT | NOTNOT;

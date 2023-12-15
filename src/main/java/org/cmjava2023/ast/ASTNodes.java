@@ -24,7 +24,8 @@ public class ASTNodes {
         STRICTFP
     }
 
-    public interface Operator{}
+    public interface Operator {
+    }
 
     //Numerical and logical operators
     //expression_operator->Operators
@@ -212,7 +213,8 @@ public class ASTNodes {
         }
     }
 
-    public record ParenthesesNode(Expression Expression) implements Node, Expression {
+    public record ParenthesesNode(
+            Expression Expression) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -220,6 +222,34 @@ public class ASTNodes {
 
     public record CastNode(org.cmjava2023.symboltable.Type type,
                            Expression expression) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayInstantiationWithValuesNode(
+            ArrayList<Expression> expressions) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayInstantiationNode(org.cmjava2023.symboltable.Type type,
+                                         ArrayList<Integer> dimensionSizes) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ArrayAccessNode(Variable array,
+                                         ArrayList<Integer> elementIndicesAccessed) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ObjectInstantiationNode(
+            org.cmjava2023.symboltable.Type type) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -237,7 +267,8 @@ public class ASTNodes {
     // (expressions) -> ComparisonNode
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
     // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
-    public record ComparisonNode(Expression expression1, ComparisonOperator comparisonOperator,
+    public record ComparisonNode(Expression expression1,
+                                 ComparisonOperator comparisonOperator,
                                  Expression expression2) implements Node, Expression, Callable {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
