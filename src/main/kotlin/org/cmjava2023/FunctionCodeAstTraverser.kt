@@ -90,7 +90,7 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
     override fun visit(variableNode: ASTNodes.VariableNode): List<OpCode> {
         val variableSymbol = variableNode.variableSymbol
-        val value = variableNode.value
+        val value = variableSymbol.initialExpression
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
@@ -105,7 +105,7 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
 
     override fun visit(variableAssigmentNode: ASTNodes.VariableAssigmentNode): List<OpCode> {
         val variableSymbol = variableAssigmentNode.variable
-        val value = variableAssigmentNode.value
+        val value = variableAssigmentNode.expression
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
@@ -126,10 +126,6 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(expressionNode: ASTNodes.ExpressionNode): List<OpCode> {
-        TODO("Not yet implemented")
-    }
-
     override fun visit(identifierNode: ASTNodes.IdentifierNode): List<OpCode> {
         TODO("Not yet implemented")
     }
@@ -143,6 +139,62 @@ class FunctionCodeAstTraverser() : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(arrayTypeNode: ASTNodes.ArrayTypeNode): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(parameterAssigmentNode: ASTNodes.ParameterAssigmentNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(infixNode: ASTNodes.InfixNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(unaryPrefixNode: ASTNodes.UnaryPrefixNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(unarySuffixNode: ASTNodes.UnarySuffixNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(parenthesesNode: ASTNodes.ParenthesesNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(castNode: ASTNodes.CastNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(arrayInstantiationNode: ASTNodes.ArrayInstantiationNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(arrayAccessNode: ASTNodes.ArrayAccessNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(objectInstantiationNode: ASTNodes.ObjectInstantiationNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(forLoopNode: ASTNodes.ForLoopNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(whileLoopNode: ASTNodes.WhileLoopNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(doWhileLoopNode: ASTNodes.DoWhileLoopNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(operatorNode: ASTNodes.OperatorNode?): List<OpCode> {
         TODO("Not yet implemented")
     }
 
