@@ -15,7 +15,7 @@ public class GenericTreePrinter {
 
     private static String print(String fieldName, Object object, TreePrefixData treePrefixData) {
         StringBuilder builder = treePrefixData.getStringBuilderStartingWithPrefix();
-        if (object == null || object.getClass().isPrimitive() || object instanceof Number || object instanceof String || object instanceof Enum<?>) {
+        if (object == null || object.getClass().isPrimitive() || object instanceof Character || object instanceof Number || object instanceof Boolean || object instanceof String || object instanceof Enum<?>) {
             builder.append(fieldName).append(": ").append(object).append("\n");
         } else {
             TreePrefixData nextLevelTreePrefixData = treePrefixData.createForNextLevel();
