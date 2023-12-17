@@ -224,7 +224,7 @@ public class ASTNodes {
     }
 
     public record CastNode(org.cmjava2023.symboltable.Type type,
-                           Expression expression) implements Node, Expression {
+                           Expression expression, Scope scope) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

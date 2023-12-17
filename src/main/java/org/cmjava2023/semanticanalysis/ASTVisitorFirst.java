@@ -160,6 +160,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
             checkForVoidType("Variable", variableSymbol, invalidType);
             checkForType(invalidType, "Variable", variableSymbol);
         }
+        if (variableSymbol.getInitialExpression() != null) {
+            variableSymbol.setInitialExpression((ASTNodes.Expression) variableSymbol.getInitialExpression().accept(this));
+        }
         return node;
     }
 
@@ -193,14 +196,18 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.VariableAssigmentNode node) {
-        return node;
+        return new ASTNodes.VariableAssigmentNode(node.variable(), (ASTNodes.Expression) node.expression().accept(this));
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.ValueNode<?> valueNode) { return valueNode; }
+    public ASTNodes.Node visit(ASTNodes.ValueNode<?> valueNode) {
+        return valueNode;
+    }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) { return rawFunctionCallNode; }
+    public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) {
+        return rawFunctionCallNode;
+    }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
@@ -243,6 +250,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ASTNodes.Node visit(ASTNodes.ArrayTypeNode node) {
         return node;
     }
+
     @Override
     public ASTNodes.Node visit(ASTNodes.ParameterAssigmentNode node) {
         return node;
@@ -250,7 +258,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.InfixNode node) {
-        return new ASTNodes.InfixNode((ASTNodes.Expression)dispatch(node.leftExpression()), node.operator(), (ASTNodes.Expression)dispatch(node.rightExpression()));
+        return new ASTNodes.InfixNode((ASTNodes.Expression) dispatch(node.leftExpression()), node.operator(), (ASTNodes.Expression) dispatch(node.rightExpression()));
     }
 
     @Override
@@ -270,6 +278,31 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.CastNode node) {
+        if (node.type() instanceof InvalidType invalidType) {
+            if (Objects.equals(invalidType.getName(), "void")) {
+                errors.add("Casts cannot be of type void");
+            }
+
+            String type = invalidType.getName();
+            String arrayIndicator = "[]";
+            boolean isArray = type.contains(arrayIndicator);
+
+            if (isArray) {
+                type = type.replace(arrayIndicator, "");
+            }
+
+            Symbol typeSymbol = node.scope().resolve(type);
+
+            if (typeSymbol != null) {
+                if (isArray) {
+                    return new ASTNodes.CastNode(new ArrayType(typeSymbol.getType()), node.expression(), node.scope());
+                } else {
+                    return new ASTNodes.CastNode(typeSymbol.getType(), node.expression(), node.scope());
+                }
+            } else {
+                errors.add(String.format("Cannot find type %s for cast expression", invalidType.getName()));
+            }
+        }
         return node;
     }
 
@@ -295,7 +328,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
-        return new ASTNodes.ForLoopNode(node.loopVariable(), node.termination(), node.increment(),getModifiedStatements(node.body()));
+        return new ASTNodes.ForLoopNode(node.loopVariable(), node.termination(), node.increment(), getModifiedStatements(node.body()));
     }
 
     @Override
