@@ -213,8 +213,20 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.IdentifierNode node) {
-        return node;
+    public ASTNodes.Node visit(ASTNodes.RawIdentifierNode rawIdentifierNode) {
+        Symbol identifierSymbol = rawIdentifierNode.scope().resolve(rawIdentifierNode.name());
+
+        if (identifierSymbol instanceof Variable variable) {
+            return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), variable);
+        }
+
+        errors.add(String.format("Variable %s is not declared", rawIdentifierNode.name()));
+        return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), null);
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ResolvedIdentifierNode resolvedIdentifierNode) {
+        return resolvedIdentifierNode;
     }
 
     @Override
@@ -231,12 +243,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ASTNodes.Node visit(ASTNodes.ArrayTypeNode node) {
         return node;
     }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.Node node) {
-        return node;
-    }
-
     @Override
     public ASTNodes.Node visit(ASTNodes.ParameterAssigmentNode node) {
         return node;
@@ -244,7 +250,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.InfixNode node) {
-        return node;
+        return new ASTNodes.InfixNode((ASTNodes.Expression)dispatch(node.leftExpression()), node.operator(), (ASTNodes.Expression)dispatch(node.rightExpression()));
     }
 
     @Override

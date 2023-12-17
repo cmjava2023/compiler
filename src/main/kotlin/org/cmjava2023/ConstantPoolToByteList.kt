@@ -144,7 +144,8 @@ class ConstantPoolToByteList {
             return when (constantInfo) {
                 is ReferenceConstantInfo -> addReferenceConstantInfoAndGetStartIndex(constantInfo)
                 is StringConstantInfo -> addStringConstantInfoAndGetStartIndex(constantInfo)
-                else -> throw NotImplementedError()
+                is ClassConstantInfo -> addClassConstantInfoAndGetStartIndex(constantInfo)
+                else -> throw NotImplementedError(constantInfo.javaClass.name)
             }
         }
 

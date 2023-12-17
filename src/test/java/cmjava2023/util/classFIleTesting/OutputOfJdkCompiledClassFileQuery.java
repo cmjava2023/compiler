@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 public class OutputOfJdkCompiledClassFileQuery {
-    public static String fetch(String pathToMainJava) {
+    public static String fetch(String pathToMainJava, String fullyQualifiedClassNameWithSlash) {
         String[] commandParts = new String[]{"javac", pathToMainJava, "--release", "8", "-d", TestPathsHelper.JDK_COMPILED_TEST_FILES_FOLDER };
         System.out.println(String.join(" ", commandParts));
         try {
@@ -22,6 +22,6 @@ public class OutputOfJdkCompiledClassFileQuery {
             throw new RuntimeException(e);
         }
 
-        return JavaRunner.RunClassAndGetStdOut(TestPathsHelper.JDK_COMPILED_TEST_FILES_FOLDER, "cmjava2023/helloworld/Main");
+        return JavaRunner.RunClassAndGetStdOut(TestPathsHelper.JDK_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
     }
 }

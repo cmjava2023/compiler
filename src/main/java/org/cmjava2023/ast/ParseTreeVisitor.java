@@ -271,7 +271,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
         } else if (ctx.IDENTIFIER() != null) {
-            return new ASTNodes.IdentifierNode(ctx.IDENTIFIER().getText());
+            return new ASTNodes.RawIdentifierNode(ctx.IDENTIFIER().getText(), symbolTable.getCurrentScope());
         } else if (ctx.STRING() != null) {
             String string = ctx.STRING().getText();
             if (string.startsWith("\"") && string.endsWith("\"")) {

@@ -6,9 +6,15 @@ L  body
    |     L  1: helloworld
    L  1 (field of type ClassNode)
       |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
       |  |- accessModifier: PUBLIC
       |  |- instanceModifier: null
-      |  L  name: Main
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
       L  body
          L  0 (field of type FunctionNode)
             |- functionSymbol (field of type Function)
@@ -22,6 +28,10 @@ L  body
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
             |           L  maxArraySize: -1
             L  body
                L  0 (field of type FunctionCallNode)
