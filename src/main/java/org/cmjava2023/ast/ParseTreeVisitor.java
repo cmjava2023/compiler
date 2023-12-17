@@ -355,7 +355,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitCasting(MainAntlrParser.CastingContext ctx) {
         Type castType = getInvalidType(ctx.type());
 
-        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()));
+        return new ASTNodes.CastNode(castType, (ASTNodes.Expression) visit(ctx.expressions()), symbolTable.getCurrentScope());
     }
 
     public ASTNodes.Node visitAccess_index(MainAntlrParser.Access_indexContext ctx) {
