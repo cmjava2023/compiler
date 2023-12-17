@@ -10,28 +10,31 @@ package org.cmjava2023.generated_from_antlr;
 start : (global_scope)+;
 
 // function_scope and expressions
-global_scope: class_declaration | package_declaration SEMICOLON;
+global_scope: class_declaration | interface_declaration | package_declaration SEMICOLON;
 
-class_scope: (enum_declaration | class_declaration | function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
+class_scope: (enum_declaration | class_declaration | abstract_function_declaration | function_declaration | constructor_invocation | ((variable_declaration | assignment ) SEMICOLON))*;
+interface_scope: abstract_function_declaration;
 
-function_scope: ( enum_declaration | block_scope | (expressions | assignment | variable_declaration | return_statement | continue_statement | break_statement) SEMICOLON)*;
+function_scope: ( enum_declaration | block_scope | class_declaration | (variable_declaration | expressions | assignment | return_statement | continue_statement | break_statement) SEMICOLON)*;
 
 block_scope: if_statement | if_else_statement | while_loop | do_while_loop | for_loop | switch_statement;
 
-expressions: expression (expression_operator expression)?;
-variable_declaration: (primitive_type | reference_type) IDENTIFIER;
-assignment: (variable_declaration | identifier) EQUALS expressions;
-
-expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
-
+expressions: expression (expression_operator expression)? | PAREN_OPEN expressions PAREN_CLOSE ;
+variable_declaration: ACCESS_MODIFIER? INSTANCE_MODIFIER* type IDENTIFIER (COMMA IDENTIFIER)*;
+assignment: (variable_declaration | identifier) EQUALS expressions (COMMA (variable_declaration | identifier) EQUALS expressions)*;
+expression: IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | function_call | identifier | casting | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
-expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
 expression_suffix: DEC | INC;
 
-instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
+// OOP
+constructor_invocation:  ACCESS_MODIFIER? INSTANCE_MODIFIER* IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN constructor_invocation_scope CURLY_CLOSE;
+constructor_invocation_scope: ((expressions | assignment) SEMICOLON)*;
+
+instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type | class_instantiation);
+class_instantiation: type PAREN_OPEN function_args? PAREN_CLOSE;
 
 access_index: IDENTIFIER (BRACKET_OPEN INTEGER BRACKET_CLOSE)+;
-numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD;
+numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD | PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT | INCEQ | DECEQ;
 numerical_prefix: PLUS | MINUS;
 logical_prefix: NOT | NOTNOT;
 logical_comparison_operator: LAND | LOR;
@@ -40,8 +43,11 @@ bit_comparison_operator: BAND | BOR | BXOR | BIT_SHIFT_L | BIT_SHIFT_R;
 // Packages
 package_declaration: PACKAGE_KEYWORD identifier;
 
-// Classes
-class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
+// OOP
+class_declaration: ACCESS_MODIFIER? INSTANCE_MODIFIER* CLASS_KEYWORD class_name (extends_statement)? (implements_statement)? CURLY_OPEN class_scope CURLY_CLOSE;
+interface_declaration: ACCESS_MODIFIER? INTERFACE_KEYWORD class_name CURLY_OPEN interface_scope CURLY_CLOSE;
+class_name: (IDENTIFIER | generic_class_name);
+generic_class_name: IDENTIFIER type_arguments;
 
 // Enums
 enum_declaration: ENUM_KEYWORD IDENTIFIER CURLY_OPEN IDENTIFIER (COMMA IDENTIFIER)* CURLY_CLOSE;
@@ -60,6 +66,7 @@ continue_statement: CONTINUE_KEYWORD;
 // Names
 identifier: IDENTIFIER (DOT IDENTIFIER)*;
 type: VOID_KEYWORD | primitive_type | array_type | reference_type;
+class_type: class | class DOT IDENTIFIER type_arguments?;
 
 // Types
 integral_type: BYTE_KEYWORD | SHORT_KEYWORD | INT_KEYWORD | LONG_KEYWORD | CHAR_KEYWORD;
@@ -67,15 +74,15 @@ floating_point_type: FLOAT_KEYWORD | DOUBLE_KEYWORD;
 numeric_type: integral_type | floating_point_type;
 primitive_type: numeric_type | BOOLEAN_KEYWORD;
 
-reference_type: class_type | type_variable | array_type;
-class_type: IDENTIFIER type_arguments?;
+reference_type: class | type_variable | array_type;
+class: IDENTIFIER type_arguments?;
 
 type_arguments:DIAMOND_OPEN type_argument_list DIAMOND_CLOSE;
 type_argument_list: type_argument (COMMA type_argument)*;
 type_argument: reference_type | wildcard;
-wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
+wildcard: reference_type (EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type);
 type_variable: IDENTIFIER;
-array_type: (primitive_type | class_type |type_variable) (BRACKET_OPEN BRACKET_CLOSE)+;
+array_type: (primitive_type | class |type_variable) (BRACKET_OPEN BRACKET_CLOSE)+;
 array_expression: CURLY_OPEN (STRING | (expressions (COMMA expressions)*)) CURLY_CLOSE;
 
 // Control flow
@@ -86,14 +93,16 @@ for_init: assignment;
 for_termination: expressions;
 for_update: expressions;
 
+// OOP
+extends_statement: EXTENDS_KEYWORD class_type;
+implements_statement: IMPLEMENTS_KEYWORD class_type (COMMA class_type)*;
+
 // Casting
 casting: PAREN_OPEN type PAREN_CLOSE expressions;
 
-// Modifiers
-access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
-
 // Functions
-function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+function_declaration: ACCESS_MODIFIER? INSTANCE_MODIFIER* type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+abstract_function_declaration: ACCESS_MODIFIER? INSTANCE_MODIFIER* type IDENTIFIER PAREN_OPEN function_args? PAREN_CLOSE SEMICOLON;
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
 function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
@@ -102,17 +111,22 @@ function_arg: expressions;
 
 // ----- Lexer -----
 
+// Modifiers
+ACCESS_MODIFIER: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
+INSTANCE_MODIFIER: STATIC_KEYWORD | FINAL_KEYWORD | ABSTRACT_KEYWORD;
+
 // Keywords, need to be on top!
 PACKAGE_KEYWORD: 'package';
 CLASS_KEYWORD: 'class';
+INTERFACE_KEYWORD: 'interface';
 
 // Constants
 FALSE: 'false';
 TRUE: 'true';
 
-// Modifiers, need to be on top!
-INSTANCE_MODIFIER: 'static';
-
+ABSTRACT_KEYWORD: 'abstract';
+STATIC_KEYWORD: 'static';
+FINAL_KEYWORD: 'final';
 BOOLEAN_KEYWORD: 'boolean';
 BYTE_KEYWORD: 'byte';
 SHORT_KEYWORD: 'short';
@@ -123,7 +137,7 @@ FLOAT_KEYWORD: 'float';
 DOUBLE_KEYWORD: 'double';
 ENUM_KEYWORD: 'enum';
 EXTENDS_KEYWORD: 'extends';
-SUPER_KEYWORD: 'super';
+IMPLEMENTS_KEYWORD: 'implements';
 VOID_KEYWORD: 'void';
 PUBLIC_KEYWORD: 'public';
 PRIVATE_KEYWORD: 'private';
@@ -175,6 +189,8 @@ MULTIPLICATION: '*';
 DIVISION: '/';
 INC: '++';
 DEC: '--';
+INCEQ: '+=';
+DECEQ: '-=';
 
 // Logical Operators
 LAND: '&&';
