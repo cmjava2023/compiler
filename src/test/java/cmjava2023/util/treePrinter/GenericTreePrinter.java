@@ -35,7 +35,7 @@ public class GenericTreePrinter {
                 }
             } else {
                 builder.append(fieldName).append(" (field of type ").append(object.getClass().getSimpleName()).append(")").append("\n");
-                ArrayList<Field> fields = getFieldsDeclaredSelfOrInSuperThatDoNotStartEndlessRecursion(object);
+                ArrayList<Field> fields = getFieldsDeclaredSelfOrInSuperThatDoNotStartEndlessRecursion(object, fieldName);
                 for (int i = 0; i < fields.size(); i++) {
                     if (i >= fields.size() - 1) {
                         nextLevelTreePrefixData = treePrefixData.createForLastElementOfNextLevel();
@@ -55,7 +55,7 @@ public class GenericTreePrinter {
     }
 
     @NotNull
-    private static ArrayList<Field> getFieldsDeclaredSelfOrInSuperThatDoNotStartEndlessRecursion(Object object) {
+    private static ArrayList<Field> getFieldsDeclaredSelfOrInSuperThatDoNotStartEndlessRecursion(Object object, String fieldName) {
         Class<?> currentClass = object.getClass();
 
         ArrayList<Class<?>> objectClassAndSuperClassesAndInterfaces = new ArrayList<>();
@@ -71,7 +71,7 @@ public class GenericTreePrinter {
 
             addClassAndInterfaces(objectClassAndSuperClassesAndInterfaces, currentClass);
         }
-        fields.removeIf(f -> objectClassAndSuperClassesAndInterfaces.contains(f.getType())
+        fields.removeIf(f -> (objectClassAndSuperClassesAndInterfaces.contains(f.getType()) && f.getName().equals(fieldName))
                 || f.getType().getSimpleName().equals("Scope"));
         return fields;
     }

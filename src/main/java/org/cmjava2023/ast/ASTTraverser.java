@@ -14,15 +14,17 @@ public abstract class ASTTraverser<T> {
         else if (statementNode instanceof ASTNodes.BlockScopeNode) { return visit((ASTNodes.BlockScopeNode)statementNode); }
         else if (statementNode instanceof ASTNodes.VariableNode) { return visit((ASTNodes.VariableNode)statementNode); }
         else if (statementNode instanceof ASTNodes.ReturnNode) { return visit((ASTNodes.ReturnNode)statementNode); }
-        else { throw new NotImplementedError(); }
+        else if (statementNode instanceof ASTNodes.VariableAssigmentNode) { return visit((ASTNodes.VariableAssigmentNode)statementNode); }
+        else { throw new NotImplementedError("type " + statementNode.getClass().getName()); }
     }
 
     public T dispatch(ASTNodes.Expression expressionNode) {
         if (expressionNode instanceof ASTNodes.ValueNode<?>) { return visit((ASTNodes.ValueNode<?>)expressionNode); }
         if (expressionNode instanceof ASTNodes.NestedIdentifierNode) { return visit((ASTNodes.NestedIdentifierNode)expressionNode); }
         else if (expressionNode instanceof ASTNodes.ComparisonNode) { return visit((ASTNodes.ComparisonNode)expressionNode); }
-        else if (expressionNode instanceof ASTNodes.IdentifierNode) { return visit((ASTNodes.IdentifierNode)expressionNode); }
-        else { throw new NotImplementedError(); }
+        else if (expressionNode instanceof ASTNodes.ResolvedIdentifierNode) { return visit((ASTNodes.ResolvedIdentifierNode)expressionNode); }
+        else if (expressionNode instanceof ASTNodes.RawIdentifierNode) { return visit((ASTNodes.RawIdentifierNode)expressionNode); }
+        else { throw new NotImplementedError("type " + expressionNode.getClass().getName()); }
     }
 
     public abstract T visit(ASTNodes.StartNode startNode);
@@ -55,7 +57,9 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ComparisonNode comparisonNode);
 
-    public abstract T visit(ASTNodes.IdentifierNode identifierNode);
+    public abstract T visit(ASTNodes.RawIdentifierNode rawIdentifierNode);
+
+    public abstract T visit(ASTNodes.ResolvedIdentifierNode resolvedIdentifierNode);
 
     public abstract T visit(ASTNodes.ReturnNode returnNode);
 
@@ -63,7 +67,6 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ArrayTypeNode arrayTypeNode);
 
-    public abstract T visit(T functionCallNode);
     public abstract T visit(ASTNodes.ParameterAssigmentNode parameterAssigmentNode);
     public abstract T visit(ASTNodes.InfixNode infixNode);
     public abstract T visit(ASTNodes.UnaryPrefixNode unaryPrefixNode);

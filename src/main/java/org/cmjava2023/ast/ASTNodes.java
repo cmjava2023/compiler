@@ -278,8 +278,16 @@ public class ASTNodes {
         }
     }
 
-    public record IdentifierNode(
-            String name) implements Node, Expression {
+    public record RawIdentifierNode(
+            String name,
+            Scope scope) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record ResolvedIdentifierNode(
+            String name, Variable symbol) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

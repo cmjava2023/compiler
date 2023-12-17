@@ -31,8 +31,9 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
             Queue<String> bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheHelpedClassIsIn).GetPathOfMainClassCompiledByUsInSamePackage());
             HexClassFileTester.test(bytesInHex, expectedClassFileContent);
         }), DynamicTest.dynamicTest(nonRootPackagePartsTheHelpedClassIsIn + " outputSameAsJdk", () -> {
-            String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain);
-            String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, "cmjava2023/helloworld/Main");
+            String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheHelpedClassIsIn.replace("\\", "/") + "/Main";
+            String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);
+            String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
             assertEquals(expectedOutput, actualOutput);
         }));
     }
