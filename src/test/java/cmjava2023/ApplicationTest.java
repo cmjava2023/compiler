@@ -34,7 +34,8 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheHelpedClassIsIn.replace("\\", "/") + "/Main";
             String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);
             String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
-            assertEquals(expectedOutput, actualOutput);
+            String testInfo = "nonRootPackagePartsTheHelpedClassIsIn " + nonRootPackagePartsTheHelpedClassIsIn + "\npathToMain " + pathToMain + "\ncontentOfExpectationFile" + contentOfExpectationFile;
+            assertEquals(expectedOutput, actualOutput, testInfo);
         }));
     }
 
