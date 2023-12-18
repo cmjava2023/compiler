@@ -19,6 +19,26 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         throw NotImplementedError()
     }
 
+    override fun visit(continueNodeNode: ASTNodes.ContinueNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(breakNode: ASTNodes.BreakNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(enumNode: ASTNodes.EnumNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(switchNode: ASTNodes.SwitchNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(caseNode: ASTNodes.CaseNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
     override fun visit(functionNode: ASTNodes.FunctionNode): List<OpCode> {
         val opCodes = functionNode.body.flatMap { dispatch(it) }
         return if (opCodes.lastOrNull() !is OpCode.ReturnAnything) {
@@ -126,9 +146,9 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
     }
 
-    override fun visit(variableAssigmentNode: ASTNodes.VariableAssigmentNode): List<OpCode> {
-        val variableSymbol = variableAssigmentNode.variable
-        val value = variableAssigmentNode.expression
+    override fun visit(variableAssignmentNode: ASTNodes.VariableAssignmentNode): List<OpCode> {
+        val variableSymbol = variableAssignmentNode.variable
+        val value = variableAssignmentNode.expression
         return assignOrDeclareVariable(variableSymbol, value)
     }
 
@@ -186,7 +206,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(parameterAssigmentNode: ASTNodes.ParameterAssigmentNode?): List<OpCode> {
+    override fun visit(parameterAssignmentNode: ASTNodes.ParameterAssignmentNode?): List<OpCode> {
         TODO("Not yet implemented")
     }
 

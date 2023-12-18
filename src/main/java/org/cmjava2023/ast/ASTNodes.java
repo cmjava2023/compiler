@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class ASTNodes {
 
+
     public enum AccessModifier {
         DEFAULT, //  /Blank ==> Package-Private
         PUBLIC,
@@ -28,7 +29,8 @@ public class ASTNodes {
     }
 
     //Numerical and logical operators
-    //expression_operator->Operators
+    //expression_operator
+    // bit_comparison_operator
     public enum ComparisonOperator implements Operator {
         EQ,          //  EQ '=='
         NEQ,       //  NEQ '!='
@@ -38,13 +40,12 @@ public class ASTNodes {
         LAND,      //  LAND '&&'
         LOR,        //  LOR '||'
         DIAMOND_OPEN, // DIAMOND_CLOSE '<'
-        DIAMOND_CLOSE // DIAMOND_CLOSE '>'
-        ,
-        BAND,
-        BOR,
-        BXOR,
-        BIT_SHIFT_L,
-        BIT_SHIFT_R
+        DIAMOND_CLOSE, // DIAMOND_CLOSE '>'
+        BAND, // BAND: '&';
+        BOR, // BOR: '|';
+        BXOR, // BXOR: '^';
+        BIT_SHIFT_L, // BIT_SHIFT_L: '<'+;
+        BIT_SHIFT_R // BIT_SHIFT_R: '>'+;
     }
 
     public enum InfixOperator implements Operator {
@@ -69,7 +70,7 @@ public class ASTNodes {
     public interface Expression extends Node {
     }
 
-    public interface Condition extends Node {
+    public interface ControlFlow extends Node {
     }
 
     public interface VariableUsage extends Node {
@@ -92,10 +93,9 @@ public class ASTNodes {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
-    } //Maybe save this nested identifier into the symbol table ?
+    }
 
     // class_declaration -> ClassNode
-    // class_scope[function_declaration (->FunctionNode<statement>), variable_declaration(->VariableNode<Statement>), assignment(-> AssignmentNode<statement>) -> Statement[] body
     public record ClassNode(Clazz classSymbol,
                             ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -103,10 +103,15 @@ public class ASTNodes {
         }
     }
 
+    // enum_declaration -> EnumNode
+    public record EnumNode(RawIdentifierNode identifier,
+                           ArrayList<RawIdentifierNode> enums) implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     // function_declaration -> FunctionNode
-    // type -> Identifier -> SymbolRef
-    // Function_declaration_args-> ParameterNode[]
-    // function_scope [expressions(-> ExpressionNode<Statement>/ComparisonNode<Statement>) , assignment (-> AssignmentNode<Statement>), variable_declaration (-> VariableNode<Statement>), return_statement (->ExpressionNode<Statement>), block_scope (->BlockScopeNode<Statement>] ->Statement[] body
     public record FunctionNode(Function functionSymbol,
                                ArrayList<ParameterNode> parameters,
                                ArrayList<Statement> body) implements Node, Statement {
@@ -115,13 +120,14 @@ public class ASTNodes {
         }
     }
 
-    //Function_declaration_arg[type(->symbolTable), IDENTIFIER (->symbolTable)-> ParameterNode
+    //Function_declaration_arg-> ParameterNode
     public record ParameterNode(Parameter parameterSymbol) implements Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // Can have null as values.
     // function_call -> CallNode
     public record RawFunctionCallNode(ArrayList<String> nestedIdentifier,
                                       ArrayList<Expression> values,
@@ -131,6 +137,7 @@ public class ASTNodes {
         }
     }
 
+    // function_call -> FunctionCallNode
     public record FunctionCallNode(Function function,
                                    ArrayList<Expression> values) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -138,63 +145,78 @@ public class ASTNodes {
         }
     }
 
-    // if_statement -> IfNode
-    //else_statement [expressions (->ComparisonNode<Expression>/ExpressionNode<Expression>), function_scope (->Statement[])]->IfNode
-    public record IfNode(Expression expression,
-                         ArrayList<Statement> statements) implements Node, Condition, Statement {
+    // continue_statement->ContinueNode
+    public record ContinueNode() implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    //else_statement -> ElseNode
-    //else_statement [function_scope (->Statement[])]->ElseNode
+    // break_statement -> BreakNode
+    public record BreakNode() implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    // if_statement -> IfNode
+    public record IfNode(Expression expression,
+                         ArrayList<Statement> statements) implements Node, ControlFlow, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    // else_statement -> ElseNode
     public record ElseNode(
-            ArrayList<Statement> statements) implements Node, Condition, Statement {
+            ArrayList<Statement> statements) implements Node, ControlFlow, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     // block_scope -> BlockScopeNode
-    // block_scope [if_statement (-> IfNode<Condition>)/if_else_statement(->IfNode<Condition>, ElseNode<Condition>)]-> Condition[] conditions
     public record BlockScopeNode(
-            ArrayList<Condition> conditions) implements Node, Statement {
+            ArrayList<ControlFlow> controlFlows) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     // variable_declaration -> VariableNode
-    // variable_declaration [primitive_type(->symbolTable), potentially_nested_identifier (->Identifier symbolRef)] -> VariableNode
-    // assignment[variable_declaration(->PotentiallyNestedIdentifierNode<Identifier>), potentially_nested_identifier (-> PotentiallyNestedIdentifierNode<Identifier>), expressions (->ComparisonNode<Expression>)] -> VariableNode
-    public record VariableNode(
+     public record VariableNode(
             Variable variableSymbol) implements Node, Statement, VariableUsage {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    public record VariableAssigmentNode(Variable variable,
-                                        Expression expression) implements Node, Statement, VariableUsage {
+    // assignment -> (VariableAssignmentNode)
+    // Note: The field variable can be Null, if this variable is not declared.
+    public record VariableAssignmentNode(Variable variable,
+                                         Expression expression) implements Node, Statement, VariableUsage {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    public record ParameterAssigmentNode(Parameter variable,
-                                         Expression value) implements Node, Statement {
+    // assignment -> (ParameterAssignmentNode)
+    public record ParameterAssignmentNode(Parameter variable,
+                                          Expression value) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // {Any primitive type} -> ValueNode
     public record ValueNode<T>(T value) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // For concatinating Expressions.
+    // expression expression_concatinator expression
     public record InfixNode(Expression leftExpression, InfixOperator operator,
                             Expression rightExpression) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -202,6 +224,8 @@ public class ASTNodes {
         }
     }
 
+    // To give an expression a prefix.
+    // (numerical_prefix | logical_prefix) expressions
     public record UnaryPrefixNode(PrefixOperator operator,
                                   Expression Expression) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -209,6 +233,11 @@ public class ASTNodes {
         }
     }
 
+    // To give an expression a suffix.
+    // It is also an expression, because it can stay alone! i++ or i--
+    // and is not an assignment. Also, there is no other case then an increment or decrement to use this.
+    // Thus, this node could potentially also be called Increment/Decrement Node
+    //expression expression_suffix
     public record UnarySuffixNode(SuffixOperator operator,
                                   Expression Expression) implements Node, Expression, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -216,6 +245,8 @@ public class ASTNodes {
         }
     }
 
+    // PAREN_OPEN expression PAREN_CLOSE -> ParenthesesNode
+    // used to give individual expressions their scope.
     public record ParenthesesNode(
             Expression Expression) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -223,6 +254,7 @@ public class ASTNodes {
         }
     }
 
+    // casting -> CastNode
     public record CastNode(org.cmjava2023.symboltable.Type type,
                            Expression expression, Scope scope) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -230,6 +262,7 @@ public class ASTNodes {
         }
     }
 
+    // array_expression -> ArrayInstantiationNode
     public record ArrayInstantiationWithValuesNode(
             ArrayList<Expression> expressions) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -237,6 +270,7 @@ public class ASTNodes {
         }
     }
 
+    // instantiation->(ArrayInstantiationNode)
     public record ArrayInstantiationNode(org.cmjava2023.symboltable.Type type,
                                          ArrayList<Integer> dimensionSizes) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -244,6 +278,8 @@ public class ASTNodes {
         }
     }
 
+    // both array and elementIndicesAccessed can be null if trying to access this doesnt work.
+    // access_index -> ArrayAccessNode
     public record ArrayAccessNode(Variable array,
                                   ArrayList<Integer> elementIndicesAccessed) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -251,6 +287,7 @@ public class ASTNodes {
         }
     }
 
+    // instantiation -> (ObjectInstantiationNode)
     public record ObjectInstantiationNode(
             org.cmjava2023.symboltable.Type type) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -259,7 +296,6 @@ public class ASTNodes {
     }
 
     // potentially_nested_identifier -> PotentiallyNestedIdentifierNode
-    // potentially_nested_identifier[Identifier (->String[] nested_identifier ) -> PotentiallyNestedIdentifierNode
     public record NestedIdentifierNode(
             ArrayList<String> nestedIdentifier) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -294,31 +330,48 @@ public class ASTNodes {
     }
 
     // return_statement ->ReturnNode
-    // return_statement[ expressions(ComparisonNode<Expression>/ExpressionNode<Expression>)]->ReturnNode;
+    // expressions->Expression;
     public record ReturnNode(Expression value) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // for_loop -> ForLoopNode
     public record ForLoopNode(VariableUsage loopVariable,
                               Expression termination,
                               Expression increment,
-                              ArrayList<Statement> body) implements Node, Statement {
+                              ArrayList<Statement> body) implements Node, Statement, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // while_loop -> WhileLoopNode
     public record WhileLoopNode(Expression expression,
-                                ArrayList<Statement> body) implements Node, Statement {
+                                ArrayList<Statement> body) implements Node, Statement, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
+    // do_while_loop -> DoWhileLoopNode
     public record DoWhileLoopNode(Expression expression,
-                                  ArrayList<Statement> body) implements Node, Statement {
+                                  ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    // switch_statement ->SwitchNode
+    public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes, Expression defaultEx) implements Node, ControlFlow{
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    //switch_scope-> [caseNode]
+    public record CaseNode(Expression caseEx, ArrayList<Statement> body) implements  Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -346,6 +399,7 @@ public class ASTNodes {
         }
     }
 
+    // It is just a helper class for the symbol tables. Nothing which stays in the AST.
     public record OperatorNode(Operator operator) implements Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
