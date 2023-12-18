@@ -52,7 +52,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: integer:
+               |        |  L  value: integer: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: integer
@@ -81,7 +81,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: integer:
+               |        |  L  value: integer: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: integer
@@ -108,7 +108,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: bool:
+               |        |  L  value: bool: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: bool
@@ -137,7 +137,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: bool:
+               |        |  L  value: bool: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: bool
@@ -164,7 +164,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: floatingPoint:
+               |        |  L  value: floatingPoint: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: floatingPoint
@@ -193,7 +193,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: floatingPoint:
+               |        |  L  value: floatingPoint: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: floatingPoint
@@ -220,7 +220,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: longVariable:
+               |        |  L  value: longVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: longVariable
@@ -249,7 +249,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: longVariable:
+               |        |  L  value: longVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: longVariable
@@ -276,7 +276,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: character:
+               |        |  L  value: character: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: character
@@ -305,7 +305,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: character:
+               |        |  L  value: character: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: character
@@ -332,7 +332,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: byteVariable:
+               |        |  L  value: byteVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: byteVariable
@@ -361,7 +361,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: byteVariable:
+               |        |  L  value: byteVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: byteVariable
@@ -388,7 +388,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: shortVariable:
+               |        |  L  value: shortVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: shortVariable
@@ -417,7 +417,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: shortVariable:
+               |        |  L  value: shortVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: shortVariable
@@ -444,7 +444,7 @@ L  body
                |  L  values
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
-               |        |  L  value: doubleVariable:
+               |        |  L  value: doubleVariable: 
                |        |- operator: PLUS
                |        L  rightExpression (field of type ResolvedIdentifierNode)
                |           |- name: doubleVariable
@@ -473,7 +473,7 @@ L  body
                   L  values
                      L  0 (field of type InfixNode)
                         |- leftExpression (field of type ValueNode)
-                        |  L  value: doubleVariable:
+                        |  L  value: doubleVariable: 
                         |- operator: PLUS
                         L  rightExpression (field of type ResolvedIdentifierNode)
                            |- name: doubleVariable
