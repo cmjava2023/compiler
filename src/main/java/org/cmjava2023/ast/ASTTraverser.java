@@ -14,7 +14,7 @@ public abstract class ASTTraverser<T> {
         else if (statementNode instanceof ASTNodes.BlockScopeNode) { return visit((ASTNodes.BlockScopeNode)statementNode); }
         else if (statementNode instanceof ASTNodes.VariableNode) { return visit((ASTNodes.VariableNode)statementNode); }
         else if (statementNode instanceof ASTNodes.ReturnNode) { return visit((ASTNodes.ReturnNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.VariableAssigmentNode) { return visit((ASTNodes.VariableAssigmentNode)statementNode); }
+        else if (statementNode instanceof ASTNodes.VariableAssignmentNode) { return visit((ASTNodes.VariableAssignmentNode)statementNode); }
         else { throw new NotImplementedError("type " + statementNode.getClass().getName()); }
     }
 
@@ -33,6 +33,16 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ClassNode classNode);
 
+    public abstract T visit(ASTNodes.ContinueNode continueNodeNode);
+
+    public abstract T visit(ASTNodes.BreakNode breakNode);
+
+    public abstract T visit(ASTNodes.EnumNode enumNode);
+
+    public abstract T visit(ASTNodes.SwitchNode switchNode);
+
+    public abstract T visit(ASTNodes.CaseNode caseNode);
+
     public abstract T visit(ASTNodes.FunctionNode functionNode);
 
     public abstract T visit(ASTNodes.ParameterNode node);
@@ -49,7 +59,7 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.VariableNode variableNode);
 
-    public abstract T visit(ASTNodes.VariableAssigmentNode variableAssigmentNode);
+    public abstract T visit(ASTNodes.VariableAssignmentNode variableAssignmentNode);
 
     public abstract T visit(ASTNodes.ValueNode<?> valueNode);
 
@@ -66,8 +76,7 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.TypeNode typeNode);
 
     public abstract T visit(ASTNodes.ArrayTypeNode arrayTypeNode);
-
-    public abstract T visit(ASTNodes.ParameterAssigmentNode parameterAssigmentNode);
+    public abstract T visit(ASTNodes.ParameterAssignmentNode parameterAssigmentNode);
     public abstract T visit(ASTNodes.InfixNode infixNode);
     public abstract T visit(ASTNodes.UnaryPrefixNode unaryPrefixNode);
     public abstract T visit(ASTNodes.UnarySuffixNode unarySuffixNode);

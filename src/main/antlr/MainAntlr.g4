@@ -76,7 +76,7 @@ type_argument: reference_type | wildcard;
 wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
 type_variable: IDENTIFIER;
 array_type: (primitive_type | class_type |type_variable) (BRACKET_OPEN BRACKET_CLOSE)+;
-array_expression: CURLY_OPEN (STRING | (expressions (COMMA expressions)*)) CURLY_CLOSE;
+array_expression: CURLY_OPEN ( (expressions (COMMA expressions)*)) CURLY_CLOSE;
 
 // Control flow
 while_loop: WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;

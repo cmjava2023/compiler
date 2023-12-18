@@ -1,0 +1,485 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     |- 1: primitive
+   |     L  2: assignment
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
+            |           L  maxArraySize: -1
+            L  body
+               |- 0 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 8
+               |     |- name: integer
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 1 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: integer: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: integer
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 8
+               |              |- name: integer
+               |              L  type (field of type BuiltIn)
+               |                 L  name: int
+               |- 2 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 8
+               |  |  |- name: integer
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: int
+               |  L  expression (field of type ValueNode)
+               |     L  value: 9
+               |- 3 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: integer: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: integer
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 8
+               |              |- name: integer
+               |              L  type (field of type BuiltIn)
+               |                 L  name: int
+               |- 4 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: false
+               |     |- name: bool
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               |- 5 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: bool: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: bool
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: false
+               |              |- name: bool
+               |              L  type (field of type BuiltIn)
+               |                 L  name: boolean
+               |- 6 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: false
+               |  |  |- name: bool
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: boolean
+               |  L  expression (field of type ValueNode)
+               |     L  value: true
+               |- 7 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: bool: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: bool
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: false
+               |              |- name: bool
+               |              L  type (field of type BuiltIn)
+               |                 L  name: boolean
+               |- 8 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 0.88
+               |     |- name: floatingPoint
+               |     L  type (field of type BuiltIn)
+               |        L  name: float
+               |- 9 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: floatingPoint: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: floatingPoint
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 0.88
+               |              |- name: floatingPoint
+               |              L  type (field of type BuiltIn)
+               |                 L  name: float
+               |- 10 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 0.88
+               |  |  |- name: floatingPoint
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: float
+               |  L  expression (field of type ValueNode)
+               |     L  value: 0.99
+               |- 11 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: floatingPoint: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: floatingPoint
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 0.88
+               |              |- name: floatingPoint
+               |              L  type (field of type BuiltIn)
+               |                 L  name: float
+               |- 12 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 8888
+               |     |- name: longVariable
+               |     L  type (field of type BuiltIn)
+               |        L  name: long
+               |- 13 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: longVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: longVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 8888
+               |              |- name: longVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: long
+               |- 14 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 8888
+               |  |  |- name: longVariable
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: long
+               |  L  expression (field of type ValueNode)
+               |     L  value: 99999
+               |- 15 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: longVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: longVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 8888
+               |              |- name: longVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: long
+               |- 16 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: '
+               |     |- name: character
+               |     L  type (field of type BuiltIn)
+               |        L  name: char
+               |- 17 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: character: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: character
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: '
+               |              |- name: character
+               |              L  type (field of type BuiltIn)
+               |                 L  name: char
+               |- 18 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: '
+               |  |  |- name: character
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: char
+               |  L  expression (field of type ValueNode)
+               |     L  value: '
+               |- 19 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: character: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: character
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: '
+               |              |- name: character
+               |              L  type (field of type BuiltIn)
+               |                 L  name: char
+               |- 20 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 88
+               |     |- name: byteVariable
+               |     L  type (field of type BuiltIn)
+               |        L  name: byte
+               |- 21 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: byteVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: byteVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 88
+               |              |- name: byteVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: byte
+               |- 22 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 88
+               |  |  |- name: byteVariable
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: byte
+               |  L  expression (field of type ValueNode)
+               |     L  value: 99
+               |- 23 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: byteVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: byteVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 88
+               |              |- name: byteVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: byte
+               |- 24 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 888
+               |     |- name: shortVariable
+               |     L  type (field of type BuiltIn)
+               |        L  name: short
+               |- 25 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: shortVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: shortVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 888
+               |              |- name: shortVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: short
+               |- 26 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 888
+               |  |  |- name: shortVariable
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: short
+               |  L  expression (field of type ValueNode)
+               |     L  value: 9999
+               |- 27 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: shortVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: shortVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 888
+               |              |- name: shortVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: short
+               |- 28 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 0.8888889
+               |     |- name: doubleVariable
+               |     L  type (field of type BuiltIn)
+               |        L  name: double
+               |- 29 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type InfixNode)
+               |        |- leftExpression (field of type ValueNode)
+               |        |  L  value: doubleVariable: 
+               |        |- operator: PLUS
+               |        L  rightExpression (field of type ResolvedIdentifierNode)
+               |           |- name: doubleVariable
+               |           L  symbol (field of type Variable)
+               |              |- initialExpression (field of type ValueNode)
+               |              |  L  value: 0.8888889
+               |              |- name: doubleVariable
+               |              L  type (field of type BuiltIn)
+               |                 L  name: double
+               |- 30 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: 0.8888889
+               |  |  |- name: doubleVariable
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: double
+               |  L  expression (field of type ValueNode)
+               |     L  value: 1.0
+               L  31 (field of type FunctionCallNode)
+                  |- function (field of type Function)
+                  |  |- accessModifier: PUBLIC
+                  |  |- instanceModifier: null
+                  |  |- name: System.out.println
+                  |  L  type (field of type BuiltIn)
+                  |     L  name: void
+                  L  values
+                     L  0 (field of type InfixNode)
+                        |- leftExpression (field of type ValueNode)
+                        |  L  value: doubleVariable: 
+                        |- operator: PLUS
+                        L  rightExpression (field of type ResolvedIdentifierNode)
+                           |- name: doubleVariable
+                           L  symbol (field of type Variable)
+                              |- initialExpression (field of type ValueNode)
+                              |  L  value: 0.8888889
+                              |- name: doubleVariable
+                              L  type (field of type BuiltIn)
+                                 L  name: double

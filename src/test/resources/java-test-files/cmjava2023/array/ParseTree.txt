@@ -49,7 +49,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){String[]o={"
       |     |  |     L  Expression: {"Hello World"}
       |     |  |        L  Array_expression: {"Hello World"}
       |     |  |           |- {
-      |     |  |           |- "Hello World"
+      |     |  |           |- Expressions: "Hello World"
+      |     |  |           |  L  Expression: "Hello World"
+      |     |  |           |     L  "Hello World"
       |     |  |           L  }
       |     |  |- ;
       |     |  |- Assignment: byte[]by={10,11}

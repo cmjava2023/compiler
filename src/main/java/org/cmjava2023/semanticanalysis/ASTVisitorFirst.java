@@ -24,14 +24,14 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         return statementList;
     }
 
-    private ArrayList<ASTNodes.Condition> getModifiedConditions(ArrayList<ASTNodes.Condition> conditions) {
-        ArrayList<ASTNodes.Condition> conditionList = new ArrayList<>();
+    private ArrayList<ASTNodes.ControlFlow> getModifiedConditions(ArrayList<ASTNodes.ControlFlow> controlFlows) {
+        ArrayList<ASTNodes.ControlFlow> controlFlowList = new ArrayList<>();
 
-        for (ASTNodes.Condition condition : conditions) {
-            conditionList.add((ASTNodes.Condition) condition.accept(this));
+        for (ASTNodes.ControlFlow controlFlow : controlFlows) {
+            controlFlowList.add((ASTNodes.ControlFlow) controlFlow.accept(this));
         }
 
-        return conditionList;
+        return controlFlowList;
     }
 
     private ArrayList<ASTNodes.ParameterNode> getModifiedParameters(ArrayList<ASTNodes.ParameterNode> parameters) {
@@ -67,6 +67,31 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.ClassNode node) {
         return new ASTNodes.ClassNode(node.classSymbol(), getModifiedStatements(node.body()));
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ContinueNode continueNodeNode) {
+        return continueNodeNode;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.BreakNode breakNode) {
+        return breakNode;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.EnumNode enumNode) {
+        return enumNode;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.SwitchNode switchNode) {
+        return switchNode;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.CaseNode caseNode) {
+        return caseNode;
     }
 
     @Override
@@ -150,7 +175,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.BlockScopeNode node) {
-        return new ASTNodes.BlockScopeNode(getModifiedConditions(node.conditions()));
+        return new ASTNodes.BlockScopeNode(getModifiedConditions(node.controlFlows()));
     }
 
     @Override
@@ -195,8 +220,8 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.VariableAssigmentNode node) {
-        return new ASTNodes.VariableAssigmentNode(node.variable(), (ASTNodes.Expression) node.expression().accept(this));
+    public ASTNodes.Node visit(ASTNodes.VariableAssignmentNode node) {
+        return new ASTNodes.VariableAssignmentNode(node.variable(), (ASTNodes.Expression) node.expression().accept(this));
     }
 
     @Override
@@ -252,7 +277,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.ParameterAssigmentNode node) {
+    public ASTNodes.Node visit(ASTNodes.ParameterAssignmentNode node) {
         return node;
     }
 
