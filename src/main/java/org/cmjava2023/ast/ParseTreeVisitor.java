@@ -605,7 +605,6 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     //while_loop: WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
     public ASTNodes.Node visitWhile_loop(MainAntlrParser.While_loopContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
-
         return new ASTNodes.WhileLoopNode((ASTNodes.Expression) visit(ctx.expressions()), statements);
     }
 
