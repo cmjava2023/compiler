@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 val testFilesFolder = File("src/test/resources/java-test-files")
 val jdkCompiledTestFilesFolder = File("build/test-files-jdk-compiled")
 val ourCompilerCompiledTestFilesFolder = File("build/test-files-compiled-by-us")
+val testResultsFolder = File("build/test-results")
 
 repositories {
     mavenCentral()
@@ -26,17 +27,12 @@ tasks.test {
     useJUnitPlatform()
     doFirst {
         ourCompilerCompiledTestFilesFolder.deleteRecursively()
+        testResultsFolder.deleteRecursively()
     }
 }
 
 tasks.compileKotlin{
     dependsOn("generateGrammarSource")
-}
-
-tasks.withType<Exec>() {
-    doFirst {
-        println(commandLine)
-    }
 }
 
 tasks.register("compileTestFilesWithJdk8AndCreateJavaP") {
