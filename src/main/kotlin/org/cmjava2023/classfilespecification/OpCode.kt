@@ -15,21 +15,21 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
     abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(0xcbu, *values)
 
-    class LoadConstant(constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
-    class IntConstant(int: Int): MultiplePossibleOpcode()
-    class LongConstant(long: Long): MultiplePossibleOpcode()
-    class FloatConstant(float: Float): MultiplePossibleOpcode()
-    class DoubleConstant(double: Double): MultiplePossibleOpcode()
+    class LoadConstant(val constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
+    class IntConstant(val int: Int): MultiplePossibleOpcode()
+    class LongConstant(val long: Long): MultiplePossibleOpcode()
+    class FloatConstant(val float: Float): MultiplePossibleOpcode()
+    class DoubleConstant(val double: Double): MultiplePossibleOpcode()
 
-    class StoreInt(variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreLong(variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreFloat(variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreDouble(variableSymbol: Variable): MultiplePossibleOpcode()
+    class StoreInt(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class StoreLong(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class StoreFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class StoreDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
 
-    class LoadInt(variable: Variable): MultiplePossibleOpcode()
-    class LoadLong(variable: Variable): MultiplePossibleOpcode()
-    class LoadFloat(variable: Variable): MultiplePossibleOpcode()
-    class LoadDouble(variable: Variable): MultiplePossibleOpcode()
+    class LoadInt(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadLong(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
 
     interface ReturnAnything
 
@@ -61,7 +61,6 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Dastore: OpCode(0x52u)
     class Dcompg: OpCode(0x98u)
     class Dcompl: OpCode(0x97u)
-    class Dconst(double: Double): OpCode(0x0eu)
     class Dconst_0: OpCode(0x0eu)
     class Dconst_1: OpCode(0x0fu)
     class Ddiv: OpCode(0x6fu)
@@ -207,6 +206,6 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
     class Return: OpCode(0xb1u), ReturnAnything
     class Saload: OpCode(0x35u)
     class Sastore: OpCode(0x56u)
-    class Sipush(valueToPush: UShort): OpCode(0x11u, valueToPush)
+    class Sipush(valueToPush: Short): OpCode(0x11u, valueToPush)
     class Swap: OpCode(0x5fu)
 }

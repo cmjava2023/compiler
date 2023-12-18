@@ -53,6 +53,18 @@ public class HexClassFileTester {
         for (int i = 0; i < constantPoolSize - 1; i++) {
             String constantInfoTag = bytesInHex.poll();
             switch (Objects.requireNonNull(constantInfoTag)) {
+                case "03":
+                    unresolvedConstantPool.add(dequeue4ByteInt().toString());
+                    break;
+                case "04":
+                    unresolvedConstantPool.add(Float.toString(Float.intBitsToFloat(dequeue4ByteInt())));
+                    break;
+                case "05":
+                    unresolvedConstantPool.add(dequeue8ByteLong().toString());
+                    break;
+                case "06":
+                    unresolvedConstantPool.add(Double.toString(Double.longBitsToDouble(dequeue8ByteLong())));
+                    break;
                 case "07":
                 case "08":
                     unresolvedConstantPool.add(new ConstantPoolItemToResolve(dequeue2ByteShort()));
@@ -67,7 +79,7 @@ public class HexClassFileTester {
                     unresolvedConstantPool.add(constantInfoTag + " " + dequeueHexBytes(2) + "." + dequeueHexBytes(2));
                     break;
                 default:
-                    fail("test does not support constant pool type " + constantInfoTag);
+                    fail("test does not support constant pool type " + constantInfoTag + " constantPool so far:\n" + unresolvedConstantPool.toString().replace(",", ",\n"));
                     break;
             }
         }
@@ -158,11 +170,15 @@ public class HexClassFileTester {
         assertEquals(expected, constantPoolItems.get(index), context + ": ConstantPoolItem at index " + index);
     }
 
-    private static short dequeue2ByteShort() {
+    private static Short dequeue2ByteShort() {
         return Short.parseShort(dequeueHexBytes(2), 16);
     }
 
-    private static int dequeue4ByteInt() {
+    private static Integer dequeue4ByteInt() {
         return Integer.parseInt(dequeueHexBytes(4), 16);
+    }
+
+    private static Long dequeue8ByteLong() {
+        return Long.parseLong(dequeueHexBytes(8), 16);
     }
 }
