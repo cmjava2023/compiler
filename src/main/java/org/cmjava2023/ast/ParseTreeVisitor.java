@@ -401,7 +401,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
         Symbol variableSymbol = symbolTable.getCurrentScope().resolve(variableName);
 
-        if (variableSymbol instanceof Variable variable && variable.getType() instanceof ArrayType) {
+        if (variableSymbol instanceof Variable variable) {
             return new ASTNodes.ArrayAccessNode(variable, getArrayIntegers(ctx.INTEGER()));
         }
 
