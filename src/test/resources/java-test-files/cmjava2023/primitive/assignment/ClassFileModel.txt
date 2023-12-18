@@ -1,0 +1,2589 @@
+root (field of type ClassfileModel)
+|- packageNameWithDelimiterForClassFile: cmjava2023/primitive/assignment
+|- constantPool
+|  |- 0 (field of type ClassConstantInfo)
+|  |  |- name (field of type Utf8ConstantInfo)
+|  |  |  |- name: cmjava2023/primitive/assignment/Main
+|  |  |  |- utf8encodedName: cmjava2023/primitive/assignment/Main
+|  |  |  L  tag: CONSTANT_Utf8
+|  |  L  tag: CONSTANT_Class
+|  L  1 (field of type ClassConstantInfo)
+|     |- name (field of type Utf8ConstantInfo)
+|     |  |- name: java/lang/Object
+|     |  |- utf8encodedName: java/lang/Object
+|     |  L  tag: CONSTANT_Utf8
+|     L  tag: CONSTANT_Class
+|- classClassAccessModifiers
+|  |- 0: ACC_PUBLIC
+|  L  1: ACC_SUPER
+|- constantPoolIndex: 0
+|- numberOfInterfaces: 0
+|- interfaceDefinitions
+|- numberOfFields: 0
+|- fieldDefinitions
+|- methodDefinitions
+|  |- 0 (field of type MethodInfo)
+|  |  |- accessModifiers
+|  |  |  |- 0: ACC_PUBLIC
+|  |  |  L  1: ACC_STATIC
+|  |  |- attributes
+|  |  |  L  0 (field of type CodeAttributeInfo)
+|  |  |     |- code
+|  |  |     |  |- 0 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 1 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 2 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 3 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 4 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 5 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 6 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: integer: 
+|  |  |     |  |        |  |- utf8encodedName: integer: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 7 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 8 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 9 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 10 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 11 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 12 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 13 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 14 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 15 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 16 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 17 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 18 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: integer: 
+|  |  |     |  |        |  |- utf8encodedName: integer: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 19 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 20 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 21 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 22 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 23 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 24 (field of type Iconst_0)
+|  |  |     |  |  |- opCodeValue: 3
+|  |  |     |  |  L  values
+|  |  |     |  |- 25 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 26 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 27 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 28 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 29 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 30 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: bool: 
+|  |  |     |  |        |  |- utf8encodedName: bool: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 31 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 32 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 33 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 34 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 35 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 36 (field of type Iconst_1)
+|  |  |     |  |  |- opCodeValue: 4
+|  |  |     |  |  L  values
+|  |  |     |  |- 37 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 38 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 39 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 40 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 41 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 42 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: bool: 
+|  |  |     |  |        |  |- utf8encodedName: bool: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 43 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 44 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 45 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 46 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 47 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 48 (field of type FloatConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 49 (field of type StoreFloat)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 50 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 51 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 52 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 53 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 54 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: floatingPoint: 
+|  |  |     |  |        |  |- utf8encodedName: floatingPoint: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 55 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 56 (field of type LoadFloat)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 57 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 58 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 59 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 60 (field of type FloatConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 61 (field of type StoreFloat)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 62 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 63 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 64 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 65 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 66 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: floatingPoint: 
+|  |  |     |  |        |  |- utf8encodedName: floatingPoint: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 67 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 68 (field of type LoadFloat)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 69 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 70 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 71 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 72 (field of type LongConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 73 (field of type StoreLong)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 74 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 75 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 76 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 77 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 78 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: longVariable: 
+|  |  |     |  |        |  |- utf8encodedName: longVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 79 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 80 (field of type LoadLong)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 81 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 82 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 83 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 84 (field of type LongConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 85 (field of type StoreLong)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 86 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 87 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 88 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 89 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 90 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: longVariable: 
+|  |  |     |  |        |  |- utf8encodedName: longVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 91 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 92 (field of type LoadLong)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 93 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 94 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 95 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 96 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 97 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 98 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 99 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 100 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 101 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 102 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: character: 
+|  |  |     |  |        |  |- utf8encodedName: character: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 103 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 104 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 105 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 106 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 107 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 108 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 109 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 110 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 111 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 112 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 113 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 114 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: character: 
+|  |  |     |  |        |  |- utf8encodedName: character: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 115 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 116 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 117 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 118 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 119 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 120 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 121 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 122 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 123 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 124 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 125 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 126 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: byteVariable: 
+|  |  |     |  |        |  |- utf8encodedName: byteVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 127 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 128 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 129 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 130 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 131 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 132 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 133 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 134 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 135 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 136 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 137 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 138 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: byteVariable: 
+|  |  |     |  |        |  |- utf8encodedName: byteVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 139 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 140 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 141 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 142 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 143 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 144 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 145 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 146 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 147 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 148 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 149 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 150 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: shortVariable: 
+|  |  |     |  |        |  |- utf8encodedName: shortVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 151 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 152 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 153 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 154 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 155 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 156 (field of type IntConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 157 (field of type StoreInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 158 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 159 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 160 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 161 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 162 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: shortVariable: 
+|  |  |     |  |        |  |- utf8encodedName: shortVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 163 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 164 (field of type LoadInt)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 165 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 166 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 167 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 168 (field of type FloatConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 169 (field of type StoreDouble)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 170 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 171 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 172 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 173 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 174 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: doubleVariable: 
+|  |  |     |  |        |  |- utf8encodedName: doubleVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 175 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 176 (field of type LoadDouble)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 177 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 178 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 179 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 180 (field of type FloatConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 181 (field of type StoreDouble)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 182 (field of type Getstatic)
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/System
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: out
+|  |  |     |  |        |  |  |- utf8encodedName: out
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Fieldref
+|  |  |     |  |- 183 (field of type New)
+|  |  |     |  |  |- opCodeValue: -69
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type ClassConstantInfo)
+|  |  |     |  |        |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_Class
+|  |  |     |  |- 184 (field of type Dup)
+|  |  |     |  |  |- opCodeValue: 89
+|  |  |     |  |  L  values
+|  |  |     |  |- 185 (field of type Invokespecial)
+|  |  |     |  |  |- opCodeValue: -73
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: <init>
+|  |  |     |  |        |  |  |- utf8encodedName: <init>
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()V
+|  |  |     |  |        |  |  |- utf8encodedName: ()V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 186 (field of type LoadConstant)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type StringConstantInfo)
+|  |  |     |  |        |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |- name: doubleVariable: 
+|  |  |     |  |        |  |- utf8encodedName: doubleVariable: 
+|  |  |     |  |        |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        L  tag: CONSTANT_String
+|  |  |     |  |- 187 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 188 (field of type LoadDouble)
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  L  values
+|  |  |     |  |- 189 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: append
+|  |  |     |  |        |  |  |- utf8encodedName: append
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  |- utf8encodedName: (I)Ljava/lang/StringBuilder;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 190 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/lang/StringBuilder
+|  |  |     |  |        |  |  |- utf8encodedName: java/lang/StringBuilder
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: toString
+|  |  |     |  |        |  |  |- utf8encodedName: toString
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: ()Ljava/lang/String;
+|  |  |     |  |        |  |  |- utf8encodedName: ()Ljava/lang/String;
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  |- 191 (field of type Invokevirtual)
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  L  values
+|  |  |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: java/io/PrintStream
+|  |  |     |  |        |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_Class
+|  |  |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: println
+|  |  |     |  |        |  |  |- utf8encodedName: println
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |        |  |  |- name: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |        |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |        |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |        L  tag: CONSTANT_Methodref
+|  |  |     |  L  192 (field of type Return)
+|  |  |     |     |- opCodeValue: -79
+|  |  |     |     L  values
+|  |  |     L  name (field of type Utf8ConstantInfo)
+|  |  |        |- name: Code
+|  |  |        |- utf8encodedName: Code
+|  |  |        L  tag: CONSTANT_Utf8
+|  |  |- name (field of type Utf8ConstantInfo)
+|  |  |  |- name: main
+|  |  |  |- utf8encodedName: main
+|  |  |  L  tag: CONSTANT_Utf8
+|  |  L  typeDescriptor (field of type Utf8ConstantInfo)
+|  |     |- name: ([Ljava/lang/String;)V
+|  |     |- utf8encodedName: ([Ljava/lang/String;)V
+|  |     L  tag: CONSTANT_Utf8
+|  L  1 (field of type MethodInfo)
+|     |- accessModifiers
+|     |  L  0: ACC_PUBLIC
+|     |- attributes
+|     |  L  0 (field of type CodeAttributeInfo)
+|     |     |- code
+|     |     |  |- 0 (field of type Aload_0)
+|     |     |  |  |- opCodeValue: 42
+|     |     |  |  L  values
+|     |     |  |- 1 (field of type Invokespecial)
+|     |     |  |  |- opCodeValue: -73
+|     |     |  |  L  values
+|     |     |  |     L  0 (field of type MethodReferenceConstantInfo)
+|     |     |  |        |- classConstantInfo (field of type ClassConstantInfo)
+|     |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|     |     |  |        |  |  |- name: java/lang/Object
+|     |     |  |        |  |  |- utf8encodedName: java/lang/Object
+|     |     |  |        |  |  L  tag: CONSTANT_Utf8
+|     |     |  |        |  L  tag: CONSTANT_Class
+|     |     |  |        |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|     |     |  |        |  |- name (field of type Utf8ConstantInfo)
+|     |     |  |        |  |  |- name: <init>
+|     |     |  |        |  |  |- utf8encodedName: <init>
+|     |     |  |        |  |  L  tag: CONSTANT_Utf8
+|     |     |  |        |  |- type (field of type Utf8ConstantInfo)
+|     |     |  |        |  |  |- name: ()V
+|     |     |  |        |  |  |- utf8encodedName: ()V
+|     |     |  |        |  |  L  tag: CONSTANT_Utf8
+|     |     |  |        |  L  tag: CONSTANT_NameAndType
+|     |     |  |        L  tag: CONSTANT_Methodref
+|     |     |  L  2 (field of type Return)
+|     |     |     |- opCodeValue: -79
+|     |     |     L  values
+|     |     L  name (field of type Utf8ConstantInfo)
+|     |        |- name: Code
+|     |        |- utf8encodedName: Code
+|     |        L  tag: CONSTANT_Utf8
+|     |- name (field of type Utf8ConstantInfo)
+|     |  |- name: <init>
+|     |  |- utf8encodedName: <init>
+|     |  L  tag: CONSTANT_Utf8
+|     L  typeDescriptor (field of type Utf8ConstantInfo)
+|        |- name: ()V
+|        |- utf8encodedName: ()V
+|        L  tag: CONSTANT_Utf8
+|- attributesCount: 0
+L  attributeDefinitions
