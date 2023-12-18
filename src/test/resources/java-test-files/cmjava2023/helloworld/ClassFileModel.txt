@@ -51,6 +51,12 @@ root (field of type ClassfileModel)
 |  |  |     |  |        |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |        L  tag: CONSTANT_Fieldref
 |  |  |     |  |- 1 (field of type LoadConstant)
+|  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
+|  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |- name: Hello world!
+|  |  |     |  |  |  |  |- utf8encodedName: Hello world!
+|  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  L  values
 |  |  |     |  |     L  0 (field of type StringConstantInfo)
