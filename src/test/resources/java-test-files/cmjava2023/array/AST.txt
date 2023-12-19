@@ -550,8 +550,7 @@ L  body
                   |     L  name: void
                   L  values
                      L  0 (field of type InfixNode)
-                        |- leftExpression (field of type ResolvedIdentifierNode)
-                        |  |- name: i2
+                        |- leftExpression (field of type VariableCallNode)
                         |  L  symbol (field of type Variable)
                         |     |- initialExpression (field of type ArrayInstantiationNode)
                         |     |  |- type (field of type InvalidType)
@@ -567,6 +566,9 @@ L  body
                         |        |     L  name: int
                         |        L  dimensions: 2
                         |- operator: DOT
-                        L  rightExpression (field of type ResolvedIdentifierNode)
-                           |- name: length
-                           L  symbol: null
+                        L  rightExpression (field of type VariableCallNode)
+                           L  symbol (field of type InvalidVariable)
+                              |- initialExpression: null
+                              |- name: length
+                              L  type (field of type InvalidType)
+                                 L  name:

@@ -46,8 +46,7 @@ L  body
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
-               |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |  |- name: l
+               |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
                |     |  |     |  L  value: 10
@@ -55,8 +54,7 @@ L  body
                |     |  |     L  type (field of type BuiltIn)
                |     |  |        L  name: long
                |     |  |- operator: PLUS
-               |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |     |     |- name: l
+               |     |  L  rightExpression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
                |     |        |  L  value: 10
@@ -69,12 +67,10 @@ L  body
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
-               |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |  |- name: l2
+               |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type InfixNode)
-               |     |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |  |  |- name: l
+               |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
                |     |  |     |  |     |  L  value: 10
@@ -82,8 +78,7 @@ L  body
                |     |  |     |  |     L  type (field of type BuiltIn)
                |     |  |     |  |        L  name: long
                |     |  |     |  |- operator: PLUS
-               |     |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |     |- name: l
+               |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
                |     |  |     |        |  L  value: 10
@@ -102,12 +97,10 @@ L  body
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
-               |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |  |- name: l2
+               |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type InfixNode)
-               |     |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |  |  |- name: l
+               |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
                |     |  |     |  |     |  L  value: 10
@@ -115,8 +108,7 @@ L  body
                |     |  |     |  |     L  type (field of type BuiltIn)
                |     |  |     |  |        L  name: long
                |     |  |     |  |- operator: PLUS
-               |     |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |     |- name: l
+               |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
                |     |  |     |        |  L  value: 10
@@ -136,20 +128,37 @@ L  body
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type UnaryPrefixNode)
                |     |  |- operator: MINUS
-               |     |  L  Expression (field of type RawIdentifierNode)
-               |     |     L  name: l2
+               |     |  L  Expression (field of type VariableCallNode)
+               |     |     L  symbol (field of type Variable)
+               |     |        |- initialExpression (field of type InfixNode)
+               |     |        |  |- leftExpression (field of type VariableCallNode)
+               |     |        |  |  L  symbol (field of type Variable)
+               |     |        |  |     |- initialExpression (field of type ValueNode)
+               |     |        |  |     |  L  value: 10
+               |     |        |  |     |- name: l
+               |     |        |  |     L  type (field of type BuiltIn)
+               |     |        |  |        L  name: long
+               |     |        |  |- operator: PLUS
+               |     |        |  L  rightExpression (field of type VariableCallNode)
+               |     |        |     L  symbol (field of type Variable)
+               |     |        |        |- initialExpression (field of type ValueNode)
+               |     |        |        |  L  value: 10
+               |     |        |        |- name: l
+               |     |        |        L  type (field of type BuiltIn)
+               |     |        |           L  name: long
+               |     |        |- name: l2
+               |     |        L  type (field of type BuiltIn)
+               |     |           L  name: long
                |     |- name: l5
                |     L  type (field of type BuiltIn)
                |        L  name: long
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
-               |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |  |- name: l2
+               |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type InfixNode)
-               |     |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |  |  |- name: l
+               |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
                |     |  |     |  |     |  L  value: 10
@@ -157,8 +166,7 @@ L  body
                |     |  |     |  |     L  type (field of type BuiltIn)
                |     |  |     |  |        L  name: long
                |     |  |     |  |- operator: PLUS
-               |     |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |     |  |     |     |- name: l
+               |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
                |     |  |     |        |  L  value: 10
@@ -177,8 +185,7 @@ L  body
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
-               |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |     |  |  |- name: l
+               |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
                |     |  |     |  L  value: 10
@@ -186,8 +193,7 @@ L  body
                |     |  |     L  type (field of type BuiltIn)
                |     |  |        L  name: long
                |     |  |- operator: MINUS
-               |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |     |     |- name: l
+               |     |  L  rightExpression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
                |     |        |  L  value: 10
@@ -215,8 +221,7 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
                |           |  L  value: 10
@@ -241,12 +246,10 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l2
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
-               |           |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |  |- name: l
+               |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
                |           |  |     |  L  value: 10
@@ -254,8 +257,7 @@ L  body
                |           |  |     L  type (field of type BuiltIn)
                |           |  |        L  name: long
                |           |  |- operator: PLUS
-               |           |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |     |- name: l
+               |           |  L  rightExpression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
                |           |        |  L  value: 10
@@ -283,16 +285,13 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l3
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
-               |           |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |  |- name: l2
+               |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type InfixNode)
-               |           |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |  |  |- name: l
+               |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
                |           |  |     |  |     |  L  value: 10
@@ -300,8 +299,7 @@ L  body
                |           |  |     |  |     L  type (field of type BuiltIn)
                |           |  |     |  |        L  name: long
                |           |  |     |  |- operator: PLUS
-               |           |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |     |- name: l
+               |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
                |           |  |     |        |  L  value: 10
@@ -335,16 +333,13 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l4
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
-               |           |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |  |- name: l2
+               |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type InfixNode)
-               |           |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |  |  |- name: l
+               |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
                |           |  |     |  |     |  L  value: 10
@@ -352,8 +347,7 @@ L  body
                |           |  |     |  |     L  type (field of type BuiltIn)
                |           |  |     |  |        L  name: long
                |           |  |     |  |- operator: PLUS
-               |           |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |     |- name: l
+               |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
                |           |  |     |        |  L  value: 10
@@ -387,13 +381,31 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l5
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type UnaryPrefixNode)
                |           |  |- operator: MINUS
-               |           |  L  Expression (field of type RawIdentifierNode)
-               |           |     L  name: l2
+               |           |  L  Expression (field of type VariableCallNode)
+               |           |     L  symbol (field of type Variable)
+               |           |        |- initialExpression (field of type InfixNode)
+               |           |        |  |- leftExpression (field of type VariableCallNode)
+               |           |        |  |  L  symbol (field of type Variable)
+               |           |        |  |     |- initialExpression (field of type ValueNode)
+               |           |        |  |     |  L  value: 10
+               |           |        |  |     |- name: l
+               |           |        |  |     L  type (field of type BuiltIn)
+               |           |        |  |        L  name: long
+               |           |        |  |- operator: PLUS
+               |           |        |  L  rightExpression (field of type VariableCallNode)
+               |           |        |     L  symbol (field of type Variable)
+               |           |        |        |- initialExpression (field of type ValueNode)
+               |           |        |        |  L  value: 10
+               |           |        |        |- name: l
+               |           |        |        L  type (field of type BuiltIn)
+               |           |        |           L  name: long
+               |           |        |- name: l2
+               |           |        L  type (field of type BuiltIn)
+               |           |           L  name: long
                |           |- name: l5
                |           L  type (field of type BuiltIn)
                |              L  name: long
@@ -415,16 +427,13 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l6
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
-               |           |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |  |- name: l2
+               |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type InfixNode)
-               |           |  |     |  |- leftExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |  |  |- name: l
+               |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
                |           |  |     |  |     |  L  value: 10
@@ -432,8 +441,7 @@ L  body
                |           |  |     |  |     L  type (field of type BuiltIn)
                |           |  |     |  |        L  name: long
                |           |  |     |  |- operator: PLUS
-               |           |  |     |  L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |  |     |     |- name: l
+               |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
                |           |  |     |        |  L  value: 10
@@ -467,12 +475,10 @@ L  body
                   |  L  type (field of type BuiltIn)
                   |     L  name: void
                   L  values
-                     L  0 (field of type ResolvedIdentifierNode)
-                        |- name: l7
+                     L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type InfixNode)
-                           |  |- leftExpression (field of type ResolvedIdentifierNode)
-                           |  |  |- name: l
+                           |  |- leftExpression (field of type VariableCallNode)
                            |  |  L  symbol (field of type Variable)
                            |  |     |- initialExpression (field of type ValueNode)
                            |  |     |  L  value: 10
@@ -480,8 +486,7 @@ L  body
                            |  |     L  type (field of type BuiltIn)
                            |  |        L  name: long
                            |  |- operator: MINUS
-                           |  L  rightExpression (field of type ResolvedIdentifierNode)
-                           |     |- name: l
+                           |  L  rightExpression (field of type VariableCallNode)
                            |     L  symbol (field of type Variable)
                            |        |- initialExpression (field of type ValueNode)
                            |        |  L  value: 10
