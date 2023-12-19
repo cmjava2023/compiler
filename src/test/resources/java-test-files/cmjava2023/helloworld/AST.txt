@@ -32,7 +32,7 @@ L  body
             |           |  |- name: String
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
-            |           L  maxArraySize: -1
+            |           L  dimensions: 1
             L  body
                L  0 (field of type FunctionCallNode)
                   |- function (field of type Function)
