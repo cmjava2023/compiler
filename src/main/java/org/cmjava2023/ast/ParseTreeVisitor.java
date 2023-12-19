@@ -489,10 +489,8 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // if_statement: IF_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx) {
-        setLocalScope();
-        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
+        ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
         ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
-        symbolTable.popScope();
         return new ASTNodes.IfNode(expression, statements);
     }
 
@@ -500,10 +498,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // else_statement: ELSE_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE;
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public ASTNodes.Node visitElse_statement(MainAntlrParser.Else_statementContext ctx) {
-        setLocalScope();
-        ArrayList<ASTNodes.Statement> statements = getStatements(ctx.function_scope().children);
-        symbolTable.popScope();
-        return new ASTNodes.ElseNode(statements);
+        return new ASTNodes.ElseNode(getLocalScopeStatements(ctx.function_scope().children));
     }
 
     private void setLocalScope() {
