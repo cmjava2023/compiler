@@ -53,8 +53,5 @@ public class Main {
 
         System.out.println("s:");
         System.out.println(s[0]);
-
-        System.out.println("len:");
-        System.out.println(i2.length);
     }
 }

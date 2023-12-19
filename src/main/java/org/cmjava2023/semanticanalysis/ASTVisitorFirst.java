@@ -173,14 +173,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
             return resolveNestedIdentifier(classSymbol, removeFirstElement(strings), newScope);
         }
 
-        if (currentSymbol instanceof Variable) {
-            if (currentSymbol.getType() instanceof ArrayType arrayType) {
-
-            } else if (currentSymbol.getType() instanceof Clazz classType) {
-                return resolveNestedIdentifier(classType, strings, classType);
-            }
-        }
-
         return null;
     }
 

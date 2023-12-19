@@ -506,42 +506,7 @@ L  body
                |  L  values
                |     L  0 (field of type ValueNode)
                |        L  value: s:
-               |- 29 (field of type FunctionCallNode)
-               |  |- function (field of type Function)
-               |  |  |- accessModifier: PUBLIC
-               |  |  |- instanceModifier: null
-               |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
-               |     L  0 (field of type ArrayAccessNode)
-               |        |- array (field of type Variable)
-               |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
-               |        |  |  L  expressions
-               |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
-               |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
-               |        |  |- name: s
-               |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: short
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: short
-               |        |     L  dimensions: 1
-               |        L  elementIndicesAccessed
-               |           L  0: 0
-               |- 30 (field of type FunctionCallNode)
-               |  |- function (field of type Function)
-               |  |  |- accessModifier: PUBLIC
-               |  |  |- instanceModifier: null
-               |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
-               |     L  0 (field of type ValueNode)
-               |        L  value: len:
-               L  31 (field of type FunctionCallNode)
+               L  29 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
@@ -549,26 +514,20 @@ L  body
                   |  L  type (field of type BuiltIn)
                   |     L  name: void
                   L  values
-                     L  0 (field of type InfixNode)
-                        |- leftExpression (field of type VariableCallNode)
-                        |  L  symbol (field of type Variable)
-                        |     |- initialExpression (field of type ArrayInstantiationNode)
-                        |     |  |- type (field of type InvalidType)
-                        |     |  |  L  name: int
-                        |     |  L  dimensionSizes
-                        |     |     |- 0: 10
-                        |     |     L  1: 10
-                        |     |- name: i2
-                        |     L  type (field of type ArrayType)
-                        |        |- arrayType (field of type BuiltIn)
-                        |        |  |- name: int
-                        |        |  L  type (field of type BuiltIn)
-                        |        |     L  name: int
-                        |        L  dimensions: 2
-                        |- operator: DOT
-                        L  rightExpression (field of type VariableCallNode)
-                           L  symbol (field of type InvalidVariable)
-                              |- initialExpression: null
-                              |- name: length
-                              L  type (field of type InvalidType)
-                                 L  name:
+                     L  0 (field of type ArrayAccessNode)
+                        |- array (field of type Variable)
+                        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
+                        |  |  L  expressions
+                        |  |     |- 0 (field of type ValueNode)
+                        |  |     |  L  value: 10
+                        |  |     L  1 (field of type ValueNode)
+                        |  |        L  value: 11
+                        |  |- name: s
+                        |  L  type (field of type ArrayType)
+                        |     |- arrayType (field of type BuiltIn)
+                        |     |  |- name: short
+                        |     |  L  type (field of type BuiltIn)
+                        |     |     L  name: short
+                        |     L  dimensions: 1
+                        L  elementIndicesAccessed
+                           L  0: 0
