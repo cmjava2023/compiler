@@ -1,0 +1,24 @@
+GlobalScope
+|- boolean: boolean
+|- void: void
+|- byte: byte
+|- double: double
+|- char: char
+|- short: short
+|- String: String
+|- float: float
+|- Main: Main
+|  L  main: void
+|     |- args: String[]
+|     L  LocalScope
+|        |- force_const: long
+|        |- d: double
+|        |- f: float
+|        |- i: int
+|        |- l: long
+|        |- force_store: long
+|        L  force_load: long
+|- int: int
+|- long: long
+L  System.out.println: void
+   L  x: String

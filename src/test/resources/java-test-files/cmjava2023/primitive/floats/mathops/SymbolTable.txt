@@ -1,0 +1,24 @@
+GlobalScope
+|- boolean: boolean
+|- void: void
+|- byte: byte
+|- double: double
+|- char: char
+|- short: short
+|- String: String
+|- float: float
+|- Main: Main
+|  L  main: void
+|     |- args: String[]
+|     L  LocalScope
+|        |- f6: float
+|        |- f7: float
+|        |- f: float
+|        |- f2: float
+|        |- f3: float
+|        |- f4: float
+|        L  f5: float
+|- int: int
+|- long: long
+L  System.out.println: void
+   L  x: String
