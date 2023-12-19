@@ -7,13 +7,13 @@
       "accessModifierHex" : "0009",
       "name" : "main",
       "typeDescriptor" : "([Ljava/lang/String;)V",
-      "code" : "B2000D120FB60015B1"
+      "code" : "Getstatic: '09 0009.000C', \nLdc: '15', \nInvokevirtual: '0A 0011.0014', \nReturn: \n"
     },
     {
       "accessModifierHex" : "0001",
       "name" : "<init>",
       "typeDescriptor" : "()V",
-      "code" : "2AB7001EB1"
+      "code" : "Aload_0: \nInvokespecial: '0A 001A.001D', \nReturn: \n"
     }
   ]
 }

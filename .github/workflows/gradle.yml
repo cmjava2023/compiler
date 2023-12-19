@@ -31,6 +31,18 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0 https://github.com/marketplace/actions/gradle-build-action
       with:
         arguments: build
+    - name: UploadReports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: TestReports
+        path: build/test-results/test
+    - name: UploadCompiled
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: Compiled
+        path: build/test-files-compiled-by-us/cmjava2023
     - name: Test Report as Check
       uses: dorny/test-reporter@v1 # https://github.com/marketplace/actions/test-reporter
       if: always()

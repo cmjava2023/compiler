@@ -8,7 +8,7 @@ import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 class BytecodeFromClassfileModel {
 
     fun generate(model: ClassfileModel): ByteArray {
-        val classFileBytes = ConstantPoolToByteList.mapToClassFileBytes(model.constantPool, model.methodDefinitions)
+        val classFileBytes = ConstantPoolToByteList().mapToClassFileBytes(model.constantPool, model.methodDefinitions)
 
         val result: MutableList<Byte> = mutableListOf()
         result.add(MAGIC_NUMBER)

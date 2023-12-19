@@ -11,7 +11,7 @@ import java.util.Collection;
 public class DynamicTestsForTestFilesHelper {
 
     public interface DynamicTestCallback {
-        Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheHelpedClassIsIn, String pathToMain, String contentOfExpectationFile);
+        Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheClassIsIn, String pathToMain, String contentOfExpectationFile);
     }
 
     public static Collection<DynamicTest> createForAllTestMainsWithFileOfNameBeside(String expectedFileName, DynamicTestCallback dynamicTestCallback) throws IOException {
