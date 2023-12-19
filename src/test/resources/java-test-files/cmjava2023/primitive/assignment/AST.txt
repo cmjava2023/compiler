@@ -33,7 +33,7 @@ L  body
             |           |  |- name: String
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
-            |           L  maxArraySize: -1
+            |           L  dimensions: 1
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
@@ -54,8 +54,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: integer: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: integer
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 8
@@ -83,8 +82,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: integer: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: integer
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 8
@@ -110,8 +108,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: bool: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: bool
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: false
@@ -139,8 +136,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: bool: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: bool
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: false
@@ -166,8 +162,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: floatingPoint: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: floatingPoint
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 0.88
@@ -195,8 +190,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: floatingPoint: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: floatingPoint
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 0.88
@@ -222,8 +216,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: longVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: longVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 8888
@@ -251,8 +244,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: longVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: longVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 8888
@@ -278,8 +270,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: character: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: character
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: '
@@ -307,8 +298,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: character: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: character
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: '
@@ -334,8 +324,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: byteVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: byteVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 88
@@ -363,8 +352,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: byteVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: byteVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 88
@@ -390,8 +378,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: shortVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: shortVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 888
@@ -419,8 +406,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: shortVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: shortVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 888
@@ -446,8 +432,7 @@ L  body
                |        |- leftExpression (field of type ValueNode)
                |        |  L  value: doubleVariable: 
                |        |- operator: PLUS
-               |        L  rightExpression (field of type ResolvedIdentifierNode)
-               |           |- name: doubleVariable
+               |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
                |              |  L  value: 0.8888889
@@ -475,8 +460,7 @@ L  body
                         |- leftExpression (field of type ValueNode)
                         |  L  value: doubleVariable: 
                         |- operator: PLUS
-                        L  rightExpression (field of type ResolvedIdentifierNode)
-                           |- name: doubleVariable
+                        L  rightExpression (field of type VariableCallNode)
                            L  symbol (field of type Variable)
                               |- initialExpression (field of type ValueNode)
                               |  L  value: 0.8888889

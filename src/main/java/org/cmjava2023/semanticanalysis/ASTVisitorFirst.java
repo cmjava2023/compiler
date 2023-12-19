@@ -5,6 +5,7 @@ import org.cmjava2023.ast.ASTTraverser;
 import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
@@ -54,6 +55,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         return expressionList;
     }
 
+    private ArrayList<ASTNodes.CaseNode> getModifiedCaseNodes(ArrayList<ASTNodes.CaseNode> caseNodes) {
+        ArrayList<ASTNodes.CaseNode> caseNodeList = new ArrayList<>();
+
+        for (ASTNodes.CaseNode caseNode : caseNodes) {
+
+            caseNodeList.add(new ASTNodes.CaseNode((ASTNodes.Expression) caseNode.caseEx().accept(this), getModifiedStatements(caseNode.body())));
+        }
+
+        return caseNodeList;
+    }
+
     @Override
     public ASTNodes.Node visit(ASTNodes.StartNode node) {
         return new ASTNodes.StartNode(getModifiedStatements(node.body()));
@@ -86,7 +98,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.SwitchNode switchNode) {
-        return switchNode;
+        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), (ASTNodes.Expression) switchNode.defaultEx().accept(this));
     }
 
     @Override
@@ -115,16 +127,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.RawFunctionCallNode node) {
-        Symbol functionSymbol = resolveNestedIdentifier(null, node.nestedIdentifier(), node.scope());
+    public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
+        String[] nestedIdentifierArray = node.function().getName().split("\\.");
+        ArrayList<String> nestedIdentifier = new ArrayList<>(Arrays.asList(nestedIdentifierArray));
+        Symbol functionSymbol = resolveNestedIdentifier(null, nestedIdentifier, node.function().getScope());
 
         if (functionSymbol instanceof Function function) {
             return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
         }
 
-        errors.add(String.format("Function %s is not declared", String.join(".", node.nestedIdentifier())));
-        return new ASTNodes.FunctionCallNode(null, getModifiedExpressions(node.values()));
-
+        errors.add(String.format("Function %s is not declared", String.join(".", node.function().getName())));
+        return node;
     }
 
     private static ArrayList<String> removeFirstElement(ArrayList<String> list) {
@@ -165,7 +178,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.IfNode node) {
-        return new ASTNodes.IfNode(node.expression(), getModifiedStatements(node.statements()));
+        return new ASTNodes.IfNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.statements()));
     }
 
     @Override
@@ -195,8 +208,10 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         String type = invalidType.getName();
         String arrayIndicator = "[]";
         boolean isArray = type.contains(arrayIndicator);
+        int dimensions = 0;
 
         if (isArray) {
+            dimensions = countOccurrences(type, arrayIndicator);
             type = type.replace(arrayIndicator, "");
         }
 
@@ -204,13 +219,25 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
         if (typeSymbol != null) {
             if (isArray) {
-                symbol.setType(new ArrayType(typeSymbol.getType()));
+                symbol.setType(new ArrayType(typeSymbol.getType(), dimensions));
             } else {
                 symbol.setType(typeSymbol.getType());
             }
         } else {
             errors.add(String.format("Cannot find type %s for %s %s", invalidType.getName(), errorMessagePart, symbol.getName()));
         }
+    }
+
+    public static int countOccurrences(String input, String pattern) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = input.indexOf(pattern, index)) != -1) {
+            count++;
+            index += pattern.length();
+        }
+
+        return count;
     }
 
     private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
@@ -230,40 +257,31 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) {
-        return rawFunctionCallNode;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
         return node;
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
-        return node;
+        return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.comparisonOperator(), (ASTNodes.Expression) node.rightExpression().accept(this));
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.RawIdentifierNode rawIdentifierNode) {
-        Symbol identifierSymbol = rawIdentifierNode.scope().resolve(rawIdentifierNode.name());
+    public ASTNodes.Node visit(ASTNodes.VariableCallNode node) {
+        String symbolName = node.symbol().getName();
+        Symbol identifierSymbol = node.symbol().getScope().resolve(symbolName);
 
         if (identifierSymbol instanceof Variable variable) {
-            return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), variable);
+            return new ASTNodes.VariableCallNode(variable);
         }
 
-        errors.add(String.format("Variable %s is not declared", rawIdentifierNode.name()));
-        return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), null);
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ResolvedIdentifierNode resolvedIdentifierNode) {
-        return resolvedIdentifierNode;
+        errors.add(String.format("Variable %s is not declared", symbolName));
+        return node;
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ReturnNode node) {
-        return node;
+        return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
     }
 
     @Override
@@ -288,17 +306,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnaryPrefixNode node) {
-        return node;
+        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnarySuffixNode node) {
-        return node;
+        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ParenthesesNode node) {
-        return node;
+        return new ASTNodes.ParenthesesNode((ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
@@ -320,9 +338,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
             if (typeSymbol != null) {
                 if (isArray) {
-                    return new ASTNodes.CastNode(new ArrayType(typeSymbol.getType()), node.expression(), node.scope());
+                    return new ASTNodes.CastNode(new ArrayType(typeSymbol.getType()), (ASTNodes.Expression) node.expression().accept(this), node.scope());
                 } else {
-                    return new ASTNodes.CastNode(typeSymbol.getType(), node.expression(), node.scope());
+                    return new ASTNodes.CastNode(typeSymbol.getType(), (ASTNodes.Expression) node.expression().accept(this), node.scope());
                 }
             } else {
                 errors.add(String.format("Cannot find type %s for cast expression", invalidType.getName()));
@@ -333,7 +351,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ArrayInstantiationWithValuesNode node) {
-        return node;
+        return new ASTNodes.ArrayInstantiationWithValuesNode(getModifiedExpressions(node.expressions()));
     }
 
     @Override
@@ -353,21 +371,31 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
-        return new ASTNodes.ForLoopNode(node.loopVariable(), node.termination(), node.increment(), getModifiedStatements(node.body()));
+        return new ASTNodes.ForLoopNode(node.loopVariable(), (ASTNodes.Expression) node.termination().accept(this), (ASTNodes.Expression) node.increment().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.WhileLoopNode node) {
-        return new ASTNodes.WhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+        return new ASTNodes.WhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.DoWhileLoopNode node) {
-        return new ASTNodes.DoWhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+        return new ASTNodes.DoWhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.OperatorNode node) {
         return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.VariableFieldCallNode variableFieldCallNode) {
+        return null;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode) {
+        return null;
     }
 }
