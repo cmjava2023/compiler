@@ -104,8 +104,8 @@ public class ASTNodes {
     }
 
     // enum_declaration -> EnumNode
-    public record EnumNode(RawIdentifierNode identifier,
-                           ArrayList<RawIdentifierNode> enums) implements Node, Statement {
+    public record EnumNode(Clazz enumClass,
+                           ArrayList<Variable> constants) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -122,16 +122,6 @@ public class ASTNodes {
 
     //Function_declaration_arg-> ParameterNode
     public record ParameterNode(Parameter parameterSymbol) implements Node {
-        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
-            return visitor.visit(this);
-        }
-    }
-
-    // Can have null as values.
-    // function_call -> CallNode
-    public record RawFunctionCallNode(ArrayList<String> nestedIdentifier,
-                                      ArrayList<Expression> values,
-                                      Scope scope) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -315,20 +305,27 @@ public class ASTNodes {
         }
     }
 
-    public record RawIdentifierNode(
-            String name,
-            Scope scope) implements Node, Expression {
+    public record VariableCallNode(
+            Variable symbol) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    public record ResolvedIdentifierNode(
-            String name, Variable symbol) implements Node, Expression {
+    public record VariableFieldCallNode(
+            Variable variable, Variable field) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
+
+    public record VariableFunctionCallNode(
+            Variable variable, Function function) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
 
     // return_statement ->ReturnNode
     // expressions->Expression;

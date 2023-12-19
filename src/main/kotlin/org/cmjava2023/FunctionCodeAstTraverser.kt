@@ -52,10 +52,6 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(rawFunctionCallNode: ASTNodes.RawFunctionCallNode?): List<OpCode> {
-        TODO("Not yet implemented")
-    }
-
     override fun visit(functionCallNode: ASTNodes.FunctionCallNode): List<OpCode> {
         if (functionCallNode.function.name == "System.out.println"
         ) {
@@ -176,21 +172,17 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(rawIdentifierNode: ASTNodes.RawIdentifierNode?): List<OpCode> {
-        TODO("Not yet implemented")
-    }
-
-    override fun visit(resolvedIdentifierNode: ASTNodes.ResolvedIdentifierNode): List<OpCode> {
-        return listOf(when(resolvedIdentifierNode.symbol.type.name) {
-            "int" -> OpCode.LoadInt(resolvedIdentifierNode.symbol)
-            "long" -> OpCode.LoadLong(resolvedIdentifierNode.symbol)
-            "float" -> OpCode.LoadFloat(resolvedIdentifierNode.symbol)
-            "double" -> OpCode.LoadDouble(resolvedIdentifierNode.symbol)
-            "boolean" -> OpCode.LoadInt(resolvedIdentifierNode.symbol)
-            "char" -> OpCode.LoadInt(resolvedIdentifierNode.symbol)
-            "byte" -> OpCode.LoadInt(resolvedIdentifierNode.symbol)
-            "short" -> OpCode.LoadInt(resolvedIdentifierNode.symbol)
-            else -> throw NotImplementedError("typename:${resolvedIdentifierNode.symbol.type.name}")
+    override fun visit(variableCallNode: ASTNodes.VariableCallNode): List<OpCode> {
+        return listOf(when(variableCallNode.symbol.type.name) {
+            "int" -> OpCode.LoadInt(variableCallNode.symbol)
+            "long" -> OpCode.LoadLong(variableCallNode.symbol)
+            "float" -> OpCode.LoadFloat(variableCallNode.symbol)
+            "double" -> OpCode.LoadDouble(variableCallNode.symbol)
+            "boolean" -> OpCode.LoadInt(variableCallNode.symbol)
+            "char" -> OpCode.LoadInt(variableCallNode.symbol)
+            "byte" -> OpCode.LoadInt(variableCallNode.symbol)
+            "short" -> OpCode.LoadInt(variableCallNode.symbol)
+            else -> throw NotImplementedError("typename:${variableCallNode.symbol.type.name}")
         })
     }
 
@@ -255,6 +247,14 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(operatorNode: ASTNodes.OperatorNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(variableFieldCallNode: ASTNodes.VariableFieldCallNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(variableFunctionCallNode: ASTNodes.VariableFunctionCallNode?): List<OpCode> {
         TODO("Not yet implemented")
     }
 }

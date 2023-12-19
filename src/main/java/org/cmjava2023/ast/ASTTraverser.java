@@ -5,26 +5,44 @@ import kotlin.NotImplementedError;
 
 public abstract class ASTTraverser<T> {
     public T dispatch(ASTNodes.Statement statementNode) {
-        if (statementNode instanceof ASTNodes.PackageNode) { return visit((ASTNodes.PackageNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.ClassNode) { return visit((ASTNodes.ClassNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.FunctionNode) { return visit((ASTNodes.FunctionNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.FunctionCallNode) { return visit((ASTNodes.FunctionCallNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.IfNode) { return visit((ASTNodes.IfNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.ElseNode) { return visit((ASTNodes.ElseNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.BlockScopeNode) { return visit((ASTNodes.BlockScopeNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.VariableNode) { return visit((ASTNodes.VariableNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.ReturnNode) { return visit((ASTNodes.ReturnNode)statementNode); }
-        else if (statementNode instanceof ASTNodes.VariableAssignmentNode) { return visit((ASTNodes.VariableAssignmentNode)statementNode); }
-        else { throw new NotImplementedError("type " + statementNode.getClass().getName()); }
+        if (statementNode instanceof ASTNodes.PackageNode) {
+            return visit((ASTNodes.PackageNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.ClassNode) {
+            return visit((ASTNodes.ClassNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.FunctionNode) {
+            return visit((ASTNodes.FunctionNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.FunctionCallNode) {
+            return visit((ASTNodes.FunctionCallNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.IfNode) {
+            return visit((ASTNodes.IfNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.ElseNode) {
+            return visit((ASTNodes.ElseNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.BlockScopeNode) {
+            return visit((ASTNodes.BlockScopeNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.VariableNode) {
+            return visit((ASTNodes.VariableNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.ReturnNode) {
+            return visit((ASTNodes.ReturnNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.VariableAssignmentNode) {
+            return visit((ASTNodes.VariableAssignmentNode) statementNode);
+        } else {
+            throw new NotImplementedError("type " + statementNode.getClass().getName());
+        }
     }
 
     public T dispatch(ASTNodes.Expression expressionNode) {
-        if (expressionNode instanceof ASTNodes.ValueNode<?>) { return visit((ASTNodes.ValueNode<?>)expressionNode); }
-        if (expressionNode instanceof ASTNodes.NestedIdentifierNode) { return visit((ASTNodes.NestedIdentifierNode)expressionNode); }
-        else if (expressionNode instanceof ASTNodes.ComparisonNode) { return visit((ASTNodes.ComparisonNode)expressionNode); }
-        else if (expressionNode instanceof ASTNodes.ResolvedIdentifierNode) { return visit((ASTNodes.ResolvedIdentifierNode)expressionNode); }
-        else if (expressionNode instanceof ASTNodes.RawIdentifierNode) { return visit((ASTNodes.RawIdentifierNode)expressionNode); }
-        else { throw new NotImplementedError("type " + expressionNode.getClass().getName()); }
+        if (expressionNode instanceof ASTNodes.ValueNode<?>) {
+            return visit((ASTNodes.ValueNode<?>) expressionNode);
+        }
+        if (expressionNode instanceof ASTNodes.NestedIdentifierNode) {
+            return visit((ASTNodes.NestedIdentifierNode) expressionNode);
+        } else if (expressionNode instanceof ASTNodes.ComparisonNode) {
+            return visit((ASTNodes.ComparisonNode) expressionNode);
+        } else if (expressionNode instanceof ASTNodes.VariableCallNode) {
+            return visit((ASTNodes.VariableCallNode) expressionNode);
+        } else {
+            throw new NotImplementedError("type " + expressionNode.getClass().getName());
+        }
     }
 
     public abstract T visit(ASTNodes.StartNode startNode);
@@ -47,8 +65,6 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ParameterNode node);
 
-    public abstract T visit(ASTNodes.RawFunctionCallNode rawFunctionCallNode);
-
     public abstract T visit(ASTNodes.FunctionCallNode rawFunctionCallNode);
 
     public abstract T visit(ASTNodes.IfNode ifNode);
@@ -67,27 +83,43 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ComparisonNode comparisonNode);
 
-    public abstract T visit(ASTNodes.RawIdentifierNode rawIdentifierNode);
-
-    public abstract T visit(ASTNodes.ResolvedIdentifierNode resolvedIdentifierNode);
+    public abstract T visit(ASTNodes.VariableCallNode variableCallNode);
 
     public abstract T visit(ASTNodes.ReturnNode returnNode);
 
     public abstract T visit(ASTNodes.TypeNode typeNode);
 
     public abstract T visit(ASTNodes.ArrayTypeNode arrayTypeNode);
+
     public abstract T visit(ASTNodes.ParameterAssignmentNode parameterAssigmentNode);
+
     public abstract T visit(ASTNodes.InfixNode infixNode);
+
     public abstract T visit(ASTNodes.UnaryPrefixNode unaryPrefixNode);
+
     public abstract T visit(ASTNodes.UnarySuffixNode unarySuffixNode);
+
     public abstract T visit(ASTNodes.ParenthesesNode parenthesesNode);
+
     public abstract T visit(ASTNodes.CastNode castNode);
+
     public abstract T visit(ASTNodes.ArrayInstantiationWithValuesNode arrayInstantiationWithValuesNode);
+
     public abstract T visit(ASTNodes.ArrayInstantiationNode arrayInstantiationNode);
+
     public abstract T visit(ASTNodes.ArrayAccessNode arrayAccessNode);
+
     public abstract T visit(ASTNodes.ObjectInstantiationNode objectInstantiationNode);
+
     public abstract T visit(ASTNodes.ForLoopNode forLoopNode);
+
     public abstract T visit(ASTNodes.WhileLoopNode whileLoopNode);
+
     public abstract T visit(ASTNodes.DoWhileLoopNode doWhileLoopNode);
+
     public abstract T visit(ASTNodes.OperatorNode operatorNode);
+
+    public abstract T visit(ASTNodes.VariableFieldCallNode variableFieldCallNode);
+
+    public abstract T visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode);
 }
