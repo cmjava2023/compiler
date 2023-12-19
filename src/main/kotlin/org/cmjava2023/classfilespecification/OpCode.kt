@@ -7,38 +7,224 @@ import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstan
 import org.cmjava2023.symboltable.Variable
 import org.cmjava2023.util.BytesInHexQueue
 import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
+import kotlin.reflect.jvm.jvmErasure
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
  * https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
  */
 @Suppress("unused")
-abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
+abstract class OpCode(vararg val values: Any) {
+
+    val opCodeValue:UByte = if (this is MultiplePossibleOpcode) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
     
     companion object {
         private val classToOpCodeValueMap = mapOf<KClass<*>, UByte>(
-            Aaload::class to (0x32u).toUByte()
+            Aaload::class to (0x32u).toUByte(),
+            Aastore::class to (0x53u).toUByte(),
+            Aconst_null::class to (0x01u).toUByte(),
+            Aload::class to (0x19u).toUByte(),
+            Aload::class to (0x19u).toUByte(),
+            Aload_0::class to (0x2au).toUByte(),
+            Aload_1::class to (0x2bu).toUByte(),
+            Aload_2::class to (0x2cu).toUByte(),
+            Aload_3::class to (0x2du).toUByte(),
+            Anewarray::class to (0xbdu).toUByte(),
+            Areturn::class to (0xb0u).toUByte(),
+            Arraylength::class to (0xbeu).toUByte(),
+            Astore::class to (0x3au).toUByte(),
+            Astore_0::class to (0x4bu).toUByte(),
+            Astore_1::class to (0x4cu).toUByte(),
+            Astore_2::class to (0x4du).toUByte(),
+            Astore_3::class to (0x4eu).toUByte(),
+            Athrow::class to (0xbfu).toUByte(),
+            Baload::class to (0x33u).toUByte(),
+            Bastore::class to (0x54u).toUByte(),
+            Bipush::class to (0x10u).toUByte(),
+            D2I::class to (0x8eu).toUByte(),
+            D2f::class to (0x90u).toUByte(),
+            D2l::class to (0x8fu).toUByte(),
+            Dadd::class to (0x63u).toUByte(),
+            Daload::class to (0x31u).toUByte(),
+            Dastore::class to (0x52u).toUByte(),
+            Dcompg::class to (0x98u).toUByte(),
+            Dcompl::class to (0x97u).toUByte(),
+            Dconst_0::class to (0x0eu).toUByte(),
+            Dconst_1::class to (0x0fu).toUByte(),
+            Ddiv::class to (0x6fu).toUByte(),
+            Dload::class to (0x18u).toUByte(),
+            Dload_0::class to (0x26u).toUByte(),
+            Dload_1::class to (0x27u).toUByte(),
+            Dload_2::class to (0x28u).toUByte(),
+            Dload_3::class to (0x29u).toUByte(),
+            Dmul::class to (0x6bu).toUByte(),
+            Dneg::class to (0x77u).toUByte(),
+            Drem::class to (0x73u).toUByte(),
+            Dreturn::class to (0xafu).toUByte(),
+            Dstore::class to (0x39u).toUByte(),
+            Dstore_0::class to (0x47u).toUByte(),
+            Dstore_1::class to (0x48u).toUByte(),
+            Dstore_2::class to (0x49u).toUByte(),
+            Dstore_3::class to (0x4au).toUByte(),
+            Dsub::class to (0x67u).toUByte(),
+            Dup2::class to (0x5cu).toUByte(),
+            Dup2_x1::class to (0x5du).toUByte(),
+            Dup2_x2::class to (0x5eu).toUByte(),
+            Dup::class to (0x59u).toUByte(),
+            Dup_x1::class to (0x5au).toUByte(),
+            Dup_x2::class to (0x5bu).toUByte(),
+            F2d::class to (0x8du).toUByte(),
+            F2i::class to (0x8bu).toUByte(),
+            F2l::class to (0x8cu).toUByte(),
+            Fadd::class to (0x62u).toUByte(),
+            Faload::class to (0x30u).toUByte(),
+            Fastore::class to (0x51u).toUByte(),
+            Fcmpg::class to (0x96u).toUByte(),
+            Fcmpl::class to (0x95u).toUByte(),
+            Fconst_0::class to (0x0bu).toUByte(),
+            Fconst_1::class to (0x0cu).toUByte(),
+            Fconst_2::class to (0x0du).toUByte(),
+            Fdiv::class to (0x6eu).toUByte(),
+            Fload::class to (0x17u).toUByte(),
+            Fload_0::class to (0x22u).toUByte(),
+            Fload_1::class to (0x23u).toUByte(),
+            Fload_2::class to (0x24u).toUByte(),
+            Fload_3::class to (0x25u).toUByte(),
+            Fmul::class to (0x6au).toUByte(),
+            Fneg::class to (0x76u).toUByte(),
+            Freg::class to (0x72u).toUByte(),
+            Freturn::class to (0xaeu).toUByte(),
+            Fstore::class to (0x38u).toUByte(),
+            Fstore_0::class to (0x43u).toUByte(),
+            Fstore_1::class to (0x44u).toUByte(),
+            Fstore_2::class to (0x45u).toUByte(),
+            Fstore_3::class to (0x46u).toUByte(),
+            Fsub::class to (0x66u).toUByte(),
+            Getstatic::class to (0xb2u).toUByte(),
+            I2b::class to (0x91u).toUByte(),
+            I2c::class to (0x92u).toUByte(),
+            I2d::class to (0x87u).toUByte(),
+            I2f::class to (0x86u).toUByte(),
+            I2l::class to (0x85u).toUByte(),
+            I2s::class to (0x93u).toUByte(),
+            Iadd::class to (0x60u).toUByte(),
+            Iaload::class to (0x2eu).toUByte(),
+            Iand::class to (0x7eu).toUByte(),
+            Iastore::class to (0x4fu).toUByte(),
+            Iconst_0::class to (0x03u).toUByte(),
+            Iconst_1::class to (0x04u).toUByte(),
+            Iconst_2::class to (0x05u).toUByte(),
+            Iconst_3::class to (0x06u).toUByte(),
+            Iconst_4::class to (0x07u).toUByte(),
+            Iconst_5::class to (0x08u).toUByte(),
+            Iconst_m1::class to (0x02u).toUByte(),
+            Idiv::class to (0x6cu).toUByte(),
+            Iinc::class to (0x84u).toUByte(),
+            Iload::class to (0x15u).toUByte(),
+            Iload_0::class to (0x1au).toUByte(),
+            Iload_1::class to (0x1bu).toUByte(),
+            Iload_2::class to (0x1cu).toUByte(),
+            Iload_3::class to (0x1du).toUByte(),
+            Imul::class to (0x68u).toUByte(),
+            Ineg::class to (0x74u).toUByte(),
+            Invokespecial::class to (0xb7u).toUByte(),
+            Invokevirtual::class to (0xb6u).toUByte(),
+            Ior::class to (0x80u).toUByte(),
+            Irem::class to (0x70u).toUByte(),
+            Ireturn::class to (0xacu).toUByte(),
+            Ishl::class to (0x78u).toUByte(),
+            Ishr::class to (0x7au).toUByte(),
+            Istore::class to (0x36u).toUByte(),
+            Istore_0::class to (0x3bu).toUByte(),
+            Istore_1::class to (0x3cu).toUByte(),
+            Istore_2::class to (0x3du).toUByte(),
+            Istore_3::class to (0x3eu).toUByte(),
+            Isub::class to (0x64u).toUByte(),
+            Iushr::class to (0x7cu).toUByte(),
+            Ixor::class to (0x82u).toUByte(),
+            L2d::class to (0x8au).toUByte(),
+            L2f::class to (0x89u).toUByte(),
+            L2i::class to (0x88u).toUByte(),
+            Ladd::class to (0x61u).toUByte(),
+            Laload::class to (0x2fu).toUByte(),
+            Land::class to (0x7fu).toUByte(),
+            Lastore::class to (0x50u).toUByte(),
+            Lcmp::class to (0x94u).toUByte(),
+            Lconst_0::class to (0x09u).toUByte(),
+            Lconst_1::class to (0x0au).toUByte(),
+            Ldc2_w::class to (0x14u).toUByte(),
+            Ldc::class to (0x12u).toUByte(),
+            Ldc_w::class to (0x13u).toUByte(),
+            Ldiv::class to (0x6du).toUByte(),
+            Lload::class to (0x16u).toUByte(),
+            Lload_0::class to (0x1eu).toUByte(),
+            Lload_1::class to (0x1fu).toUByte(),
+            Lload_2::class to (0x20u).toUByte(),
+            Lload_3::class to (0x21u).toUByte(),
+            Lmul::class to (0x69u).toUByte(),
+            Lneg::class to (0x75u).toUByte(),
+            Lor::class to (0x81u).toUByte(),
+            Lrem::class to (0x71u).toUByte(),
+            Lreturn::class to (0xadu).toUByte(),
+            Lshl::class to (0x79u).toUByte(),
+            Lshr::class to (0x7bu).toUByte(),
+            Lstore::class to (0x37u).toUByte(),
+            Lstore_0::class to (0x3fu).toUByte(),
+            Lstore_1::class to (0x40u).toUByte(),
+            Lstore_2::class to (0x41u).toUByte(),
+            Lstore_3::class to (0x42u).toUByte(),
+            Lsub::class to (0x65u).toUByte(),
+            Lushr::class to (0x7du).toUByte(),
+            Lxor::class to (0x83u).toUByte(),
+            New::class to (0xbbu).toUByte(),
+            Newarray::class to (0xbcu).toUByte(),
+            Nop::class to (0x00u).toUByte(),
+            Pop2::class to (0x58u).toUByte(),
+            Pop::class to (0x57u).toUByte(),
+            Return::class to (0xb1u).toUByte(),
+            Saload::class to (0x35u).toUByte(),
+            Sastore::class to (0x56u).toUByte(),
+            Sipush::class to (0x11u).toUByte(),
+            Swap::class to (0x5fu).toUByte(),
         )
         
         private val opCodeValueToClassMap: Map<UByte, KClass<*>> =
             classToOpCodeValueMap.entries.associate { Pair(it.value, it.key) }
 
-        fun parseNext(bytesInHexQueue: BytesInHexQueue): OpCode {
+        fun parseNext(bytesInHexQueue: BytesInHexQueue, constantPoolItems: List<String>): OpCode {
             val kClass = opCodeValueToClassMap[bytesInHexQueue.dequeueUByte()]!!
             val constructor = kClass.constructors.single()
             val arguments = mutableListOf<Any>()
+            var haveArgumentTypesChanged = false
             for (parameter in constructor.parameters) {
-                when(parameter.type) {
-                    UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
-                    else -> throw NotImplementedError(parameter.type.toString())
+                if (parameter.type.jvmErasure.isSubclassOf(ConstantInfo::class)) {
+                    arguments.add(constantPoolItems[bytesInHexQueue.dequeue2ByteShort().toInt()])
+                    haveArgumentTypesChanged = true
+                } else {
+                    when(parameter.type.jvmErasure) {
+                        UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
+                        Byte::class -> arguments.add(bytesInHexQueue.dequeueByte())
+                        UShort::class -> arguments.add(bytesInHexQueue.dequeue2ByteUShort())
+                        Short::class -> arguments.add(bytesInHexQueue.dequeue2ByteShort())
+                        Int::class -> arguments.add(bytesInHexQueue.dequeue4ByteInt())
+                        Long::class -> arguments.add(bytesInHexQueue.dequeue8ByteLong())
+                        else -> throw NotImplementedError(parameter.type.jvmErasure.toString())
+                    }
                 }
             }
             
-            return constructor.call(arguments) as OpCode
+            return if(haveArgumentTypesChanged) {
+                OpCodeParsedFromClassFile(kClass, *arguments.toTypedArray())
+            } else{
+                constructor.call(*arguments.toTypedArray()) as OpCode
+            }
         }
     }
+    
+    abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(*values)
 
-    abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(0xcbu, *values)
+    class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): MultiplePossibleOpcode(*values)
 
     class LoadConstant(val constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
     class IntConstant(val int: Int): MultiplePossibleOpcode()
@@ -58,162 +244,162 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
     interface ReturnAnything
 
-    class Aaload: OpCode(classToOpCodeValueMap.getValue(Aaload::class))
-    class Aastore: OpCode(0x53u)
-    class Aconst_null: OpCode(0x01u)
-    class Aload(indexInsideLocalVariableArray: UByte): OpCode(0x19u, indexInsideLocalVariableArray)
-    class Aload_0: OpCode(0x2au)
-    class Aload_1: OpCode(0x2bu)
-    class Aload_2: OpCode(0x2cu)
-    class Aload_3: OpCode(0x2du)
-    class Anewarray(classConstantInfo: ClassConstantInfo): OpCode(0xbdu, classConstantInfo)
-    class Areturn: OpCode(0xb0u), ReturnAnything
-    class Arraylength: OpCode(0xbeu)
-    class Astore(indexInsideLocalVariableArray: UByte): OpCode(0x3au, indexInsideLocalVariableArray)
-    class Astore_0: OpCode(0x4bu)
-    class Astore_1: OpCode(0x4cu)
-    class Astore_2: OpCode(0x4du)
-    class Astore_3: OpCode(0x4eu)
-    class Athrow: OpCode(0xbfu)
-    class Baload: OpCode(0x33u)
-    class Bastore: OpCode(0x54u)
-    class Bipush(byte: Byte): OpCode(0x10u, byte)
-    class D2I: OpCode(0x8eu)
-    class D2f: OpCode(0x90u)
-    class D2l: OpCode(0x8fu)
-    class Dadd: OpCode(0x63u)
-    class Daload: OpCode(0x31u)
-    class Dastore: OpCode(0x52u)
-    class Dcompg: OpCode(0x98u)
-    class Dcompl: OpCode(0x97u)
-    class Dconst_0: OpCode(0x0eu)
-    class Dconst_1: OpCode(0x0fu)
-    class Ddiv: OpCode(0x6fu)
-    class Dload(indexInsideLocalVariableArray: UByte): OpCode(0x18u, indexInsideLocalVariableArray)
-    class Dload_0: OpCode(0x26u)
-    class Dload_1: OpCode(0x27u)
-    class Dload_2: OpCode(0x28u)
-    class Dload_3: OpCode(0x29u)
-    class Dmul: OpCode(0x6bu)
-    class Dneg: OpCode(0x77u)
-    class Drem: OpCode(0x73u)
-    class Dreturn: OpCode(0xafu), ReturnAnything
-    class Dstore(indexInsideLocalVariableArray: UByte): OpCode(0x39u, indexInsideLocalVariableArray)
-    class Dstore_0: OpCode(0x47u)
-    class Dstore_1: OpCode(0x48u)
-    class Dstore_2: OpCode(0x49u)
-    class Dstore_3: OpCode(0x4au)
-    class Dsub: OpCode(0x67u)
-    class Dup2: OpCode(0x5cu)
-    class Dup2_x1: OpCode(0x5du)
-    class Dup2_x2: OpCode(0x5eu)
-    class Dup: OpCode(0x59u)
-    class Dup_x1: OpCode(0x5au)
-    class Dup_x2: OpCode(0x5bu)
-    class F2d: OpCode(0x8du)
-    class F2i: OpCode(0x8bu)
-    class F2l: OpCode(0x8cu)
-    class Fadd: OpCode(0x62u)
-    class Faload: OpCode(0x30u)
-    class Fastore: OpCode(0x51u)
-    class Fcmpg: OpCode(0x96u)
-    class Fcmpl: OpCode(0x95u)
-    class Fconst_0: OpCode(0x0bu)
-    class Fconst_1: OpCode(0x0cu)
-    class Fconst_2: OpCode(0x0du)
-    class Fdiv: OpCode(0x6eu)
-    class Fload(indexInsideLocalVariableArray: UByte): OpCode(0x17u, indexInsideLocalVariableArray)
-    class Fload_0: OpCode(0x22u)
-    class Fload_1: OpCode(0x23u)
-    class Fload_2: OpCode(0x24u)
-    class Fload_3: OpCode(0x25u)
-    class Fmul: OpCode(0x6au)
-    class Fneg: OpCode(0x76u)
-    class Freg: OpCode(0x72u)
-    class Freturn: OpCode(0xaeu), ReturnAnything
-    class Fstore(indexInsideLocalVariableArray: UByte): OpCode(0x38u, indexInsideLocalVariableArray)
-    class Fstore_0: OpCode(0x43u)
-    class Fstore_1: OpCode(0x44u)
-    class Fstore_2: OpCode(0x45u)
-    class Fstore_3: OpCode(0x46u)
-    class Fsub: OpCode(0x66u)
-    class Getstatic(fieldReferenceConstantInfo: FieldReferenceConstantInfo): OpCode(0xb2u, fieldReferenceConstantInfo)
-    class I2b: OpCode(0x91u)
-    class I2c: OpCode(0x92u)
-    class I2d: OpCode(0x87u)
-    class I2f: OpCode(0x86u)
-    class I2l: OpCode(0x85u)
-    class I2s: OpCode(0x93u)
-    class Iadd: OpCode(0x60u)
-    class Iaload: OpCode(0x2eu)
-    class Iand: OpCode(0x7eu)
-    class Iastore: OpCode(0x4fu)
-    class Iconst_0: OpCode(0x03u)
-    class Iconst_1: OpCode(0x04u)
-    class Iconst_2: OpCode(0x05u)
-    class Iconst_3: OpCode(0x06u)
-    class Iconst_4: OpCode(0x07u)
-    class Iconst_5: OpCode(0x08u)
-    class Iconst_m1: OpCode(0x02u)
-    class Idiv: OpCode(0x6cu)
-    class Iinc(indexInsideLocalVariableArray: UByte, incrementBy: Byte): OpCode(0x84u, indexInsideLocalVariableArray, incrementBy)
-    class Iload(indexInsideLocalVariableArray: UByte): OpCode(0x15u, indexInsideLocalVariableArray)
-    class Iload_0: OpCode(0x1au)
-    class Iload_1: OpCode(0x1bu)
-    class Iload_2: OpCode(0x1cu)
-    class Iload_3: OpCode(0x1du)
-    class Imul: OpCode(0x68u)
-    class Ineg: OpCode(0x74u)
-    class Invokespecial(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(0xb7u, methodReferenceConstantInfo)
-    class Invokevirtual(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(0xb6u, methodReferenceConstantInfo)
-    class Ior: OpCode(0x80u)
-    class Irem: OpCode(0x70u)
-    class Ireturn: OpCode(0xacu), ReturnAnything
-    class Ishl: OpCode(0x78u)
-    class Ishr: OpCode(0x7au)
-    class Istore(indexInsideLocalVariableArray: UByte): OpCode(0x36u, indexInsideLocalVariableArray)
-    class Istore_0: OpCode(0x3bu)
-    class Istore_1: OpCode(0x3cu)
-    class Istore_2: OpCode(0x3du)
-    class Istore_3: OpCode(0x3eu)
-    class Isub: OpCode(0x64u)
-    class Iushr: OpCode(0x7cu)
-    class Ixor: OpCode(0x82u)
-    class L2d: OpCode(0x8au)
-    class L2f: OpCode(0x89u)
-    class L2i: OpCode(0x88u)
-    class Ladd: OpCode(0x61u)
-    class Laload: OpCode(0x2fu)
-    class Land: OpCode(0x7fu)
-    class Lastore: OpCode(0x50u)
-    class Lcmp: OpCode(0x94u)
-    class Lconst_0: OpCode(0x09u)
-    class Lconst_1: OpCode(0x0au)
-    class Ldc(indexInConstantPool: UByte): OpCode(0x12u, indexInConstantPool)
-    class Ldc2_w(longOrDoubleToLoad: ConstantInfo): OpCode(0x14u, longOrDoubleToLoad)
-    class Ldc_w(indexInConstantPool: UShort): OpCode(0x13u, indexInConstantPool)
-    class Ldiv: OpCode(0x6du)
-    class Lload(indexInsideLocalVariableArray: UByte): OpCode(0x16u, indexInsideLocalVariableArray)
-    class Lload_0: OpCode(0x1eu)
-    class Lload_1: OpCode(0x1fu)
-    class Lload_2: OpCode(0x20u)
-    class Lload_3: OpCode(0x21u)
-    class Lmul: OpCode(0x69u)
-    class Lneg: OpCode(0x75u)
-    class Lor: OpCode(0x81u)
-    class Lrem: OpCode(0x71u)
-    class Lreturn: OpCode(0xadu), ReturnAnything
-    class Lshl: OpCode(0x79u)
-    class Lshr: OpCode(0x7bu)
-    class Lstore(indexInsideLocalVariableArray: UByte): OpCode(0x37u, indexInsideLocalVariableArray)
-    class Lstore_0: OpCode(0x3fu)
-    class Lstore_1: OpCode(0x40u)
-    class Lstore_2: OpCode(0x41u)
-    class Lstore_3: OpCode(0x42u)
-    class Lsub: OpCode(0x65u)
-    class Lushr: OpCode(0x7du)
-    class Lxor: OpCode(0x83u)
-    class New(classConstantInfo: ClassConstantInfo): OpCode(0xbbu, classConstantInfo)
+    class Aaload: OpCode()
+    class Aastore: OpCode()
+    class Aconst_null: OpCode()
+    class Aload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Aload_0: OpCode()
+    class Aload_1: OpCode()
+    class Aload_2: OpCode()
+    class Aload_3: OpCode()
+    class Anewarray(classConstantInfo: ClassConstantInfo): OpCode(classConstantInfo)
+    class Areturn: OpCode(), ReturnAnything
+    class Arraylength: OpCode()
+    class Astore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Astore_0: OpCode()
+    class Astore_1: OpCode()
+    class Astore_2: OpCode()
+    class Astore_3: OpCode()
+    class Athrow: OpCode()
+    class Baload: OpCode()
+    class Bastore: OpCode()
+    class Bipush(byte: Byte): OpCode(byte)
+    class D2I: OpCode()
+    class D2f: OpCode()
+    class D2l: OpCode()
+    class Dadd: OpCode()
+    class Daload: OpCode()
+    class Dastore: OpCode()
+    class Dcompg: OpCode()
+    class Dcompl: OpCode()
+    class Dconst_0: OpCode()
+    class Dconst_1: OpCode()
+    class Ddiv: OpCode()
+    class Dload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Dload_0: OpCode()
+    class Dload_1: OpCode()
+    class Dload_2: OpCode()
+    class Dload_3: OpCode()
+    class Dmul: OpCode()
+    class Dneg: OpCode()
+    class Drem: OpCode()
+    class Dreturn: OpCode(), ReturnAnything
+    class Dstore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Dstore_0: OpCode()
+    class Dstore_1: OpCode()
+    class Dstore_2: OpCode()
+    class Dstore_3: OpCode()
+    class Dsub: OpCode()
+    class Dup2: OpCode()
+    class Dup2_x1: OpCode()
+    class Dup2_x2: OpCode()
+    class Dup: OpCode()
+    class Dup_x1: OpCode()
+    class Dup_x2: OpCode()
+    class F2d: OpCode()
+    class F2i: OpCode()
+    class F2l: OpCode()
+    class Fadd: OpCode()
+    class Faload: OpCode()
+    class Fastore: OpCode()
+    class Fcmpg: OpCode()
+    class Fcmpl: OpCode()
+    class Fconst_0: OpCode()
+    class Fconst_1: OpCode()
+    class Fconst_2: OpCode()
+    class Fdiv: OpCode()
+    class Fload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Fload_0: OpCode()
+    class Fload_1: OpCode()
+    class Fload_2: OpCode()
+    class Fload_3: OpCode()
+    class Fmul: OpCode()
+    class Fneg: OpCode()
+    class Freg: OpCode()
+    class Freturn: OpCode(), ReturnAnything
+    class Fstore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Fstore_0: OpCode()
+    class Fstore_1: OpCode()
+    class Fstore_2: OpCode()
+    class Fstore_3: OpCode()
+    class Fsub: OpCode()
+    class Getstatic(fieldReferenceConstantInfo: FieldReferenceConstantInfo): OpCode(fieldReferenceConstantInfo)
+    class I2b: OpCode()
+    class I2c: OpCode()
+    class I2d: OpCode()
+    class I2f: OpCode()
+    class I2l: OpCode()
+    class I2s: OpCode()
+    class Iadd: OpCode()
+    class Iaload: OpCode()
+    class Iand: OpCode()
+    class Iastore: OpCode()
+    class Iconst_0: OpCode()
+    class Iconst_1: OpCode()
+    class Iconst_2: OpCode()
+    class Iconst_3: OpCode()
+    class Iconst_4: OpCode()
+    class Iconst_5: OpCode()
+    class Iconst_m1: OpCode()
+    class Idiv: OpCode()
+    class Iinc(indexInsideLocalVariableArray: UByte, incrementBy: Byte): OpCode(indexInsideLocalVariableArray, incrementBy)
+    class Iload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Iload_0: OpCode()
+    class Iload_1: OpCode()
+    class Iload_2: OpCode()
+    class Iload_3: OpCode()
+    class Imul: OpCode()
+    class Ineg: OpCode()
+    class Invokespecial(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(methodReferenceConstantInfo)
+    class Invokevirtual(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(methodReferenceConstantInfo)
+    class Ior: OpCode()
+    class Irem: OpCode()
+    class Ireturn: OpCode(), ReturnAnything
+    class Ishl: OpCode()
+    class Ishr: OpCode()
+    class Istore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Istore_0: OpCode()
+    class Istore_1: OpCode()
+    class Istore_2: OpCode()
+    class Istore_3: OpCode()
+    class Isub: OpCode()
+    class Iushr: OpCode()
+    class Ixor: OpCode()
+    class L2d: OpCode()
+    class L2f: OpCode()
+    class L2i: OpCode()
+    class Ladd: OpCode()
+    class Laload: OpCode()
+    class Land: OpCode()
+    class Lastore: OpCode()
+    class Lcmp: OpCode()
+    class Lconst_0: OpCode()
+    class Lconst_1: OpCode()
+    class Ldc(indexInConstantPool: UByte): OpCode(indexInConstantPool)
+    class Ldc2_w(longOrDoubleToLoad: ConstantInfo): OpCode(longOrDoubleToLoad)
+    class Ldc_w(indexInConstantPool: UShort): OpCode(indexInConstantPool)
+    class Ldiv: OpCode()
+    class Lload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Lload_0: OpCode()
+    class Lload_1: OpCode()
+    class Lload_2: OpCode()
+    class Lload_3: OpCode()
+    class Lmul: OpCode()
+    class Lneg: OpCode()
+    class Lor: OpCode()
+    class Lrem: OpCode()
+    class Lreturn: OpCode(), ReturnAnything
+    class Lshl: OpCode()
+    class Lshr: OpCode()
+    class Lstore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
+    class Lstore_0: OpCode()
+    class Lstore_1: OpCode()
+    class Lstore_2: OpCode()
+    class Lstore_3: OpCode()
+    class Lsub: OpCode()
+    class Lushr: OpCode()
+    class Lxor: OpCode()
+    class New(classConstantInfo: ClassConstantInfo): OpCode(classConstantInfo)
     enum class ArrayType(code: UByte) {
         T_BOOLEAN(4u),
         T_CHAR(5u),
@@ -224,13 +410,13 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
         T_INT(10u),
         T_LONG(11u),
     }
-    class Newarray(arrayType: ArrayType): OpCode(0xbcu, arrayType)
-    class Nop: OpCode(0x00u)
-    class Pop2: OpCode(0x58u)
-    class Pop: OpCode(0x57u)
-    class Return: OpCode(0xb1u), ReturnAnything
-    class Saload: OpCode(0x35u)
-    class Sastore: OpCode(0x56u)
-    class Sipush(valueToPush: Short): OpCode(0x11u, valueToPush)
-    class Swap: OpCode(0x5fu)
+    class Newarray(arrayType: ArrayType): OpCode(arrayType)
+    class Nop: OpCode()
+    class Pop2: OpCode()
+    class Pop: OpCode()
+    class Return: OpCode(), ReturnAnything
+    class Saload: OpCode()
+    class Sastore: OpCode()
+    class Sipush(valueToPush: Short): OpCode(valueToPush)
+    class Swap: OpCode()
 }

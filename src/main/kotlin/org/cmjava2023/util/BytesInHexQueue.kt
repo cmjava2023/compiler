@@ -23,6 +23,14 @@ class BytesInHexQueue: LinkedList<String>() {
         return dequeueHexBytes(1).toUByte(16)
     }
 
+    fun dequeueByte(): Byte {
+        return dequeueHexBytes(1).toByte(16)
+    }
+
+    fun dequeue2ByteUShort(): UShort {
+        return dequeueHexBytes(2).toUShort(16)
+    }
+
     fun dequeue2ByteShort(): Short {
         return dequeueHexBytes(2).toShort(16)
     }

@@ -141,22 +141,39 @@ public class HexClassFileTester {
 
     private void codeAttribute(MethodDescription methodDescription) {
         dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
-        int expectedCodeSize = methodDescription.code().length() / 2;
-        int expectedAttributeSize = 2 + 2 + 4 + expectedCodeSize + 2 + 2;
         int actualAttributeSize = bytesInHex.dequeue4ByteInt();
         assertEquals((short) 2, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
         assertEquals((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
 
         int actualCodeSize = bytesInHex.dequeue4ByteInt();
         BytesInHexQueue actualCode = bytesInHex.getSubQueue(actualCodeSize);
-        OpCode.Companion.parseNext(actualCode);
+        ArrayList<OpCode> opCodes = new ArrayList<>();
+        while(!actualCode.isEmpty()){
+            opCodes.add(OpCode.Companion.parseNext(actualCode, constantPoolItems));
+        }
         
-        assertEquals(methodDescription.code(), String.join("", actualCode), methodDescription.getAssertMessage("code"));
+        StringBuilder opCodesAsString = new StringBuilder();
+        for (OpCode opCode : opCodes) {
+            if(opCode instanceof OpCode.OpCodeParsedFromClassFile o) {
+                opCodesAsString.append(o.getOpCodeClass().getSimpleName()); 
+            } else {
+                opCodesAsString.append(opCode.getClass().getSimpleName());
+            }
+            opCodesAsString.append(": ");
+            for(Object value : opCode.getValues()) {
+                opCodesAsString.append("'");
+                opCodesAsString.append(value.toString());
+                opCodesAsString.append("', ");
+            }
+            opCodesAsString.append("\n");
+        }                
+        
+        assertEquals(methodDescription.code(), opCodesAsString.toString(), methodDescription.getAssertMessage("code"));
         assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
         assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
 
+        int expectedAttributeSize = 2 + 2 + 4 + actualCodeSize + 2 + 2;
         assertEquals(expectedAttributeSize, actualAttributeSize, methodDescription.getAssertMessage("attributeSize"));
-        assertEquals(expectedCodeSize, actualCodeSize, methodDescription.getAssertMessage("codeSize"));
     }
 
     private void noClassAttributes() {
