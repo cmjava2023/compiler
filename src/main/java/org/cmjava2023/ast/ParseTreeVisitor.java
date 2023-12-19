@@ -132,15 +132,16 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // enum_declaration: ENUM_KEYWORD IDENTIFIER CURLY_OPEN IDENTIFIER (COMMA IDENTIFIER)* CURLY_CLOSE;
     public ASTNodes.Node visitEnum_declaration(MainAntlrParser.Enum_declarationContext ctx) {
-        List<TerminalNode> identifierList = ctx.IDENTIFIER();
-        ASTNodes.RawIdentifierNode enumDeclaration = new ASTNodes.RawIdentifierNode(identifierList.get(0).getText(), symbolTable.getCurrentScope());// The first one is always the declaration.
-        identifierList.remove(identifierList.get(0));
-        ArrayList<ASTNodes.RawIdentifierNode> enums = new ArrayList<ASTNodes.RawIdentifierNode>();
-        for (TerminalNode nextEnum : identifierList) {
-            enums.add(new ASTNodes.RawIdentifierNode(nextEnum.getText(), symbolTable.getCurrentScope()));
+        Clazz enumClass = setEnumScope(ctx);
+        List<TerminalNode> constantsNodes = ctx.IDENTIFIER();
+        constantsNodes.remove(constantsNodes.get(0));
+        ArrayList<Variable> constants = new ArrayList<>();
+        for (TerminalNode constant : constantsNodes) {
+            Variable constantVariable = new Variable(constant.getText(), (Type) symbolTable.getCurrentScope().resolve("int"), symbolTable.getCurrentScope());
+            constants.add(constantVariable);
         }
 
-        return new ASTNodes.EnumNode(enumDeclaration, enums);
+        return new ASTNodes.EnumNode(enumClass, constants);
     }
 
     private Clazz setClassScope(MainAntlrParser.Class_declarationContext ctx, Clazz parentClazz, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier instanceModifier) {
@@ -148,6 +149,18 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         Scope currentScope = symbolTable.getCurrentScope();
         checkAlreadyDeclared("Class", className, currentScope);
         Clazz classSymbol = new Clazz(currentScope, new HashMap<>(), className, null, parentClazz, accessModifier, instanceModifier);
+        classSymbol.setType(classSymbol);
+        symbolTable.addSymbol(classSymbol);
+        symbolTable.setScope(classSymbol);
+
+        return classSymbol;
+    }
+
+    private Clazz setEnumScope(MainAntlrParser.Enum_declarationContext ctx) {
+        String enumName = ctx.IDENTIFIER().get(0).getText();
+        Scope currentScope = symbolTable.getCurrentScope();
+        checkAlreadyDeclared("Class", enumName, currentScope);
+        Clazz classSymbol = new Clazz(currentScope, new HashMap<>(), enumName, null, null, null, null);
         classSymbol.setType(classSymbol);
         symbolTable.addSymbol(classSymbol);
         symbolTable.setScope(classSymbol);
@@ -206,8 +219,8 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
-        ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? null : getExpressions(ctx.function_args().children);
-        return new ASTNodes.RawFunctionCallNode(nestedIdentifier.nestedIdentifier(), argumentExpressions, symbolTable.getCurrentScope());
+        ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? new ArrayList<>() : getExpressions(ctx.function_args().children);
+        return new ASTNodes.FunctionCallNode(new Function(symbolTable.getCurrentScope(), null, String.join(".", nestedIdentifier.nestedIdentifier()), null, null, null), argumentExpressions);
     }
 
     // ########ANTLR########
@@ -308,7 +321,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         if (ctx.function_call() != null) {
             return visit(ctx.function_call());
         } else if (ctx.IDENTIFIER() != null) {
-            return new ASTNodes.RawIdentifierNode(ctx.IDENTIFIER().getText(), symbolTable.getCurrentScope());
+            return new ASTNodes.VariableCallNode(new InvalidVariable(ctx.IDENTIFIER().getText(), new InvalidType(""), symbolTable.getCurrentScope()));
         } else if (ctx.STRING() != null) {
             String string = ctx.STRING().getText();
             if (string.startsWith("\"") && string.endsWith("\"")) {

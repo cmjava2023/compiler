@@ -5,6 +5,7 @@ import org.cmjava2023.ast.ASTTraverser;
 import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
@@ -115,16 +116,16 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.RawFunctionCallNode node) {
-        Symbol functionSymbol = resolveNestedIdentifier(null, node.nestedIdentifier(), node.scope());
+    public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
+        ArrayList<String> nestedIdentifier = (ArrayList<String>) Arrays.asList(node.function().getName().split("."));
+        Symbol functionSymbol = resolveNestedIdentifier(null, nestedIdentifier, node.function().getScope());
 
         if (functionSymbol instanceof Function function) {
             return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
         }
 
-        errors.add(String.format("Function %s is not declared", String.join(".", node.nestedIdentifier())));
-        return new ASTNodes.FunctionCallNode(null, getModifiedExpressions(node.values()));
-
+        errors.add(String.format("Function %s is not declared", String.join(".", node.function().getName())));
+        return node;
     }
 
     private static ArrayList<String> removeFirstElement(ArrayList<String> list) {
@@ -158,6 +159,14 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         if (currentSymbol instanceof Clazz newScope) {
             Symbol classSymbol = newScope.resolveMember(strings.get(0));
             return resolveNestedIdentifier(classSymbol, removeFirstElement(strings), newScope);
+        }
+
+        if (currentSymbol instanceof Variable) {
+            if (currentSymbol.getType() instanceof ArrayType arrayType) {
+
+            } else if (currentSymbol.getType() instanceof Clazz classType) {
+                return resolveNestedIdentifier(classType, strings, classType);
+            }
         }
 
         return null;
@@ -244,11 +253,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.FunctionCallNode rawFunctionCallNode) {
-        return rawFunctionCallNode;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
         return node;
     }
@@ -259,20 +263,16 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.RawIdentifierNode rawIdentifierNode) {
-        Symbol identifierSymbol = rawIdentifierNode.scope().resolve(rawIdentifierNode.name());
+    public ASTNodes.Node visit(ASTNodes.VariableCallNode node) {
+        String symbolName = node.symbol().getName();
+        Symbol identifierSymbol = node.symbol().getScope().resolve(symbolName);
 
         if (identifierSymbol instanceof Variable variable) {
-            return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), variable);
+            return new ASTNodes.VariableCallNode(variable);
         }
 
-        errors.add(String.format("Variable %s is not declared", rawIdentifierNode.name()));
-        return new ASTNodes.ResolvedIdentifierNode(rawIdentifierNode.name(), null);
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ResolvedIdentifierNode resolvedIdentifierNode) {
-        return resolvedIdentifierNode;
+        errors.add(String.format("Variable %s is not declared", symbolName));
+        return node;
     }
 
     @Override
@@ -383,5 +383,15 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.OperatorNode node) {
         return node;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.VariableFieldCallNode variableFieldCallNode) {
+        return null;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode) {
+        return null;
     }
 }
