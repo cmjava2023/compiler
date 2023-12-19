@@ -34,7 +34,7 @@ L  body
             |           |  |- name: String
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
-            |           L  maxArraySize: -1
+            |           L  dimensions: 1
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)

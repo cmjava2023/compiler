@@ -32,7 +32,7 @@ L  body
             |           |  |- name: String
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
-            |           L  maxArraySize: -1
+            |           L  dimensions: 1
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
@@ -41,8 +41,12 @@ L  body
                |     |     L  0 (field of type ValueNode)
                |     |        L  value: Hello World
                |     |- name: o
-               |     L  type (field of type BuiltIn)
-               |        L  name: String
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: String
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: String
+               |        L  dimensions: 1
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -52,8 +56,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: by
-               |     L  type (field of type BuiltIn)
-               |        L  name: byte
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: byte
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: byte
+               |        L  dimensions: 1
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -63,8 +71,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: false
                |     |- name: boo
-               |     L  type (field of type BuiltIn)
-               |        L  name: boolean
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: boolean
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: boolean
+               |        L  dimensions: 1
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -74,8 +86,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: c
-               |     L  type (field of type BuiltIn)
-               |        L  name: char
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: char
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: char
+               |        L  dimensions: 1
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -85,8 +101,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: d
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: double
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: double
+               |        L  dimensions: 1
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -96,8 +116,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: f
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: float
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: float
+               |        L  dimensions: 1
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -107,8 +131,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: i
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: int
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: int
+               |        L  dimensions: 1
                |- 7 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -118,8 +146,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: l
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: long
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: long
+               |        L  dimensions: 1
                |- 8 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationNode)
@@ -129,8 +161,12 @@ L  body
                |     |     |- 0: 10
                |     |     L  1: 10
                |     |- name: i2
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: int
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: int
+               |        L  dimensions: 2
                |- 9 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -140,8 +176,12 @@ L  body
                |     |     L  1 (field of type ValueNode)
                |     |        L  value: 11
                |     |- name: s
-               |     L  type (field of type BuiltIn)
-               |        L  name: short
+               |     L  type (field of type ArrayType)
+               |        |- arrayType (field of type BuiltIn)
+               |        |  |- name: short
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: short
+               |        L  dimensions: 1
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
@@ -167,8 +207,12 @@ L  body
                |        |  |     L  0 (field of type ValueNode)
                |        |  |        L  value: Hello World
                |        |  |- name: o
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: String
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: String
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: String
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 12 (field of type FunctionCallNode)
@@ -198,8 +242,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: by
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: byte
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: byte
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: byte
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 14 (field of type FunctionCallNode)
@@ -229,8 +277,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: false
                |        |  |- name: boo
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: boolean
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: boolean
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: boolean
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 16 (field of type FunctionCallNode)
@@ -260,8 +312,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: c
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: char
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: char
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: char
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 18 (field of type FunctionCallNode)
@@ -291,8 +347,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: d
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: double
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: double
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: double
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 20 (field of type FunctionCallNode)
@@ -322,8 +382,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: f
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: float
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: float
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: float
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 22 (field of type FunctionCallNode)
@@ -353,8 +417,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: i
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: int
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: int
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: int
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 24 (field of type FunctionCallNode)
@@ -384,8 +452,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: l
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: long
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: long
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: long
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 26 (field of type FunctionCallNode)
@@ -415,8 +487,12 @@ L  body
                |        |  |     |- 0: 10
                |        |  |     L  1: 10
                |        |  |- name: i2
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: int
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: int
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: int
+               |        |     L  dimensions: 2
                |        L  elementIndicesAccessed
                |           |- 0: 0
                |           L  1: 0
@@ -447,8 +523,12 @@ L  body
                |        |  |     L  1 (field of type ValueNode)
                |        |  |        L  value: 11
                |        |  |- name: s
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: short
+               |        |  L  type (field of type ArrayType)
+               |        |     |- arrayType (field of type BuiltIn)
+               |        |     |  |- name: short
+               |        |     |  L  type (field of type BuiltIn)
+               |        |     |     L  name: short
+               |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
                |- 30 (field of type FunctionCallNode)
@@ -480,8 +560,12 @@ L  body
                         |     |     |- 0: 10
                         |     |     L  1: 10
                         |     |- name: i2
-                        |     L  type (field of type BuiltIn)
-                        |        L  name: int
+                        |     L  type (field of type ArrayType)
+                        |        |- arrayType (field of type BuiltIn)
+                        |        |  |- name: int
+                        |        |  L  type (field of type BuiltIn)
+                        |        |     L  name: int
+                        |        L  dimensions: 2
                         |- operator: DOT
                         L  rightExpression (field of type ResolvedIdentifierNode)
                            |- name: length
