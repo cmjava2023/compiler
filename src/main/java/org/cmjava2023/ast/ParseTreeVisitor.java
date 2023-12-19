@@ -356,7 +356,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             ASTNodes.Expression rightExpression = (ASTNodes.Expression) visit(ctx.expression().get(1));
             ASTNodes.Operator operator = getOperator(ctx.expression_concatinator(), OperatorType.INFIX);
             return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
-        } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null) {
+        } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null && !ctx.expression().isEmpty()) {
             return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
         } else if (ctx.array_expression() != null) {
             return visit(ctx.array_expression());
