@@ -6,13 +6,13 @@ import cmjava2023.util.TestPathsHelper;
 import cmjava2023.util.classFIleTesting.*;
 import com.google.gson.Gson;
 import org.cmjava2023.Main;
+import org.cmjava2023.util.BytesInHexQueue;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -29,7 +29,7 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
         return List.of(DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " ClassFileAsExpected", () -> {
             ClassFileContent expectedClassFileContent = new Gson().fromJson(contentOfExpectationFile, ClassFileContent.class);
             String pathToFileCompiledByUs = new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/")).GetPathOfMainClassCompiledByUsInSamePackage();
-            Queue<String> bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(pathToFileCompiledByUs);
+            BytesInHexQueue bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(pathToFileCompiledByUs);
             new HexClassFileTester().test(bytesInHex, expectedClassFileContent);
         }), DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " outputSameAsJdk", () -> {
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/") + "/Main";

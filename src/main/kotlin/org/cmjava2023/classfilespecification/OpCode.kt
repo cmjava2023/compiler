@@ -5,6 +5,8 @@ import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantInfo
 import org.cmjava2023.symboltable.Variable
+import org.cmjava2023.util.BytesInHexQueue
+import kotlin.reflect.KClass
 
 /**
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
@@ -12,6 +14,29 @@ import org.cmjava2023.symboltable.Variable
  */
 @Suppress("unused")
 abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
+    
+    companion object {
+        private val classToOpCodeValueMap = mapOf<KClass<*>, UByte>(
+            Aaload::class to (0x32u).toUByte()
+        )
+        
+        private val opCodeValueToClassMap: Map<UByte, KClass<*>> =
+            classToOpCodeValueMap.entries.associate { Pair(it.value, it.key) }
+
+        fun parseNext(bytesInHexQueue: BytesInHexQueue): OpCode {
+            val kClass = opCodeValueToClassMap[bytesInHexQueue.dequeueUByte()]!!
+            val constructor = kClass.constructors.single()
+            val arguments = mutableListOf<Any>()
+            for (parameter in constructor.parameters) {
+                when(parameter.type) {
+                    UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
+                    else -> throw NotImplementedError(parameter.type.toString())
+                }
+            }
+            
+            return constructor.call(arguments) as OpCode
+        }
+    }
 
     abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(0xcbu, *values)
 
@@ -33,7 +58,7 @@ abstract class OpCode(val opCodeValue:UByte,vararg val values: Any) {
 
     interface ReturnAnything
 
-    class Aaload: OpCode(0x32u)
+    class Aaload: OpCode(classToOpCodeValueMap.getValue(Aaload::class))
     class Aastore: OpCode(0x53u)
     class Aconst_null: OpCode(0x01u)
     class Aload(indexInsideLocalVariableArray: UByte): OpCode(0x19u, indexInsideLocalVariableArray)

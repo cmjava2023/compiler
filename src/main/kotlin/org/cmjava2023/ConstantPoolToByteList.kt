@@ -1,12 +1,14 @@
 package org.cmjava2023
 
-import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.MethodInfo
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.*
+import org.cmjava2023.symboltable.GlobalScope
+import org.cmjava2023.symboltable.InvalidType
 import org.cmjava2023.symboltable.Variable
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
+import org.cmjava2023.util.ByteListUtil.Companion.add
 
 class ConstantPoolToByteList {
 
@@ -51,21 +53,29 @@ class ConstantPoolToByteList {
         val methodTypeIndex = addUtf8ConstantAndGetStartIndex(methodInfo.typeDescriptor)
         methodInfosBytes.add(methodTypeIndex)
 
+        val localVariables = mutableListOf<Variable>()
+        methodInfo.typeDescriptor.content
+            .substringBeforeLast(")")
+            .removePrefix("(")
+            .removeSuffix(")")
+            .split(';')
+            .filter { it.isNotEmpty() }
+            .forEachIndexed { index, type ->  localVariables.add(Variable("Method Parameter $index", InvalidType(type), GlobalScope(null, HashMap()) )) }
+        
+
         methodInfosBytes.add(methodInfo.attributes.size.toUShort())
 
         val codeAttributeInfo = methodInfo.attributes.filterIsInstance<CodeAttributeInfo>().singleOrNull()
         if (codeAttributeInfo != null) {
             val codeAttributeNameIndex = addUtf8ConstantAndGetStartIndex(codeAttributeInfo.name)
-            addCodeAttributeBytesToMethodInfoBytes(codeAttributeInfo.code, codeAttributeNameIndex)
+            addCodeAttributeBytesToMethodInfoBytes(codeAttributeInfo.code, codeAttributeNameIndex, localVariables)
         } else {
             throw NotImplementedError()
         }
     }
 
-    private fun addCodeAttributeBytesToMethodInfoBytes(code: List<OpCode>, codeAttributeNameIndex: UShort) {
+    private fun addCodeAttributeBytesToMethodInfoBytes(code: List<OpCode>, codeAttributeNameIndex: UShort, localVariables: MutableList<Variable>) {
         val attributeBytesCountedForLength = mutableListOf<Byte>()
-        
-        val localVariables = mutableListOf<Variable>()
 
         val maxStackSize: UShort = 2u
         attributeBytesCountedForLength.add(maxStackSize)

@@ -1,6 +1,8 @@
 package cmjava2023.util.classFIleTesting;
 
 import kotlin.NotImplementedError;
+import org.cmjava2023.classfilespecification.OpCode;
+import org.cmjava2023.util.BytesInHexQueue;
 
 import java.util.*;
 
@@ -9,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HexClassFileTester {
-    private Queue<String> bytesInHex;
+    private BytesInHexQueue bytesInHex;
     private String classAccessModifierHex;
     private String thisClass;
     private String superClass;
@@ -19,7 +21,7 @@ public class HexClassFileTester {
     private record ConstantPoolItemToResolve(short index) {
     }
 
-    public void test(Queue<String> bytesInHex, ClassFileContent classFileContent) {
+    public void test(BytesInHexQueue bytesInHex, ClassFileContent classFileContent) {
         this.bytesInHex = bytesInHex;
         this.classAccessModifierHex = classFileContent.classAccessModifierHex();
         this.thisClass = classFileContent.thisClass();
@@ -40,44 +42,44 @@ public class HexClassFileTester {
     }
 
     private void classFileIndicatorCafeBabe() {
-        assertEquals("CAFEBABE", dequeueHexBytes(4), "ClassFile Start");
+        assertEquals("CAFEBABE", bytesInHex.dequeueHexBytes(4), "ClassFile Start");
     }
 
     private void javaVersion8() {
-        assertEquals(52, dequeue4ByteInt(), "JavaVersion");
+        assertEquals(52, bytesInHex.dequeue4ByteInt(), "JavaVersion");
     }
 
     private void parseConstantPool() {
-        short constantPoolSize = dequeue2ByteShort();
+        short constantPoolSize = bytesInHex.dequeue2ByteShort();
         ArrayList<Object> unresolvedConstantPool = new ArrayList<>();
         unresolvedConstantPool.add("emptyElementBecauseConstantPoolIndicesStartWith1");
         for (int i = 0; i < constantPoolSize - 1; i++) {
             String constantInfoTag = bytesInHex.poll();
             switch (Objects.requireNonNull(constantInfoTag)) {
                 case "03":
-                    unresolvedConstantPool.add(dequeue4ByteInt().toString());
+                    unresolvedConstantPool.add(String.valueOf(bytesInHex.dequeue4ByteInt()));
                     break;
                 case "04":
-                    unresolvedConstantPool.add(Float.toString(Float.intBitsToFloat(dequeue4ByteInt())));
+                    unresolvedConstantPool.add(Float.toString(Float.intBitsToFloat(bytesInHex.dequeue4ByteInt())));
                     break;
                 case "05":
-                    unresolvedConstantPool.add(dequeue8ByteLong().toString());
+                    unresolvedConstantPool.add(String.valueOf(bytesInHex.dequeue8ByteLong()));
                     break;
                 case "06":
-                    unresolvedConstantPool.add(Double.toString(Double.longBitsToDouble(dequeue8ByteLong())));
+                    unresolvedConstantPool.add(Double.toString(Double.longBitsToDouble(bytesInHex.dequeue8ByteLong())));
                     break;
                 case "07":
                 case "08":
-                    unresolvedConstantPool.add(new ConstantPoolItemToResolve(dequeue2ByteShort()));
+                    unresolvedConstantPool.add(new ConstantPoolItemToResolve(bytesInHex.dequeue2ByteShort()));
                     break;
                 case "01":
-                    short length = dequeue2ByteShort();
-                    unresolvedConstantPool.add(utf8FromHexString(dequeueHexBytes(length)));
+                    short length = bytesInHex.dequeue2ByteShort();
+                    unresolvedConstantPool.add(utf8FromHexString(bytesInHex.dequeueHexBytes(length)));
                     break;
                 case "09":
                 case "0A":
                 case "0C":
-                    unresolvedConstantPool.add(constantInfoTag + " " + dequeueHexBytes(2) + "." + dequeueHexBytes(2));
+                    unresolvedConstantPool.add(constantInfoTag + " " + bytesInHex.dequeueHexBytes(2) + "." + bytesInHex.dequeueHexBytes(2));
                     break;
                 default:
                     fail("test does not support constant pool type " + constantInfoTag + " constantPool so far:\n" + unresolvedConstantPool.toString().replace(",", ",\n"));
@@ -106,7 +108,7 @@ public class HexClassFileTester {
     }
 
     private void classAccessModifier() {
-        assertEquals(classAccessModifierHex, dequeueHexBytes(2), "classAccessModifier");
+        assertEquals(classAccessModifierHex, bytesInHex.dequeueHexBytes(2), "classAccessModifier");
     }
 
     private void thisClass() {
@@ -118,21 +120,21 @@ public class HexClassFileTester {
     }
 
     private void noInterfaces() {
-        assertEquals((short) 0, dequeue2ByteShort(), "interfaceCount");
+        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), "interfaceCount");
     }
 
     private void noFields() {
-        assertEquals((short) 0, dequeue2ByteShort(), "FieldCount");
+        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), "FieldCount");
     }
 
     private void methods() {
-        assertEquals((short) methodDescriptions.length, dequeue2ByteShort(), "methodCount");
+        assertEquals((short) methodDescriptions.length, bytesInHex.dequeue2ByteShort(), "methodCount");
 
         for (MethodDescription methodDescription : methodDescriptions) {
-            assertEquals(methodDescription.accessModifierHex(), dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
+            assertEquals(methodDescription.accessModifierHex(), bytesInHex.dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
             dequeueResolveAssertConstantPoolIndex(methodDescription.name(), methodDescription.getAssertMessage("name"));
             dequeueResolveAssertConstantPoolIndex(methodDescription.typeDescriptor(), methodDescription.getAssertMessage("typeDescriptor"));
-            assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeCount"));
+            assertEquals((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeCount"));
             codeAttribute(methodDescription);
         }
     }
@@ -141,47 +143,30 @@ public class HexClassFileTester {
         dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
         int expectedCodeSize = methodDescription.code().length() / 2;
         int expectedAttributeSize = 2 + 2 + 4 + expectedCodeSize + 2 + 2;
-        int actualAttributeSize = dequeue4ByteInt();
-        assertEquals((short) 2, dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
-        assertEquals((short) 1, dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
+        int actualAttributeSize = bytesInHex.dequeue4ByteInt();
+        assertEquals((short) 2, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
+        assertEquals((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
 
-        int actualCodeSize = dequeue4ByteInt();
-        assertEquals(methodDescription.code(), dequeueHexBytes(actualCodeSize), methodDescription.getAssertMessage("code"));
-        assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
-        assertEquals((short) 0, dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
+        int actualCodeSize = bytesInHex.dequeue4ByteInt();
+        BytesInHexQueue actualCode = bytesInHex.getSubQueue(actualCodeSize);
+        OpCode.Companion.parseNext(actualCode);
+        
+        assertEquals(methodDescription.code(), String.join("", actualCode), methodDescription.getAssertMessage("code"));
+        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
+        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
 
         assertEquals(expectedAttributeSize, actualAttributeSize, methodDescription.getAssertMessage("attributeSize"));
         assertEquals(expectedCodeSize, actualCodeSize, methodDescription.getAssertMessage("codeSize"));
     }
 
     private void noClassAttributes() {
-        short classAttributeCount = dequeue2ByteShort();
+        short classAttributeCount = bytesInHex.dequeue2ByteShort();
         assertTrue(bytesInHex.isEmpty(), "classFile ends when expected");
         assertEquals((short) 0, classAttributeCount, "classAttributesCount");
     }
 
-    private String dequeueHexBytes(int amountOfBytes) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < amountOfBytes; i++) {
-            result.append(bytesInHex.poll());
-        }
-        return result.toString();
-    }
-
     private void dequeueResolveAssertConstantPoolIndex(String expected, String context) {
-        short index = dequeue2ByteShort();
+        short index = bytesInHex.dequeue2ByteShort();
         assertEquals(expected, constantPoolItems.get(index), context + ": ConstantPoolItem at index " + index);
-    }
-
-    private Short dequeue2ByteShort() {
-        return Short.parseShort(dequeueHexBytes(2), 16);
-    }
-
-    private Integer dequeue4ByteInt() {
-        return Integer.parseInt(dequeueHexBytes(4), 16);
-    }
-
-    private Long dequeue8ByteLong() {
-        return Long.parseLong(dequeueHexBytes(8), 16);
     }
 }
