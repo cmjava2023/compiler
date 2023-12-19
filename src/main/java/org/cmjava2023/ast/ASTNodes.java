@@ -184,7 +184,7 @@ public class ASTNodes {
     }
 
     // variable_declaration -> VariableNode
-     public record VariableNode(
+    public record VariableNode(
             Variable variableSymbol) implements Node, Statement, VariableUsage {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
@@ -256,7 +256,8 @@ public class ASTNodes {
 
     // casting -> CastNode
     public record CastNode(org.cmjava2023.symboltable.Type type,
-                           Expression expression, Scope scope) implements Node, Expression {
+                           Expression expression,
+                           Scope scope) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -364,14 +365,16 @@ public class ASTNodes {
     }
 
     // switch_statement ->SwitchNode
-    public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes, Expression defaultEx) implements Node, ControlFlow{
+    public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes,
+                             Expression defaultEx) implements Node, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
     //switch_scope-> [caseNode]
-    public record CaseNode(Expression caseEx, ArrayList<Statement> body) implements  Node {
+    public record CaseNode(Expression caseEx,
+                           ArrayList<Statement> body) implements Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -388,7 +391,8 @@ public class ASTNodes {
         }
     }
 
-    public record ArrayTypeNode(String type) implements Node, Type {
+    public record ArrayTypeNode(String type,
+                                int dimensions) implements Node, Type {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

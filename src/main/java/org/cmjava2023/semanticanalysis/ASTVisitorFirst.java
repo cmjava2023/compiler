@@ -195,8 +195,10 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         String type = invalidType.getName();
         String arrayIndicator = "[]";
         boolean isArray = type.contains(arrayIndicator);
+        int dimensions = 0;
 
         if (isArray) {
+            dimensions = countOccurrences(type, arrayIndicator);
             type = type.replace(arrayIndicator, "");
         }
 
@@ -204,13 +206,25 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
         if (typeSymbol != null) {
             if (isArray) {
-                symbol.setType(new ArrayType(typeSymbol.getType()));
+                symbol.setType(new ArrayType(typeSymbol.getType(), dimensions));
             } else {
                 symbol.setType(typeSymbol.getType());
             }
         } else {
             errors.add(String.format("Cannot find type %s for %s %s", invalidType.getName(), errorMessagePart, symbol.getName()));
         }
+    }
+
+    public static int countOccurrences(String input, String pattern) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = input.indexOf(pattern, index)) != -1) {
+            count++;
+            index += pattern.length();
+        }
+
+        return count;
     }
 
     private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
