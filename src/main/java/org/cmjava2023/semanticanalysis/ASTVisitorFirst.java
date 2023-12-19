@@ -55,6 +55,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         return expressionList;
     }
 
+    private ArrayList<ASTNodes.CaseNode> getModifiedCaseNodes(ArrayList<ASTNodes.CaseNode> caseNodes) {
+        ArrayList<ASTNodes.CaseNode> caseNodeList = new ArrayList<>();
+
+        for (ASTNodes.CaseNode caseNode : caseNodes) {
+
+            caseNodeList.add(new ASTNodes.CaseNode((ASTNodes.Expression) caseNode.caseEx().accept(this), getModifiedStatements(caseNode.body())));
+        }
+
+        return caseNodeList;
+    }
+
     @Override
     public ASTNodes.Node visit(ASTNodes.StartNode node) {
         return new ASTNodes.StartNode(getModifiedStatements(node.body()));
@@ -87,7 +98,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.SwitchNode switchNode) {
-        return switchNode;
+        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), (ASTNodes.Expression) switchNode.defaultEx().accept(this));
     }
 
     @Override
@@ -117,7 +128,8 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
-        ArrayList<String> nestedIdentifier = (ArrayList<String>) Arrays.asList(node.function().getName().split("."));
+        String[] nestedIdentifierArray = node.function().getName().split("\\.");
+        ArrayList<String> nestedIdentifier = new ArrayList<>(Arrays.asList(nestedIdentifierArray));
         Symbol functionSymbol = resolveNestedIdentifier(null, nestedIdentifier, node.function().getScope());
 
         if (functionSymbol instanceof Function function) {
@@ -174,7 +186,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.IfNode node) {
-        return new ASTNodes.IfNode(node.expression(), getModifiedStatements(node.statements()));
+        return new ASTNodes.IfNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.statements()));
     }
 
     @Override
@@ -259,7 +271,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
-        return node;
+        return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.comparisonOperator(), (ASTNodes.Expression) node.rightExpression().accept(this));
     }
 
     @Override
@@ -277,7 +289,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ReturnNode node) {
-        return node;
+        return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
     }
 
     @Override
@@ -302,17 +314,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnaryPrefixNode node) {
-        return node;
+        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnarySuffixNode node) {
-        return node;
+        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ParenthesesNode node) {
-        return node;
+        return new ASTNodes.ParenthesesNode((ASTNodes.Expression) node.Expression().accept(this));
     }
 
     @Override
@@ -334,9 +346,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
             if (typeSymbol != null) {
                 if (isArray) {
-                    return new ASTNodes.CastNode(new ArrayType(typeSymbol.getType()), node.expression(), node.scope());
+                    return new ASTNodes.CastNode(new ArrayType(typeSymbol.getType()), (ASTNodes.Expression) node.expression().accept(this), node.scope());
                 } else {
-                    return new ASTNodes.CastNode(typeSymbol.getType(), node.expression(), node.scope());
+                    return new ASTNodes.CastNode(typeSymbol.getType(), (ASTNodes.Expression) node.expression().accept(this), node.scope());
                 }
             } else {
                 errors.add(String.format("Cannot find type %s for cast expression", invalidType.getName()));
@@ -347,7 +359,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ArrayInstantiationWithValuesNode node) {
-        return node;
+        return new ASTNodes.ArrayInstantiationWithValuesNode(getModifiedExpressions(node.expressions()));
     }
 
     @Override
@@ -367,17 +379,17 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
-        return new ASTNodes.ForLoopNode(node.loopVariable(), node.termination(), node.increment(), getModifiedStatements(node.body()));
+        return new ASTNodes.ForLoopNode(node.loopVariable(), (ASTNodes.Expression) node.termination().accept(this), (ASTNodes.Expression) node.increment().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.WhileLoopNode node) {
-        return new ASTNodes.WhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+        return new ASTNodes.WhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.DoWhileLoopNode node) {
-        return new ASTNodes.DoWhileLoopNode(node.expression(), getModifiedStatements(node.body()));
+        return new ASTNodes.DoWhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
     }
 
     @Override

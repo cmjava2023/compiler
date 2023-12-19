@@ -297,9 +297,9 @@ public class ASTNodes {
     // (expressions) -> ComparisonNode
     // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
     // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
-    public record ComparisonNode(Expression expression1,
+    public record ComparisonNode(Expression leftExpression,
                                  ComparisonOperator comparisonOperator,
-                                 Expression expression2) implements Node, Expression {
+                                 Expression rightExpression) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

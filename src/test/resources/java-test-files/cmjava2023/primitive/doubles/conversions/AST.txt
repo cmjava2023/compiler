@@ -48,8 +48,13 @@ L  body
                |     |- initialExpression (field of type CastNode)
                |     |  |- type (field of type BuiltIn)
                |     |  |  L  name: float
-               |     |  L  expression (field of type RawIdentifierNode)
-               |     |     L  name: d
+               |     |  L  expression (field of type VariableCallNode)
+               |     |     L  symbol (field of type Variable)
+               |     |        |- initialExpression (field of type ValueNode)
+               |     |        |  L  value: 10.0
+               |     |        |- name: d
+               |     |        L  type (field of type BuiltIn)
+               |     |           L  name: double
                |     |- name: f
                |     L  type (field of type BuiltIn)
                |        L  name: float
@@ -58,8 +63,13 @@ L  body
                |     |- initialExpression (field of type CastNode)
                |     |  |- type (field of type BuiltIn)
                |     |  |  L  name: int
-               |     |  L  expression (field of type RawIdentifierNode)
-               |     |     L  name: d
+               |     |  L  expression (field of type VariableCallNode)
+               |     |     L  symbol (field of type Variable)
+               |     |        |- initialExpression (field of type ValueNode)
+               |     |        |  L  value: 10.0
+               |     |        |- name: d
+               |     |        L  type (field of type BuiltIn)
+               |     |           L  name: double
                |     |- name: i
                |     L  type (field of type BuiltIn)
                |        L  name: int
@@ -68,15 +78,19 @@ L  body
                |     |- initialExpression (field of type CastNode)
                |     |  |- type (field of type BuiltIn)
                |     |  |  L  name: long
-               |     |  L  expression (field of type RawIdentifierNode)
-               |     |     L  name: d
+               |     |  L  expression (field of type VariableCallNode)
+               |     |     L  symbol (field of type Variable)
+               |     |        |- initialExpression (field of type ValueNode)
+               |     |        |  L  value: 10.0
+               |     |        |- name: d
+               |     |        L  type (field of type BuiltIn)
+               |     |           L  name: double
                |     |- name: l
                |     L  type (field of type BuiltIn)
                |        L  name: long
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
-               |     |- initialExpression (field of type ResolvedIdentifierNode)
-               |     |  |- name: d
+               |     |- initialExpression (field of type VariableCallNode)
                |     |  L  symbol (field of type Variable)
                |     |     |- initialExpression (field of type ValueNode)
                |     |     |  L  value: 10.0
@@ -88,11 +102,9 @@ L  body
                |        L  name: double
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
-               |     |- initialExpression (field of type ResolvedIdentifierNode)
-               |     |  |- name: force_store
+               |     |- initialExpression (field of type VariableCallNode)
                |     |  L  symbol (field of type Variable)
-               |     |     |- initialExpression (field of type ResolvedIdentifierNode)
-               |     |     |  |- name: d
+               |     |     |- initialExpression (field of type VariableCallNode)
                |     |     |  L  symbol (field of type Variable)
                |     |     |     |- initialExpression (field of type ValueNode)
                |     |     |     |  L  value: 10.0
@@ -130,8 +142,7 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: d
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
                |           |  L  value: 10.0
@@ -156,14 +167,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: f
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
                |           |  |- type (field of type BuiltIn)
                |           |  |  L  name: float
-               |           |  L  expression (field of type RawIdentifierNode)
-               |           |     L  name: d
+               |           |  L  expression (field of type VariableCallNode)
+               |           |     L  symbol (field of type Variable)
+               |           |        |- initialExpression (field of type ValueNode)
+               |           |        |  L  value: 10.0
+               |           |        |- name: d
+               |           |        L  type (field of type BuiltIn)
+               |           |           L  name: double
                |           |- name: f
                |           L  type (field of type BuiltIn)
                |              L  name: float
@@ -185,14 +200,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
                |           |  |- type (field of type BuiltIn)
                |           |  |  L  name: int
-               |           |  L  expression (field of type RawIdentifierNode)
-               |           |     L  name: d
+               |           |  L  expression (field of type VariableCallNode)
+               |           |     L  symbol (field of type Variable)
+               |           |        |- initialExpression (field of type ValueNode)
+               |           |        |  L  value: 10.0
+               |           |        |- name: d
+               |           |        L  type (field of type BuiltIn)
+               |           |           L  name: double
                |           |- name: i
                |           L  type (field of type BuiltIn)
                |              L  name: int
@@ -214,14 +233,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: l
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
                |           |  |- type (field of type BuiltIn)
                |           |  |  L  name: long
-               |           |  L  expression (field of type RawIdentifierNode)
-               |           |     L  name: d
+               |           |  L  expression (field of type VariableCallNode)
+               |           |     L  symbol (field of type Variable)
+               |           |        |- initialExpression (field of type ValueNode)
+               |           |        |  L  value: 10.0
+               |           |        |- name: d
+               |           |        L  type (field of type BuiltIn)
+               |           |           L  name: double
                |           |- name: l
                |           L  type (field of type BuiltIn)
                |              L  name: long
@@ -243,14 +266,11 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: force_load
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
-               |           |- initialExpression (field of type ResolvedIdentifierNode)
-               |           |  |- name: force_store
+               |           |- initialExpression (field of type VariableCallNode)
                |           |  L  symbol (field of type Variable)
-               |           |     |- initialExpression (field of type ResolvedIdentifierNode)
-               |           |     |  |- name: d
+               |           |     |- initialExpression (field of type VariableCallNode)
                |           |     |  L  symbol (field of type Variable)
                |           |     |     |- initialExpression (field of type ValueNode)
                |           |     |     |  L  value: 10.0
@@ -281,11 +301,9 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: force_store
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
-               |           |- initialExpression (field of type ResolvedIdentifierNode)
-               |           |  |- name: d
+               |           |- initialExpression (field of type VariableCallNode)
                |           |  L  symbol (field of type Variable)
                |           |     |- initialExpression (field of type ValueNode)
                |           |     |  L  value: 10.0
@@ -313,8 +331,7 @@ L  body
                   |  L  type (field of type BuiltIn)
                   |     L  name: void
                   L  values
-                     L  0 (field of type ResolvedIdentifierNode)
-                        |- name: force_const
+                     L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type ValueNode)
                            |  L  value: 1.0

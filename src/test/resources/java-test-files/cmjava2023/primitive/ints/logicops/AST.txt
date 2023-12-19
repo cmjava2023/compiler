@@ -60,10 +60,15 @@ L  body
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: i
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: 4
+               |     |  |     |- name: i
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BAND
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 2
                |     |- name: i2
                |     L  type (field of type BuiltIn)
@@ -71,10 +76,15 @@ L  body
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: i
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: 4
+               |     |  |     |- name: i
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BOR
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 2
                |     |- name: i3
                |     L  type (field of type BuiltIn)
@@ -82,10 +92,15 @@ L  body
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: eight
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: 8
+               |     |  |     |- name: eight
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BIT_SHIFT_L
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 1
                |     |- name: i4
                |     L  type (field of type BuiltIn)
@@ -93,10 +108,15 @@ L  body
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: eight
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: 8
+               |     |  |     |- name: eight
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BIT_SHIFT_R
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 1
                |     |- name: i5
                |     L  type (field of type BuiltIn)
@@ -104,10 +124,15 @@ L  body
                |- 7 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: eight
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: 8
+               |     |  |     |- name: eight
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BIT_SHIFT_R
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 1
                |     |- name: i6
                |     L  type (field of type BuiltIn)
@@ -115,10 +140,24 @@ L  body
                |- 8 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
-               |     |  |- expression1 (field of type RawIdentifierNode)
-               |     |  |  L  name: i2
+               |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ComparisonNode)
+               |     |  |     |  |- leftExpression (field of type VariableCallNode)
+               |     |  |     |  |  L  symbol (field of type Variable)
+               |     |  |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  |     |  L  value: 4
+               |     |  |     |  |     |- name: i
+               |     |  |     |  |     L  type (field of type BuiltIn)
+               |     |  |     |  |        L  name: int
+               |     |  |     |  |- comparisonOperator: BAND
+               |     |  |     |  L  rightExpression (field of type ValueNode)
+               |     |  |     |     L  value: 2
+               |     |  |     |- name: i2
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: int
                |     |  |- comparisonOperator: BXOR
-               |     |  L  expression2 (field of type ValueNode)
+               |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 2
                |     |- name: i7
                |     L  type (field of type BuiltIn)
@@ -141,8 +180,7 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
                |           |  L  value: 4
@@ -167,8 +205,7 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: eight
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
                |           |  L  value: 8
@@ -193,14 +230,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i2
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
-               |           |  |- expression1 (field of type RawIdentifierNode)
-               |           |  |  L  name: i
+               |           |  |- leftExpression (field of type VariableCallNode)
+               |           |  |  L  symbol (field of type Variable)
+               |           |  |     |- initialExpression (field of type ValueNode)
+               |           |  |     |  L  value: 4
+               |           |  |     |- name: i
+               |           |  |     L  type (field of type BuiltIn)
+               |           |  |        L  name: int
                |           |  |- comparisonOperator: BAND
-               |           |  L  expression2 (field of type ValueNode)
+               |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 2
                |           |- name: i2
                |           L  type (field of type BuiltIn)
@@ -223,14 +264,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i3
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
-               |           |  |- expression1 (field of type RawIdentifierNode)
-               |           |  |  L  name: i
+               |           |  |- leftExpression (field of type VariableCallNode)
+               |           |  |  L  symbol (field of type Variable)
+               |           |  |     |- initialExpression (field of type ValueNode)
+               |           |  |     |  L  value: 4
+               |           |  |     |- name: i
+               |           |  |     L  type (field of type BuiltIn)
+               |           |  |        L  name: int
                |           |  |- comparisonOperator: BOR
-               |           |  L  expression2 (field of type ValueNode)
+               |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 2
                |           |- name: i3
                |           L  type (field of type BuiltIn)
@@ -253,14 +298,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i4
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
-               |           |  |- expression1 (field of type RawIdentifierNode)
-               |           |  |  L  name: eight
+               |           |  |- leftExpression (field of type VariableCallNode)
+               |           |  |  L  symbol (field of type Variable)
+               |           |  |     |- initialExpression (field of type ValueNode)
+               |           |  |     |  L  value: 8
+               |           |  |     |- name: eight
+               |           |  |     L  type (field of type BuiltIn)
+               |           |  |        L  name: int
                |           |  |- comparisonOperator: BIT_SHIFT_L
-               |           |  L  expression2 (field of type ValueNode)
+               |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 1
                |           |- name: i4
                |           L  type (field of type BuiltIn)
@@ -283,14 +332,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i5
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
-               |           |  |- expression1 (field of type RawIdentifierNode)
-               |           |  |  L  name: eight
+               |           |  |- leftExpression (field of type VariableCallNode)
+               |           |  |  L  symbol (field of type Variable)
+               |           |  |     |- initialExpression (field of type ValueNode)
+               |           |  |     |  L  value: 8
+               |           |  |     |- name: eight
+               |           |  |     L  type (field of type BuiltIn)
+               |           |  |        L  name: int
                |           |  |- comparisonOperator: BIT_SHIFT_R
-               |           |  L  expression2 (field of type ValueNode)
+               |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 1
                |           |- name: i5
                |           L  type (field of type BuiltIn)
@@ -313,14 +366,18 @@ L  body
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: void
                |  L  values
-               |     L  0 (field of type ResolvedIdentifierNode)
-               |        |- name: i6
+               |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
-               |           |  |- expression1 (field of type RawIdentifierNode)
-               |           |  |  L  name: eight
+               |           |  |- leftExpression (field of type VariableCallNode)
+               |           |  |  L  symbol (field of type Variable)
+               |           |  |     |- initialExpression (field of type ValueNode)
+               |           |  |     |  L  value: 8
+               |           |  |     |- name: eight
+               |           |  |     L  type (field of type BuiltIn)
+               |           |  |        L  name: int
                |           |  |- comparisonOperator: BIT_SHIFT_R
-               |           |  L  expression2 (field of type ValueNode)
+               |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 1
                |           |- name: i6
                |           L  type (field of type BuiltIn)
@@ -343,14 +400,27 @@ L  body
                   |  L  type (field of type BuiltIn)
                   |     L  name: void
                   L  values
-                     L  0 (field of type ResolvedIdentifierNode)
-                        |- name: i7
+                     L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type ComparisonNode)
-                           |  |- expression1 (field of type RawIdentifierNode)
-                           |  |  L  name: i2
+                           |  |- leftExpression (field of type VariableCallNode)
+                           |  |  L  symbol (field of type Variable)
+                           |  |     |- initialExpression (field of type ComparisonNode)
+                           |  |     |  |- leftExpression (field of type VariableCallNode)
+                           |  |     |  |  L  symbol (field of type Variable)
+                           |  |     |  |     |- initialExpression (field of type ValueNode)
+                           |  |     |  |     |  L  value: 4
+                           |  |     |  |     |- name: i
+                           |  |     |  |     L  type (field of type BuiltIn)
+                           |  |     |  |        L  name: int
+                           |  |     |  |- comparisonOperator: BAND
+                           |  |     |  L  rightExpression (field of type ValueNode)
+                           |  |     |     L  value: 2
+                           |  |     |- name: i2
+                           |  |     L  type (field of type BuiltIn)
+                           |  |        L  name: int
                            |  |- comparisonOperator: BXOR
-                           |  L  expression2 (field of type ValueNode)
+                           |  L  rightExpression (field of type ValueNode)
                            |     L  value: 2
                            |- name: i7
                            L  type (field of type BuiltIn)
