@@ -199,10 +199,12 @@ abstract class OpCode(vararg val values: Any) {
             var haveArgumentTypesChanged = false
             for (parameter in constructor.parameters) {
                 if (parameter.type.jvmErasure.isSubclassOf(ConstantInfo::class) || kClass.isSubclassOf(Ldc_w::class)) {
-                    arguments.add(constantPoolItems[bytesInHexQueue.dequeue2ByteUShort().toInt()])
+                    val index = bytesInHexQueue.dequeue2ByteUShort().toInt()
+                    arguments.add(constantPoolItems[index])
                     haveArgumentTypesChanged = true
                 } else if (kClass.isSubclassOf(Ldc::class)) {
-                    arguments.add(constantPoolItems[bytesInHexQueue.dequeueUByte().toInt()])
+                    val index = bytesInHexQueue.dequeueUByte().toInt()
+                    arguments.add(constantPoolItems[index])
                     haveArgumentTypesChanged = true                    
                 } else {
                     when(parameter.type.jvmErasure) {

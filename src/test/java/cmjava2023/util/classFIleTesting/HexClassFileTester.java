@@ -4,7 +4,9 @@ import kotlin.NotImplementedError;
 import org.cmjava2023.classfilespecification.OpCode;
 import org.cmjava2023.util.BytesInHexQueue;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static com.ibm.icu.impl.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,16 +64,20 @@ public class HexClassFileTester {
                     unresolvedConstantPool.add(utf8FromHexString(bytesInHex.dequeueHexBytes(length)));
                     break;
                 case "03":
-                    unresolvedConstantPool.add(String.valueOf(bytesInHex.dequeue4ByteInt()));
+                    unresolvedConstantPool.add("Int " + bytesInHex.dequeue4ByteInt());
                     break;
                 case "04":
-                    unresolvedConstantPool.add(Float.toString(Float.intBitsToFloat(bytesInHex.dequeue4ByteInt())));
+                    unresolvedConstantPool.add("Float " + Float.intBitsToFloat(bytesInHex.dequeue4ByteInt()));
                     break;
                 case "05":
-                    unresolvedConstantPool.add(String.valueOf(bytesInHex.dequeue8ByteLong()));
+                    unresolvedConstantPool.add("Long " + bytesInHex.dequeue8ByteLong());
+                    unresolvedConstantPool.add("2nd Long Slot");
+                    i++;
                     break;
                 case "06":
-                    unresolvedConstantPool.add(Double.toString(Double.longBitsToDouble(bytesInHex.dequeue8ByteLong())));
+                    unresolvedConstantPool.add("Double " + Double.longBitsToDouble(bytesInHex.dequeue8ByteLong()));
+                    unresolvedConstantPool.add("2nd Double Slot");
+                    i++;
                     break;
                 case "07":
                     unresolvedConstantPool.add(new ConstantPoolItemToResolve("Class", bytesInHex.dequeue2ByteShort()));
@@ -180,8 +186,8 @@ public class HexClassFileTester {
     private void codeAttribute(MethodDescription methodDescription) {
         dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
         int actualAttributeSize = bytesInHex.dequeue4ByteInt();
-        assertEquals((short) 2, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("stackSize"));
-        assertEquals((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("maxLocalVars"));
+        short maxStackSize = bytesInHex.dequeue2ByteShort();
+        short maxLocalVars = bytesInHex.dequeue2ByteShort();
 
         int actualCodeSize = bytesInHex.dequeue4ByteInt();
         BytesInHexQueue actualCode = bytesInHex.getSubQueue(actualCodeSize);

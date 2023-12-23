@@ -17,7 +17,7 @@ import java.util.List;
 public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     private enum OperatorType {
-        INFIX, PREFIX, SUFFIX, COMPARISON;
+        INFIX, PREFIX, SUFFIX, COMPARISON
     }
 
     public final SymbolTable symbolTable = new SymbolTable();
@@ -330,7 +330,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
                 return new ASTNodes.ValueNode<>(string);
             }
         } else if (ctx.CHARACTER() != null) {
-            return new ASTNodes.ValueNode<>(ctx.CHARACTER().getText().charAt(0));
+            return new ASTNodes.ValueNode<>(ctx.CHARACTER().getText().charAt(1));
         } else if (ctx.FLOAT() != null) {
             return new ASTNodes.ValueNode<>(Float.parseFloat(ctx.FLOAT().getText()));
         } else if (ctx.DECIMAL() != null) {

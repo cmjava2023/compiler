@@ -1,0 +1,19 @@
+{
+  "classAccessModifierHex" : "0021",
+  "thisClass" : "Class cmjava2023/primitive/assignment/Main",
+  "superClass" : "Class java/lang/Object",
+  "methodDescriptions" : [
+    {
+      "accessModifierHex" : "0009",
+      "name" : "main",
+      "typeDescriptor" : "([Ljava/lang/String;)V",
+      "code" : null
+    },
+    {
+      "accessModifierHex" : "0001",
+      "name" : "<init>",
+      "typeDescriptor" : "()V",
+      "code" : "Aload_0: \nInvokespecial: 'Methodref java/lang/Object.<init>:()V', \nReturn:"
+    }
+  ]
+}

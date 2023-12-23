@@ -6,6 +6,7 @@ import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.*
 import org.cmjava2023.symboltable.GlobalScope
 import org.cmjava2023.symboltable.InvalidType
+import org.cmjava2023.symboltable.InvalidVariable
 import org.cmjava2023.symboltable.Variable
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 import org.cmjava2023.util.ByteListUtil.Companion.add
@@ -18,7 +19,7 @@ class ConstantPoolToByteList {
         val methodInfosBytes: List<Byte>,
         val methodInfoCount: UShort
     )
-    
+
     private var lastOccupiedConstantPoolIndex: UShort = 0u
     private var constantPoolItemBytes = mutableListOf<List<Byte>>()
     private val methodInfosBytes = mutableListOf<Byte>()
@@ -60,8 +61,16 @@ class ConstantPoolToByteList {
             .removeSuffix(")")
             .split(';')
             .filter { it.isNotEmpty() }
-            .forEachIndexed { index, type ->  localVariables.add(Variable("Method Parameter $index", InvalidType(type), GlobalScope(null, HashMap()) )) }
-        
+            .forEachIndexed { index, type ->
+                localVariables.add(
+                    Variable(
+                        "Method Parameter $index",
+                        InvalidType(type),
+                        GlobalScope(null, HashMap())
+                    )
+                )
+            }
+
 
         methodInfosBytes.add(methodInfo.attributes.size.toUShort())
 
@@ -74,16 +83,26 @@ class ConstantPoolToByteList {
         }
     }
 
-    private fun addCodeAttributeBytesToMethodInfoBytes(code: List<OpCode>, codeAttributeNameIndex: UShort, localVariables: MutableList<Variable>) {
+    private fun addCodeAttributeBytesToMethodInfoBytes(
+        code: List<OpCode>,
+        codeAttributeNameIndex: UShort,
+        localVariables: MutableList<Variable>
+    ) {
         val attributeBytesCountedForLength = mutableListOf<Byte>()
 
-        val maxStackSize: UShort = 2u
+        val maxStackSize: UShort = 4u
         attributeBytesCountedForLength.add(maxStackSize)
 
-        val maxLocalVarSize: UShort = 1u
-        attributeBytesCountedForLength.add(maxLocalVarSize)
-
         val codeBytes = code.flatMap { constructBytesOfOpcode(it, localVariables) }
+        val maxLocalVarSize: UShort = localVariables.size.toUShort()
+        attributeBytesCountedForLength.add(
+            if (maxLocalVarSize > 0u) {
+                maxLocalVarSize
+            } else {
+                (1).toUShort()
+            }
+        )
+
         val sizeOfCode = codeBytes.size.toUInt()
         attributeBytesCountedForLength.add(sizeOfCode)
         attributeBytesCountedForLength.addAll(codeBytes)
@@ -98,14 +117,21 @@ class ConstantPoolToByteList {
         methodInfosBytes.add(sizeOfAttribute)
         methodInfosBytes.addAll(attributeBytesCountedForLength)
     }
-    
+
     private fun assureOnConstantPoolAndGetIndex(constantInfo: ConstantInfo, dataBytes: List<Byte> = listOf()): UShort {
         val bytes = listOf(constantInfo.tag.value).plus(dataBytes)
         val zeroBasedIndex = constantPoolItemBytes.indexOf(bytes)
-        return if(zeroBasedIndex == -1) {
+        return if (zeroBasedIndex == -1) {
             lastOccupiedConstantPoolIndex++
             constantPoolItemBytes.add(bytes)
-            lastOccupiedConstantPoolIndex
+            if(constantInfo is LongConstantInfo || constantInfo is DoubleConstantInfo) {
+               val index = lastOccupiedConstantPoolIndex
+                lastOccupiedConstantPoolIndex++
+                constantPoolItemBytes.add(listOf())
+                index
+            } else {
+                lastOccupiedConstantPoolIndex                
+            }
         } else {
             (zeroBasedIndex + 1).toUShort()
         }
@@ -197,18 +223,30 @@ class ConstantPoolToByteList {
             else -> throw NotImplementedError(constantInfo.javaClass.name)
         }
     }
-    
+
     private fun getNumberOfVariable(localVariables: MutableList<Variable>, localVariable: Variable): UByte {
         var index = localVariables.indexOf(localVariable)
-        if (index == -1)  {
+        if (index == -1) {
             index = localVariables.size
             localVariables.add(localVariable)
+            if (localVariable.type.name == "double" || localVariable.type.name == "long") {
+                localVariables.add(
+                    InvalidVariable(
+                        "secondPlaceForLongOrDouble",
+                        InvalidType(""),
+                        GlobalScope(null, java.util.HashMap())
+                    )
+                )
+            }
         }
         return index.toUByte()
     }
-    
-    private fun resolveMultiplePossibleOpCode(opCode: OpCode.MultiplePossibleOpcode, localVariables: MutableList<Variable>): OpCode {
-        val transformedExceptLoadConstant = when(opCode) {
+
+    private fun resolveMultiplePossibleOpCode(
+        opCode: OpCode.MultiplePossibleOpcode,
+        localVariables: MutableList<Variable>
+    ): OpCode {
+        val transformedExceptLoadConstant = when (opCode) {
             is OpCode.LoadConstant -> opCode
             is OpCode.IntConstant -> transformIntConstant(opCode)
             is OpCode.LongConstant -> transformLongConstant(opCode)
@@ -224,7 +262,7 @@ class ConstantPoolToByteList {
             is OpCode.LoadDouble -> transformLoadDouble(opCode, localVariables)
             else -> throw NotImplementedError(opCode.javaClass.name)
         }
-        
+
         return if (transformedExceptLoadConstant is OpCode.LoadConstant) {
             val index = addConstantInfo(transformedExceptLoadConstant.constantInfo)
             if (index <= UByte.MAX_VALUE) {
