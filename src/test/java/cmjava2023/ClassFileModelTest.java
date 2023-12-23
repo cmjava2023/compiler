@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ClassFileModelTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> tests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileModel.txt", this);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileModel.txt", this, null);
     }
 
     @Override

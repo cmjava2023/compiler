@@ -73,7 +73,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
             val expr = functionCallNode.values[0]
             val opcOdesLoadingWhatToPrint = if (expr is ASTNodes.ValueNode<*>) {
-                when(val value = expr.value) {
+                when (val value = expr.value) {
                     is String -> listOf(OpCode.LoadConstant(StringConstantInfo(value)))
                     else -> throw NotImplementedError()
                 }
@@ -93,16 +93,55 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     override fun visit(infixNode: ASTNodes.InfixNode): List<OpCode> {
         val leftExpression = infixNode.leftExpression
-        if (infixNode.operator == ASTNodes.InfixOperator.PLUS && leftExpression is ASTNodes.ValueNode<*> && leftExpression.value is String) {
+        val rightExpression = infixNode.rightExpression
+        if (infixNode.operator == ASTNodes.InfixOperator.PLUS && leftExpression is ASTNodes.ValueNode<*> && leftExpression.value is String && rightExpression is ASTNodes.VariableCallNode) {
             return listOf(
                 OpCode.New(ClassConstantInfo("java/lang/StringBuilder")),
                 OpCode.Dup(),
-                OpCode.Invokespecial(MethodReferenceConstantInfo(ClassConstantInfo("java/lang/StringBuilder"), NameAndTypeConstantInfo("<init>", "()V"))),
+                OpCode.Invokespecial(
+                    MethodReferenceConstantInfo(
+                        ClassConstantInfo("java/lang/StringBuilder"),
+                        NameAndTypeConstantInfo("<init>", "()V")
+                    )
+                ),
                 OpCode.LoadConstant(StringConstantInfo(leftExpression.value as String)),
-                OpCode.Invokevirtual(MethodReferenceConstantInfo(ClassConstantInfo("java/lang/StringBuilder"), NameAndTypeConstantInfo("append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;"))))
+                OpCode.Invokevirtual(
+                    MethodReferenceConstantInfo(
+                        ClassConstantInfo("java/lang/StringBuilder"),
+                        NameAndTypeConstantInfo("append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;")
+                    )
+                )
+            )
                 .plus(dispatch(infixNode.rightExpression))
-                .plus(OpCode.Invokevirtual(MethodReferenceConstantInfo(ClassConstantInfo("java/lang/StringBuilder"), NameAndTypeConstantInfo("append", "(I)Ljava/lang/StringBuilder;"))))
-                .plus(OpCode.Invokevirtual(MethodReferenceConstantInfo(ClassConstantInfo("java/lang/StringBuilder"), NameAndTypeConstantInfo("toString", "()Ljava/lang/String;"))))
+                .plus(
+                    OpCode.Invokevirtual(
+                        MethodReferenceConstantInfo(
+                            ClassConstantInfo("java/lang/StringBuilder"),
+                            NameAndTypeConstantInfo(
+                                "append", "(" + 
+                                        when (rightExpression.symbol.type.name) {
+                                            "int" -> "I"
+                                            "boolean" -> "Z"
+                                            "float" -> "F"
+                                            "char" -> "C"
+                                            "byte" -> "I"
+                                            "short" -> "I"
+                                            "long" -> "J"
+                                            "double" -> "D"
+                                            else -> throw NotImplementedError(rightExpression.symbol.type.name)
+                                } + ")Ljava/lang/StringBuilder;"
+                            )
+                        )
+                    )
+                )
+                .plus(
+                    OpCode.Invokevirtual(
+                        MethodReferenceConstantInfo(
+                            ClassConstantInfo("java/lang/StringBuilder"),
+                            NameAndTypeConstantInfo("toString", "()Ljava/lang/String;")
+                        )
+                    )
+                )
         } else {
             throw NotImplementedError()
         }
@@ -120,6 +159,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(blockScopeNode: ASTNodes.BlockScopeNode): List<OpCode> {
         return listOf()
     }
+
     override fun visit(variableNode: ASTNodes.VariableNode): List<OpCode> {
         val variableSymbol = variableNode.variableSymbol
         val value = variableSymbol.initialExpression
@@ -128,7 +168,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
         val opCodesLoadingExpressionValueOnStack = dispatch(value)
-        val storingOpCode = when(variableSymbol.type.name) {
+        val storingOpCode = when (variableSymbol.type.name) {
             "int" -> OpCode.StoreInt(variableSymbol)
             "long" -> OpCode.StoreLong(variableSymbol)
             "float" -> OpCode.StoreFloat(variableSymbol)
@@ -150,18 +190,25 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     override fun visit(valueNode: ASTNodes.ValueNode<*>): List<OpCode> {
         val value = valueNode.value
-        return listOf(when (value) {
-            is String -> OpCode.LoadConstant(StringConstantInfo(value))
-            is Int -> OpCode.IntConstant(value)
-            is Long -> OpCode.LongConstant(value)
-            is Float -> OpCode.FloatConstant(value)
-            is Double -> OpCode.DoubleConstant(value)
-            is Boolean -> if(value) { OpCode.Iconst_1() } else { OpCode.Iconst_0() }
-            is Char ->  OpCode.IntConstant(value.code)
-            is Byte ->  OpCode.IntConstant(value.toInt())
-            is Short ->  OpCode.IntConstant(value.toInt())
-            else -> throw NotImplementedError("type${value.javaClass.name}")
-        })
+        return listOf(
+            when (value) {
+                is String -> OpCode.LoadConstant(StringConstantInfo(value))
+                is Int -> OpCode.IntConstant(value)
+                is Long -> OpCode.LongConstant(value)
+                is Float -> OpCode.FloatConstant(value)
+                is Double -> OpCode.DoubleConstant(value)
+                is Boolean -> if (value) {
+                    OpCode.Iconst_1()
+                } else {
+                    OpCode.Iconst_0()
+                }
+
+                is Char -> OpCode.IntConstant(value.code)
+                is Byte -> OpCode.IntConstant(value.toInt())
+                is Short -> OpCode.IntConstant(value.toInt())
+                else -> throw NotImplementedError("type${value.javaClass.name}")
+            }
+        )
     }
 
     override fun visit(nestedIdentifierNode: ASTNodes.NestedIdentifierNode): List<OpCode> {
@@ -173,17 +220,19 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(variableCallNode: ASTNodes.VariableCallNode): List<OpCode> {
-        return listOf(when(variableCallNode.symbol.type.name) {
-            "int" -> OpCode.LoadInt(variableCallNode.symbol)
-            "long" -> OpCode.LoadLong(variableCallNode.symbol)
-            "float" -> OpCode.LoadFloat(variableCallNode.symbol)
-            "double" -> OpCode.LoadDouble(variableCallNode.symbol)
-            "boolean" -> OpCode.LoadInt(variableCallNode.symbol)
-            "char" -> OpCode.LoadInt(variableCallNode.symbol)
-            "byte" -> OpCode.LoadInt(variableCallNode.symbol)
-            "short" -> OpCode.LoadInt(variableCallNode.symbol)
-            else -> throw NotImplementedError("typename:${variableCallNode.symbol.type.name}")
-        })
+        return listOf(
+            when (variableCallNode.symbol.type.name) {
+                "int" -> OpCode.LoadInt(variableCallNode.symbol)
+                "long" -> OpCode.LoadLong(variableCallNode.symbol)
+                "float" -> OpCode.LoadFloat(variableCallNode.symbol)
+                "double" -> OpCode.LoadDouble(variableCallNode.symbol)
+                "boolean" -> OpCode.LoadInt(variableCallNode.symbol)
+                "char" -> OpCode.LoadInt(variableCallNode.symbol)
+                "byte" -> OpCode.LoadInt(variableCallNode.symbol)
+                "short" -> OpCode.LoadInt(variableCallNode.symbol)
+                else -> throw NotImplementedError("typename:${variableCallNode.symbol.type.name}")
+            }
+        )
     }
 
     override fun visit(returnNode: ASTNodes.ReturnNode): List<OpCode> {

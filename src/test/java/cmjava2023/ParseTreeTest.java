@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> snapshotTests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ParseTree.txt", this);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ParseTree.txt", this, null);
     }
 
     @Override

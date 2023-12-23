@@ -1,13 +1,13 @@
 {
   "classAccessModifierHex" : "0021",
-  "thisClass" : "Class cmjava2023/helloworld/Main",
+  "thisClass" : "Class cmjava2023/primitive/assignment/Main",
   "superClass" : "Class java/lang/Object",
   "methodDescriptions" : [
     {
       "accessModifierHex" : "0009",
       "name" : "main",
       "typeDescriptor" : "([Ljava/lang/String;)V",
-      "code" : "Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', \nLdc: 'Str Hello world!', \nInvokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', \nReturn:"
+      "code" : null
     },
     {
       "accessModifierHex" : "0001",

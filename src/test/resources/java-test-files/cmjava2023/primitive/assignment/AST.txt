@@ -254,7 +254,7 @@ L  body
                |- 16 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: '
+               |     |  L  value: 8
                |     |- name: character
                |     L  type (field of type BuiltIn)
                |        L  name: char
@@ -273,19 +273,19 @@ L  body
                |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
-               |              |  L  value: '
+               |              |  L  value: 8
                |              |- name: character
                |              L  type (field of type BuiltIn)
                |                 L  name: char
                |- 18 (field of type VariableAssignmentNode)
                |  |- variable (field of type Variable)
                |  |  |- initialExpression (field of type ValueNode)
-               |  |  |  L  value: '
+               |  |  |  L  value: 8
                |  |  |- name: character
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: char
                |  L  expression (field of type ValueNode)
-               |     L  value: '
+               |     L  value: 9
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
@@ -301,7 +301,7 @@ L  body
                |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
-               |              |  L  value: '
+               |              |  L  value: 8
                |              |- name: character
                |              L  type (field of type BuiltIn)
                |                 L  name: char
@@ -416,7 +416,7 @@ L  body
                |- 28 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 0.8888889
+               |     |  L  value: 0.888888888
                |     |- name: doubleVariable
                |     L  type (field of type BuiltIn)
                |        L  name: double
@@ -435,19 +435,19 @@ L  body
                |        L  rightExpression (field of type VariableCallNode)
                |           L  symbol (field of type Variable)
                |              |- initialExpression (field of type ValueNode)
-               |              |  L  value: 0.8888889
+               |              |  L  value: 0.888888888
                |              |- name: doubleVariable
                |              L  type (field of type BuiltIn)
                |                 L  name: double
                |- 30 (field of type VariableAssignmentNode)
                |  |- variable (field of type Variable)
                |  |  |- initialExpression (field of type ValueNode)
-               |  |  |  L  value: 0.8888889
+               |  |  |  L  value: 0.888888888
                |  |  |- name: doubleVariable
                |  |  L  type (field of type BuiltIn)
                |  |     L  name: double
                |  L  expression (field of type ValueNode)
-               |     L  value: 1.0
+               |     L  value: 0.999999999
                L  31 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
@@ -463,7 +463,7 @@ L  body
                         L  rightExpression (field of type VariableCallNode)
                            L  symbol (field of type Variable)
                               |- initialExpression (field of type ValueNode)
-                              |  L  value: 0.8888889
+                              |  L  value: 0.888888888
                               |- name: doubleVariable
                               L  type (field of type BuiltIn)
                                  L  name: double

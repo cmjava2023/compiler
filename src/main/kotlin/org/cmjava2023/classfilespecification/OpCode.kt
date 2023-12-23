@@ -198,9 +198,14 @@ abstract class OpCode(vararg val values: Any) {
             val arguments = mutableListOf<Any>()
             var haveArgumentTypesChanged = false
             for (parameter in constructor.parameters) {
-                if (parameter.type.jvmErasure.isSubclassOf(ConstantInfo::class)) {
-                    arguments.add(constantPoolItems[bytesInHexQueue.dequeue2ByteShort().toInt()])
+                if (parameter.type.jvmErasure.isSubclassOf(ConstantInfo::class) || kClass.isSubclassOf(Ldc_w::class)) {
+                    val index = bytesInHexQueue.dequeue2ByteUShort().toInt()
+                    arguments.add(constantPoolItems[index])
                     haveArgumentTypesChanged = true
+                } else if (kClass.isSubclassOf(Ldc::class)) {
+                    val index = bytesInHexQueue.dequeueUByte().toInt()
+                    arguments.add(constantPoolItems[index])
+                    haveArgumentTypesChanged = true                    
                 } else {
                     when(parameter.type.jvmErasure) {
                         UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
@@ -223,6 +228,8 @@ abstract class OpCode(vararg val values: Any) {
     }
     
     abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(*values)
+    
+    interface OpCodeWithIndexToResolve
 
     class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): MultiplePossibleOpcode(*values)
 
@@ -375,9 +382,9 @@ abstract class OpCode(vararg val values: Any) {
     class Lcmp: OpCode()
     class Lconst_0: OpCode()
     class Lconst_1: OpCode()
-    class Ldc(indexInConstantPool: UByte): OpCode(indexInConstantPool)
+    class Ldc(indexInConstantPool: UByte): OpCode(indexInConstantPool), OpCodeWithIndexToResolve
     class Ldc2_w(longOrDoubleToLoad: ConstantInfo): OpCode(longOrDoubleToLoad)
-    class Ldc_w(indexInConstantPool: UShort): OpCode(indexInConstantPool)
+    class Ldc_w(indexInConstantPool: UShort): OpCode(indexInConstantPool), OpCodeWithIndexToResolve
     class Ldiv: OpCode()
     class Lload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
     class Lload_0: OpCode()

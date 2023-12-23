@@ -37,9 +37,9 @@ public class Main {
         shortVariable = 9999;
         System.out.println("shortVariable: " + shortVariable);
 
-        double doubleVariable = 0.888888888f;
+        double doubleVariable = 0.888888888;
         System.out.println("doubleVariable: " + doubleVariable);
-        doubleVariable = 0.999999999f;
+        doubleVariable = 0.999999999;
         System.out.println("doubleVariable: " + doubleVariable);
     }
 }
