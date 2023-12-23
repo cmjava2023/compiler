@@ -7,13 +7,13 @@
       "accessModifierHex" : "0009",
       "name" : "main",
       "typeDescriptor" : "([Ljava/lang/String;)V",
-      "code" : "Getstatic: '09 0009.000C', \nLdc: '15', \nInvokevirtual: '0A 0011.0014', \nReturn: \n"
+      "code" : "Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', \nLdc: '15', \nInvokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', \nReturn: \n"
     },
     {
       "accessModifierHex" : "0001",
       "name" : "<init>",
       "typeDescriptor" : "()V",
-      "code" : "Aload_0: \nInvokespecial: '0A 001A.001D', \nReturn: \n"
+      "code" : "Aload_0: \nInvokespecial: 'Methodref java/lang/Object.<init>:()V', \nReturn: \n"
     }
   ]
 }

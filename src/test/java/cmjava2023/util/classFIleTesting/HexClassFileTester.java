@@ -53,9 +53,14 @@ public class HexClassFileTester {
         short constantPoolSize = bytesInHex.dequeue2ByteShort();
         ArrayList<Object> unresolvedConstantPool = new ArrayList<>();
         unresolvedConstantPool.add("emptyElementBecauseConstantPoolIndicesStartWith1");
+        ArrayList<Integer> unresolvedFieldsInConstantPool = new ArrayList<>();
         for (int i = 0; i < constantPoolSize - 1; i++) {
             String constantInfoTag = bytesInHex.poll();
             switch (Objects.requireNonNull(constantInfoTag)) {
+                case "01":
+                    short length = bytesInHex.dequeue2ByteShort();
+                    unresolvedConstantPool.add(utf8FromHexString(bytesInHex.dequeueHexBytes(length)));
+                    break;
                 case "03":
                     unresolvedConstantPool.add(String.valueOf(bytesInHex.dequeue4ByteInt()));
                     break;
@@ -72,21 +77,16 @@ public class HexClassFileTester {
                 case "08":
                     unresolvedConstantPool.add(new ConstantPoolItemToResolve(bytesInHex.dequeue2ByteShort()));
                     break;
-                case "01":
-                    short length = bytesInHex.dequeue2ByteShort();
-                    unresolvedConstantPool.add(utf8FromHexString(bytesInHex.dequeueHexBytes(length)));
-                    break;
-                case "09":
-                case "0A":
-                case "0C":
+                case "09", "0A", "0C":
                     unresolvedConstantPool.add(constantInfoTag + " " + bytesInHex.dequeueHexBytes(2) + "." + bytesInHex.dequeueHexBytes(2));
+                    unresolvedFieldsInConstantPool.add(unresolvedConstantPool.size() - 1);
                     break;
                 default:
                     fail("test does not support constant pool type " + constantInfoTag + " constantPool so far:\n" + unresolvedConstantPool.toString().replace(",", ",\n"));
                     break;
             }
         }
-        constantPoolItems = unresolvedConstantPool.stream().map(e -> {
+        List<String> tempList = unresolvedConstantPool.stream().map(e -> {
             if (e instanceof String s) {
                 return s;
             } else if (e instanceof ConstantPoolItemToResolve c) {
@@ -95,6 +95,42 @@ public class HexClassFileTester {
                 throw new NotImplementedError();
             }
         }).toList();
+
+        ArrayList<String> tempConstantPool = new ArrayList<>(tempList);
+
+        for (String e : tempConstantPool){
+            if(unresolvedFieldsInConstantPool.contains(tempConstantPool.indexOf(e))){
+                String[] splitElement = e.split(" ");
+                String referenceSeperator = ".";
+                String ConstantInfoType;
+                var ConstantType = splitElement[0];
+                if (Objects.equals(ConstantType, "0C")){
+                    referenceSeperator = ":";
+                    ConstantInfoType = "NameAndType";
+                } else if (Objects.equals(ConstantType, "0A")){
+                    ConstantInfoType = "Methodref";
+                }else if (Objects.equals(ConstantType, "09")){
+                    ConstantInfoType = "Fieldref";
+                } else {
+                    throw new NotImplementedError();
+                }
+                String[] references = splitElement[1].split("\\.");
+                var firstReference = Short.parseShort(references[0], 16);
+                var secondReference = Short.parseShort(references[1], 16);
+                var firstValue = tempConstantPool.get(firstReference);
+                var secondValue = tempConstantPool.get(secondReference);
+                // if length == 2 .split(" ")[0] refers to "NameAndType", "Methodref", etc.
+                // this creates problems when a Methodref contains a NameAndType
+                if (firstValue.split(" ").length == 2){
+                    firstValue = firstValue.split(" ")[1];
+                }
+                if (secondValue.split(" ").length == 2){
+                    secondValue = secondValue.split(" ")[1];
+                }
+                tempConstantPool.set(tempConstantPool.indexOf(e), ConstantInfoType + " " + firstValue + referenceSeperator + secondValue);
+            }
+        }
+        constantPoolItems = tempConstantPool.stream().toList();
     }
 
     private String utf8FromHexString(String hexString) {
