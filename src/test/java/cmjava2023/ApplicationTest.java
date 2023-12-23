@@ -4,7 +4,6 @@ package cmjava2023;
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
 import cmjava2023.util.TestPathsHelper;
 import cmjava2023.util.classFIleTesting.*;
-import com.google.gson.Gson;
 import org.cmjava2023.Main;
 import org.cmjava2023.util.BytesInHexQueue;
 import org.junit.jupiter.api.DynamicTest;
@@ -20,17 +19,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> tests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this, null);
     }
 
     @Override
     public Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheClassIsIn, String pathToMain, String contentOfExpectationFile) {
         compileToFileUsingOurCompiler(pathToMain);
         return List.of(DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " ClassFileAsExpected", () -> {
-            ClassFileContent expectedClassFileContent = new Gson().fromJson(contentOfExpectationFile, ClassFileContent.class);
             String pathToFileCompiledByUs = new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/")).GetPathOfMainClassCompiledByUsInSamePackage();
             BytesInHexQueue bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(pathToFileCompiledByUs);
-            new HexClassFileTester().test(bytesInHex, expectedClassFileContent);
+            new HexClassFileTester().test(bytesInHex, ClassFileContent.load(contentOfExpectationFile, pathToMain));
         }), DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " outputSameAsJdk", () -> {
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/") + "/Main";
             String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);

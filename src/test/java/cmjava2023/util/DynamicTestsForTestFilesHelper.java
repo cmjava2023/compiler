@@ -14,12 +14,12 @@ public class DynamicTestsForTestFilesHelper {
         Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheClassIsIn, String pathToMain, String contentOfExpectationFile);
     }
 
-    public static Collection<DynamicTest> createForAllTestMainsWithFileOfNameBeside(String expectedFileName, DynamicTestCallback dynamicTestCallback) throws IOException {
+    public static Collection<DynamicTest> createForAllTestMainsWithFileOfNameBeside(String expectedFileName, DynamicTestCallback dynamicTestCallback, String nullOrOnlyForFilesContainingThis) throws IOException {
         ArrayList<DynamicTest> result = new ArrayList<>();
             Files.walkFileTree(Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH), new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    if (file.endsWith("Main.java")) {
+                    if (file.endsWith("Main.java") && (nullOrOnlyForFilesContainingThis == null || file.toString().contains(nullOrOnlyForFilesContainingThis))) {
                         Path txtFileWithExpected = file.resolveSibling(expectedFileName);
 
                         if (Files.exists(txtFileWithExpected)) {

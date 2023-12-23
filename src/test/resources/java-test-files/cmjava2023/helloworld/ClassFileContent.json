@@ -1,19 +1,19 @@
 {
   "classAccessModifierHex" : "0021",
-  "thisClass" : "cmjava2023/helloworld/Main",
-  "superClass" : "java/lang/Object",
+  "thisClass" : "Class cmjava2023/helloworld/Main",
+  "superClass" : "Class java/lang/Object",
   "methodDescriptions" : [
     {
       "accessModifierHex" : "0009",
       "name" : "main",
       "typeDescriptor" : "([Ljava/lang/String;)V",
-      "code" : "Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', \nLdc: '15', \nInvokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', \nReturn: \n"
+      "code" : "Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', \nLdc: 'Str Hello world!', \nInvokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', \nReturn:"
     },
     {
       "accessModifierHex" : "0001",
       "name" : "<init>",
       "typeDescriptor" : "()V",
-      "code" : "Aload_0: \nInvokespecial: 'Methodref java/lang/Object.<init>:()V', \nReturn: \n"
+      "code" : "Aload_0: \nInvokespecial: 'Methodref java/lang/Object.<init>:()V', \nReturn:"
     }
   ]
 }

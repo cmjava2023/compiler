@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SymbolTableTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> snapshotTests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("SymbolTable.txt", this);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("SymbolTable.txt", this, null);
     }
 
     @Override

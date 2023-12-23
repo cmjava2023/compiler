@@ -20,11 +20,11 @@ class ConstantPoolToByteList {
     )
     
     private var lastOccupiedConstantPoolIndex: UShort = 0u
-    private var constantPoolBytes = mutableListOf<Byte>()
+    private var constantPoolItemBytes = mutableListOf<List<Byte>>()
     private val methodInfosBytes = mutableListOf<Byte>()
 
     fun mapToClassFileBytes(constantPool: List<ConstantInfo>, methodInfos: List<MethodInfo>): ClassFileBytes {
-        constantPoolBytes = mutableListOf()
+        constantPoolItemBytes = mutableListOf()
         lastOccupiedConstantPoolIndex = 0u
         for (constantInfo in constantPool) {
             when (constantInfo) {
@@ -36,7 +36,7 @@ class ConstantPoolToByteList {
         }
 
         return ClassFileBytes(
-            constantPoolBytes,
+            constantPoolItemBytes.flatten(),
             (lastOccupiedConstantPoolIndex + 1u).toUShort(),
             methodInfosBytes,
             methodInfos.size.toUShort()
@@ -98,86 +98,91 @@ class ConstantPoolToByteList {
         methodInfosBytes.add(sizeOfAttribute)
         methodInfosBytes.addAll(attributeBytesCountedForLength)
     }
+    
+    private fun assureOnConstantPoolAndGetIndex(constantInfo: ConstantInfo, dataBytes: List<Byte> = listOf()): UShort {
+        val bytes = listOf(constantInfo.tag.value).plus(dataBytes)
+        val zeroBasedIndex = constantPoolItemBytes.indexOf(bytes)
+        return if(zeroBasedIndex == -1) {
+            lastOccupiedConstantPoolIndex++
+            constantPoolItemBytes.add(bytes)
+            lastOccupiedConstantPoolIndex
+        } else {
+            (zeroBasedIndex + 1).toUShort()
+        }
+    }
 
     private fun addUtf8ConstantAndGetStartIndex(utf8ConstantInfo: Utf8ConstantInfo): UShort {
-        val startIndex = startConstantInfoWithTagAndGetIndex(utf8ConstantInfo.tag)
-        constantPoolBytes.addAll(utf8ConstantInfo.getStringLengthBytes())
-        constantPoolBytes.addAll(utf8ConstantInfo.getUtf8Bytes())
-        return startIndex
+        val dataBytes = utf8ConstantInfo.getStringLengthBytes()
+            .plus(utf8ConstantInfo.getUtf8Bytes())
+        return assureOnConstantPoolAndGetIndex(utf8ConstantInfo, dataBytes)
     }
 
-    private fun startConstantInfoWithTagAndGetIndex(constantInfoTag: ConstantInfoTag): UShort {
-        constantPoolBytes.add(constantInfoTag.value)
-        lastOccupiedConstantPoolIndex++
-        return lastOccupiedConstantPoolIndex
+    private fun addClassConstantInfoAndGetStartIndex(classConstantInfo: ClassConstantInfo): UShort {
+        val nameIndex = addUtf8ConstantAndGetStartIndex(classConstantInfo.name)
+
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(nameIndex)
+
+        return assureOnConstantPoolAndGetIndex(classConstantInfo, dataBytes)
     }
 
-    private fun addClassConstantInfoAndGetStartIndex(constantInfo: ClassConstantInfo): UShort {
-        val nameIndex = addUtf8ConstantAndGetStartIndex(constantInfo.name)
+    private fun addStringConstantInfoAndGetStartIndex(stringConstantInfo: StringConstantInfo): UShort {
+        val valueIndex = addUtf8ConstantAndGetStartIndex(stringConstantInfo.value)
 
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(nameIndex)
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(valueIndex)
 
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(stringConstantInfo, dataBytes)
     }
 
-    private fun addStringConstantInfoAndGetStartIndex(constantInfo: StringConstantInfo): UShort {
-        val valueIndex = addUtf8ConstantAndGetStartIndex(constantInfo.value)
+    private fun addIntegerConstantInfoAndGetStartIndex(integerConstantInfo: IntegerConstantInfo): UShort {
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(integerConstantInfo.value)
 
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(valueIndex)
-
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(integerConstantInfo, dataBytes)
     }
 
-    private fun addIntegerConstantInfoAndGetStartIndex(constantInfo: IntegerConstantInfo): UShort {
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(constantInfo.value)
+    private fun addLongConstantInfoAndGetStartIndex(longConstantInfo: LongConstantInfo): UShort {
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(longConstantInfo.value)
 
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(longConstantInfo, dataBytes)
     }
 
-    private fun addLongConstantInfoAndGetStartIndex(constantInfo: LongConstantInfo): UShort {
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(constantInfo.value)
+    private fun addFloatConstantInfoAndGetStartIndex(floatConstantInfo: FloatConstantInfo): UShort {
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(floatConstantInfo.value.toBits())
 
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(floatConstantInfo, dataBytes)
     }
 
-    private fun addFloatConstantInfoAndGetStartIndex(constantInfo: FloatConstantInfo): UShort {
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(constantInfo.value.toBits())
+    private fun addDoubleConstantInfoAndGetStartIndex(doubleConstantInfo: DoubleConstantInfo): UShort {
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(doubleConstantInfo.value.toBits())
 
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(doubleConstantInfo, dataBytes)
     }
 
-    private fun addDoubleConstantInfoAndGetStartIndex(constantInfo: DoubleConstantInfo): UShort {
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(constantInfo.value.toBits())
+    private fun addNameAndTypeConstantInfoAndGetStartIndex(nameAndTypeConstantInfo: NameAndTypeConstantInfo): UShort {
+        val nameIndex = addUtf8ConstantAndGetStartIndex(nameAndTypeConstantInfo.name)
+        val typeIndex = addUtf8ConstantAndGetStartIndex(nameAndTypeConstantInfo.type)
 
-        return startIndex
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(nameIndex)
+        dataBytes.add(typeIndex)
+
+        return assureOnConstantPoolAndGetIndex(nameAndTypeConstantInfo, dataBytes)
     }
 
-    private fun addNameAndTypeConstantInfoAndGetStartIndex(constantInfo: NameAndTypeConstantInfo): UShort {
-        val nameIndex = addUtf8ConstantAndGetStartIndex(constantInfo.name)
-        val typeIndex = addUtf8ConstantAndGetStartIndex(constantInfo.type)
+    private fun addReferenceConstantInfoAndGetStartIndex(referenceConstantInfo: ReferenceConstantInfo): UShort {
+        val classIndex = addClassConstantInfoAndGetStartIndex(referenceConstantInfo.classConstantInfo)
+        val nameAndTypeIndex = addNameAndTypeConstantInfoAndGetStartIndex(referenceConstantInfo.nameAndTypeConstantInfo)
 
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(nameIndex)
-        constantPoolBytes.add(typeIndex)
+        val dataBytes = mutableListOf<Byte>()
+        dataBytes.add(classIndex)
+        dataBytes.add(nameAndTypeIndex)
 
-        return startIndex
-    }
-
-    private fun addReferenceConstantInfoAndGetStartIndex(constantInfo: ReferenceConstantInfo): UShort {
-        val classIndex = addClassConstantInfoAndGetStartIndex(constantInfo.classConstantInfo)
-        val nameAndTypeIndex = addNameAndTypeConstantInfoAndGetStartIndex(constantInfo.nameAndTypeConstantInfo)
-
-        val startIndex = startConstantInfoWithTagAndGetIndex(constantInfo.tag)
-        constantPoolBytes.add(classIndex)
-        constantPoolBytes.add(nameAndTypeIndex)
-
-        return startIndex
+        return assureOnConstantPoolAndGetIndex(referenceConstantInfo, dataBytes)
     }
 
     private fun addConstantInfo(constantInfo: ConstantInfo): UShort {
@@ -315,7 +320,7 @@ class ConstantPoolToByteList {
     private fun transformDoubleConstant(opCode: OpCode.DoubleConstant): OpCode = when (opCode.double) {
         0.0 -> OpCode.Dconst_0()
         1.0 -> OpCode.Dconst_1()
-        else -> OpCode.LoadConstant(DoubleConstantInfo(opCode.double))
+        else -> OpCode.Ldc2_w(DoubleConstantInfo(opCode.double))
     }
 
     private fun transformFloatConstant(opCode: OpCode.FloatConstant): OpCode = when (opCode.float) {
@@ -345,7 +350,7 @@ class ConstantPoolToByteList {
     private fun transformLongConstant(opCode: OpCode.LongConstant) = when (opCode.long) {
         0L -> OpCode.Lconst_0()
         1L -> OpCode.Lconst_1()
-        else -> OpCode.LoadConstant(LongConstantInfo(opCode.long))
+        else -> OpCode.Ldc2_w(LongConstantInfo(opCode.long))
     }
 
     private fun constructBytesOfOpcode(opCode: OpCode, localVariables: MutableList<Variable>): List<Byte> {

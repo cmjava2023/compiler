@@ -18,7 +18,7 @@ public class HexClassFileTester {
     private MethodDescription[] methodDescriptions;
     private List<String> constantPoolItems;
 
-    private record ConstantPoolItemToResolve(short index) {
+    private record ConstantPoolItemToResolve(String type, short index) {
     }
 
     public void test(BytesInHexQueue bytesInHex, ClassFileContent classFileContent) {
@@ -74,8 +74,10 @@ public class HexClassFileTester {
                     unresolvedConstantPool.add(Double.toString(Double.longBitsToDouble(bytesInHex.dequeue8ByteLong())));
                     break;
                 case "07":
+                    unresolvedConstantPool.add(new ConstantPoolItemToResolve("Class", bytesInHex.dequeue2ByteShort()));
+                    break;
                 case "08":
-                    unresolvedConstantPool.add(new ConstantPoolItemToResolve(bytesInHex.dequeue2ByteShort()));
+                    unresolvedConstantPool.add(new ConstantPoolItemToResolve("Str", bytesInHex.dequeue2ByteShort()));
                     break;
                 case "09", "0A", "0C":
                     unresolvedConstantPool.add(constantInfoTag + " " + bytesInHex.dequeueHexBytes(2) + "." + bytesInHex.dequeueHexBytes(2));
@@ -90,7 +92,7 @@ public class HexClassFileTester {
             if (e instanceof String s) {
                 return s;
             } else if (e instanceof ConstantPoolItemToResolve c) {
-                return (String) unresolvedConstantPool.get(c.index);
+                return c.type + " " + unresolvedConstantPool.get(c.index);
             } else {
                 throw new NotImplementedError();
             }
@@ -204,7 +206,7 @@ public class HexClassFileTester {
             opCodesAsString.append("\n");
         }                
         
-        assertEquals(methodDescription.code(), opCodesAsString.toString(), methodDescription.getAssertMessage("code"));
+        assertEquals(methodDescription.code(), opCodesAsString.toString().stripTrailing(), methodDescription.getAssertMessage("code"));
         assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
         assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
 
