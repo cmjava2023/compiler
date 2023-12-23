@@ -101,18 +101,33 @@ public class HexClassFileTester {
         for (String e : tempConstantPool){
             if(unresolvedFieldsInConstantPool.contains(tempConstantPool.indexOf(e))){
                 String[] splitElement = e.split(" ");
-                String referenceSeperator;
-                if (Objects.equals(splitElement[0], "0C")){
+                String referenceSeperator = ".";
+                String ConstantInfoType;
+                var ConstantType = splitElement[0];
+                if (Objects.equals(ConstantType, "0C")){
                     referenceSeperator = ":";
-                } else{
-                    referenceSeperator = ".";
+                    ConstantInfoType = "NameAndType";
+                } else if (Objects.equals(ConstantType, "0A")){
+                    ConstantInfoType = "Methodref";
+                }else if (Objects.equals(ConstantType, "09")){
+                    ConstantInfoType = "Fieldref";
+                } else {
+                    throw new NotImplementedError();
                 }
                 String[] references = splitElement[1].split("\\.");
                 var firstReference = Short.parseShort(references[0], 16);
                 var secondReference = Short.parseShort(references[1], 16);
                 var firstValue = tempConstantPool.get(firstReference);
                 var secondValue = tempConstantPool.get(secondReference);
-                tempConstantPool.set(tempConstantPool.indexOf(e), firstValue + referenceSeperator + secondValue);
+                // if length == 2 .split(" ")[0] refers to "NameAndType", "Methodref", etc.
+                // this creates problems when a Methodref contains a NameAndType
+                if (firstValue.split(" ").length == 2){
+                    firstValue = firstValue.split(" ")[1];
+                }
+                if (secondValue.split(" ").length == 2){
+                    secondValue = secondValue.split(" ")[1];
+                }
+                tempConstantPool.set(tempConstantPool.indexOf(e), ConstantInfoType + " " + firstValue + referenceSeperator + secondValue);
             }
         }
         constantPoolItems = tempConstantPool.stream().toList();
