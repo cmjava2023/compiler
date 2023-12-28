@@ -4,6 +4,7 @@ import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.constantpool.*
+import org.cmjava2023.symboltable.Type
 import org.cmjava2023.symboltable.Variable
 
 class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
@@ -66,11 +67,8 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 ClassConstantInfo(qualifiedClassName),
                 NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;")
             )
-            val methodReferenceConstantInfo = MethodReferenceConstantInfo(
-                ClassConstantInfo("java/io/PrintStream"),
-                NameAndTypeConstantInfo(methodName, "(Ljava/lang/String;)V")
-            )
 
+            var typeCodeToPrint = "Ljava/lang/String;"
             val expr = functionCallNode.values[0]
             val opcOdesLoadingWhatToPrint = if (expr is ASTNodes.ValueNode<*>) {
                 when (val value = expr.value) {
@@ -79,15 +77,36 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 }
             } else if (expr is ASTNodes.InfixNode && expr.operator == ASTNodes.InfixOperator.PLUS) {
                 visit(expr)
+            } else if (expr is ASTNodes.VariableCallNode) {
+                typeCodeToPrint = getCharOfTypeForTypeDescriptor(expr.symbol.type)
+                visit(expr)
             } else {
-                throw NotImplementedError()
+                throw NotImplementedError(expr.javaClass.name)
             }
+            val methodReferenceConstantInfo = MethodReferenceConstantInfo(
+                ClassConstantInfo("java/io/PrintStream"),
+                NameAndTypeConstantInfo(methodName, "($typeCodeToPrint)V")
+            )
 
             return listOf(OpCode.Getstatic(fieldReferenceConstantInfo))
                 .plus(opcOdesLoadingWhatToPrint)
                 .plus(OpCode.Invokevirtual(methodReferenceConstantInfo))
         } else {
             throw NotImplementedError()
+        }
+    }
+    
+    private fun getCharOfTypeForTypeDescriptor(type: Type): String {
+        return when (type.name) {
+            "int" -> "I"
+            "boolean" -> "Z"
+            "float" -> "F"
+            "char" -> "C"
+            "byte" -> "I"
+            "short" -> "I"
+            "long" -> "J"
+            "double" -> "D"
+            else -> throw NotImplementedError(type.name)
         }
     }
 
@@ -118,18 +137,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                         MethodReferenceConstantInfo(
                             ClassConstantInfo("java/lang/StringBuilder"),
                             NameAndTypeConstantInfo(
-                                "append", "(" + 
-                                        when (rightExpression.symbol.type.name) {
-                                            "int" -> "I"
-                                            "boolean" -> "Z"
-                                            "float" -> "F"
-                                            "char" -> "C"
-                                            "byte" -> "I"
-                                            "short" -> "I"
-                                            "long" -> "J"
-                                            "double" -> "D"
-                                            else -> throw NotImplementedError(rightExpression.symbol.type.name)
-                                } + ")Ljava/lang/StringBuilder;"
+                                "append", "(" + getCharOfTypeForTypeDescriptor(rightExpression.symbol.type) + ")Ljava/lang/StringBuilder;"
                             )
                         )
                     )
@@ -263,8 +271,27 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(castNode: ASTNodes.CastNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(castNode: ASTNodes.CastNode): List<OpCode> {
+        val result = mutableListOf<OpCode>()
+        val expression = castNode.expression
+        if(expression is ASTNodes.VariableCallNode) {
+            result.addAll(visit(expression))
+            val fromTypeName = expression.symbol.type.name
+            val toTypeName = castNode.type.name
+            result.add(when(fromTypeName) {
+                "int" -> when (toTypeName) {
+                    "byte" -> OpCode.I2b()
+                    "char" -> OpCode.I2c()
+                    "short" -> OpCode.I2s()
+                    "long" -> OpCode.I2l()
+                    "float" -> OpCode.I2f()
+                    "double" -> OpCode.I2d()
+                    else -> throw NotImplementedError(toTypeName)
+                }
+                else -> throw NotImplementedError(fromTypeName)
+            })
+        }
+        return result
     }
 
     override fun visit(arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode?): List<OpCode> {

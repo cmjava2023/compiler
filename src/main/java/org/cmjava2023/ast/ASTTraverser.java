@@ -40,6 +40,8 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.ComparisonNode) expressionNode);
         } else if (expressionNode instanceof ASTNodes.VariableCallNode) {
             return visit((ASTNodes.VariableCallNode) expressionNode);
+        } else if (expressionNode instanceof ASTNodes.CastNode) {
+            return visit((ASTNodes.CastNode) expressionNode);
         } else {
             throw new NotImplementedError("type " + expressionNode.getClass().getName());
         }
