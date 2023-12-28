@@ -1,0 +1,79 @@
+Iconst_4: 
+Istore_1: 
+Bipush: '8', 
+Istore_2: 
+Sipush: '257', 
+Istore_3: 
+Iload_1: 
+Iconst_2: 
+Iand: 
+Istore: '4', 
+Iload_1: 
+Iconst_2: 
+Ior: 
+Istore: '5', 
+Iload_2: 
+Iconst_1: 
+Ishl: 
+Istore: '6', 
+Iload_2: 
+Iconst_1: 
+Ishr: 
+Istore: '7', 
+Iload_2: 
+Iconst_1: 
+Ishr: 
+Istore: '8', 
+Iload: '4', 
+Iconst_2: 
+Ixor: 
+Istore: '9', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload_1: 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str eight:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload_2: 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i2:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '4', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i3:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '5', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i4:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '6', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i5:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '7', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i6:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '8', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str i7:', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload: '9', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Return:

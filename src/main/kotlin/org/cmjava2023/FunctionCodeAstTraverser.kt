@@ -1,6 +1,7 @@
 package org.cmjava2023
 
 import org.cmjava2023.ast.ASTNodes
+import org.cmjava2023.ast.ASTNodes.ComparisonOperator
 import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.constantpool.*
@@ -224,7 +225,28 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(comparisonNode: ASTNodes.ComparisonNode): List<OpCode> {
-        TODO("Not yet implemented")
+        val leftExpression = comparisonNode.leftExpression
+        val rightExpression = comparisonNode.rightExpression
+        val result = mutableListOf<OpCode>()
+        if(leftExpression is ASTNodes.VariableCallNode && rightExpression is ASTNodes.ValueNode<*>) {
+            result.addAll(visit(leftExpression))
+            result.addAll(visit(rightExpression))
+            if (leftExpression.symbol.type.name == "int" && rightExpression.value is Int) {
+                result.add(when (comparisonNode.comparisonOperator) {
+                   ComparisonOperator.BAND -> OpCode.Iand()
+                   ComparisonOperator.BOR -> OpCode.Ior()
+                   ComparisonOperator.BXOR -> OpCode.Ixor()
+                   ComparisonOperator.BIT_SHIFT_L -> OpCode.Ishl()
+                   ComparisonOperator.BIT_SHIFT_R -> OpCode.Ishr()
+                   else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
+                })
+            } else {
+                throw NotImplementedError(leftExpression.symbol.type.name + " " + rightExpression.value.javaClass.name)
+            }
+        } else {
+            throw NotImplementedError(leftExpression.javaClass.name + " " + rightExpression.javaClass.name)
+        }
+        return result
     }
 
     override fun visit(variableCallNode: ASTNodes.VariableCallNode): List<OpCode> {
