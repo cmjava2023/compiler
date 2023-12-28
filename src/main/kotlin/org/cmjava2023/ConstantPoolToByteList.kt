@@ -260,6 +260,7 @@ class ConstantPoolToByteList {
             is OpCode.LoadLong -> transformLoadLong(opCode, localVariables)
             is OpCode.LoadFloat -> transformLoadFloat(opCode, localVariables)
             is OpCode.LoadDouble -> transformLoadDouble(opCode, localVariables)
+            is OpCode.IncreaseInt -> OpCode.Iinc(getNumberOfVariable(localVariables, opCode.variableSymbol), opCode.byteToIncreaseBy)
             else -> throw NotImplementedError(opCode.javaClass.name)
         }
 

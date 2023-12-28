@@ -25,6 +25,8 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.ReturnNode) statementNode);
         } else if (statementNode instanceof ASTNodes.VariableAssignmentNode) {
             return visit((ASTNodes.VariableAssignmentNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.UnarySuffixNode) {
+            return visit((ASTNodes.UnarySuffixNode) statementNode);
         } else {
             throw new NotImplementedError("type " + statementNode.getClass().getName());
         }
@@ -42,6 +44,10 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.VariableCallNode) expressionNode);
         } else if (expressionNode instanceof ASTNodes.CastNode) {
             return visit((ASTNodes.CastNode) expressionNode);
+        } else if (expressionNode instanceof ASTNodes.InfixNode) {
+                return visit((ASTNodes.InfixNode) expressionNode);
+        } else if (expressionNode instanceof ASTNodes.UnaryPrefixNode) {
+                return visit((ASTNodes.UnaryPrefixNode) expressionNode);
         } else {
             throw new NotImplementedError("type " + expressionNode.getClass().getName());
         }

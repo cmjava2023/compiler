@@ -96,7 +96,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             throw NotImplementedError()
         }
     }
-    
+
     private fun getCharOfTypeForTypeDescriptor(type: Type): String {
         return when (type.name) {
             "int" -> "I"
@@ -114,46 +114,98 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(infixNode: ASTNodes.InfixNode): List<OpCode> {
         val leftExpression = infixNode.leftExpression
         val rightExpression = infixNode.rightExpression
-        if (infixNode.operator == ASTNodes.InfixOperator.PLUS && leftExpression is ASTNodes.ValueNode<*> && leftExpression.value is String && rightExpression is ASTNodes.VariableCallNode) {
-            return listOf(
-                OpCode.New(ClassConstantInfo("java/lang/StringBuilder")),
-                OpCode.Dup(),
-                OpCode.Invokespecial(
-                    MethodReferenceConstantInfo(
-                        ClassConstantInfo("java/lang/StringBuilder"),
-                        NameAndTypeConstantInfo("<init>", "()V")
-                    )
-                ),
-                OpCode.LoadConstant(StringConstantInfo(leftExpression.value as String)),
+        return if (infixNode.operator == ASTNodes.InfixOperator.PLUS && leftExpression is ASTNodes.ValueNode<*> && leftExpression.value is String && rightExpression is ASTNodes.VariableCallNode) {
+            concatStringLiteralAndVariable(leftExpression, infixNode, rightExpression)
+        } else {
+            val leftType = getTypeNameOf(leftExpression)
+            val rightType = getTypeNameOf(rightExpression)
+
+            if (leftType == rightType) {
+                dispatch(leftExpression).plus(dispatch(rightExpression)).plus(when (leftType) {
+                    "int" -> infixBothInt(infixNode.operator)
+                    else -> throw NotImplementedError(leftType)
+                })
+            } else {
+                throw NotImplementedError("$leftType $rightType")
+            }
+        }
+    }
+
+    private fun getTypeNameOf(expression: ASTNodes.Expression): String {
+        return when (expression) {
+            is ASTNodes.VariableCallNode -> expression.symbol.type.name
+            is ASTNodes.ValueNode<*> -> when (expression.value) {
+                is String -> "String"
+                is Int -> "int"
+                is Long -> "long"
+                is Float -> "float"
+                is Double -> "double"
+                is Boolean -> "boolean"
+                is Char -> "char"
+                is Byte -> "byte"
+                is Short -> "short"
+                else -> throw NotImplementedError("type${expression.value.javaClass.name}")
+            }
+
+            else -> throw NotImplementedError(expression.javaClass.name)
+        }
+    }
+
+    private fun infixBothInt(operator: ASTNodes.InfixOperator): List<OpCode> {
+        return listOf(
+            when (operator) {
+                ASTNodes.InfixOperator.PLUS -> OpCode.Iadd()
+                ASTNodes.InfixOperator.MINUS -> OpCode.Isub()
+                ASTNodes.InfixOperator.DIVISION -> OpCode.Idiv()
+                ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Imul()
+                ASTNodes.InfixOperator.MOD -> OpCode.Irem()
+                else -> throw NotImplementedError(operator.name)
+            }
+        )
+    }
+
+    private fun FunctionCodeAstTraverser.concatStringLiteralAndVariable(
+        leftExpression: ASTNodes.ValueNode<*>,
+        infixNode: ASTNodes.InfixNode,
+        rightExpression: ASTNodes.VariableCallNode
+    ): List<OpCode> {
+        return listOf(
+            OpCode.New(ClassConstantInfo("java/lang/StringBuilder")),
+            OpCode.Dup(),
+            OpCode.Invokespecial(
+                MethodReferenceConstantInfo(
+                    ClassConstantInfo("java/lang/StringBuilder"),
+                    NameAndTypeConstantInfo("<init>", "()V")
+                )
+            ),
+            OpCode.LoadConstant(StringConstantInfo(leftExpression.value as String)),
+            OpCode.Invokevirtual(
+                MethodReferenceConstantInfo(
+                    ClassConstantInfo("java/lang/StringBuilder"),
+                    NameAndTypeConstantInfo("append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;")
+                )
+            )
+        )
+            .plus(dispatch(infixNode.rightExpression))
+            .plus(
                 OpCode.Invokevirtual(
                     MethodReferenceConstantInfo(
                         ClassConstantInfo("java/lang/StringBuilder"),
-                        NameAndTypeConstantInfo("append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;")
+                        NameAndTypeConstantInfo(
+                            "append",
+                            "(" + getCharOfTypeForTypeDescriptor(rightExpression.symbol.type) + ")Ljava/lang/StringBuilder;"
+                        )
                     )
                 )
             )
-                .plus(dispatch(infixNode.rightExpression))
-                .plus(
-                    OpCode.Invokevirtual(
-                        MethodReferenceConstantInfo(
-                            ClassConstantInfo("java/lang/StringBuilder"),
-                            NameAndTypeConstantInfo(
-                                "append", "(" + getCharOfTypeForTypeDescriptor(rightExpression.symbol.type) + ")Ljava/lang/StringBuilder;"
-                            )
-                        )
+            .plus(
+                OpCode.Invokevirtual(
+                    MethodReferenceConstantInfo(
+                        ClassConstantInfo("java/lang/StringBuilder"),
+                        NameAndTypeConstantInfo("toString", "()Ljava/lang/String;")
                     )
                 )
-                .plus(
-                    OpCode.Invokevirtual(
-                        MethodReferenceConstantInfo(
-                            ClassConstantInfo("java/lang/StringBuilder"),
-                            NameAndTypeConstantInfo("toString", "()Ljava/lang/String;")
-                        )
-                    )
-                )
-        } else {
-            throw NotImplementedError()
-        }
+            )
     }
 
 
@@ -177,7 +229,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
         val opCodesLoadingExpressionValueOnStack = dispatch(value)
-        val storingOpCode = when (variableSymbol.type.name) {
+        val storingOpCode = storeStackInVar(variableSymbol)
+        return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
+    }
+
+    private fun storeStackInVar(variableSymbol: Variable): OpCode {
+        return when (variableSymbol.type.name) {
             "int" -> OpCode.StoreInt(variableSymbol)
             "long" -> OpCode.StoreLong(variableSymbol)
             "float" -> OpCode.StoreFloat(variableSymbol)
@@ -188,7 +245,6 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             "short" -> OpCode.StoreInt(variableSymbol)
             else -> throw NotImplementedError("typename:${variableSymbol.type.name}")
         }
-        return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
     }
 
     override fun visit(variableAssignmentNode: ASTNodes.VariableAssignmentNode): List<OpCode> {
@@ -228,18 +284,20 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         val leftExpression = comparisonNode.leftExpression
         val rightExpression = comparisonNode.rightExpression
         val result = mutableListOf<OpCode>()
-        if(leftExpression is ASTNodes.VariableCallNode && rightExpression is ASTNodes.ValueNode<*>) {
+        if (leftExpression is ASTNodes.VariableCallNode && rightExpression is ASTNodes.ValueNode<*>) {
             result.addAll(visit(leftExpression))
             result.addAll(visit(rightExpression))
             if (leftExpression.symbol.type.name == "int" && rightExpression.value is Int) {
-                result.add(when (comparisonNode.comparisonOperator) {
-                   ComparisonOperator.BAND -> OpCode.Iand()
-                   ComparisonOperator.BOR -> OpCode.Ior()
-                   ComparisonOperator.BXOR -> OpCode.Ixor()
-                   ComparisonOperator.BIT_SHIFT_L -> OpCode.Ishl()
-                   ComparisonOperator.BIT_SHIFT_R -> OpCode.Ishr()
-                   else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
-                })
+                result.add(
+                    when (comparisonNode.comparisonOperator) {
+                        ComparisonOperator.BAND -> OpCode.Iand()
+                        ComparisonOperator.BOR -> OpCode.Ior()
+                        ComparisonOperator.BXOR -> OpCode.Ixor()
+                        ComparisonOperator.BIT_SHIFT_L -> OpCode.Ishl()
+                        ComparisonOperator.BIT_SHIFT_R -> OpCode.Ishr()
+                        else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
+                    }
+                )
             } else {
                 throw NotImplementedError(leftExpression.symbol.type.name + " " + rightExpression.value.javaClass.name)
             }
@@ -281,12 +339,33 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(unaryPrefixNode: ASTNodes.UnaryPrefixNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(unaryPrefixNode: ASTNodes.UnaryPrefixNode): List<OpCode> {
+        val typeName = getTypeNameOf(unaryPrefixNode.Expression)
+        return dispatch(unaryPrefixNode.Expression).plus(
+            when (typeName) {
+                "int" -> when (unaryPrefixNode.operator) {
+                    ASTNodes.PrefixOperator.MINUS -> OpCode.Ineg()
+                    else -> throw NotImplementedError(unaryPrefixNode.operator.name)
+                }
+
+                else -> throw NotImplementedError(typeName)
+            }
+        )
     }
 
-    override fun visit(unarySuffixNode: ASTNodes.UnarySuffixNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(unarySuffixNode: ASTNodes.UnarySuffixNode): List<OpCode> {
+        val expression = unarySuffixNode.Expression
+        return if (expression is ASTNodes.VariableCallNode) {
+            listOf(
+                when (expression.symbol.type.name) {
+                    "int" -> when (unarySuffixNode.operator) {
+                        ASTNodes.SuffixOperator.INC -> OpCode.IncreaseInt(expression.symbol, 1)
+                        else -> throw NotImplementedError(unarySuffixNode.operator.name)
+                    }
+                    else -> throw NotImplementedError(expression.symbol.type.name)
+                }
+            )
+        } else throw NotImplementedError(unarySuffixNode.Expression.javaClass.name)
     }
 
     override fun visit(parenthesesNode: ASTNodes.ParenthesesNode?): List<OpCode> {
@@ -296,22 +375,25 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(castNode: ASTNodes.CastNode): List<OpCode> {
         val result = mutableListOf<OpCode>()
         val expression = castNode.expression
-        if(expression is ASTNodes.VariableCallNode) {
+        if (expression is ASTNodes.VariableCallNode) {
             result.addAll(visit(expression))
             val fromTypeName = expression.symbol.type.name
             val toTypeName = castNode.type.name
-            result.add(when(fromTypeName) {
-                "int" -> when (toTypeName) {
-                    "byte" -> OpCode.I2b()
-                    "char" -> OpCode.I2c()
-                    "short" -> OpCode.I2s()
-                    "long" -> OpCode.I2l()
-                    "float" -> OpCode.I2f()
-                    "double" -> OpCode.I2d()
-                    else -> throw NotImplementedError(toTypeName)
+            result.add(
+                when (fromTypeName) {
+                    "int" -> when (toTypeName) {
+                        "byte" -> OpCode.I2b()
+                        "char" -> OpCode.I2c()
+                        "short" -> OpCode.I2s()
+                        "long" -> OpCode.I2l()
+                        "float" -> OpCode.I2f()
+                        "double" -> OpCode.I2d()
+                        else -> throw NotImplementedError(toTypeName)
+                    }
+
+                    else -> throw NotImplementedError(fromTypeName)
                 }
-                else -> throw NotImplementedError(fromTypeName)
-            })
+            )
         }
         return result
     }

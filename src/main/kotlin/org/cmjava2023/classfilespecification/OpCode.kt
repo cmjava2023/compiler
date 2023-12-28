@@ -248,6 +248,8 @@ abstract class OpCode(vararg val values: Any) {
     class LoadLong(val variableSymbol: Variable): MultiplePossibleOpcode()
     class LoadFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
     class LoadDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
+    
+    class IncreaseInt(val variableSymbol: Variable, val byteToIncreaseBy: Byte): MultiplePossibleOpcode()
 
     interface ReturnAnything
 
