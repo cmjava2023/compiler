@@ -42,6 +42,8 @@ abstract class OpCode(vararg val values: Any) {
             Baload::class to (0x33u).toUByte(),
             Bastore::class to (0x54u).toUByte(),
             Bipush::class to (0x10u).toUByte(),
+            Caload::class to (0x34u).toUByte(),
+            Castore::class to (0x55u).toUByte(),
             D2i::class to (0x8eu).toUByte(),
             D2f::class to (0x90u).toUByte(),
             D2l::class to (0x8fu).toUByte(),
@@ -177,6 +179,7 @@ abstract class OpCode(vararg val values: Any) {
             Lsub::class to (0x65u).toUByte(),
             Lushr::class to (0x7du).toUByte(),
             Lxor::class to (0x83u).toUByte(),
+            Multianewarray::class to (0xc5u).toUByte(),
             New::class to (0xbbu).toUByte(),
             Newarray::class to (0xbcu).toUByte(),
             Nop::class to (0x00u).toUByte(),
@@ -214,6 +217,10 @@ abstract class OpCode(vararg val values: Any) {
                         Short::class -> arguments.add(bytesInHexQueue.dequeue2ByteShort())
                         Int::class -> arguments.add(bytesInHexQueue.dequeue4ByteInt())
                         Long::class -> arguments.add(bytesInHexQueue.dequeue8ByteLong())
+                        ArrayType::class -> {
+                            val typeCode = bytesInHexQueue.dequeueUByte()
+                            arguments.add(OpCode.ArrayType.entries.first { it.code == typeCode })
+                        } 
                         else -> throw NotImplementedError(parameter.type.jvmErasure.toString())
                     }
                 }
@@ -243,11 +250,13 @@ abstract class OpCode(vararg val values: Any) {
     class StoreLong(val variableSymbol: Variable): MultiplePossibleOpcode()
     class StoreFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
     class StoreDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class StoreArray(val variableSymbol: Variable): MultiplePossibleOpcode()
 
     class LoadInt(val variableSymbol: Variable): MultiplePossibleOpcode()
     class LoadLong(val variableSymbol: Variable): MultiplePossibleOpcode()
     class LoadFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
     class LoadDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
+    class LoadArray(val variableSymbol: Variable): MultiplePossibleOpcode()
     
     class IncreaseInt(val variableSymbol: Variable, val byteToIncreaseBy: Byte): MultiplePossibleOpcode()
 
@@ -273,6 +282,8 @@ abstract class OpCode(vararg val values: Any) {
     class Baload: OpCode()
     class Bastore: OpCode()
     class Bipush(byte: Byte): OpCode(byte)
+    class Caload: OpCode()
+    class Castore: OpCode()
     class D2i: OpCode()
     class D2f: OpCode()
     class D2l: OpCode()
@@ -408,8 +419,9 @@ abstract class OpCode(vararg val values: Any) {
     class Lsub: OpCode()
     class Lushr: OpCode()
     class Lxor: OpCode()
+    class Multianewarray(classConstantInfo: ClassConstantInfo, dimensions: UByte): OpCode(classConstantInfo, dimensions)
     class New(classConstantInfo: ClassConstantInfo): OpCode(classConstantInfo)
-    enum class ArrayType(code: UByte) {
+    enum class ArrayType(val code: UByte) {
         T_BOOLEAN(4u),
         T_CHAR(5u),
         T_FLOAT(6u),
