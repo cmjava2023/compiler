@@ -228,7 +228,22 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
-        val opCodesLoadingExpressionValueOnStack = dispatch(value)
+        val opCodesLoadingExpressionValueOnStack =  if (value is ASTNodes.ValueNode<*> && getTypeNameOf(value) != variableSymbol.type.name) {
+            val valueAsString = value.value.toString()
+            when(variableSymbol.type.name) {
+                "int" -> visit(ASTNodes.ValueNode(valueAsString.toInt()))
+                "long" -> visit(ASTNodes.ValueNode(valueAsString.toLong()))
+                "float" -> visit(ASTNodes.ValueNode(valueAsString.toFloat()))
+                "double" -> visit(ASTNodes.ValueNode(valueAsString.toDouble()))
+                "boolean" -> visit(ASTNodes.ValueNode(valueAsString.toBoolean()))
+                "char" -> visit(ASTNodes.ValueNode(valueAsString.first()))
+                "byte" -> visit(ASTNodes.ValueNode(valueAsString.toByte()))
+                "short" -> visit(ASTNodes.ValueNode(valueAsString.toShort()))
+                else -> throw NotImplementedError("typename:${variableSymbol.type.name}")             
+            }
+        } else {
+            dispatch(value)
+        }
         val storingOpCode = storeStackInVar(variableSymbol)
         return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
     }
@@ -388,6 +403,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                         "long" -> OpCode.I2l()
                         "float" -> OpCode.I2f()
                         "double" -> OpCode.I2d()
+                        else -> throw NotImplementedError(toTypeName)
+                    }
+                    "long" -> when (toTypeName) {
+                        "int" -> OpCode.L2i()
+                        "float" -> OpCode.L2f()
+                        "double" -> OpCode.L2d()
                         else -> throw NotImplementedError(toTypeName)
                     }
 
