@@ -120,9 +120,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             val leftType = getTypeNameOf(leftExpression)
             val rightType = getTypeNameOf(rightExpression)
 
-            if (leftType == rightType) {
-                dispatch(leftExpression).plus(dispatch(rightExpression)).plus(when (leftType) {
+            if (leftType == rightType || rightExpression is ASTNodes.ValueNode<*>) {
+                dispatch(leftExpression)
+                    .plus(if(rightExpression is ASTNodes.ValueNode<*>) { visitValueNodeThatNeedsType(rightExpression, leftType) } else {dispatch(rightExpression) })
+                    .plus(when (leftType) {
                     "int" -> infixBothInt(infixNode.operator)
+                    "long" -> infixBothLong(infixNode.operator)
                     else -> throw NotImplementedError(leftType)
                 })
             } else {
@@ -159,6 +162,19 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 ASTNodes.InfixOperator.DIVISION -> OpCode.Idiv()
                 ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Imul()
                 ASTNodes.InfixOperator.MOD -> OpCode.Irem()
+                else -> throw NotImplementedError(operator.name)
+            }
+        )
+    }
+
+    private fun infixBothLong(operator: ASTNodes.InfixOperator): List<OpCode> {
+        return listOf(
+            when (operator) {
+                ASTNodes.InfixOperator.PLUS -> OpCode.Ladd()
+                ASTNodes.InfixOperator.MINUS -> OpCode.Lsub()
+                ASTNodes.InfixOperator.DIVISION -> OpCode.Ldiv()
+                ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Lmul()
+                ASTNodes.InfixOperator.MOD -> OpCode.Lrem()
                 else -> throw NotImplementedError(operator.name)
             }
         )
@@ -229,7 +245,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
         val opCodesLoadingExpressionValueOnStack =  if (value is ASTNodes.ValueNode<*> && getTypeNameOf(value) != variableSymbol.type.name) {
-            visitValueNodeThatNeedsType(value, variableSymbol.type)
+            visitValueNodeThatNeedsType(value, variableSymbol.type.name)
         } else {
             dispatch(value)
         }
@@ -239,10 +255,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     private fun FunctionCodeAstTraverser.visitValueNodeThatNeedsType(
         value: ASTNodes.ValueNode<*>,
-        type: Type
+        typeName: String
     ): List<OpCode> {
         val valueAsString = value.value.toString()
-        return when (type.name) {
+        return when (typeName) {
             "int" -> visit(ASTNodes.ValueNode(valueAsString.toInt()))
             "long" -> visit(ASTNodes.ValueNode(valueAsString.toLong()))
             "float" -> visit(ASTNodes.ValueNode(valueAsString.toFloat()))
@@ -251,7 +267,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             "char" -> visit(ASTNodes.ValueNode(valueAsString.first()))
             "byte" -> visit(ASTNodes.ValueNode(valueAsString.toByte()))
             "short" -> visit(ASTNodes.ValueNode(valueAsString.toShort()))
-            else -> throw NotImplementedError("typename:${type.name}")
+            else -> throw NotImplementedError("typename:$typeName")
         }
     }
 
@@ -309,7 +325,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         if (leftExpression is ASTNodes.VariableCallNode && rightExpression is ASTNodes.ValueNode<*>) {
             result.addAll(visit(leftExpression))
             if(comparisonNode.comparisonOperator == ComparisonOperator.BAND || comparisonNode.comparisonOperator == ComparisonOperator.BOR || comparisonNode.comparisonOperator == ComparisonOperator.BXOR) {
-                result.addAll(visitValueNodeThatNeedsType(rightExpression, leftExpression.symbol.type))
+                result.addAll(visitValueNodeThatNeedsType(rightExpression, leftExpression.symbol.type.name))
             } else {
                 result.addAll(visit(rightExpression))
             }
@@ -389,6 +405,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             when (typeName) {
                 "int" -> when (unaryPrefixNode.operator) {
                     ASTNodes.PrefixOperator.MINUS -> OpCode.Ineg()
+                    else -> throw NotImplementedError(unaryPrefixNode.operator.name)
+                }
+                "long" -> when (unaryPrefixNode.operator) {
+                    ASTNodes.PrefixOperator.MINUS -> OpCode.Lneg()
                     else -> throw NotImplementedError(unaryPrefixNode.operator.name)
                 }
 
