@@ -1,7 +1,7 @@
 package org.cmjava2023.symboltable;
 
 public class ArrayType implements Type {
-    protected final Type arrayType;
+    public final Type arrayType;
     protected int dimensions;
 
     public ArrayType(Type arrayType) {

@@ -5,6 +5,8 @@ import org.cmjava2023.ast.ASTNodes.ComparisonOperator
 import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.constantpool.*
+import org.cmjava2023.symboltable.ArrayType
+import org.cmjava2023.symboltable.BuiltIn
 import org.cmjava2023.symboltable.Type
 import org.cmjava2023.symboltable.Variable
 
@@ -79,7 +81,13 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             } else if (expr is ASTNodes.InfixNode && expr.operator == ASTNodes.InfixOperator.PLUS) {
                 visit(expr)
             } else if (expr is ASTNodes.VariableCallNode) {
-                typeCodeToPrint = getCharOfTypeForTypeDescriptor(expr.symbol.type)
+                typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(expr.symbol.type)
+                visit(expr)
+            }  else if (expr is ASTNodes.ArrayAccessNode) {
+                val arrayType = (expr.array.type as ArrayType).arrayType
+                if(arrayType.name != "String") {
+                    typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(arrayType)                    
+                }
                 visit(expr)
             } else {
                 throw NotImplementedError(expr.javaClass.name)
@@ -97,7 +105,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         }
     }
 
-    private fun getCharOfTypeForTypeDescriptor(type: Type): String {
+    private fun getCharOfBuiltInForTypeDescriptor(type: Type): String {
         return when (type.name) {
             "int" -> "I"
             "boolean" -> "Z"
@@ -237,7 +245,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                         ClassConstantInfo("java/lang/StringBuilder"),
                         NameAndTypeConstantInfo(
                             "append",
-                            "(" + getCharOfTypeForTypeDescriptor(rightExpression.symbol.type) + ")Ljava/lang/StringBuilder;"
+                            "(" + getCharOfBuiltInForTypeDescriptor(rightExpression.symbol.type) + ")Ljava/lang/StringBuilder;"
                         )
                     )
                 )
@@ -272,8 +280,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
-        val opCodesLoadingExpressionValueOnStack =  if (value is ASTNodes.ValueNode<*> && getTypeNameOf(value) != variableSymbol.type.name) {
+        val opCodesLoadingExpressionValueOnStack = if (value is ASTNodes.ValueNode<*> && getTypeNameOf(value) != variableSymbol.type.name) {
             visitValueNodeThatNeedsType(value, variableSymbol.type.name)
+        } else if (variableSymbol.type is ArrayType && value is ASTNodes.ArrayInstantiationWithValuesNode) {
+            visit(value, variableSymbol.type as ArrayType)
         } else {
             dispatch(value)
         }
@@ -286,31 +296,43 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         typeName: String
     ): List<OpCode> {
         val valueAsString = value.value.toString()
-        return when (typeName) {
-            "int" -> visit(ASTNodes.ValueNode(valueAsString.toInt()))
-            "long" -> visit(ASTNodes.ValueNode(valueAsString.toLong()))
-            "float" -> visit(ASTNodes.ValueNode(valueAsString.toFloat()))
-            "double" -> visit(ASTNodes.ValueNode(valueAsString.toDouble()))
-            "boolean" -> visit(ASTNodes.ValueNode(valueAsString.toBoolean()))
-            "char" -> visit(ASTNodes.ValueNode(valueAsString.first()))
-            "byte" -> visit(ASTNodes.ValueNode(valueAsString.toByte()))
-            "short" -> visit(ASTNodes.ValueNode(valueAsString.toShort()))
+        return visit(when (typeName) {
+            "int" -> ASTNodes.ValueNode(valueAsString.toInt())
+            "long" -> ASTNodes.ValueNode(valueAsString.toLong())
+            "float" -> ASTNodes.ValueNode(valueAsString.toFloat())
+            "double" -> ASTNodes.ValueNode(valueAsString.toDouble())
+            "boolean" -> ASTNodes.ValueNode(valueAsString.toBoolean())
+            "char" -> {
+                when (value.value) {
+                    is Char -> value
+                    is Int -> ASTNodes.ValueNode(Char(value.value as Int))
+                    else -> throw NotImplementedError(value.value.javaClass.name)
+                }
+            }
+            "byte" -> ASTNodes.ValueNode(valueAsString.toByte())
+            "short" -> ASTNodes.ValueNode(valueAsString.toShort())
+            "String" -> ASTNodes.ValueNode(valueAsString)
             else -> throw NotImplementedError("typename:$typeName")
-        }
+        })
     }
 
     private fun storeStackInVar(variableSymbol: Variable): OpCode {
-        return when (variableSymbol.type.name) {
-            "int" -> OpCode.StoreInt(variableSymbol)
-            "long" -> OpCode.StoreLong(variableSymbol)
-            "float" -> OpCode.StoreFloat(variableSymbol)
-            "double" -> OpCode.StoreDouble(variableSymbol)
-            "boolean" -> OpCode.StoreInt(variableSymbol)
-            "char" -> OpCode.StoreInt(variableSymbol)
-            "byte" -> OpCode.StoreInt(variableSymbol)
-            "short" -> OpCode.StoreInt(variableSymbol)
-            else -> throw NotImplementedError("typename:${variableSymbol.type.name}")
+        return when(variableSymbol.type) {
+            is ArrayType -> OpCode.StoreArray(variableSymbol)
+            is BuiltIn -> when (variableSymbol.type.name) {
+                "int" -> OpCode.StoreInt(variableSymbol)
+                "long" -> OpCode.StoreLong(variableSymbol)
+                "float" -> OpCode.StoreFloat(variableSymbol)
+                "double" -> OpCode.StoreDouble(variableSymbol)
+                "boolean" -> OpCode.StoreInt(variableSymbol)
+                "char" -> OpCode.StoreInt(variableSymbol)
+                "byte" -> OpCode.StoreInt(variableSymbol)
+                "short" -> OpCode.StoreInt(variableSymbol)
+                else -> throw NotImplementedError("typename:${variableSymbol.type.name}")
+            }
+            else -> throw NotImplementedError("typename:${variableSymbol.type.javaClass.name}")
         }
+       
     }
 
     override fun visit(variableAssignmentNode: ASTNodes.VariableAssignmentNode): List<OpCode> {
@@ -515,16 +537,92 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         return result
     }
 
-    override fun visit(arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode?): List<OpCode> {
+    override fun visit(arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode): List<OpCode> {
         TODO("Not yet implemented")
     }
-
-    override fun visit(arrayInstantiationNode: ASTNodes.ArrayInstantiationNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    
+    fun visit(arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode, arrayType: ArrayType): List<OpCode> {        
+        val result = mutableListOf<OpCode>()
+        val arrayLength = arrayInstantiationWithValuesNode.expressions.size
+        result.add(OpCode.IntConstant(arrayLength))
+        val valueNodesOrNull = arrayInstantiationWithValuesNode.expressions.map { if(it is ASTNodes.ValueNode<*>) { it } else { null } }
+        if(valueNodesOrNull.none { it == null }) {
+            result.add(when(arrayType.arrayType.name) {
+                "String" -> OpCode.Anewarray(ClassConstantInfo("java/lang/String"))
+                "boolean" -> OpCode.Newarray(OpCode.ArrayType.T_BOOLEAN)
+                "int" -> OpCode.Newarray(OpCode.ArrayType.T_INT)
+                "byte" -> OpCode.Newarray(OpCode.ArrayType.T_BYTE)
+                "char" -> OpCode.Newarray(OpCode.ArrayType.T_CHAR)
+                "short" -> OpCode.Newarray(OpCode.ArrayType.T_SHORT)
+                "long" -> OpCode.Newarray(OpCode.ArrayType.T_LONG)
+                "float" -> OpCode.Newarray(OpCode.ArrayType.T_FLOAT)
+                "double" -> OpCode.Newarray(OpCode.ArrayType.T_DOUBLE)
+                else -> throw NotImplementedError(arrayType.arrayType.name)
+            })
+            val opCodeToStoreArrayElements = when(arrayType.arrayType.name) {
+                "String" -> OpCode.Aastore()
+                "boolean" -> OpCode.Bastore()
+                "int" -> OpCode.Iastore()
+                "byte" -> OpCode.Bastore()
+                "short" -> OpCode.Sastore()
+                "char" -> OpCode.Castore()
+                "long" -> OpCode.Lastore()
+                "double" -> OpCode.Dastore()
+                "float" -> OpCode.Fastore()
+                else -> throw NotImplementedError(arrayType.arrayType.name)
+            }
+            result.add(OpCode.Dup())
+            val valueNodes = valueNodesOrNull.requireNoNulls()
+            for ((index, valueNode) in valueNodes.withIndex()) {
+                result.add(OpCode.IntConstant(index))
+                result.addAll(visitValueNodeThatNeedsType(valueNode, arrayType.arrayType.name))
+                result.add(opCodeToStoreArrayElements)
+                if (index + 1 < valueNodes.size) {
+                    result.add(OpCode.Dup())
+                }
+            }
+        } else {
+            throw NotImplementedError("Array element not ValueNode")
+        }
+        
+        
+        return result
     }
 
-    override fun visit(arrayAccessNode: ASTNodes.ArrayAccessNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(arrayInstantiationNode: ASTNodes.ArrayInstantiationNode): List<OpCode> {
+        val result = mutableListOf<OpCode>()
+        for (dimensionSize in arrayInstantiationNode.dimensionSizes) {
+            result.add(OpCode.IntConstant(dimensionSize))
+        }
+        val numberOfDimensions = arrayInstantiationNode.dimensionSizes.size.toUByte()
+        result.add(OpCode.Multianewarray(ClassConstantInfo("[".repeat(numberOfDimensions.toInt()) + getCharOfBuiltInForTypeDescriptor(arrayInstantiationNode.type)), numberOfDimensions))
+        return result
+    }
+
+    override fun visit(arrayAccessNode: ASTNodes.ArrayAccessNode): List<OpCode> {
+        val result = mutableListOf<OpCode>()
+        result.add(OpCode.LoadArray(arrayAccessNode.array))
+        for ((index, elementIndexAccessed) in arrayAccessNode.elementIndicesAccessed.withIndex()) {
+            result.add(OpCode.IntConstant(elementIndexAccessed))
+            if (index + 1 < arrayAccessNode.elementIndicesAccessed.size) {
+                result.add(OpCode.Aaload())                
+            }
+        }
+        val arrayTypeName = (arrayAccessNode.array.type as ArrayType).arrayType.name
+        result.add(when (arrayTypeName) {
+            "String" -> OpCode.Aaload()
+            "boolean" -> OpCode.Baload()
+            "int" -> OpCode.Iaload()
+            "byte" -> OpCode.Baload()
+            "short" -> OpCode.Saload()
+            "char" -> OpCode.Caload()
+            "long" -> OpCode.Laload()
+            "double" -> OpCode.Daload()
+            "float" -> OpCode.Faload()
+            else -> throw NotImplementedError(arrayTypeName)
+        })
+        
+        return result
     }
 
     override fun visit(objectInstantiationNode: ASTNodes.ObjectInstantiationNode?): List<OpCode> {

@@ -90,7 +90,7 @@ class ConstantPoolToByteList {
     ) {
         val attributeBytesCountedForLength = mutableListOf<Byte>()
 
-        val maxStackSize: UShort = 4u
+        val maxStackSize: UShort = 5u
         attributeBytesCountedForLength.add(maxStackSize)
 
         val codeBytes = code.flatMap { constructBytesOfOpcode(it, localVariables) }
@@ -256,10 +256,12 @@ class ConstantPoolToByteList {
             is OpCode.StoreLong -> transformStoreLong(opCode, localVariables)
             is OpCode.StoreFloat -> transformStoreFloat(opCode, localVariables)
             is OpCode.StoreDouble -> transformStoreDouble(opCode, localVariables)
+            is OpCode.StoreArray -> OpCode.Astore(getNumberOfVariable(localVariables, opCode.variableSymbol))
             is OpCode.LoadInt -> transformLoadInt(opCode, localVariables)
             is OpCode.LoadLong -> transformLoadLong(opCode, localVariables)
             is OpCode.LoadFloat -> transformLoadFloat(opCode, localVariables)
             is OpCode.LoadDouble -> transformLoadDouble(opCode, localVariables)
+            is OpCode.LoadArray -> transformLoadArray(opCode, localVariables)
             is OpCode.IncreaseInt -> OpCode.Iinc(getNumberOfVariable(localVariables, opCode.variableSymbol), opCode.byteToIncreaseBy)
             else -> throw NotImplementedError(opCode.javaClass.name)
         }
@@ -283,6 +285,16 @@ class ConstantPoolToByteList {
             2.toUByte() -> OpCode.Dload_2()
             3.toUByte() -> OpCode.Dload_3()
             else -> OpCode.Dload(index)
+        }
+    }
+
+    private fun transformLoadArray(opCode: OpCode.LoadArray, localVariables: MutableList<Variable>): OpCode {
+        return when (val index = getNumberOfVariable(localVariables, opCode.variableSymbol)) {
+            0.toUByte() -> OpCode.Aload_0()
+            1.toUByte() -> OpCode.Aload_1()
+            2.toUByte() -> OpCode.Aload_2()
+            3.toUByte() -> OpCode.Aload_3()
+            else -> OpCode.Aload(index)
         }
     }
 
@@ -406,6 +418,7 @@ class ConstantPoolToByteList {
                 is Byte -> result.add(value)
                 is Short -> result.add(value)
                 is ConstantInfo -> result.add(addConstantInfo(value))
+                is OpCode.ArrayType -> result.add(value.code)
                 else -> throw NotImplementedError(value.javaClass.name)
             }
         }

@@ -1,4 +1,4 @@
-package cmjava2023.array;
+package cmjava2023.notSupported.array;
 
 public class Main {
     public static void main(String[] args) {
