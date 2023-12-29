@@ -126,6 +126,8 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                     .plus(when (leftType) {
                     "int" -> infixBothInt(infixNode.operator)
                     "long" -> infixBothLong(infixNode.operator)
+                    "float" -> infixBothFloat(infixNode.operator)
+                    "double" -> infixBothDouble(infixNode.operator)
                     else -> throw NotImplementedError(leftType)
                 })
             } else {
@@ -175,6 +177,32 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 ASTNodes.InfixOperator.DIVISION -> OpCode.Ldiv()
                 ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Lmul()
                 ASTNodes.InfixOperator.MOD -> OpCode.Lrem()
+                else -> throw NotImplementedError(operator.name)
+            }
+        )
+    }
+
+    private fun infixBothFloat(operator: ASTNodes.InfixOperator): List<OpCode> {
+        return listOf(
+            when (operator) {
+                ASTNodes.InfixOperator.PLUS -> OpCode.Fadd()
+                ASTNodes.InfixOperator.MINUS -> OpCode.Fsub()
+                ASTNodes.InfixOperator.DIVISION -> OpCode.Fdiv()
+                ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Fmul()
+                ASTNodes.InfixOperator.MOD -> OpCode.Frem()
+                else -> throw NotImplementedError(operator.name)
+            }
+        )
+    }
+
+    private fun infixBothDouble(operator: ASTNodes.InfixOperator): List<OpCode> {
+        return listOf(
+            when (operator) {
+                ASTNodes.InfixOperator.PLUS -> OpCode.Dadd()
+                ASTNodes.InfixOperator.MINUS -> OpCode.Dsub()
+                ASTNodes.InfixOperator.DIVISION -> OpCode.Ddiv()
+                ASTNodes.InfixOperator.MULTIPLICATION -> OpCode.Dmul()
+                ASTNodes.InfixOperator.MOD -> OpCode.Drem()
                 else -> throw NotImplementedError(operator.name)
             }
         )
@@ -409,6 +437,14 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 }
                 "long" -> when (unaryPrefixNode.operator) {
                     ASTNodes.PrefixOperator.MINUS -> OpCode.Lneg()
+                    else -> throw NotImplementedError(unaryPrefixNode.operator.name)
+                }
+                "float" -> when (unaryPrefixNode.operator) {
+                    ASTNodes.PrefixOperator.MINUS -> OpCode.Fneg()
+                    else -> throw NotImplementedError(unaryPrefixNode.operator.name)
+                }
+                "double" -> when (unaryPrefixNode.operator) {
+                    ASTNodes.PrefixOperator.MINUS -> OpCode.Dneg()
                     else -> throw NotImplementedError(unaryPrefixNode.operator.name)
                 }
 

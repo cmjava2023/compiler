@@ -93,7 +93,7 @@ abstract class OpCode(vararg val values: Any) {
             Fload_3::class to (0x25u).toUByte(),
             Fmul::class to (0x6au).toUByte(),
             Fneg::class to (0x76u).toUByte(),
-            Freg::class to (0x72u).toUByte(),
+            Frem::class to (0x72u).toUByte(),
             Freturn::class to (0xaeu).toUByte(),
             Fstore::class to (0x38u).toUByte(),
             Fstore_0::class to (0x43u).toUByte(),
@@ -324,7 +324,7 @@ abstract class OpCode(vararg val values: Any) {
     class Fload_3: OpCode()
     class Fmul: OpCode()
     class Fneg: OpCode()
-    class Freg: OpCode()
+    class Frem: OpCode()
     class Freturn: OpCode(), ReturnAnything
     class Fstore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
     class Fstore_0: OpCode()
