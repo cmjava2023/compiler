@@ -35,7 +35,7 @@ numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | G
 numerical_prefix: PLUS | MINUS;
 logical_prefix: NOT | NOTNOT;
 logical_comparison_operator: LAND | LOR;
-bit_comparison_operator: BAND | BOR | BXOR | BIT_SHIFT_L | BIT_SHIFT_R;
+bit_comparison_operator: BAND | BOR | BXOR | LOGICAL_SHIFT_R | BIT_SHIFT_L | BIT_SHIFT_R;
 
 // Packages
 package_declaration: PACKAGE_KEYWORD identifier;
@@ -185,9 +185,10 @@ NOTNOT: '!!';
 // Bit Operators
 BAND: '&';
 BOR: '|';
-BIT_SHIFT_L: '<'+;
-BIT_SHIFT_R: '>'+;
+BIT_SHIFT_L: '<<';
+BIT_SHIFT_R: '>>';
 BXOR: '^';
+LOGICAL_SHIFT_R: '>>>';
 
 // Comments
 COMMENT : '/*' .*? '*/' -> skip;

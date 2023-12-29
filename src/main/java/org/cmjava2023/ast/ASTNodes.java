@@ -44,8 +44,9 @@ public class ASTNodes {
         BAND, // BAND: '&';
         BOR, // BOR: '|';
         BXOR, // BXOR: '^';
-        BIT_SHIFT_L, // BIT_SHIFT_L: '<'+;
-        BIT_SHIFT_R // BIT_SHIFT_R: '>'+;
+        BIT_SHIFT_L, // BIT_SHIFT_L: '<<';
+        BIT_SHIFT_R, // BIT_SHIFT_R: '>>';
+        LOGICAL_SHIFT_R // BIT_SHIFT_R: '>>>';
     }
 
     public enum InfixOperator implements Operator {

@@ -1,10 +1,10 @@
 root (field of type ClassfileModel)
-|- packageNameWithDelimiterForClassFile: cmjava2023/primitive/ints/logicops
+|- packageNameWithDelimiterForClassFile: cmjava2023/primitive/longs/logicops
 |- constantPool
 |  |- 0 (field of type ClassConstantInfo)
 |  |  |- name (field of type Utf8ConstantInfo)
-|  |  |  |- content: cmjava2023/primitive/ints/logicops/Main
-|  |  |  |- utf8encodedName: cmjava2023/primitive/ints/logicops/Main
+|  |  |  |- content: cmjava2023/primitive/longs/logicops/Main
+|  |  |  |- utf8encodedName: cmjava2023/primitive/longs/logicops/Main
 |  |  |  L  tag: CONSTANT_Utf8
 |  |  L  tag: CONSTANT_Class
 |  L  1 (field of type ClassConstantInfo)
@@ -29,181 +29,162 @@ root (field of type ClassfileModel)
 |  |  |- attributes
 |  |  |  L  0 (field of type CodeAttributeInfo)
 |  |  |     |- code
-|  |  |     |  |- 0 (field of type IntConstant)
-|  |  |     |  |  |- int: 4
+|  |  |     |  |- 0 (field of type LongConstant)
+|  |  |     |  |  |- long: 4
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 1 (field of type StoreInt)
+|  |  |     |  |- 1 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 4
-|  |  |     |  |  |  |- name: i
+|  |  |     |  |  |  |- name: l
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 2 (field of type IntConstant)
-|  |  |     |  |  |- int: 8
+|  |  |     |  |- 2 (field of type LongConstant)
+|  |  |     |  |  |- long: 8
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 3 (field of type StoreInt)
+|  |  |     |  |- 3 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 8
 |  |  |     |  |  |  |- name: eight
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 4 (field of type IntConstant)
-|  |  |     |  |  |- int: 257
-|  |  |     |  |  |- Companion (field of type Companion)
-|  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: -53
-|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
-|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 5 (field of type StoreInt)
-|  |  |     |  |  |- variableSymbol (field of type Variable)
-|  |  |     |  |  |  |- initialExpression (field of type ValueNode)
-|  |  |     |  |  |  |  L  value: 257
-|  |  |     |  |  |  |- name: sipush
-|  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
-|  |  |     |  |  |- Companion (field of type Companion)
-|  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: -53
-|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
-|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 6 (field of type LoadInt)
+|  |  |     |  |- 4 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 4
-|  |  |     |  |  |  |- name: i
+|  |  |     |  |  |  |- name: l
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 7 (field of type IntConstant)
-|  |  |     |  |  |- int: 2
+|  |  |     |  |- 5 (field of type LongConstant)
+|  |  |     |  |  |- long: 2
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 8 (field of type Iand)
+|  |  |     |  |- 6 (field of type Land)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: 126
+|  |  |     |  |  |- opCodeValue: 127
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 9 (field of type StoreInt)
+|  |  |     |  |- 7 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
 |  |  |     |  |  |  |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |- name: i
+|  |  |     |  |  |  |  |     |- name: l
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BAND
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i2
+|  |  |     |  |  |  |- name: l2
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 10 (field of type LoadInt)
+|  |  |     |  |- 8 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 4
-|  |  |     |  |  |  |- name: i
+|  |  |     |  |  |  |- name: l
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 11 (field of type IntConstant)
-|  |  |     |  |  |- int: 2
+|  |  |     |  |- 9 (field of type LongConstant)
+|  |  |     |  |  |- long: 2
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 12 (field of type Ior)
+|  |  |     |  |- 10 (field of type Lor)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: -128
+|  |  |     |  |  |- opCodeValue: -127
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 13 (field of type StoreInt)
+|  |  |     |  |- 11 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
 |  |  |     |  |  |  |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |- name: i
+|  |  |     |  |  |  |  |     |- name: l
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BOR
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i3
+|  |  |     |  |  |  |- name: l3
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 14 (field of type LoadInt)
+|  |  |     |  |- 12 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 8
 |  |  |     |  |  |  |- name: eight
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 15 (field of type IntConstant)
+|  |  |     |  |- 13 (field of type IntConstant)
 |  |  |     |  |  |- int: 1
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 16 (field of type Ishl)
+|  |  |     |  |- 14 (field of type Lshl)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: 120
+|  |  |     |  |  |- opCodeValue: 121
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 17 (field of type StoreInt)
+|  |  |     |  |- 15 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -212,44 +193,44 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BIT_SHIFT_L
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i4
+|  |  |     |  |  |  |- name: l4
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 18 (field of type LoadInt)
+|  |  |     |  |- 16 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 8
 |  |  |     |  |  |  |- name: eight
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 19 (field of type IntConstant)
+|  |  |     |  |- 17 (field of type IntConstant)
 |  |  |     |  |  |- int: 1
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 20 (field of type Ishr)
+|  |  |     |  |- 18 (field of type Lshr)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: 122
+|  |  |     |  |  |- opCodeValue: 123
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 21 (field of type StoreInt)
+|  |  |     |  |- 19 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -258,44 +239,44 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BIT_SHIFT_R
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i5
+|  |  |     |  |  |  |- name: l5
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 22 (field of type LoadInt)
+|  |  |     |  |- 20 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 8
 |  |  |     |  |  |  |- name: eight
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 23 (field of type IntConstant)
+|  |  |     |  |- 21 (field of type IntConstant)
 |  |  |     |  |  |- int: 1
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 24 (field of type Iushr)
+|  |  |     |  |- 22 (field of type Lushr)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: 124
+|  |  |     |  |  |- opCodeValue: 125
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 25 (field of type StoreInt)
+|  |  |     |  |- 23 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -304,53 +285,53 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: LOGICAL_SHIFT_R
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i6
+|  |  |     |  |  |  |- name: l6
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 26 (field of type LoadInt)
+|  |  |     |  |- 24 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
 |  |  |     |  |  |  |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |- name: i
+|  |  |     |  |  |  |  |     |- name: l
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BAND
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i2
+|  |  |     |  |  |  |- name: l2
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 27 (field of type IntConstant)
-|  |  |     |  |  |- int: 2
+|  |  |     |  |- 25 (field of type LongConstant)
+|  |  |     |  |  |- long: 2
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 28 (field of type Ixor)
+|  |  |     |  |- 26 (field of type Lxor)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
-|  |  |     |  |  |- opCodeValue: -126
+|  |  |     |  |  |- opCodeValue: -125
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 29 (field of type StoreInt)
+|  |  |     |  |- 27 (field of type StoreLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -360,27 +341,27 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |  |     |- name: i
+|  |  |     |  |  |  |  |     |  |     |- name: l
 |  |  |     |  |  |  |  |     |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |     |  |        L  name: int
+|  |  |     |  |  |  |  |     |  |        L  name: long
 |  |  |     |  |  |  |  |     |  |- comparisonOperator: BAND
 |  |  |     |  |  |  |  |     |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |     L  value: 2
-|  |  |     |  |  |  |  |     |- name: i2
+|  |  |     |  |  |  |  |     |- name: l2
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BXOR
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i7
+|  |  |     |  |  |  |- name: l7
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 30 (field of type Getstatic)
+|  |  |     |  |- 28 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -404,25 +385,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 31 (field of type LoadConstant)
+|  |  |     |  |- 29 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i:
-|  |  |     |  |  |  |  |- utf8encodedName: i:
+|  |  |     |  |  |  |  |- content: l:
+|  |  |     |  |  |  |  |- utf8encodedName: l:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i:
-|  |  |     |  |  |     |  |- utf8encodedName: i:
+|  |  |     |  |  |     |  |- content: l:
+|  |  |     |  |  |     |  |- utf8encodedName: l:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 32 (field of type Invokevirtual)
+|  |  |     |  |- 30 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -446,7 +427,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 33 (field of type Getstatic)
+|  |  |     |  |- 31 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -470,19 +451,19 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 34 (field of type LoadInt)
+|  |  |     |  |- 32 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 4
-|  |  |     |  |  |  |- name: i
+|  |  |     |  |  |  |- name: l
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 35 (field of type Invokevirtual)
+|  |  |     |  |- 33 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -498,15 +479,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 36 (field of type Getstatic)
+|  |  |     |  |- 34 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -530,7 +511,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 37 (field of type LoadConstant)
+|  |  |     |  |- 35 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
 |  |  |     |  |  |  |  |- content: eight:
@@ -548,7 +529,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 38 (field of type Invokevirtual)
+|  |  |     |  |- 36 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -572,7 +553,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 39 (field of type Getstatic)
+|  |  |     |  |- 37 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -596,19 +577,19 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 40 (field of type LoadInt)
+|  |  |     |  |- 38 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  L  value: 8
 |  |  |     |  |  |  |- name: eight
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 41 (field of type Invokevirtual)
+|  |  |     |  |- 39 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -624,15 +605,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 42 (field of type Getstatic)
+|  |  |     |  |- 40 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -656,25 +637,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 43 (field of type LoadConstant)
+|  |  |     |  |- 41 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i2:
-|  |  |     |  |  |  |  |- utf8encodedName: i2:
+|  |  |     |  |  |  |  |- content: l2:
+|  |  |     |  |  |  |  |- utf8encodedName: l2:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i2:
-|  |  |     |  |  |     |  |- utf8encodedName: i2:
+|  |  |     |  |  |     |  |- content: l2:
+|  |  |     |  |  |     |  |- utf8encodedName: l2:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 44 (field of type Invokevirtual)
+|  |  |     |  |- 42 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -698,7 +679,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 45 (field of type Getstatic)
+|  |  |     |  |- 43 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -722,28 +703,28 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 46 (field of type LoadInt)
+|  |  |     |  |- 44 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
 |  |  |     |  |  |  |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |- name: i
+|  |  |     |  |  |  |  |     |- name: l
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BAND
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i2
+|  |  |     |  |  |  |- name: l2
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 47 (field of type Invokevirtual)
+|  |  |     |  |- 45 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -759,15 +740,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 48 (field of type Getstatic)
+|  |  |     |  |- 46 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -791,25 +772,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 49 (field of type LoadConstant)
+|  |  |     |  |- 47 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i3:
-|  |  |     |  |  |  |  |- utf8encodedName: i3:
+|  |  |     |  |  |  |  |- content: l3:
+|  |  |     |  |  |  |  |- utf8encodedName: l3:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i3:
-|  |  |     |  |  |     |  |- utf8encodedName: i3:
+|  |  |     |  |  |     |  |- content: l3:
+|  |  |     |  |  |     |  |- utf8encodedName: l3:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 50 (field of type Invokevirtual)
+|  |  |     |  |- 48 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -833,7 +814,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 51 (field of type Getstatic)
+|  |  |     |  |- 49 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -857,28 +838,28 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 52 (field of type LoadInt)
+|  |  |     |  |- 50 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
 |  |  |     |  |  |  |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |- name: i
+|  |  |     |  |  |  |  |     |- name: l
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BOR
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i3
+|  |  |     |  |  |  |- name: l3
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 53 (field of type Invokevirtual)
+|  |  |     |  |- 51 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -894,15 +875,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 54 (field of type Getstatic)
+|  |  |     |  |- 52 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -926,25 +907,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 55 (field of type LoadConstant)
+|  |  |     |  |- 53 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i4:
-|  |  |     |  |  |  |  |- utf8encodedName: i4:
+|  |  |     |  |  |  |  |- content: l4:
+|  |  |     |  |  |  |  |- utf8encodedName: l4:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i4:
-|  |  |     |  |  |     |  |- utf8encodedName: i4:
+|  |  |     |  |  |     |  |- content: l4:
+|  |  |     |  |  |     |  |- utf8encodedName: l4:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 56 (field of type Invokevirtual)
+|  |  |     |  |- 54 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -968,7 +949,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 57 (field of type Getstatic)
+|  |  |     |  |- 55 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -992,7 +973,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 58 (field of type LoadInt)
+|  |  |     |  |- 56 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -1001,19 +982,19 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BIT_SHIFT_L
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i4
+|  |  |     |  |  |  |- name: l4
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 59 (field of type Invokevirtual)
+|  |  |     |  |- 57 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1029,15 +1010,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 60 (field of type Getstatic)
+|  |  |     |  |- 58 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1061,25 +1042,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 61 (field of type LoadConstant)
+|  |  |     |  |- 59 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i5:
-|  |  |     |  |  |  |  |- utf8encodedName: i5:
+|  |  |     |  |  |  |  |- content: l5:
+|  |  |     |  |  |  |  |- utf8encodedName: l5:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i5:
-|  |  |     |  |  |     |  |- utf8encodedName: i5:
+|  |  |     |  |  |     |  |- content: l5:
+|  |  |     |  |  |     |  |- utf8encodedName: l5:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 62 (field of type Invokevirtual)
+|  |  |     |  |- 60 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1103,7 +1084,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 63 (field of type Getstatic)
+|  |  |     |  |- 61 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1127,7 +1108,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 64 (field of type LoadInt)
+|  |  |     |  |- 62 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -1136,19 +1117,19 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BIT_SHIFT_R
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i5
+|  |  |     |  |  |  |- name: l5
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 65 (field of type Invokevirtual)
+|  |  |     |  |- 63 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1164,15 +1145,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 66 (field of type Getstatic)
+|  |  |     |  |- 64 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1196,25 +1177,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 67 (field of type LoadConstant)
+|  |  |     |  |- 65 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i6:
-|  |  |     |  |  |  |  |- utf8encodedName: i6:
+|  |  |     |  |  |  |  |- content: l6:
+|  |  |     |  |  |  |  |- utf8encodedName: l6:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i6:
-|  |  |     |  |  |     |  |- utf8encodedName: i6:
+|  |  |     |  |  |     |  |- content: l6:
+|  |  |     |  |  |     |  |- utf8encodedName: l6:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 68 (field of type Invokevirtual)
+|  |  |     |  |- 66 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1238,7 +1219,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 69 (field of type Getstatic)
+|  |  |     |  |- 67 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1262,7 +1243,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 70 (field of type LoadInt)
+|  |  |     |  |- 68 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -1271,19 +1252,19 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  L  value: 8
 |  |  |     |  |  |  |  |     |- name: eight
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: LOGICAL_SHIFT_R
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 1
-|  |  |     |  |  |  |- name: i6
+|  |  |     |  |  |  |- name: l6
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 71 (field of type Invokevirtual)
+|  |  |     |  |- 69 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1299,15 +1280,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 72 (field of type Getstatic)
+|  |  |     |  |- 70 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1331,25 +1312,25 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 73 (field of type LoadConstant)
+|  |  |     |  |- 71 (field of type LoadConstant)
 |  |  |     |  |  |- constantInfo (field of type StringConstantInfo)
 |  |  |     |  |  |  |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |  |  |- content: i7:
-|  |  |     |  |  |  |  |- utf8encodedName: i7:
+|  |  |     |  |  |  |  |- content: l7:
+|  |  |     |  |  |  |  |- utf8encodedName: l7:
 |  |  |     |  |  |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |  L  tag: CONSTANT_String
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type StringConstantInfo)
 |  |  |     |  |  |     |- value (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |- content: i7:
-|  |  |     |  |  |     |  |- utf8encodedName: i7:
+|  |  |     |  |  |     |  |- content: l7:
+|  |  |     |  |  |     |  |- utf8encodedName: l7:
 |  |  |     |  |  |     |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     L  tag: CONSTANT_String
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 74 (field of type Invokevirtual)
+|  |  |     |  |- 72 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1373,7 +1354,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 75 (field of type Getstatic)
+|  |  |     |  |- 73 (field of type Getstatic)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
@@ -1397,7 +1378,7 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |- opCodeValue: -78
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 76 (field of type LoadInt)
+|  |  |     |  |- 74 (field of type LoadLong)
 |  |  |     |  |  |- variableSymbol (field of type Variable)
 |  |  |     |  |  |  |- initialExpression (field of type ComparisonNode)
 |  |  |     |  |  |  |  |- leftExpression (field of type VariableCallNode)
@@ -1407,27 +1388,27 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |  |  |     |  |  L  symbol (field of type Variable)
 |  |  |     |  |  |  |  |     |  |     |- initialExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |  |     |  L  value: 4
-|  |  |     |  |  |  |  |     |  |     |- name: i
+|  |  |     |  |  |  |  |     |  |     |- name: l
 |  |  |     |  |  |  |  |     |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |     |  |        L  name: int
+|  |  |     |  |  |  |  |     |  |        L  name: long
 |  |  |     |  |  |  |  |     |  |- comparisonOperator: BAND
 |  |  |     |  |  |  |  |     |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |  |     |     L  value: 2
-|  |  |     |  |  |  |  |     |- name: i2
+|  |  |     |  |  |  |  |     |- name: l2
 |  |  |     |  |  |  |  |     L  type (field of type BuiltIn)
-|  |  |     |  |  |  |  |        L  name: int
+|  |  |     |  |  |  |  |        L  name: long
 |  |  |     |  |  |  |  |- comparisonOperator: BXOR
 |  |  |     |  |  |  |  L  rightExpression (field of type ValueNode)
 |  |  |     |  |  |  |     L  value: 2
-|  |  |     |  |  |  |- name: i7
+|  |  |     |  |  |  |- name: l7
 |  |  |     |  |  |  L  type (field of type BuiltIn)
-|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     L  name: long
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |- opCodeValue: -53
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  |- 77 (field of type Invokevirtual)
+|  |  |     |  |- 75 (field of type Invokevirtual)
 |  |  |     |  |  |- Companion (field of type Companion)
 |  |  |     |  |  |- values
 |  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
@@ -1443,15 +1424,15 @@ root (field of type ClassfileModel)
 |  |  |     |  |  |     |  |  |- utf8encodedName: println
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
-|  |  |     |  |  |     |  |  |- content: (I)V
-|  |  |     |  |  |     |  |  |- utf8encodedName: (I)V
+|  |  |     |  |  |     |  |  |- content: (J)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (J)V
 |  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
 |  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
 |  |  |     |  |  |     L  tag: CONSTANT_Methodref
 |  |  |     |  |  |- opCodeValue: -74
 |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
 |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
-|  |  |     |  L  78 (field of type Return)
+|  |  |     |  L  76 (field of type Return)
 |  |  |     |     |- Companion (field of type Companion)
 |  |  |     |     |- values
 |  |  |     |     |- opCodeValue: -79

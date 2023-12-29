@@ -131,7 +131,7 @@ L  body
                |     |  |     |- name: eight
                |     |  |     L  type (field of type BuiltIn)
                |     |  |        L  name: int
-               |     |  |- comparisonOperator: BIT_SHIFT_R
+               |     |  |- comparisonOperator: LOGICAL_SHIFT_R
                |     |  L  rightExpression (field of type ValueNode)
                |     |     L  value: 1
                |     |- name: i6
@@ -376,7 +376,7 @@ L  body
                |           |  |     |- name: eight
                |           |  |     L  type (field of type BuiltIn)
                |           |  |        L  name: int
-               |           |  |- comparisonOperator: BIT_SHIFT_R
+               |           |  |- comparisonOperator: LOGICAL_SHIFT_R
                |           |  L  rightExpression (field of type ValueNode)
                |           |     L  value: 1
                |           |- name: i6

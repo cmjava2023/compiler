@@ -229,23 +229,30 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
         val opCodesLoadingExpressionValueOnStack =  if (value is ASTNodes.ValueNode<*> && getTypeNameOf(value) != variableSymbol.type.name) {
-            val valueAsString = value.value.toString()
-            when(variableSymbol.type.name) {
-                "int" -> visit(ASTNodes.ValueNode(valueAsString.toInt()))
-                "long" -> visit(ASTNodes.ValueNode(valueAsString.toLong()))
-                "float" -> visit(ASTNodes.ValueNode(valueAsString.toFloat()))
-                "double" -> visit(ASTNodes.ValueNode(valueAsString.toDouble()))
-                "boolean" -> visit(ASTNodes.ValueNode(valueAsString.toBoolean()))
-                "char" -> visit(ASTNodes.ValueNode(valueAsString.first()))
-                "byte" -> visit(ASTNodes.ValueNode(valueAsString.toByte()))
-                "short" -> visit(ASTNodes.ValueNode(valueAsString.toShort()))
-                else -> throw NotImplementedError("typename:${variableSymbol.type.name}")             
-            }
+            visitValueNodeThatNeedsType(value, variableSymbol.type)
         } else {
             dispatch(value)
         }
         val storingOpCode = storeStackInVar(variableSymbol)
         return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
+    }
+
+    private fun FunctionCodeAstTraverser.visitValueNodeThatNeedsType(
+        value: ASTNodes.ValueNode<*>,
+        type: Type
+    ): List<OpCode> {
+        val valueAsString = value.value.toString()
+        return when (type.name) {
+            "int" -> visit(ASTNodes.ValueNode(valueAsString.toInt()))
+            "long" -> visit(ASTNodes.ValueNode(valueAsString.toLong()))
+            "float" -> visit(ASTNodes.ValueNode(valueAsString.toFloat()))
+            "double" -> visit(ASTNodes.ValueNode(valueAsString.toDouble()))
+            "boolean" -> visit(ASTNodes.ValueNode(valueAsString.toBoolean()))
+            "char" -> visit(ASTNodes.ValueNode(valueAsString.first()))
+            "byte" -> visit(ASTNodes.ValueNode(valueAsString.toByte()))
+            "short" -> visit(ASTNodes.ValueNode(valueAsString.toShort()))
+            else -> throw NotImplementedError("typename:${type.name}")
+        }
     }
 
     private fun storeStackInVar(variableSymbol: Variable): OpCode {
@@ -301,20 +308,42 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         val result = mutableListOf<OpCode>()
         if (leftExpression is ASTNodes.VariableCallNode && rightExpression is ASTNodes.ValueNode<*>) {
             result.addAll(visit(leftExpression))
-            result.addAll(visit(rightExpression))
-            if (leftExpression.symbol.type.name == "int" && rightExpression.value is Int) {
-                result.add(
-                    when (comparisonNode.comparisonOperator) {
-                        ComparisonOperator.BAND -> OpCode.Iand()
-                        ComparisonOperator.BOR -> OpCode.Ior()
-                        ComparisonOperator.BXOR -> OpCode.Ixor()
-                        ComparisonOperator.BIT_SHIFT_L -> OpCode.Ishl()
-                        ComparisonOperator.BIT_SHIFT_R -> OpCode.Ishr()
-                        else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
-                    }
-                )
+            if(comparisonNode.comparisonOperator == ComparisonOperator.BAND || comparisonNode.comparisonOperator == ComparisonOperator.BOR || comparisonNode.comparisonOperator == ComparisonOperator.BXOR) {
+                result.addAll(visitValueNodeThatNeedsType(rightExpression, leftExpression.symbol.type))
             } else {
-                throw NotImplementedError(leftExpression.symbol.type.name + " " + rightExpression.value.javaClass.name)
+                result.addAll(visit(rightExpression))
+            }
+
+            when (leftExpression.symbol.type.name) {
+                "int" -> {
+                    result.add(
+                        when (comparisonNode.comparisonOperator) {
+                            ComparisonOperator.BAND -> OpCode.Iand()
+                            ComparisonOperator.BOR -> OpCode.Ior()
+                            ComparisonOperator.BXOR -> OpCode.Ixor()
+                            ComparisonOperator.BIT_SHIFT_L -> OpCode.Ishl()
+                            ComparisonOperator.BIT_SHIFT_R -> OpCode.Ishr()
+                            ComparisonOperator.LOGICAL_SHIFT_R -> OpCode.Iushr()
+                            else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
+                        }
+                    )
+                }
+                "long" -> {
+                    result.add(
+                        when (comparisonNode.comparisonOperator) {
+                            ComparisonOperator.BAND -> OpCode.Land()
+                            ComparisonOperator.BOR -> OpCode.Lor()
+                            ComparisonOperator.BXOR -> OpCode.Lxor()
+                            ComparisonOperator.BIT_SHIFT_L -> OpCode.Lshl()
+                            ComparisonOperator.BIT_SHIFT_R -> OpCode.Lshr()
+                            ComparisonOperator.LOGICAL_SHIFT_R -> OpCode.Lushr()
+                            else -> throw NotImplementedError(comparisonNode.comparisonOperator.name)
+                        }
+                    )
+                }
+                else -> {
+                    throw NotImplementedError(leftExpression.symbol.type.name + " " + rightExpression.value.javaClass.name)
+                }
             }
         } else {
             throw NotImplementedError(leftExpression.javaClass.name + " " + rightExpression.javaClass.name)
