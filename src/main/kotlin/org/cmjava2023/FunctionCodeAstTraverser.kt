@@ -460,7 +460,18 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                         "double" -> OpCode.L2d()
                         else -> throw NotImplementedError(toTypeName)
                     }
-
+                    "float" -> when (toTypeName) {
+                        "int" -> OpCode.F2i()
+                        "long" -> OpCode.F2l()
+                        "double" -> OpCode.F2d()
+                        else -> throw NotImplementedError(toTypeName)
+                    }
+                    "double" -> when (toTypeName) {
+                        "int" -> OpCode.D2i()
+                        "long" -> OpCode.D2l()
+                        "float" -> OpCode.D2f()
+                        else -> throw NotImplementedError(toTypeName)
+                    }
                     else -> throw NotImplementedError(fromTypeName)
                 }
             )

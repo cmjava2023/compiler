@@ -42,7 +42,7 @@ abstract class OpCode(vararg val values: Any) {
             Baload::class to (0x33u).toUByte(),
             Bastore::class to (0x54u).toUByte(),
             Bipush::class to (0x10u).toUByte(),
-            D2I::class to (0x8eu).toUByte(),
+            D2i::class to (0x8eu).toUByte(),
             D2f::class to (0x90u).toUByte(),
             D2l::class to (0x8fu).toUByte(),
             Dadd::class to (0x63u).toUByte(),
@@ -273,7 +273,7 @@ abstract class OpCode(vararg val values: Any) {
     class Baload: OpCode()
     class Bastore: OpCode()
     class Bipush(byte: Byte): OpCode(byte)
-    class D2I: OpCode()
+    class D2i: OpCode()
     class D2f: OpCode()
     class D2l: OpCode()
     class Dadd: OpCode()
