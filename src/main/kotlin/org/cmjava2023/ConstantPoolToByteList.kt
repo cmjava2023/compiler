@@ -84,8 +84,8 @@ class ConstantPoolToByteList {
     }
 
     private fun calculateMaxStackSize(opCodeList: List<OpCode>): UShort {
-        var maxStackSize: Int = 0
-        var currentStackSize: Int = 0
+        var maxStackSize = 0
+        var currentStackSize = 0
         for (opcode in opCodeList) {
             val temp: Int = opcode.maxStackSizeModifier
             currentStackSize += temp
