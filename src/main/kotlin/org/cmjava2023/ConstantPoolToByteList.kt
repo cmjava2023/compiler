@@ -83,6 +83,19 @@ class ConstantPoolToByteList {
         }
     }
 
+    private fun calculateMaxStackSize(opCodeList: List<OpCode>): UShort {
+        var maxStackSize: Int = 0
+        var currentStackSize: Int = 0
+        for (opcode in opCodeList) {
+            val temp: Int = opcode.maxStackSizeModifier
+            currentStackSize += temp
+            if (currentStackSize > maxStackSize){
+                maxStackSize = currentStackSize
+            }
+        }
+        return maxStackSize.toUShort()
+    }
+
     private fun addCodeAttributeBytesToMethodInfoBytes(
         code: List<OpCode>,
         codeAttributeNameIndex: UShort,
@@ -90,7 +103,7 @@ class ConstantPoolToByteList {
     ) {
         val attributeBytesCountedForLength = mutableListOf<Byte>()
 
-        val maxStackSize: UShort = 5u
+        val maxStackSize: UShort = calculateMaxStackSize(code)
         attributeBytesCountedForLength.add(maxStackSize)
 
         val codeBytes = code.flatMap { constructBytesOfOpcode(it, localVariables) }
