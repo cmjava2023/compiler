@@ -20,13 +20,31 @@ abstract class OpCode(vararg val values: Any) {
 
     @Suppress("LeakingThis")
     val opCodeValue:UByte = if (this is OpCodeToTransform) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
-    
+    val maxStackSizeModifier: Int = if(this is Invokevirtual){ computeStackChangeForMethods(this.values[0] as MethodReferenceConstantInfo) }
+    else{classToMaxStackSizeModifierMap.getValue(this::class)}
     companion object {
+        private fun computeStackChangeForMethods(methodReferenceConstantInfo: MethodReferenceConstantInfo): Int {
+            val content = methodReferenceConstantInfo.nameAndTypeConstantInfo.type.content
+            val parameterTypes = Regex("[^(]*\\(([^)]*)\\).*").matchEntire(content)!!.groupValues[1].split(";")
+            var result = -1 // for objectref
+            for(parameterType in parameterTypes) {
+                when(parameterType) {
+                    "Ljava/lang/String;" -> result -= 1
+                    "I" -> result -= 1 // integer
+                    "Z" -> result -= 1 // boolean
+                    "F" -> result -= 1 // float
+                    "C" -> result -= 1 // char
+                    "J" -> result -= 2 // long
+                    "D" -> result -= 2 // double
+                }
+            }
+            return result
+        }
+
         private val classToOpCodeValueMap = mapOf<KClass<*>, UByte>(
             Aaload::class to (0x32u).toUByte(),
             Aastore::class to (0x53u).toUByte(),
             Aconst_null::class to (0x01u).toUByte(),
-            Aload::class to (0x19u).toUByte(),
             Aload::class to (0x19u).toUByte(),
             Aload_0::class to (0x2au).toUByte(),
             Aload_1::class to (0x2bu).toUByte(),
@@ -206,7 +224,195 @@ abstract class OpCode(vararg val values: Any) {
             Sipush::class to (0x11u).toUByte(),
             Swap::class to (0x5fu).toUByte(),
         )
-        
+
+        private val classToMaxStackSizeModifierMap = mapOf<KClass<*>, Int>(
+            Aaload::class to -1,
+            Aastore::class to -3,
+            Aconst_null::class to 1,
+            Aload::class to 1,
+            Aload_0::class to 1,
+            Aload_1::class to 1,
+            Aload_2::class to 1,
+            Aload_3::class to 1,
+            Anewarray::class to 0,
+            Areturn::class to 0,
+            Arraylength::class to 0,
+            Astore::class to -1,
+            Astore_0::class to -1,
+            Astore_1::class to -1,
+            Astore_2::class to -1,
+            Astore_3::class to -1,
+            Athrow::class to Int.MIN_VALUE,
+            Baload::class to -1,
+            Bastore::class to -3,
+            Bipush::class to 1,
+            Caload::class to -1,
+            Castore::class to -3,
+            D2f::class to 0,
+            D2i::class to 0,
+            D2l::class to 0,
+            Dadd::class to -1,
+            Daload::class to -1,
+            Dastore::class to -3,
+            Dcompg::class to -1,
+            Dcompl::class to -1,
+            Dconst_0::class to 1,
+            Dconst_1::class to 1,
+            Ddiv::class to -1,
+            Dload::class to 1,
+            Dload_0::class to 1,
+            Dload_1::class to 1,
+            Dload_2::class to 1,
+            Dload_3::class to 1,
+            Dmul::class to -1,
+            Dneg::class to 0,
+            Drem::class to -1,
+            Dreturn::class to 0,
+            Dstore::class to -1,
+            Dstore_0::class to -1,
+            Dstore_1::class to -1,
+            Dstore_2::class to -1,
+            Dstore_3::class to -1,
+            Dsub::class to -1,
+            Dup2::class to 2,
+            Dup2_x1::class to 2,
+            Dup2_x2::class to 2,
+            Dup::class to 1,
+            Dup_x1::class to 1,
+            Dup_x2::class to 1,
+            F2d::class to 0,
+            F2i::class to 0,
+            F2l::class to 0,
+            Fadd::class to -1,
+            Faload::class to -1,
+            Fastore::class to -3,
+            Fcmpg::class to -1,
+            Fcmpl::class to -1,
+            Fconst_0::class to 1,
+            Fconst_1::class to 1,
+            Fconst_2::class to 1,
+            Fdiv::class to -1,
+            Fload::class to 1,
+            Fload_0::class to 1,
+            Fload_1::class to 1,
+            Fload_2::class to 1,
+            Fload_3::class to 1,
+            Fmul::class to -1,
+            Fneg::class to 0,
+            Frem::class to -1,
+            Freturn::class to 0,
+            Fstore::class to -1,
+            Fstore_0::class to -1,
+            Fstore_1::class to -1,
+            Fstore_2::class to -1,
+            Fstore_3::class to -1,
+            Fsub::class to -1,
+            Getstatic::class to 1,
+            I2b::class to 0,
+            I2c::class to 0,
+            I2d::class to 0,
+            I2f::class to 0,
+            I2l::class to 0,
+            I2s::class to 0,
+            Iadd::class to -1,
+            Iaload::class to -1,
+            Iand::class to -1,
+            Iastore::class to -3,
+            Iconst_0::class to 1,
+            Iconst_1::class to 1,
+            Iconst_2::class to 1,
+            Iconst_3::class to 1,
+            Iconst_4::class to 1,
+            Iconst_5::class to 1,
+            Iconst_m1::class to 1,
+            Idiv::class to -1,
+            Iinc::class to 0,
+            Iload::class to 1,
+            Iload_0::class to 1,
+            Iload_1::class to 1,
+            Iload_2::class to 1,
+            Iload_3::class to 1,
+            Imul::class to -1,
+            Ineg::class to 0,
+            Invokespecial::class to 0, // TODO can pop multiple OPTIONAL elements off stack
+            Invokevirtual::class to 0, // TODO can pop multiple OPTIONAL elements off stack
+            Ior::class to -1,
+            Irem::class to -1,
+            Ireturn::class to 0,
+            Ishl::class to -1,
+            Ishr::class to -1,
+            Istore::class to -1,
+            Istore_0::class to -1,
+            Istore_1::class to -1,
+            Istore_2::class to -1,
+            Istore_3::class to -1,
+            Isub::class to -1,
+            Iushr::class to -1,
+            Ixor::class to -1,
+            L2d::class to 0,
+            L2f::class to 0,
+            L2i::class to 0,
+            Ladd::class to -1,
+            Laload::class to -1,
+            Land::class to -1,
+            Lastore::class to -3,
+            Lcmp::class to -1,
+            Lconst_0::class to 1,
+            Lconst_1::class to 1,
+            Ldc2_w::class to 1,
+            Ldc::class to 1,
+            Ldc_w::class to 1,
+            Ldiv::class to -1,
+            Lload::class to 1,
+            Lload_0::class to 1,
+            Lload_1::class to 1,
+            Lload_2::class to 1,
+            Lload_3::class to 1,
+            Lmul::class to -1,
+            Lneg::class to 0,
+            Lor::class to -1,
+            Lrem::class to -1,
+            Lreturn::class to 0,
+            Lshl::class to -1,
+            Lshr::class to -1,
+            Lstore::class to -1,
+            Lstore_0::class to -1,
+            Lstore_1::class to -1,
+            Lstore_2::class to -1,
+            Lstore_3::class to -1,
+            Lsub::class to -1,
+            Lushr::class to -1,
+            Lxor::class to -1,
+            Multianewarray::class to 0, // TODO based on dimensions multiple elements pop, each dimension -1, arrayref +1
+            New::class to 1,
+            Newarray::class to 0,
+            Nop::class to 0,
+            Pop2::class to -2,
+            Pop::class to -1,
+            Return::class to 0,
+            Saload::class to -1,
+            Sastore::class to -3,
+            Sipush::class to 1,
+            Swap::class to 0,
+            LoadConstant::class to 1,
+            LoadInt::class to 1,
+            LoadLong::class to 1,
+            LoadFloat::class to 1,
+            LoadDouble::class to 1,
+            LoadArray::class to 1,
+            IntConstant::class to 1,
+            LongConstant::class to 1,
+            FloatConstant::class to 1,
+            DoubleConstant::class to 1,
+            StoreInt::class to -1,
+            StoreLong::class to -1,
+            StoreFloat::class to -1,
+            StoreDouble::class to -1,
+            StoreArray::class to -1,
+            IncreaseInt::class to 0,
+            OpCodeParsedFromClassFile::class to 0, //TODO wie sinnvoll dies ist, bleibt zu klären
+        )
+
         private val opCodeValueToClassMap: Map<UByte, KClass<*>> =
             classToOpCodeValueMap.entries.associate { Pair(it.value, it.key) }
 
@@ -223,7 +429,7 @@ abstract class OpCode(vararg val values: Any) {
                 } else if (kClass.isSubclassOf(Ldc::class)) {
                     val index = bytesInHexQueue.dequeueUByte().toInt()
                     arguments.add(constantPoolItems[index])
-                    haveArgumentTypesChanged = true                    
+                    haveArgumentTypesChanged = true
                 } else {
                     try {
                         when(parameter.type.jvmErasure) {
@@ -236,7 +442,7 @@ abstract class OpCode(vararg val values: Any) {
                             ArrayType::class -> {
                                 val typeCode = bytesInHexQueue.dequeueUByte()
                                 arguments.add(OpCode.ArrayType.entries.first { it.code == typeCode })
-                            } 
+                            }
                             else -> throw NotImplementedError(parameter.type.jvmErasure.toString())
                         }
                     } catch (n: NumberFormatException) {
@@ -244,7 +450,7 @@ abstract class OpCode(vararg val values: Any) {
                     }
                 }
             }
-            
+
             return if(haveArgumentTypesChanged) {
                 OpCodeParsedFromClassFile(kClass, *arguments.toTypedArray())
             } else{
@@ -256,19 +462,19 @@ abstract class OpCode(vararg val values: Any) {
     abstract class OpCodeToTransform(vararg values: Any): OpCode(*values)
     
     interface OpCodeWithIndexToResolve
-    
+
     class IfElseIfsElseBlock(val ifAndElseIfs: List<If>, val opCodesInElse: List<OpCode>): OpCodeToTransform()
     class TransformedOpCode(val bytes: List<Byte>): OpCodeToTransform()
-    
+
     enum class ComparisonType {
         WithZeroForBooleans,
         BetweenTwoInts
     }
-        
+
     open class Branching(val comparisonType: ComparisonType, val comparisonOperator: ASTNodes.ComparisonOperator): OpCodeToTransform() {
         val expressionOpCodes: MutableList<OpCode> = mutableListOf()
         val opCodesInsideBlockWithoutGoto: MutableList<OpCode> = mutableListOf()
-        
+
         constructor(other: Branching) : this(other.comparisonType, other.comparisonOperator) {
             this.expressionOpCodes.addAll(other.expressionOpCodes)
             this.opCodesInsideBlockWithoutGoto.addAll(other.opCodesInsideBlockWithoutGoto)
@@ -276,7 +482,7 @@ abstract class OpCode(vararg val values: Any) {
     }
     
     class If(branching: Branching) : Branching(branching)
-    
+
     class While(branching: Branching) : Branching(branching)
 
     class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): OpCodeToTransform(*values)
@@ -298,7 +504,7 @@ abstract class OpCode(vararg val values: Any) {
     class LoadFloat(val variableSymbol: Variable): OpCodeToTransform()
     class LoadDouble(val variableSymbol: Variable): OpCodeToTransform()
     class LoadArray(val variableSymbol: Variable): OpCodeToTransform()
-    
+
     class IncreaseInt(val variableSymbol: Variable, val byteToIncreaseBy: Byte): OpCodeToTransform()
 
     interface ReturnAnything
