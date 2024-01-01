@@ -84,13 +84,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i2
       |     |  |  |- =
       |     |  |  L  Expressions: i&2
-      |     |  |     |- Expression: i
-      |     |  |     |  L  i
-      |     |  |     |- Expression_operator: &
-      |     |  |     |  L  Bit_comparison_operator: &
-      |     |  |     |     L  &
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: i&2
+      |     |  |        |- Expression: i
+      |     |  |        |  L  i
+      |     |  |        |- Expression_operator: &
+      |     |  |        |  L  Bit_comparison_operator: &
+      |     |  |        |     L  &
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Assignment: inti3=i|2
       |     |  |  |- Variable_declaration: inti3
@@ -101,13 +102,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i3
       |     |  |  |- =
       |     |  |  L  Expressions: i|2
-      |     |  |     |- Expression: i
-      |     |  |     |  L  i
-      |     |  |     |- Expression_operator: |
-      |     |  |     |  L  Bit_comparison_operator: |
-      |     |  |     |     L  |
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: i|2
+      |     |  |        |- Expression: i
+      |     |  |        |  L  i
+      |     |  |        |- Expression_operator: |
+      |     |  |        |  L  Bit_comparison_operator: |
+      |     |  |        |     L  |
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Assignment: inti4=eight<<1
       |     |  |  |- Variable_declaration: inti4
@@ -118,13 +120,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i4
       |     |  |  |- =
       |     |  |  L  Expressions: eight<<1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: <<
-      |     |  |     |  L  Bit_comparison_operator: <<
-      |     |  |     |     L  <<
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight<<1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: <<
+      |     |  |        |  L  Bit_comparison_operator: <<
+      |     |  |        |     L  <<
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: inti5=eight>>1
       |     |  |  |- Variable_declaration: inti5
@@ -135,13 +138,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i5
       |     |  |  |- =
       |     |  |  L  Expressions: eight>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>
-      |     |  |     |  L  Bit_comparison_operator: >>
-      |     |  |     |     L  >>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight>>1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: >>
+      |     |  |        |  L  Bit_comparison_operator: >>
+      |     |  |        |     L  >>
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: inti6=eight>>>1
       |     |  |  |- Variable_declaration: inti6
@@ -152,13 +156,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i6
       |     |  |  |- =
       |     |  |  L  Expressions: eight>>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>>
-      |     |  |     |  L  Bit_comparison_operator: >>>
-      |     |  |     |     L  >>>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight>>>1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: >>>
+      |     |  |        |  L  Bit_comparison_operator: >>>
+      |     |  |        |     L  >>>
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: inti7=i2^2
       |     |  |  |- Variable_declaration: inti7
@@ -169,13 +174,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=4;intei
       |     |  |  |  L  i7
       |     |  |  |- =
       |     |  |  L  Expressions: i2^2
-      |     |  |     |- Expression: i2
-      |     |  |     |  L  i2
-      |     |  |     |- Expression_operator: ^
-      |     |  |     |  L  Bit_comparison_operator: ^
-      |     |  |     |     L  ^
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: i2^2
+      |     |  |        |- Expression: i2
+      |     |  |        |  L  i2
+      |     |  |        |- Expression_operator: ^
+      |     |  |        |  L  Bit_comparison_operator: ^
+      |     |  |        |     L  ^
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Expressions: System.out.println("i:")
       |     |  |  L  Expression: System.out.println("i:")

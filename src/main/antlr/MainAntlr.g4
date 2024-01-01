@@ -22,7 +22,7 @@ expressions: expression (expression_operator expression)?;
 variable_declaration: (primitive_type | reference_type) IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
+expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression (expression_concatinator|expression_operator) expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
 expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;

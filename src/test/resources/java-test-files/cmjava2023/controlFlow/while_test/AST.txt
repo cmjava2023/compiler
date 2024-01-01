@@ -3,7 +3,8 @@ L  body
    |- 0 (field of type PackageNode)
    |  L  nestedIdentifier
    |     |- 0: cmjava2023
-   |     L  1: controlFlow
+   |     |- 1: controlFlow
+   |     L  2: while_test
    L  1 (field of type ClassNode)
       |- classSymbol (field of type Clazz)
       |  |- parentClazz: null
@@ -32,7 +33,7 @@ L  body
             |           |  |- name: String
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
-            |           L  maxArraySize: -1
+            |           L  dimensions: 1
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
@@ -45,10 +46,15 @@ L  body
                   L  controlFlows
                      L  0 (field of type WhileLoopNode)
                         |- expression (field of type ComparisonNode)
-                        |  |- expression1 (field of type RawIdentifierNode)
-                        |  |  L  name: count
+                        |  |- leftExpression (field of type VariableCallNode)
+                        |  |  L  symbol (field of type Variable)
+                        |  |     |- initialExpression (field of type ValueNode)
+                        |  |     |  L  value: 1
+                        |  |     |- name: count
+                        |  |     L  type (field of type BuiltIn)
+                        |  |        L  name: int
                         |  |- comparisonOperator: DIAMOND_OPEN
-                        |  L  expression2 (field of type ValueNode)
+                        |  L  rightExpression (field of type ValueNode)
                         |     L  value: 11
                         L  body
                            |- 0 (field of type FunctionCallNode)
@@ -59,8 +65,7 @@ L  body
                            |  |  L  type (field of type BuiltIn)
                            |  |     L  name: void
                            |  L  values
-                           |     L  0 (field of type ResolvedIdentifierNode)
-                           |        |- name: count
+                           |     L  0 (field of type VariableCallNode)
                            |        L  symbol (field of type Variable)
                            |           |- initialExpression (field of type ValueNode)
                            |           |  L  value: 1
@@ -69,5 +74,10 @@ L  body
                            |              L  name: int
                            L  1 (field of type UnarySuffixNode)
                               |- operator: INC
-                              L  Expression (field of type RawIdentifierNode)
-                                 L  name: count
+                              L  Expression (field of type VariableCallNode)
+                                 L  symbol (field of type Variable)
+                                    |- initialExpression (field of type ValueNode)
+                                    |  L  value: 1
+                                    |- name: count
+                                    L  type (field of type BuiltIn)
+                                       L  name: int
