@@ -1,0 +1,247 @@
+Start: packagecmjava2023.controlFlow.return_test;publicclassMain{publicstaticvoidmain(String[]args){intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);}publicstaticintaddNumbers(inta,intb){intsum=a+b;returnsum;}publicstaticvoidprintMessage(Stringmessage,booleanshouldPrint){if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");}}
+|- Global_scope: packagecmjava2023.controlFlow.return_test;
+|  |- Package_declaration: packagecmjava2023.controlFlow.return_test
+|  |  |- package
+|  |  L  Identifier: cmjava2023.controlFlow.return_test
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- controlFlow
+|  |     |- .
+|  |     L  return_test
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);}publicstaticintaddNumbers(inta,intb){intsum=a+b;returnsum;}publicstaticvoidprintMessage(Stringmessage,booleanshouldPrint){if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);}publicstaticintaddNumbers(inta,intb){intsum=a+b;returnsum;}publicstaticvoidprintMessage(Stringmessage,booleanshouldPrint){if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);}publicstaticintaddNumbers(inta,intb){intsum=a+b;returnsum;}publicstaticvoidprintMessage(Stringmessage,booleanshouldPrint){if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");}
+      |  |- Function_declaration: publicstaticvoidmain(String[]args){intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);}
+      |  |  |- Access_modifier: public
+      |  |  |  L  public
+      |  |  |- static
+      |  |  |- Type: void
+      |  |  |  L  void
+      |  |  |- main
+      |  |  |- (
+      |  |  |- Function_declaration_args: String[]args
+      |  |  |  L  Function_declaration_arg: String[]args
+      |  |  |     |- Type: String[]
+      |  |  |     |  L  Array_type: String[]
+      |  |  |     |     |- Class_type: String
+      |  |  |     |     |  L  String
+      |  |  |     |     |- [
+      |  |  |     |     L  ]
+      |  |  |     L  args
+      |  |  |- )
+      |  |  |- {
+      |  |  |- Function_scope: intresult=addNumbers(5,7);System.out.println(result);printMessage("Hello, World!",true);printMessage("Hello, World!",false);
+      |  |  |  |- Assignment: intresult=addNumbers(5,7)
+      |  |  |  |  |- Variable_declaration: intresult
+      |  |  |  |  |  |- Primitive_type: int
+      |  |  |  |  |  |  L  Numeric_type: int
+      |  |  |  |  |  |     L  Integral_type: int
+      |  |  |  |  |  |        L  int
+      |  |  |  |  |  L  result
+      |  |  |  |  |- =
+      |  |  |  |  L  Expressions: addNumbers(5,7)
+      |  |  |  |     L  Expression: addNumbers(5,7)
+      |  |  |  |        L  Function_call: addNumbers(5,7)
+      |  |  |  |           |- Identifier: addNumbers
+      |  |  |  |           |  L  addNumbers
+      |  |  |  |           |- (
+      |  |  |  |           |- Function_args: 5,7
+      |  |  |  |           |  |- Function_arg: 5
+      |  |  |  |           |  |  L  Expressions: 5
+      |  |  |  |           |  |     L  Expression: 5
+      |  |  |  |           |  |        L  5
+      |  |  |  |           |  |- ,
+      |  |  |  |           |  L  Function_arg: 7
+      |  |  |  |           |     L  Expressions: 7
+      |  |  |  |           |        L  Expression: 7
+      |  |  |  |           |           L  7
+      |  |  |  |           L  )
+      |  |  |  |- ;
+      |  |  |  |- Expressions: System.out.println(result)
+      |  |  |  |  L  Expression: System.out.println(result)
+      |  |  |  |     L  Function_call: System.out.println(result)
+      |  |  |  |        |- Identifier: System.out.println
+      |  |  |  |        |  |- System
+      |  |  |  |        |  |- .
+      |  |  |  |        |  |- out
+      |  |  |  |        |  |- .
+      |  |  |  |        |  L  println
+      |  |  |  |        |- (
+      |  |  |  |        |- Function_args: result
+      |  |  |  |        |  L  Function_arg: result
+      |  |  |  |        |     L  Expressions: result
+      |  |  |  |        |        L  Expression: result
+      |  |  |  |        |           L  result
+      |  |  |  |        L  )
+      |  |  |  |- ;
+      |  |  |  |- Expressions: printMessage("Hello, World!",true)
+      |  |  |  |  L  Expression: printMessage("Hello, World!",true)
+      |  |  |  |     L  Function_call: printMessage("Hello, World!",true)
+      |  |  |  |        |- Identifier: printMessage
+      |  |  |  |        |  L  printMessage
+      |  |  |  |        |- (
+      |  |  |  |        |- Function_args: "Hello, World!",true
+      |  |  |  |        |  |- Function_arg: "Hello, World!"
+      |  |  |  |        |  |  L  Expressions: "Hello, World!"
+      |  |  |  |        |  |     L  Expression: "Hello, World!"
+      |  |  |  |        |  |        L  "Hello, World!"
+      |  |  |  |        |  |- ,
+      |  |  |  |        |  L  Function_arg: true
+      |  |  |  |        |     L  Expressions: true
+      |  |  |  |        |        L  Expression: true
+      |  |  |  |        |           L  true
+      |  |  |  |        L  )
+      |  |  |  |- ;
+      |  |  |  |- Expressions: printMessage("Hello, World!",false)
+      |  |  |  |  L  Expression: printMessage("Hello, World!",false)
+      |  |  |  |     L  Function_call: printMessage("Hello, World!",false)
+      |  |  |  |        |- Identifier: printMessage
+      |  |  |  |        |  L  printMessage
+      |  |  |  |        |- (
+      |  |  |  |        |- Function_args: "Hello, World!",false
+      |  |  |  |        |  |- Function_arg: "Hello, World!"
+      |  |  |  |        |  |  L  Expressions: "Hello, World!"
+      |  |  |  |        |  |     L  Expression: "Hello, World!"
+      |  |  |  |        |  |        L  "Hello, World!"
+      |  |  |  |        |  |- ,
+      |  |  |  |        |  L  Function_arg: false
+      |  |  |  |        |     L  Expressions: false
+      |  |  |  |        |        L  Expression: false
+      |  |  |  |        |           L  false
+      |  |  |  |        L  )
+      |  |  |  L  ;
+      |  |  L  }
+      |  |- Function_declaration: publicstaticintaddNumbers(inta,intb){intsum=a+b;returnsum;}
+      |  |  |- Access_modifier: public
+      |  |  |  L  public
+      |  |  |- static
+      |  |  |- Type: int
+      |  |  |  L  Primitive_type: int
+      |  |  |     L  Numeric_type: int
+      |  |  |        L  Integral_type: int
+      |  |  |           L  int
+      |  |  |- addNumbers
+      |  |  |- (
+      |  |  |- Function_declaration_args: inta,intb
+      |  |  |  |- Function_declaration_arg: inta
+      |  |  |  |  |- Type: int
+      |  |  |  |  |  L  Primitive_type: int
+      |  |  |  |  |     L  Numeric_type: int
+      |  |  |  |  |        L  Integral_type: int
+      |  |  |  |  |           L  int
+      |  |  |  |  L  a
+      |  |  |  |- ,
+      |  |  |  L  Function_declaration_arg: intb
+      |  |  |     |- Type: int
+      |  |  |     |  L  Primitive_type: int
+      |  |  |     |     L  Numeric_type: int
+      |  |  |     |        L  Integral_type: int
+      |  |  |     |           L  int
+      |  |  |     L  b
+      |  |  |- )
+      |  |  |- {
+      |  |  |- Function_scope: intsum=a+b;returnsum;
+      |  |  |  |- Assignment: intsum=a+b
+      |  |  |  |  |- Variable_declaration: intsum
+      |  |  |  |  |  |- Primitive_type: int
+      |  |  |  |  |  |  L  Numeric_type: int
+      |  |  |  |  |  |     L  Integral_type: int
+      |  |  |  |  |  |        L  int
+      |  |  |  |  |  L  sum
+      |  |  |  |  |- =
+      |  |  |  |  L  Expressions: a+b
+      |  |  |  |     L  Expression: a+b
+      |  |  |  |        |- Expression: a
+      |  |  |  |        |  L  a
+      |  |  |  |        |- Expression_concatinator: +
+      |  |  |  |        |  L  +
+      |  |  |  |        L  Expression: b
+      |  |  |  |           L  b
+      |  |  |  |- ;
+      |  |  |  |- Return_statement: returnsum
+      |  |  |  |  |- return
+      |  |  |  |  L  Expressions: sum
+      |  |  |  |     L  Expression: sum
+      |  |  |  |        L  sum
+      |  |  |  L  ;
+      |  |  L  }
+      |  L  Function_declaration: publicstaticvoidprintMessage(Stringmessage,booleanshouldPrint){if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- printMessage
+      |     |- (
+      |     |- Function_declaration_args: Stringmessage,booleanshouldPrint
+      |     |  |- Function_declaration_arg: Stringmessage
+      |     |  |  |- Type: String
+      |     |  |  |  L  Reference_type: String
+      |     |  |  |     L  Class_type: String
+      |     |  |  |        L  String
+      |     |  |  L  message
+      |     |  |- ,
+      |     |  L  Function_declaration_arg: booleanshouldPrint
+      |     |     |- Type: boolean
+      |     |     |  L  Primitive_type: boolean
+      |     |     |     L  boolean
+      |     |     L  shouldPrint
+      |     |- )
+      |     |- {
+      |     |- Function_scope: if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");
+      |     |  |- Block_scope: if(shouldPrint){System.out.println(message);return;}
+      |     |  |  L  If_statement: if(shouldPrint){System.out.println(message);return;}
+      |     |  |     |- if
+      |     |  |     |- (
+      |     |  |     |- Expressions: shouldPrint
+      |     |  |     |  L  Expression: shouldPrint
+      |     |  |     |     L  shouldPrint
+      |     |  |     |- )
+      |     |  |     |- {
+      |     |  |     |- Function_scope: System.out.println(message);return;
+      |     |  |     |  |- Expressions: System.out.println(message)
+      |     |  |     |  |  L  Expression: System.out.println(message)
+      |     |  |     |  |     L  Function_call: System.out.println(message)
+      |     |  |     |  |        |- Identifier: System.out.println
+      |     |  |     |  |        |  |- System
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  |- out
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  L  println
+      |     |  |     |  |        |- (
+      |     |  |     |  |        |- Function_args: message
+      |     |  |     |  |        |  L  Function_arg: message
+      |     |  |     |  |        |     L  Expressions: message
+      |     |  |     |  |        |        L  Expression: message
+      |     |  |     |  |        |           L  message
+      |     |  |     |  |        L  )
+      |     |  |     |  |- ;
+      |     |  |     |  |- Return_statement: return
+      |     |  |     |  |  L  return
+      |     |  |     |  L  ;
+      |     |  |     L  }
+      |     |  |- Expressions: System.out.println("I will not print this")
+      |     |  |  L  Expression: System.out.println("I will not print this")
+      |     |  |     L  Function_call: System.out.println("I will not print this")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "I will not print this"
+      |     |  |        |  L  Function_arg: "I will not print this"
+      |     |  |        |     L  Expressions: "I will not print this"
+      |     |  |        |        L  Expression: "I will not print this"
+      |     |  |        |           L  "I will not print this"
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }

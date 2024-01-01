@@ -53,7 +53,7 @@ if_else_statement: if_statement else_statement;
 switch_statement: SWITCH_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN switch_scope CURLY_CLOSE;
 switch_scope: ((CASE_KEYWORD (expressions)) COLON function_scope)* DEFAULT_KEYWORD COLON function_scope;
 
-return_statement: RETURN_KEYWORD expressions;
+return_statement: RETURN_KEYWORD (expressions)?;
 break_statement: BREAK_KEYWORD;
 continue_statement: CONTINUE_KEYWORD;
 
