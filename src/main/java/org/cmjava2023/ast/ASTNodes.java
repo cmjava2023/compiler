@@ -130,7 +130,7 @@ public class ASTNodes {
 
     // function_call -> FunctionCallNode
     public record FunctionCallNode(Function function,
-                                   ArrayList<Expression> values) implements Node, Statement {
+                                   ArrayList<Expression> values) implements Node, Statement, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
