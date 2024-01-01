@@ -283,7 +283,11 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ReturnNode node) {
-        return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
+        if (node.value() == null) {
+            return node;
+        } else {
+            return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
+        }
     }
 
     @Override

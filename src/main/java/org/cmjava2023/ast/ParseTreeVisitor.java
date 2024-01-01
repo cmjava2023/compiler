@@ -514,7 +514,12 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // return_statement: RETURN_KEYWORD expressions;
     public ASTNodes.Node visitReturn_statement(MainAntlrParser.Return_statementContext ctx) {
-        return new ASTNodes.ReturnNode((ASTNodes.Expression) visit(ctx.expressions()));
+        if(ctx.expressions()==null){
+            return new ASTNodes.ReturnNode(null);
+        }
+        else {
+            return new ASTNodes.ReturnNode((ASTNodes.Expression) visit(ctx.expressions()));
+        }
     }
 
     public ASTNodes.Node visitType(MainAntlrParser.TypeContext ctx) {

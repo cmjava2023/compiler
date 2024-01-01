@@ -1,6 +1,7 @@
 package org.cmjava2023.ast;
 
 import org.cmjava2023.symboltable.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -327,10 +328,10 @@ public class ASTNodes {
         }
     }
 
-
+    // ATTENTION! This can also have no Expression, thus being null
     // return_statement ->ReturnNode
     // expressions->Expression;
-    public record ReturnNode(Expression value) implements Node, Statement {
+    public record ReturnNode(@Nullable Expression value) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
