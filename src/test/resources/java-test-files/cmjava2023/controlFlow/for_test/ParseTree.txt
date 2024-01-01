@@ -1,0 +1,248 @@
+Start: packagecmjava2023.controlFlow.for_test;publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}}}
+|- Global_scope: packagecmjava2023.controlFlow.for_test;
+|  |- Package_declaration: packagecmjava2023.controlFlow.for_test
+|  |  |- package
+|  |  L  Identifier: cmjava2023.controlFlow.for_test
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- controlFlow
+|  |     |- .
+|  |     L  for_test
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: for(inti=1;i<11;i++){System.out.println(i);}for(inti=0;i<10;i+=2){System.out.println(i);}int[]numbers={1,2,3,4,5,6,7,8,9,10};for(intitem:numbers){System.out.println(item);}
+      |     |  |- Block_scope: for(inti=1;i<11;i++){System.out.println(i);}
+      |     |  |  L  For_loop: for(inti=1;i<11;i++){System.out.println(i);}
+      |     |  |     |- for
+      |     |  |     |- (
+      |     |  |     |- For_init: inti=1
+      |     |  |     |  L  Assignment: inti=1
+      |     |  |     |     |- Variable_declaration: inti
+      |     |  |     |     |  |- Primitive_type: int
+      |     |  |     |     |  |  L  Numeric_type: int
+      |     |  |     |     |  |     L  Integral_type: int
+      |     |  |     |     |  |        L  int
+      |     |  |     |     |  L  i
+      |     |  |     |     |- =
+      |     |  |     |     L  Expressions: 1
+      |     |  |     |        L  Expression: 1
+      |     |  |     |           L  1
+      |     |  |     |- ;
+      |     |  |     |- For_termination: i<11
+      |     |  |     |  L  Expressions: i<11
+      |     |  |     |     L  Expression: i<11
+      |     |  |     |        |- Expression: i
+      |     |  |     |        |  L  i
+      |     |  |     |        |- Expression_operator: <
+      |     |  |     |        |  L  Numerical_comparison_operator: <
+      |     |  |     |        |     L  <
+      |     |  |     |        L  Expression: 11
+      |     |  |     |           L  11
+      |     |  |     |- ;
+      |     |  |     |- For_update: i++
+      |     |  |     |  L  Expressions: i++
+      |     |  |     |     L  Expression: i++
+      |     |  |     |        |- Expression: i
+      |     |  |     |        |  L  i
+      |     |  |     |        L  Expression_suffix: ++
+      |     |  |     |           L  ++
+      |     |  |     |- )
+      |     |  |     |- {
+      |     |  |     |- Function_scope: System.out.println(i);
+      |     |  |     |  |- Expressions: System.out.println(i)
+      |     |  |     |  |  L  Expression: System.out.println(i)
+      |     |  |     |  |     L  Function_call: System.out.println(i)
+      |     |  |     |  |        |- Identifier: System.out.println
+      |     |  |     |  |        |  |- System
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  |- out
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  L  println
+      |     |  |     |  |        |- (
+      |     |  |     |  |        |- Function_args: i
+      |     |  |     |  |        |  L  Function_arg: i
+      |     |  |     |  |        |     L  Expressions: i
+      |     |  |     |  |        |        L  Expression: i
+      |     |  |     |  |        |           L  i
+      |     |  |     |  |        L  )
+      |     |  |     |  L  ;
+      |     |  |     L  }
+      |     |  |- Block_scope: for(inti=0;i<10;i+=2){System.out.println(i);}
+      |     |  |  L  For_loop: for(inti=0;i<10;i+=2){System.out.println(i);}
+      |     |  |     |- for
+      |     |  |     |- (
+      |     |  |     |- For_init: inti=0
+      |     |  |     |  L  Assignment: inti=0
+      |     |  |     |     |- Variable_declaration: inti
+      |     |  |     |     |  |- Primitive_type: int
+      |     |  |     |     |  |  L  Numeric_type: int
+      |     |  |     |     |  |     L  Integral_type: int
+      |     |  |     |     |  |        L  int
+      |     |  |     |     |  L  i
+      |     |  |     |     |- =
+      |     |  |     |     L  Expressions: 0
+      |     |  |     |        L  Expression: 0
+      |     |  |     |           L  0
+      |     |  |     |- ;
+      |     |  |     |- For_termination: i<10
+      |     |  |     |  L  Expressions: i<10
+      |     |  |     |     L  Expression: i<10
+      |     |  |     |        |- Expression: i
+      |     |  |     |        |  L  i
+      |     |  |     |        |- Expression_operator: <
+      |     |  |     |        |  L  Numerical_comparison_operator: <
+      |     |  |     |        |     L  <
+      |     |  |     |        L  Expression: 10
+      |     |  |     |           L  10
+      |     |  |     |- ;
+      |     |  |     |- For_update: i+=2
+      |     |  |     |  L  Expressions: i+=2
+      |     |  |     |     L  Expression: i+=2
+      |     |  |     |        |- Expression: i
+      |     |  |     |        |  L  i
+      |     |  |     |        |- Expression_concatinator: +=
+      |     |  |     |        |  |- +
+      |     |  |     |        |  L  =
+      |     |  |     |        L  Expression: 2
+      |     |  |     |           L  2
+      |     |  |     |- )
+      |     |  |     |- {
+      |     |  |     |- Function_scope: System.out.println(i);
+      |     |  |     |  |- Expressions: System.out.println(i)
+      |     |  |     |  |  L  Expression: System.out.println(i)
+      |     |  |     |  |     L  Function_call: System.out.println(i)
+      |     |  |     |  |        |- Identifier: System.out.println
+      |     |  |     |  |        |  |- System
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  |- out
+      |     |  |     |  |        |  |- .
+      |     |  |     |  |        |  L  println
+      |     |  |     |  |        |- (
+      |     |  |     |  |        |- Function_args: i
+      |     |  |     |  |        |  L  Function_arg: i
+      |     |  |     |  |        |     L  Expressions: i
+      |     |  |     |  |        |        L  Expression: i
+      |     |  |     |  |        |           L  i
+      |     |  |     |  |        L  )
+      |     |  |     |  L  ;
+      |     |  |     L  }
+      |     |  |- Assignment: int[]numbers={1,2,3,4,5,6,7,8,9,10}
+      |     |  |  |- Variable_declaration: int[]numbers
+      |     |  |  |  |- Reference_type: int[]
+      |     |  |  |  |  L  Array_type: int[]
+      |     |  |  |  |     |- Primitive_type: int
+      |     |  |  |  |     |  L  Numeric_type: int
+      |     |  |  |  |     |     L  Integral_type: int
+      |     |  |  |  |     |        L  int
+      |     |  |  |  |     |- [
+      |     |  |  |  |     L  ]
+      |     |  |  |  L  numbers
+      |     |  |  |- =
+      |     |  |  L  Expressions: {1,2,3,4,5,6,7,8,9,10}
+      |     |  |     L  Expression: {1,2,3,4,5,6,7,8,9,10}
+      |     |  |        L  Array_expression: {1,2,3,4,5,6,7,8,9,10}
+      |     |  |           |- {
+      |     |  |           |- Expressions: 1
+      |     |  |           |  L  Expression: 1
+      |     |  |           |     L  1
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 2
+      |     |  |           |  L  Expression: 2
+      |     |  |           |     L  2
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 3
+      |     |  |           |  L  Expression: 3
+      |     |  |           |     L  3
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 4
+      |     |  |           |  L  Expression: 4
+      |     |  |           |     L  4
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 5
+      |     |  |           |  L  Expression: 5
+      |     |  |           |     L  5
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 6
+      |     |  |           |  L  Expression: 6
+      |     |  |           |     L  6
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 7
+      |     |  |           |  L  Expression: 7
+      |     |  |           |     L  7
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 8
+      |     |  |           |  L  Expression: 8
+      |     |  |           |     L  8
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 9
+      |     |  |           |  L  Expression: 9
+      |     |  |           |     L  9
+      |     |  |           |- ,
+      |     |  |           |- Expressions: 10
+      |     |  |           |  L  Expression: 10
+      |     |  |           |     L  10
+      |     |  |           L  }
+      |     |  |- ;
+      |     |  L  Block_scope: for(intitem:numbers){System.out.println(item);}
+      |     |     L  For_loop: for(intitem:numbers){System.out.println(item);}
+      |     |        |- for
+      |     |        |- (
+      |     |        |- For_each: intitem:numbers
+      |     |        |  |- Variable_declaration: intitem
+      |     |        |  |  |- Primitive_type: int
+      |     |        |  |  |  L  Numeric_type: int
+      |     |        |  |  |     L  Integral_type: int
+      |     |        |  |  |        L  int
+      |     |        |  |  L  item
+      |     |        |  |- :
+      |     |        |  L  Identifier: numbers
+      |     |        |     L  numbers
+      |     |        |- )
+      |     |        |- {
+      |     |        |- Function_scope: System.out.println(item);
+      |     |        |  |- Expressions: System.out.println(item)
+      |     |        |  |  L  Expression: System.out.println(item)
+      |     |        |  |     L  Function_call: System.out.println(item)
+      |     |        |  |        |- Identifier: System.out.println
+      |     |        |  |        |  |- System
+      |     |        |  |        |  |- .
+      |     |        |  |        |  |- out
+      |     |        |  |        |  |- .
+      |     |        |  |        |  L  println
+      |     |        |  |        |- (
+      |     |        |  |        |- Function_args: item
+      |     |        |  |        |  L  Function_arg: item
+      |     |        |  |        |     L  Expressions: item
+      |     |        |  |        |        L  Expression: item
+      |     |        |  |        |           L  item
+      |     |        |  |        L  )
+      |     |        |  L  ;
+      |     |        L  }
+      |     L  }
+      L  }
