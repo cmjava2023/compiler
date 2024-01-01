@@ -374,8 +374,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             ASTNodes.Operator operator = getOperator(ctx.expression_suffix(), OperatorType.SUFFIX);
             ASTNodes.Expression exp = (ASTNodes.Expression) visit(ctx.expression().get(0));
             return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if(ctx.expression()!=null && ctx.expression().size() >1) {
+            ASTNodes.ComparisonOperator operator = (ASTNodes.ComparisonOperator) getOperator(ctx.expression_operator(), OperatorType.COMPARISON);
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
-            return null;
+            return visit(ctx.expression().get(0));
         }
     }
 
