@@ -78,6 +78,7 @@ L  body
                            |        |  L  rightExpression (field of type ValueNode)
                            |        |     L  value: 5
                            |        L  statements
+                           |           L  0 (field of type BreakNode)
                            L  2 (field of type UnarySuffixNode)
                               |- operator: INC
                               L  Expression (field of type VariableCallNode)

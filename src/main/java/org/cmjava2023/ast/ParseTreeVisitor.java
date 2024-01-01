@@ -59,13 +59,13 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     // ########ANTLR########
     // continue_statement: CONTINUE_KEYWORD;
-    public ASTNodes.Node visitContinue_Statement(MainAntlrParser.Package_declarationContext ctx) {
-        return new ASTNodes.BreakNode();
+    public ASTNodes.Node visitContinue_statement(MainAntlrParser.Continue_statementContext ctx) {
+        return new ASTNodes.ContinueNode();
     }
 
     // ########ANTLR########
     // break_statement: BREAK_KEYWORD;
-    public ASTNodes.Node visitBreak_Statement(MainAntlrParser.Package_declarationContext ctx) {
+    public ASTNodes.Node visitBreak_statement(MainAntlrParser.Break_statementContext ctx) {
         return new ASTNodes.BreakNode();
     }
 
@@ -629,7 +629,6 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     private ArrayList<ASTNodes.Statement> getLocalScopeStatements(List<ParseTree> children) {
         setLocalScope();
-
         ArrayList<ASTNodes.Statement> statements = getStatements(children);
 
         symbolTable.popScope();
