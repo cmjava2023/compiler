@@ -81,7 +81,8 @@ array_expression: CURLY_OPEN ( (expressions (COMMA expressions)*)) CURLY_CLOSE;
 // Control flow
 while_loop: WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
 do_while_loop: DO_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE (SEMICOLON)?;
-for_loop: FOR_KEYWORD PAREN_OPEN for_init SEMICOLON for_termination SEMICOLON for_update PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+for_loop: FOR_KEYWORD PAREN_OPEN ((for_init SEMICOLON for_termination SEMICOLON for_update) | for_each) PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+for_each: variable_declaration COLON identifier;
 for_init: assignment;
 for_termination: expressions;
 for_update: expressions;
