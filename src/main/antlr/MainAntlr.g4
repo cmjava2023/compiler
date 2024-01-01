@@ -25,7 +25,7 @@ assignment: (variable_declaration | identifier) EQUALS expressions;
 expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression (expression_concatinator|expression_operator) expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
-expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
+expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT| PLUS EQUALS | MINUS EQUALS;
 expression_suffix: DEC | INC;
 
 instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
