@@ -1,0 +1,94 @@
+Start: packagecmjava2023.controlFlow.while_test;publicclassMain{publicstaticvoidmain(String[]args){intcount=1;while(count<11){System.out.println(count);count++;}}}
+|- Global_scope: packagecmjava2023.controlFlow.while_test;
+|  |- Package_declaration: packagecmjava2023.controlFlow.while_test
+|  |  |- package
+|  |  L  Identifier: cmjava2023.controlFlow.while_test
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- controlFlow
+|  |     |- .
+|  |     L  while_test
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intcount=1;while(count<11){System.out.println(count);count++;}}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){intcount=1;while(count<11){System.out.println(count);count++;}}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){intcount=1;while(count<11){System.out.println(count);count++;}}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){intcount=1;while(count<11){System.out.println(count);count++;}}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: intcount=1;while(count<11){System.out.println(count);count++;}
+      |     |  |- Assignment: intcount=1
+      |     |  |  |- Variable_declaration: intcount
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  count
+      |     |  |  |- =
+      |     |  |  L  Expressions: 1
+      |     |  |     L  Expression: 1
+      |     |  |        L  1
+      |     |  |- ;
+      |     |  L  Block_scope: while(count<11){System.out.println(count);count++;}
+      |     |     L  While_loop: while(count<11){System.out.println(count);count++;}
+      |     |        |- while
+      |     |        |- (
+      |     |        |- Expressions: count<11
+      |     |        |  L  Expression: count<11
+      |     |        |     |- Expression: count
+      |     |        |     |  L  count
+      |     |        |     |- Expression_operator: <
+      |     |        |     |  L  Numerical_comparison_operator: <
+      |     |        |     |     L  <
+      |     |        |     L  Expression: 11
+      |     |        |        L  11
+      |     |        |- )
+      |     |        |- {
+      |     |        |- Function_scope: System.out.println(count);count++;
+      |     |        |  |- Expressions: System.out.println(count)
+      |     |        |  |  L  Expression: System.out.println(count)
+      |     |        |  |     L  Function_call: System.out.println(count)
+      |     |        |  |        |- Identifier: System.out.println
+      |     |        |  |        |  |- System
+      |     |        |  |        |  |- .
+      |     |        |  |        |  |- out
+      |     |        |  |        |  |- .
+      |     |        |  |        |  L  println
+      |     |        |  |        |- (
+      |     |        |  |        |- Function_args: count
+      |     |        |  |        |  L  Function_arg: count
+      |     |        |  |        |     L  Expressions: count
+      |     |        |  |        |        L  Expression: count
+      |     |        |  |        |           L  count
+      |     |        |  |        L  )
+      |     |        |  |- ;
+      |     |        |  |- Expressions: count++
+      |     |        |  |  L  Expression: count++
+      |     |        |  |     |- Expression: count
+      |     |        |  |     |  L  count
+      |     |        |  |     L  Expression_suffix: ++
+      |     |        |  |        L  ++
+      |     |        |  L  ;
+      |     |        L  }
+      |     L  }
+      L  }
