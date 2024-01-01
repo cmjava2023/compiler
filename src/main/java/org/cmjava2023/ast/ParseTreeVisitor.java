@@ -632,11 +632,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         List<MainAntlrParser.ExpressionsContext> expressions = ctx.switch_scope().expressions();
         List<MainAntlrParser.Function_scopeContext> functionScopes = ctx.switch_scope().function_scope();
         ArrayList<ASTNodes.CaseNode> caseNodes = new ArrayList<>();
-        for (int i = 0; i < expressions.size() - 1; i++) {
+        for (int i = 0; i <= expressions.size() - 1; i++) {
             caseNodes.add(new ASTNodes.CaseNode((ASTNodes.Expression) visit(expressions.get(i)), this.getLocalScopeStatements(functionScopes.get(i).children)));
         }
-        ASTNodes.Expression defaultEx = (ASTNodes.Expression) visit(ctx.switch_scope().function_scope(ctx.switch_scope().function_scope().size() - 1));
-        return new ASTNodes.SwitchNode(switchEx, caseNodes, defaultEx);
+        ArrayList<ASTNodes.Statement> defaultStatements =  this.getLocalScopeStatements(functionScopes.get(functionScopes.size()-1).children);
+        return new ASTNodes.SwitchNode(switchEx, caseNodes, defaultStatements);
     }
 
     private ArrayList<ASTNodes.Statement> getLocalScopeStatements(List<ParseTree> children) {

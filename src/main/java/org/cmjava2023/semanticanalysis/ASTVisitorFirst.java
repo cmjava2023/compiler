@@ -100,7 +100,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.SwitchNode switchNode) {
-        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), (ASTNodes.Expression) switchNode.defaultEx().accept(this));
+        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), getModifiedStatements(switchNode.defaultStatements()));
     }
 
     @Override

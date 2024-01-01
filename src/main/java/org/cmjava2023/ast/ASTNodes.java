@@ -374,7 +374,7 @@ public class ASTNodes {
 
     // switch_statement ->SwitchNode
     public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes,
-                             Expression defaultEx) implements Node, ControlFlow {
+                             ArrayList<Statement> defaultStatements) implements Node, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

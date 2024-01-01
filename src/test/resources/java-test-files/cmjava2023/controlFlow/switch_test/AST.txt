@@ -1,0 +1,769 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     |- 1: controlFlow
+   |     L  2: switch_test
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
+            |           L  dimensions: 1
+            L  body
+               |- 0 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 8
+               |     |- name: month
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 1 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression: null
+               |     |- name: monthString
+               |     L  type (field of type BuiltIn)
+               |        L  name: String
+               |- 2 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     L  0 (field of type SwitchNode)
+               |        |- switchEx (field of type VariableCallNode)
+               |        |  L  symbol (field of type Variable)
+               |        |     |- initialExpression (field of type ValueNode)
+               |        |     |  L  value: 8
+               |        |     |- name: month
+               |        |     L  type (field of type BuiltIn)
+               |        |        L  name: int
+               |        |- caseNodes
+               |        |  |- 0 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 1
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: January
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 1 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 2
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: February
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 2 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 3
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: March
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 3 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 4
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: April
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 4 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 5
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: May
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 5 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 6
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: June
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 6 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 7
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: July
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 7 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 8
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: August
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 8 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 9
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: September
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 9 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 10
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: October
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 10 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 11
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression: null
+               |        |  |     |  |  |- name: monthString
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: String
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: November
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  L  11 (field of type CaseNode)
+               |        |     |- caseEx (field of type ValueNode)
+               |        |     |  L  value: 12
+               |        |     L  body
+               |        |        |- 0 (field of type VariableAssignmentNode)
+               |        |        |  |- variable (field of type Variable)
+               |        |        |  |  |- initialExpression: null
+               |        |        |  |  |- name: monthString
+               |        |        |  |  L  type (field of type BuiltIn)
+               |        |        |  |     L  name: String
+               |        |        |  L  expression (field of type ValueNode)
+               |        |        |     L  value: December
+               |        |        L  1 (field of type BreakNode)
+               |        L  defaultStatements
+               |           |- 0 (field of type VariableAssignmentNode)
+               |           |  |- variable (field of type Variable)
+               |           |  |  |- initialExpression: null
+               |           |  |  |- name: monthString
+               |           |  |  L  type (field of type BuiltIn)
+               |           |  |     L  name: String
+               |           |  L  expression (field of type ValueNode)
+               |           |     L  value: Invalid month
+               |           L  1 (field of type BreakNode)
+               |- 3 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type VariableCallNode)
+               |        L  symbol (field of type Variable)
+               |           |- initialExpression: null
+               |           |- name: monthString
+               |           L  type (field of type BuiltIn)
+               |              L  name: String
+               |- 4 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 8
+               |     |- name: month2Example
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 5 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     L  0 (field of type SwitchNode)
+               |        |- switchEx (field of type VariableCallNode)
+               |        |  L  symbol (field of type Variable)
+               |        |     |- initialExpression (field of type ValueNode)
+               |        |     |  L  value: 8
+               |        |     |- name: month2Example
+               |        |     L  type (field of type BuiltIn)
+               |        |        L  name: int
+               |        |- caseNodes
+               |        |  |- 0 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 1
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: January
+               |        |  |- 1 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 2
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: February
+               |        |  |- 2 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 3
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: March
+               |        |  |- 3 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 4
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: April
+               |        |  |- 4 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 5
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: May
+               |        |  |- 5 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 6
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: June
+               |        |  |- 6 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 7
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: July
+               |        |  |- 7 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 8
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: August
+               |        |  |- 8 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 9
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: September
+               |        |  |- 9 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 10
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: October
+               |        |  |- 10 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 11
+               |        |  |  L  body
+               |        |  |     L  0 (field of type FunctionCallNode)
+               |        |  |        |- function (field of type Function)
+               |        |  |        |  |- accessModifier: PUBLIC
+               |        |  |        |  |- instanceModifier: null
+               |        |  |        |  |- name: System.out.println
+               |        |  |        |  L  type (field of type BuiltIn)
+               |        |  |        |     L  name: void
+               |        |  |        L  values
+               |        |  |           L  0 (field of type ValueNode)
+               |        |  |              L  value: November
+               |        |  L  11 (field of type CaseNode)
+               |        |     |- caseEx (field of type ValueNode)
+               |        |     |  L  value: 12
+               |        |     L  body
+               |        |        |- 0 (field of type FunctionCallNode)
+               |        |        |  |- function (field of type Function)
+               |        |        |  |  |- accessModifier: PUBLIC
+               |        |        |  |  |- instanceModifier: null
+               |        |        |  |  |- name: System.out.println
+               |        |        |  |  L  type (field of type BuiltIn)
+               |        |        |  |     L  name: void
+               |        |        |  L  values
+               |        |        |     L  0 (field of type ValueNode)
+               |        |        |        L  value: December
+               |        |        L  1 (field of type BreakNode)
+               |        L  defaultStatements
+               |           L  0 (field of type BreakNode)
+               |- 6 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 2
+               |     |- name: month3example
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 7 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 2000
+               |     |- name: year
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 8 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 0
+               |     |- name: numDays
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 9 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     L  0 (field of type SwitchNode)
+               |        |- switchEx (field of type VariableCallNode)
+               |        |  L  symbol (field of type Variable)
+               |        |     |- initialExpression (field of type ValueNode)
+               |        |     |  L  value: 2
+               |        |     |- name: month3example
+               |        |     L  type (field of type BuiltIn)
+               |        |        L  name: int
+               |        |- caseNodes
+               |        |  |- 0 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 12
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression (field of type ValueNode)
+               |        |  |     |  |  |  L  value: 0
+               |        |  |     |  |  |- name: numDays
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: int
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: 31
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  |- 1 (field of type CaseNode)
+               |        |  |  |- caseEx (field of type ValueNode)
+               |        |  |  |  L  value: 11
+               |        |  |  L  body
+               |        |  |     |- 0 (field of type VariableAssignmentNode)
+               |        |  |     |  |- variable (field of type Variable)
+               |        |  |     |  |  |- initialExpression (field of type ValueNode)
+               |        |  |     |  |  |  L  value: 0
+               |        |  |     |  |  |- name: numDays
+               |        |  |     |  |  L  type (field of type BuiltIn)
+               |        |  |     |  |     L  name: int
+               |        |  |     |  L  expression (field of type ValueNode)
+               |        |  |     |     L  value: 30
+               |        |  |     L  1 (field of type BreakNode)
+               |        |  L  2 (field of type CaseNode)
+               |        |     |- caseEx (field of type ValueNode)
+               |        |     |  L  value: 2
+               |        |     L  body
+               |        |        |- 0 (field of type BlockScopeNode)
+               |        |        |  L  controlFlows
+               |        |        |     |- 0 (field of type IfNode)
+               |        |        |     |  |- expression (field of type ComparisonNode)
+               |        |        |     |  |  |- leftExpression (field of type ParenthesesNode)
+               |        |        |     |  |  |  L  Expression (field of type ComparisonNode)
+               |        |        |     |  |  |     |- leftExpression (field of type ParenthesesNode)
+               |        |        |     |  |  |     |  L  Expression (field of type ComparisonNode)
+               |        |        |     |  |  |     |     |- leftExpression (field of type InfixNode)
+               |        |        |     |  |  |     |     |  |- operator: MOD
+               |        |        |     |  |  |     |     |  L  rightExpression (field of type ValueNode)
+               |        |        |     |  |  |     |     |     L  value: 4
+               |        |        |     |  |  |     |     |- comparisonOperator: EQ
+               |        |        |     |  |  |     |     L  rightExpression (field of type ValueNode)
+               |        |        |     |  |  |     |        L  value: 0
+               |        |        |     |  |  |     |- comparisonOperator: LAND
+               |        |        |     |  |  |     L  rightExpression (field of type UnaryPrefixNode)
+               |        |        |     |  |  |        |- operator: NOT
+               |        |        |     |  |  |        L  Expression (field of type ParenthesesNode)
+               |        |        |     |  |  |- comparisonOperator: LOR
+               |        |        |     |  |  L  rightExpression (field of type ParenthesesNode)
+               |        |        |     |  |     L  Expression (field of type ComparisonNode)
+               |        |        |     |  |        |- leftExpression (field of type InfixNode)
+               |        |        |     |  |        |  |- operator: MOD
+               |        |        |     |  |        |  L  rightExpression (field of type ValueNode)
+               |        |        |     |  |        |     L  value: 400
+               |        |        |     |  |        |- comparisonOperator: EQ
+               |        |        |     |  |        L  rightExpression (field of type ValueNode)
+               |        |        |     |  |           L  value: 0
+               |        |        |     |  L  statements
+               |        |        |     |     L  0 (field of type VariableAssignmentNode)
+               |        |        |     |        |- variable (field of type Variable)
+               |        |        |     |        |  |- initialExpression (field of type ValueNode)
+               |        |        |     |        |  |  L  value: 0
+               |        |        |     |        |  |- name: numDays
+               |        |        |     |        |  L  type (field of type BuiltIn)
+               |        |        |     |        |     L  name: int
+               |        |        |     |        L  expression (field of type ValueNode)
+               |        |        |     |           L  value: 29
+               |        |        |     L  1 (field of type ElseNode)
+               |        |        |        L  statements
+               |        |        |           L  0 (field of type VariableAssignmentNode)
+               |        |        |              |- variable (field of type Variable)
+               |        |        |              |  |- initialExpression (field of type ValueNode)
+               |        |        |              |  |  L  value: 0
+               |        |        |              |  |- name: numDays
+               |        |        |              |  L  type (field of type BuiltIn)
+               |        |        |              |     L  name: int
+               |        |        |              L  expression (field of type ValueNode)
+               |        |        |                 L  value: 28
+               |        |        L  1 (field of type BreakNode)
+               |        L  defaultStatements
+               |           |- 0 (field of type FunctionCallNode)
+               |           |  |- function (field of type Function)
+               |           |  |  |- accessModifier: PUBLIC
+               |           |  |  |- instanceModifier: null
+               |           |  |  |- name: System.out.println
+               |           |  |  L  type (field of type BuiltIn)
+               |           |  |     L  name: void
+               |           |  L  values
+               |           |     L  0 (field of type ValueNode)
+               |           |        L  value: Invalid month.
+               |           L  1 (field of type BreakNode)
+               |- 10 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type VariableCallNode)
+               |        L  symbol (field of type Variable)
+               |           |- initialExpression (field of type ValueNode)
+               |           |  L  value: 0
+               |           |- name: numDays
+               |           L  type (field of type BuiltIn)
+               |              L  name: int
+               |- 11 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 0
+               |     |- name: monthNumber
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               L  12 (field of type BlockScopeNode)
+                  L  controlFlows
+                     L  0 (field of type SwitchNode)
+                        |- switchEx (field of type FunctionCallNode)
+                        |  |- function (field of type Function)
+                        |  |  |- accessModifier: null
+                        |  |  |- instanceModifier: null
+                        |  |  |- name: monthString.toLowerCase
+                        |  |  L  type: null
+                        |  L  values
+                        |- caseNodes
+                        |  |- 0 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: january
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 1
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 1 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: february
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 2
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 2 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: march
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 3
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 3 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: april
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 4
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 4 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: may
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 5
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 5 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: june
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 6
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 6 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: july
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 7
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 7 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: august
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 8
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 8 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: september
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 9
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 9 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: october
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 10
+                        |  |     L  1 (field of type BreakNode)
+                        |  |- 10 (field of type CaseNode)
+                        |  |  |- caseEx (field of type ValueNode)
+                        |  |  |  L  value: november
+                        |  |  L  body
+                        |  |     |- 0 (field of type VariableAssignmentNode)
+                        |  |     |  |- variable (field of type Variable)
+                        |  |     |  |  |- initialExpression (field of type ValueNode)
+                        |  |     |  |  |  L  value: 0
+                        |  |     |  |  |- name: monthNumber
+                        |  |     |  |  L  type (field of type BuiltIn)
+                        |  |     |  |     L  name: int
+                        |  |     |  L  expression (field of type ValueNode)
+                        |  |     |     L  value: 11
+                        |  |     L  1 (field of type BreakNode)
+                        |  L  11 (field of type CaseNode)
+                        |     |- caseEx (field of type ValueNode)
+                        |     |  L  value: december
+                        |     L  body
+                        |        |- 0 (field of type VariableAssignmentNode)
+                        |        |  |- variable (field of type Variable)
+                        |        |  |  |- initialExpression (field of type ValueNode)
+                        |        |  |  |  L  value: 0
+                        |        |  |  |- name: monthNumber
+                        |        |  |  L  type (field of type BuiltIn)
+                        |        |  |     L  name: int
+                        |        |  L  expression (field of type ValueNode)
+                        |        |     L  value: 12
+                        |        L  1 (field of type BreakNode)
+                        L  defaultStatements
+                           |- 0 (field of type VariableAssignmentNode)
+                           |  |- variable (field of type Variable)
+                           |  |  |- initialExpression (field of type ValueNode)
+                           |  |  |  L  value: 0
+                           |  |  |- name: monthNumber
+                           |  |  L  type (field of type BuiltIn)
+                           |  |     L  name: int
+                           |  L  expression (field of type ValueNode)
+                           |     L  value: 0
+                           L  1 (field of type BreakNode)
