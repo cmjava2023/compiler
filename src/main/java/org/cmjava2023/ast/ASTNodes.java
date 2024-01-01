@@ -336,10 +336,19 @@ public class ASTNodes {
         }
     }
 
-    // for_loop -> ForLoopNode
+    // for_loop -> (ForLoopNode)
     public record ForLoopNode(VariableUsage loopVariable,
                               Expression termination,
                               Expression increment,
+                              ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    // for_loop -> (ForEachLoopNode)
+    public record ForEachLoopNode(VariableUsage variableDeclaration,
+                              NestedIdentifierNode values,
                               ArrayList<Statement> body) implements Node, Statement, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);

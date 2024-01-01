@@ -124,6 +124,7 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.ObjectInstantiationNode objectInstantiationNode);
 
     public abstract T visit(ASTNodes.ForLoopNode forLoopNode);
+    public abstract T visit(ASTNodes.ForEachLoopNode forEachLoopNode);
 
     public abstract T visit(ASTNodes.WhileLoopNode whileLoopNode);
 

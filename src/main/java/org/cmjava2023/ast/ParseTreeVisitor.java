@@ -587,15 +587,22 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     // ########ANTLR########
-    // for_loop: FOR_KEYWORD PAREN_OPEN for_init SEMICOLON for_termination SEMICOLON for_update PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+    // for_loop: FOR_KEYWORD PAREN_OPEN ((for_init SEMICOLON for_termination SEMICOLON for_update) | for_each) PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+    // for_each: variable_declaration COLON identifier;
     // for_init: assignment;
     // for_termination: expressions;
     // for_update: expressions;
+
     public ASTNodes.Node visitFor_loop(MainAntlrParser.For_loopContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
-
-        return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init().assignment()), (ASTNodes.Expression) visit(ctx.for_termination().expressions()), (ASTNodes.Expression) visit(ctx.for_update().expressions()), statements);
+        if(ctx.for_each()!=null){
+            return new ASTNodes.ForEachLoopNode((ASTNodes.VariableUsage) visit(ctx.for_each().variable_declaration()), (ASTNodes.NestedIdentifierNode) visit(ctx.for_each().identifier()), statements);
+        }
+        else {
+            return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init().assignment()), (ASTNodes.Expression) visit(ctx.for_termination().expressions()), (ASTNodes.Expression) visit(ctx.for_update().expressions()), statements);
+        }
     }
+
 
     // ########ANTLR########
     // do_while_loop: DO_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE;

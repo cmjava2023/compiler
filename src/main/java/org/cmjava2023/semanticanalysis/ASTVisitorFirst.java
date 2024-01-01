@@ -377,6 +377,11 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
+    public ASTNodes.Node visit(ASTNodes.ForEachLoopNode forEachLoopNode) {
+        return null;
+    }
+
+    @Override
     public ASTNodes.Node visit(ASTNodes.WhileLoopNode node) {
         return new ASTNodes.WhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
     }

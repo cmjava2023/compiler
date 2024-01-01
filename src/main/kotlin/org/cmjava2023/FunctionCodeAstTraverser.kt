@@ -633,6 +633,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
+    override fun visit(forEachLoopNode: ASTNodes.ForEachLoopNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
     override fun visit(whileLoopNode: ASTNodes.WhileLoopNode?): List<OpCode> {
         TODO("Not yet implemented")
     }
