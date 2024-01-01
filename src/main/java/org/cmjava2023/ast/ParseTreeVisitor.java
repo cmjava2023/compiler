@@ -46,10 +46,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ( enum_declaration | block_scope | (expressions | assignment | variable_declaration | return_statement | continue_statement | break_statement) SEMICOLON)*;
     private ArrayList<ASTNodes.Statement> getStatements(List<ParseTree> children) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
-
-        for (ParseTree child : children) {
-            if (!child.getText().equals(";")) {
-                statementList.add((ASTNodes.Statement) visit(child));
+        if(children!=null) {
+            for (ParseTree child : children) {
+                if (!child.getText().equals(";")) {
+                    statementList.add((ASTNodes.Statement) visit(child));
+                }
             }
         }
 

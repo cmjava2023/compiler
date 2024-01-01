@@ -19,7 +19,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
 
         for (ASTNodes.Statement statement : statements) {
-            statementList.add((ASTNodes.Statement) statement.accept(this));
+            if(statement!=null) {
+                statementList.add((ASTNodes.Statement) statement.accept(this));
+            }
         }
 
         return statementList;
