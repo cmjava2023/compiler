@@ -2,6 +2,7 @@ package cmjava2023;
 
 
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
+import cmjava2023.util.LineWiseEqualsAssertion;
 import cmjava2023.util.TestPathsHelper;
 import cmjava2023.util.classFIleTesting.*;
 import org.cmjava2023.Main;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
@@ -33,7 +33,7 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/") + "/Main";
             String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);
             String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
-            assertEquals(expectedOutput, actualOutput);
+            LineWiseEqualsAssertion.expectedEqualsActual(expectedOutput, actualOutput);
         }));
     }
 

@@ -145,7 +145,7 @@ L  body
                |              |  L  type (field of type BuiltIn)
                |              |     L  name: char
                |              L  expression (field of type ValueNode)
-               |                 L  value: '
+               |                 L  value: A
                L  8 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC

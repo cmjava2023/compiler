@@ -2,6 +2,7 @@ package cmjava2023;
 
 
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
+import cmjava2023.util.LineWiseEqualsAssertion;
 import cmjava2023.util.treePrinter.SymbolTableTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -17,8 +18,6 @@ import org.junit.jupiter.api.TestFactory;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SymbolTableTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
@@ -43,7 +42,7 @@ public class SymbolTableTest implements DynamicTestsForTestFilesHelper.DynamicTe
             ast.accept(astVisitorFirst);
 
             String actual = SymbolTableTreePrinter.print(visitor.symbolTable);
-            assertEquals(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
         }));
     }
 }
