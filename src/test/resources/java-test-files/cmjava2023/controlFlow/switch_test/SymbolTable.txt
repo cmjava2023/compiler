@@ -1,0 +1,28 @@
+GlobalScope
+|- boolean: boolean
+|- void: void
+|- byte: byte
+|- double: double
+|- char: char
+|- short: short
+|- String: String
+|- float: float
+|- Main: Main
+|  |- addNumbers: int
+|  |  |- a: int
+|  |  |- b: int
+|  |  L  LocalScope
+|  |     L  sum: int
+|  |- printMessage: void
+|  |  |- shouldPrint: boolean
+|  |  |- message: String
+|  |  L  LocalScope
+|  |     L  LocalScope
+|  L  main: void
+|     |- args: String[]
+|     L  LocalScope
+|        L  result: int
+|- int: int
+|- long: long
+L  System.out.println: void
+   L  x: String
