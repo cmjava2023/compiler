@@ -2,6 +2,7 @@ package cmjava2023;
 
 
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
+import cmjava2023.util.LineWiseEqualsAssertion;
 import cmjava2023.util.treePrinter.GenericTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -18,8 +19,6 @@ import org.junit.jupiter.api.TestFactory;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClassFileModelTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
@@ -42,7 +41,7 @@ public class ClassFileModelTest implements DynamicTestsForTestFilesHelper.Dynami
 
             var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)modifiedAST);
             String actual = GenericTreePrinter.print(classFileModel);
-            assertEquals(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
         }));
     }
 }

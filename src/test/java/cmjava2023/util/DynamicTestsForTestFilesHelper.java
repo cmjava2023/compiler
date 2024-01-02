@@ -27,7 +27,7 @@ public class DynamicTestsForTestFilesHelper {
                             result.addAll(dynamicTestCallback.createTestForMainAndExpectedContent(
                                     nonRootPackagePartsTheHelpedClassIsIn,
                                     file.toString(),
-                                    Files.readString(txtFileWithExpected.toAbsolutePath()).replaceAll("\r\n", "\n")));
+                                    Files.readString(txtFileWithExpected.toAbsolutePath()).replace("\r", "")));
                         }
                     }
                     return super.visitFile(file, attrs);

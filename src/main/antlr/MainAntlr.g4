@@ -22,10 +22,10 @@ expressions: expression (expression_operator expression)?;
 variable_declaration: (primitive_type | reference_type) IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
-expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression expression_concatinator expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
+expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression (expression_concatinator|expression_operator) expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
 
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
-expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
+expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT| PLUS EQUALS | MINUS EQUALS;
 expression_suffix: DEC | INC;
 
 instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
@@ -53,7 +53,7 @@ if_else_statement: if_statement else_statement;
 switch_statement: SWITCH_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN switch_scope CURLY_CLOSE;
 switch_scope: ((CASE_KEYWORD (expressions)) COLON function_scope)* DEFAULT_KEYWORD COLON function_scope;
 
-return_statement: RETURN_KEYWORD expressions;
+return_statement: RETURN_KEYWORD (expressions)?;
 break_statement: BREAK_KEYWORD;
 continue_statement: CONTINUE_KEYWORD;
 
@@ -80,8 +80,9 @@ array_expression: CURLY_OPEN ( (expressions (COMMA expressions)*)) CURLY_CLOSE;
 
 // Control flow
 while_loop: WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
-do_while_loop: DO_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE;
-for_loop: FOR_KEYWORD PAREN_OPEN for_init SEMICOLON for_termination SEMICOLON for_update PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+do_while_loop: DO_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE (SEMICOLON)?;
+for_loop: FOR_KEYWORD PAREN_OPEN ((for_init SEMICOLON for_termination SEMICOLON for_update) | for_each) PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+for_each: variable_declaration COLON identifier;
 for_init: assignment;
 for_termination: expressions;
 for_update: expressions;

@@ -46,10 +46,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ( enum_declaration | block_scope | (expressions | assignment | variable_declaration | return_statement | continue_statement | break_statement) SEMICOLON)*;
     private ArrayList<ASTNodes.Statement> getStatements(List<ParseTree> children) {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
-
-        for (ParseTree child : children) {
-            if (!child.getText().equals(";")) {
-                statementList.add((ASTNodes.Statement) visit(child));
+        if(children!=null) {
+            for (ParseTree child : children) {
+                if (!child.getText().equals(";")) {
+                    statementList.add((ASTNodes.Statement) visit(child));
+                }
             }
         }
 
@@ -58,13 +59,13 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
     // ########ANTLR########
     // continue_statement: CONTINUE_KEYWORD;
-    public ASTNodes.Node visitContinue_Statement(MainAntlrParser.Package_declarationContext ctx) {
-        return new ASTNodes.BreakNode();
+    public ASTNodes.Node visitContinue_statement(MainAntlrParser.Continue_statementContext ctx) {
+        return new ASTNodes.ContinueNode();
     }
 
     // ########ANTLR########
     // break_statement: BREAK_KEYWORD;
-    public ASTNodes.Node visitBreak_Statement(MainAntlrParser.Package_declarationContext ctx) {
+    public ASTNodes.Node visitBreak_statement(MainAntlrParser.Break_statementContext ctx) {
         return new ASTNodes.BreakNode();
     }
 
@@ -374,8 +375,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             ASTNodes.Operator operator = getOperator(ctx.expression_suffix(), OperatorType.SUFFIX);
             ASTNodes.Expression exp = (ASTNodes.Expression) visit(ctx.expression().get(0));
             return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if(ctx.expression()!=null && ctx.expression().size() >1) {
+            ASTNodes.ComparisonOperator operator = (ASTNodes.ComparisonOperator) getOperator(ctx.expression_operator(), OperatorType.COMPARISON);
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
-            return null;
+            return visit(ctx.expression().get(0));
         }
     }
 
@@ -510,7 +514,12 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // return_statement: RETURN_KEYWORD expressions;
     public ASTNodes.Node visitReturn_statement(MainAntlrParser.Return_statementContext ctx) {
-        return new ASTNodes.ReturnNode((ASTNodes.Expression) visit(ctx.expressions()));
+        if(ctx.expressions()==null){
+            return new ASTNodes.ReturnNode(null);
+        }
+        else {
+            return new ASTNodes.ReturnNode((ASTNodes.Expression) visit(ctx.expressions()));
+        }
     }
 
     public ASTNodes.Node visitType(MainAntlrParser.TypeContext ctx) {
@@ -583,15 +592,22 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     }
 
     // ########ANTLR########
-    // for_loop: FOR_KEYWORD PAREN_OPEN for_init SEMICOLON for_termination SEMICOLON for_update PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+    // for_loop: FOR_KEYWORD PAREN_OPEN ((for_init SEMICOLON for_termination SEMICOLON for_update) | for_each) PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+    // for_each: variable_declaration COLON identifier;
     // for_init: assignment;
     // for_termination: expressions;
     // for_update: expressions;
+
     public ASTNodes.Node visitFor_loop(MainAntlrParser.For_loopContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
-
-        return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init().assignment()), (ASTNodes.Expression) visit(ctx.for_termination().expressions()), (ASTNodes.Expression) visit(ctx.for_update().expressions()), statements);
+        if(ctx.for_each()!=null){
+            return new ASTNodes.ForEachLoopNode((ASTNodes.VariableUsage) visit(ctx.for_each().variable_declaration()), (ASTNodes.NestedIdentifierNode) visit(ctx.for_each().identifier()), statements);
+        }
+        else {
+            return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) visit(ctx.for_init().assignment()), (ASTNodes.Expression) visit(ctx.for_termination().expressions()), (ASTNodes.Expression) visit(ctx.for_update().expressions()), statements);
+        }
     }
+
 
     // ########ANTLR########
     // do_while_loop: DO_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE;
@@ -605,7 +621,6 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     //while_loop: WHILE_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
     public ASTNodes.Node visitWhile_loop(MainAntlrParser.While_loopContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
-
         return new ASTNodes.WhileLoopNode((ASTNodes.Expression) visit(ctx.expressions()), statements);
     }
 
@@ -617,16 +632,15 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         List<MainAntlrParser.ExpressionsContext> expressions = ctx.switch_scope().expressions();
         List<MainAntlrParser.Function_scopeContext> functionScopes = ctx.switch_scope().function_scope();
         ArrayList<ASTNodes.CaseNode> caseNodes = new ArrayList<>();
-        for (int i = 0; i < expressions.size() - 1; i++) {
+        for (int i = 0; i <= expressions.size() - 1; i++) {
             caseNodes.add(new ASTNodes.CaseNode((ASTNodes.Expression) visit(expressions.get(i)), this.getLocalScopeStatements(functionScopes.get(i).children)));
         }
-        ASTNodes.Expression defaultEx = (ASTNodes.Expression) visit(ctx.switch_scope().function_scope(ctx.switch_scope().function_scope().size() - 1));
-        return new ASTNodes.SwitchNode(switchEx, caseNodes, defaultEx);
+        ArrayList<ASTNodes.Statement> defaultStatements =  this.getLocalScopeStatements(functionScopes.get(functionScopes.size()-1).children);
+        return new ASTNodes.SwitchNode(switchEx, caseNodes, defaultStatements);
     }
 
     private ArrayList<ASTNodes.Statement> getLocalScopeStatements(List<ParseTree> children) {
         setLocalScope();
-
         ArrayList<ASTNodes.Statement> statements = getStatements(children);
 
         symbolTable.popScope();

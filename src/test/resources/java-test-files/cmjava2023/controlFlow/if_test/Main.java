@@ -1,4 +1,4 @@
-package cmjava2023.controlFlow.if;
+package cmjava2023.controlFlow.if_test;
 
 public class Main {
     public static void main(String[] args) {

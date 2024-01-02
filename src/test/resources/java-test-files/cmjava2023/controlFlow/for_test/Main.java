@@ -1,4 +1,4 @@
-package cmjava2023.controlFlow.for;
+package cmjava2023.controlFlow.for_test;
 
 public class Main {
     public static void main(String[] args) {

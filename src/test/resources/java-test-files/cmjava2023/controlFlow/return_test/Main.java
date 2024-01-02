@@ -1,4 +1,4 @@
-package cmjava2023.controlFlow.return;
+package cmjava2023.controlFlow.return_test;
 
 public class Main {
     public static void main(String[] args) {

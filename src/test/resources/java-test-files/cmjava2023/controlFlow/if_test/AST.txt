@@ -1,0 +1,162 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     |- 1: controlFlow
+   |     L  2: if_test
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
+            |           L  dimensions: 1
+            L  body
+               |- 0 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: true
+               |     |- name: isMoving
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               |- 1 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 5
+               |     |- name: currentSpeed
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 2 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     L  0 (field of type IfNode)
+               |        |- expression (field of type VariableCallNode)
+               |        |  L  symbol (field of type Variable)
+               |        |     |- initialExpression (field of type ValueNode)
+               |        |     |  L  value: true
+               |        |     |- name: isMoving
+               |        |     L  type (field of type BuiltIn)
+               |        |        L  name: boolean
+               |        L  statements
+               |           L  0 (field of type UnarySuffixNode)
+               |              |- operator: DEC
+               |              L  Expression (field of type VariableCallNode)
+               |                 L  symbol (field of type Variable)
+               |                    |- initialExpression (field of type ValueNode)
+               |                    |  L  value: 5
+               |                    |- name: currentSpeed
+               |                    L  type (field of type BuiltIn)
+               |                       L  name: int
+               |- 3 (field of type VariableAssignmentNode)
+               |  |- variable (field of type Variable)
+               |  |  |- initialExpression (field of type ValueNode)
+               |  |  |  L  value: true
+               |  |  |- name: isMoving
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: boolean
+               |  L  expression (field of type ValueNode)
+               |     L  value: false
+               |- 4 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     |- 0 (field of type IfNode)
+               |     |  |- expression (field of type VariableCallNode)
+               |     |  |  L  symbol (field of type Variable)
+               |     |  |     |- initialExpression (field of type ValueNode)
+               |     |  |     |  L  value: true
+               |     |  |     |- name: isMoving
+               |     |  |     L  type (field of type BuiltIn)
+               |     |  |        L  name: boolean
+               |     |  L  statements
+               |     |     L  0 (field of type UnarySuffixNode)
+               |     |        |- operator: DEC
+               |     |        L  Expression (field of type VariableCallNode)
+               |     |           L  symbol (field of type Variable)
+               |     |              |- initialExpression (field of type ValueNode)
+               |     |              |  L  value: 5
+               |     |              |- name: currentSpeed
+               |     |              L  type (field of type BuiltIn)
+               |     |                 L  name: int
+               |     L  1 (field of type ElseNode)
+               |        L  statements
+               |           L  0 (field of type FunctionCallNode)
+               |              |- function (field of type Function)
+               |              |  |- accessModifier: PUBLIC
+               |              |  |- instanceModifier: null
+               |              |  |- name: System.out.println
+               |              |  L  type (field of type BuiltIn)
+               |              |     L  name: void
+               |              L  values
+               |                 L  0 (field of type ValueNode)
+               |                    L  value: The bicycle has already stopped!
+               |- 5 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 76
+               |     |- name: testscore
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 6 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression: null
+               |     |- name: grade
+               |     L  type (field of type BuiltIn)
+               |        L  name: char
+               |- 7 (field of type BlockScopeNode)
+               |  L  controlFlows
+               |     L  0 (field of type IfNode)
+               |        |- expression (field of type ComparisonNode)
+               |        |  |- leftExpression (field of type VariableCallNode)
+               |        |  |  L  symbol (field of type Variable)
+               |        |  |     |- initialExpression (field of type ValueNode)
+               |        |  |     |  L  value: 76
+               |        |  |     |- name: testscore
+               |        |  |     L  type (field of type BuiltIn)
+               |        |  |        L  name: int
+               |        |  |- comparisonOperator: GTE
+               |        |  L  rightExpression (field of type ValueNode)
+               |        |     L  value: 90
+               |        L  statements
+               |           L  0 (field of type VariableAssignmentNode)
+               |              |- variable (field of type Variable)
+               |              |  |- initialExpression: null
+               |              |  |- name: grade
+               |              |  L  type (field of type BuiltIn)
+               |              |     L  name: char
+               |              L  expression (field of type ValueNode)
+               |                 L  value: A
+               L  8 (field of type FunctionCallNode)
+                  |- function (field of type Function)
+                  |  |- accessModifier: PUBLIC
+                  |  |- instanceModifier: null
+                  |  |- name: System.out.println
+                  |  L  type (field of type BuiltIn)
+                  |     L  name: void
+                  L  values
+                     L  0 (field of type VariableCallNode)
+                        L  symbol (field of type Variable)
+                           |- initialExpression: null
+                           |- name: grade
+                           L  type (field of type BuiltIn)
+                              L  name: char

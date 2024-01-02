@@ -2,6 +2,7 @@ package cmjava2023;
 
 
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
+import cmjava2023.util.LineWiseEqualsAssertion;
 import cmjava2023.util.treePrinter.ParseTreePrinter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -14,8 +15,6 @@ import org.junit.jupiter.api.TestFactory;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
@@ -32,7 +31,7 @@ public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTest
 
             ParseTree tree = parser.start();
             String actual = ParseTreePrinter.print(tree);
-            assertEquals(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
         }));
     }
 }

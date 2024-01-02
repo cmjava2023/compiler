@@ -1,6 +1,7 @@
 package org.cmjava2023.ast;
 
 import org.cmjava2023.symboltable.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -130,7 +131,7 @@ public class ASTNodes {
 
     // function_call -> FunctionCallNode
     public record FunctionCallNode(Function function,
-                                   ArrayList<Expression> values) implements Node, Statement {
+                                   ArrayList<Expression> values) implements Node, Statement, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -327,19 +328,28 @@ public class ASTNodes {
         }
     }
 
-
+    // ATTENTION! This can also have no Expression, thus being null
     // return_statement ->ReturnNode
     // expressions->Expression;
-    public record ReturnNode(Expression value) implements Node, Statement {
+    public record ReturnNode(@Nullable Expression value) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
     }
 
-    // for_loop -> ForLoopNode
+    // for_loop -> (ForLoopNode)
     public record ForLoopNode(VariableUsage loopVariable,
                               Expression termination,
                               Expression increment,
+                              ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    // for_loop -> (ForEachLoopNode)
+    public record ForEachLoopNode(VariableUsage variableDeclaration,
+                              NestedIdentifierNode values,
                               ArrayList<Statement> body) implements Node, Statement, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
@@ -364,7 +374,7 @@ public class ASTNodes {
 
     // switch_statement ->SwitchNode
     public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes,
-                             Expression defaultEx) implements Node, ControlFlow {
+                             ArrayList<Statement> defaultStatements) implements Node, ControlFlow {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

@@ -19,7 +19,9 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         ArrayList<ASTNodes.Statement> statementList = new ArrayList<>();
 
         for (ASTNodes.Statement statement : statements) {
-            statementList.add((ASTNodes.Statement) statement.accept(this));
+            if(statement!=null) {
+                statementList.add((ASTNodes.Statement) statement.accept(this));
+            }
         }
 
         return statementList;
@@ -98,7 +100,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.SwitchNode switchNode) {
-        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), (ASTNodes.Expression) switchNode.defaultEx().accept(this));
+        return new ASTNodes.SwitchNode((ASTNodes.Expression) switchNode.switchEx().accept(this), getModifiedCaseNodes(switchNode.caseNodes()), getModifiedStatements(switchNode.defaultStatements()));
     }
 
     @Override
@@ -281,7 +283,11 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ReturnNode node) {
-        return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
+        if (node.value() == null) {
+            return node;
+        } else {
+            return new ASTNodes.ReturnNode((ASTNodes.Expression) node.value().accept(this));
+        }
     }
 
     @Override
@@ -372,6 +378,11 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
         return new ASTNodes.ForLoopNode(node.loopVariable(), (ASTNodes.Expression) node.termination().accept(this), (ASTNodes.Expression) node.increment().accept(this), getModifiedStatements(node.body()));
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ForEachLoopNode forEachLoopNode) {
+        return null;
     }
 
     @Override

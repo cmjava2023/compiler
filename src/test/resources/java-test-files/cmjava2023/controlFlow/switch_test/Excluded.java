@@ -1,4 +1,4 @@
-package cmjava2023.controlFlow.switch;
+package cmjava2023.controlFlow.switch_test;
 
 public class Main {
     public static void main(String[] args) {

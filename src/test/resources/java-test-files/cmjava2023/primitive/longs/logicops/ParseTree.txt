@@ -72,13 +72,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l2
       |     |  |  |- =
       |     |  |  L  Expressions: l&2
-      |     |  |     |- Expression: l
-      |     |  |     |  L  l
-      |     |  |     |- Expression_operator: &
-      |     |  |     |  L  Bit_comparison_operator: &
-      |     |  |     |     L  &
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: l&2
+      |     |  |        |- Expression: l
+      |     |  |        |  L  l
+      |     |  |        |- Expression_operator: &
+      |     |  |        |  L  Bit_comparison_operator: &
+      |     |  |        |     L  &
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Assignment: longl3=l|2
       |     |  |  |- Variable_declaration: longl3
@@ -89,13 +90,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l3
       |     |  |  |- =
       |     |  |  L  Expressions: l|2
-      |     |  |     |- Expression: l
-      |     |  |     |  L  l
-      |     |  |     |- Expression_operator: |
-      |     |  |     |  L  Bit_comparison_operator: |
-      |     |  |     |     L  |
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: l|2
+      |     |  |        |- Expression: l
+      |     |  |        |  L  l
+      |     |  |        |- Expression_operator: |
+      |     |  |        |  L  Bit_comparison_operator: |
+      |     |  |        |     L  |
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Assignment: longl4=eight<<1
       |     |  |  |- Variable_declaration: longl4
@@ -106,13 +108,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l4
       |     |  |  |- =
       |     |  |  L  Expressions: eight<<1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: <<
-      |     |  |     |  L  Bit_comparison_operator: <<
-      |     |  |     |     L  <<
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight<<1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: <<
+      |     |  |        |  L  Bit_comparison_operator: <<
+      |     |  |        |     L  <<
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: longl5=eight>>1
       |     |  |  |- Variable_declaration: longl5
@@ -123,13 +126,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l5
       |     |  |  |- =
       |     |  |  L  Expressions: eight>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>
-      |     |  |     |  L  Bit_comparison_operator: >>
-      |     |  |     |     L  >>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight>>1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: >>
+      |     |  |        |  L  Bit_comparison_operator: >>
+      |     |  |        |     L  >>
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: longl6=eight>>>1
       |     |  |  |- Variable_declaration: longl6
@@ -140,13 +144,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l6
       |     |  |  |- =
       |     |  |  L  Expressions: eight>>>1
-      |     |  |     |- Expression: eight
-      |     |  |     |  L  eight
-      |     |  |     |- Expression_operator: >>>
-      |     |  |     |  L  Bit_comparison_operator: >>>
-      |     |  |     |     L  >>>
-      |     |  |     L  Expression: 1
-      |     |  |        L  1
+      |     |  |     L  Expression: eight>>>1
+      |     |  |        |- Expression: eight
+      |     |  |        |  L  eight
+      |     |  |        |- Expression_operator: >>>
+      |     |  |        |  L  Bit_comparison_operator: >>>
+      |     |  |        |     L  >>>
+      |     |  |        L  Expression: 1
+      |     |  |           L  1
       |     |  |- ;
       |     |  |- Assignment: longl7=l2^2
       |     |  |  |- Variable_declaration: longl7
@@ -157,13 +162,14 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){longl=4;long
       |     |  |  |  L  l7
       |     |  |  |- =
       |     |  |  L  Expressions: l2^2
-      |     |  |     |- Expression: l2
-      |     |  |     |  L  l2
-      |     |  |     |- Expression_operator: ^
-      |     |  |     |  L  Bit_comparison_operator: ^
-      |     |  |     |     L  ^
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
+      |     |  |     L  Expression: l2^2
+      |     |  |        |- Expression: l2
+      |     |  |        |  L  l2
+      |     |  |        |- Expression_operator: ^
+      |     |  |        |  L  Bit_comparison_operator: ^
+      |     |  |        |     L  ^
+      |     |  |        L  Expression: 2
+      |     |  |           L  2
       |     |  |- ;
       |     |  |- Expressions: System.out.println("l:")
       |     |  |  L  Expression: System.out.println("l:")

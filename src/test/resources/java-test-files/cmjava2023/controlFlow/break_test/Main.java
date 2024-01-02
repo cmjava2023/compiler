@@ -1,4 +1,4 @@
-package cmjava2023.controlFlow.break;
+package cmjava2023.controlFlow.break_test;
 
 public class Main {
     public static void main(String[] args) {
