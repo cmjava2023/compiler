@@ -95,7 +95,7 @@ casting: PAREN_OPEN type PAREN_CLOSE expressions;
 access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
 
 // Functions
-function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
+function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE (THROWS_KEYWORD identifier)? CURLY_OPEN function_scope CURLY_CLOSE;
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
 function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
@@ -132,6 +132,7 @@ PRIVATE_KEYWORD: 'private';
 PROTECTED_KEYWORD: 'protected';
 RETURN_KEYWORD: 'return';
 INSTANCE_KEYWORD: 'new';
+THROWS_KEYWORD: 'throws';
 
 IF_KEYWORD: 'if';
 ELSE_KEYWORD: 'else';

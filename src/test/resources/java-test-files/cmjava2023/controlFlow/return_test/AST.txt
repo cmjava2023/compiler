@@ -34,6 +34,7 @@ L  body
          |  |           |  L  type (field of type BuiltIn)
          |  |           |     L  name: String
          |  |           L  dimensions: 1
+         |  |- exception: null
          |  L  body
          |     |- 0 (field of type VariableNode)
          |     |  L  variableSymbol (field of type Variable)
@@ -119,6 +120,7 @@ L  body
          |  |        |- name: b
          |  |        L  type (field of type BuiltIn)
          |  |           L  name: int
+         |  |- exception: null
          |  L  body
          |     |- 0 (field of type VariableNode)
          |     |  L  variableSymbol (field of type Variable)
@@ -173,6 +175,7 @@ L  body
             |        |- name: shouldPrint
             |        L  type (field of type BuiltIn)
             |           L  name: boolean
+            |- exception: null
             L  body
                |- 0 (field of type IfBlockNode)
                |  |- ifNodes

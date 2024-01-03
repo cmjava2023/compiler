@@ -1,0 +1,93 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     L  1: system_in_read
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
+            |           L  dimensions: 1
+            |- exception (field of type NestedIdentifierNode)
+            |  L  nestedIdentifier
+            |     |- 0: java
+            |     |- 1: io
+            |     L  2: IOException
+            L  body
+               |- 0 (field of type FunctionCallNode)
+               |  |- function (field of type Function)
+               |  |  |- accessModifier: PUBLIC
+               |  |  |- instanceModifier: null
+               |  |  |- name: System.out.println
+               |  |  L  type (field of type BuiltIn)
+               |  |     L  name: void
+               |  L  values
+               |     L  0 (field of type ValueNode)
+               |        L  value: Type one char and press ENTER: 
+               |- 1 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type CastNode)
+               |     |  |- type (field of type BuiltIn)
+               |     |  |  L  name: char
+               |     |  L  expression (field of type FunctionCallNode)
+               |     |     |- function (field of type Function)
+               |     |     |  |- accessModifier: null
+               |     |     |  |- instanceModifier: null
+               |     |     |  |- name: System.in.read
+               |     |     |  L  type: null
+               |     |     L  values
+               |     |- name: c
+               |     L  type (field of type BuiltIn)
+               |        L  name: char
+               L  2 (field of type FunctionCallNode)
+                  |- function (field of type Function)
+                  |  |- accessModifier: PUBLIC
+                  |  |- instanceModifier: null
+                  |  |- name: System.out.println
+                  |  L  type (field of type BuiltIn)
+                  |     L  name: void
+                  L  values
+                     L  0 (field of type InfixNode)
+                        |- leftExpression (field of type ValueNode)
+                        |  L  value: You entered char: 
+                        |- operator: PLUS
+                        L  rightExpression (field of type VariableCallNode)
+                           L  symbol (field of type Variable)
+                              |- initialExpression (field of type CastNode)
+                              |  |- type (field of type BuiltIn)
+                              |  |  L  name: char
+                              |  L  expression (field of type FunctionCallNode)
+                              |     |- function (field of type Function)
+                              |     |  |- accessModifier: null
+                              |     |  |- instanceModifier: null
+                              |     |  |- name: System.in.read
+                              |     |  L  type: null
+                              |     L  values
+                              |- name: c
+                              L  type (field of type BuiltIn)
+                                 L  name: char
