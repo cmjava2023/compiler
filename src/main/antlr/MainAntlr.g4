@@ -16,7 +16,7 @@ class_scope: (enum_declaration | class_declaration | function_declaration | ((va
 
 function_scope: ( enum_declaration | block_scope | (expressions | assignment | variable_declaration | return_statement | continue_statement | break_statement) SEMICOLON)*;
 
-block_scope: if_statement | if_else_statement | while_loop | do_while_loop | for_loop | switch_statement;
+block_scope: if_block | while_loop | do_while_loop | for_loop | switch_statement;
 
 expressions: expression (expression_operator expression)?;
 variable_declaration: (primitive_type | reference_type) IDENTIFIER;
@@ -47,9 +47,10 @@ class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_sco
 enum_declaration: ENUM_KEYWORD IDENTIFIER CURLY_OPEN IDENTIFIER (COMMA IDENTIFIER)* CURLY_CLOSE;
 
 // Conditionals
+if_block: if_statement (ELSE_KEYWORD if_statement)* else_statement?;
 if_statement: IF_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN function_scope CURLY_CLOSE;
 else_statement: ELSE_KEYWORD CURLY_OPEN function_scope CURLY_CLOSE;
-if_else_statement: if_statement else_statement;
+
 switch_statement: SWITCH_KEYWORD PAREN_OPEN expressions PAREN_CLOSE CURLY_OPEN switch_scope CURLY_CLOSE;
 switch_scope: ((CASE_KEYWORD (expressions)) COLON function_scope)* DEFAULT_KEYWORD COLON function_scope;
 
@@ -198,7 +199,7 @@ LINE_COMMENT : '//' ~[\r\n]* -> skip;
 // Misc
 WHITESPACE  : (' ' | '\t' | '\r' | '\n') -> skip;
 STRING : '"' (~'"'|'/"')* '"'; // Danke https://stackoverflow.com/a/36615281
-CHARACTER : '\'' (~'"'|'/"')* '\''; // Danke https://stackoverflow.com/a/36615281
+CHARACTER: '\'' (~'\''|'\\\'')* '\'';
 
 FLOAT: (((INTEGER DOT INTEGER) | (DOT INTEGER)| (INTEGER DOT) | INTEGER | (INTEGER DOT )? INTEGER FLOAT_EXPONENT_SUFFIX (PLUS | MINUS)? INTEGER) FLOATING_POINT_SUFFIX);
 DECIMAL: ([1-9] DIGIT* | [0]) DOT INTEGER;

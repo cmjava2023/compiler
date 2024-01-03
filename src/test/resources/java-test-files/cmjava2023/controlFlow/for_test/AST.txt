@@ -35,100 +35,96 @@ L  body
             |           |     L  name: String
             |           L  dimensions: 1
             L  body
-               |- 0 (field of type BlockScopeNode)
-               |  L  controlFlows
-               |     L  0 (field of type ForLoopNode)
-               |        |- loopVariable (field of type VariableNode)
-               |        |  L  variableSymbol (field of type Variable)
-               |        |     |- initialExpression (field of type ValueNode)
-               |        |     |  L  value: 1
-               |        |     |- name: i
-               |        |     L  type (field of type InvalidType)
-               |        |        L  name: int
-               |        |- termination (field of type ComparisonNode)
-               |        |  |- leftExpression (field of type VariableCallNode)
-               |        |  |  L  symbol (field of type Variable)
-               |        |  |     |- initialExpression (field of type ValueNode)
-               |        |  |     |  L  value: 0
-               |        |  |     |- name: i
-               |        |  |     L  type (field of type InvalidType)
-               |        |  |        L  name: int
-               |        |  |- comparisonOperator: DIAMOND_OPEN
-               |        |  L  rightExpression (field of type ValueNode)
-               |        |     L  value: 11
-               |        |- increment (field of type UnarySuffixNode)
-               |        |  |- operator: INC
-               |        |  L  Expression (field of type VariableCallNode)
-               |        |     L  symbol (field of type Variable)
-               |        |        |- initialExpression (field of type ValueNode)
-               |        |        |  L  value: 0
-               |        |        |- name: i
-               |        |        L  type (field of type InvalidType)
-               |        |           L  name: int
-               |        L  body
-               |           L  0 (field of type FunctionCallNode)
-               |              |- function (field of type Function)
-               |              |  |- accessModifier: PUBLIC
-               |              |  |- instanceModifier: null
-               |              |  |- name: System.out.println
-               |              |  L  type (field of type BuiltIn)
-               |              |     L  name: void
-               |              L  values
-               |                 L  0 (field of type VariableCallNode)
-               |                    L  symbol (field of type Variable)
-               |                       |- initialExpression (field of type ValueNode)
-               |                       |  L  value: 0
-               |                       |- name: i
-               |                       L  type (field of type InvalidType)
-               |                          L  name: int
-               |- 1 (field of type BlockScopeNode)
-               |  L  controlFlows
-               |     L  0 (field of type ForLoopNode)
-               |        |- loopVariable (field of type VariableNode)
-               |        |  L  variableSymbol (field of type Variable)
-               |        |     |- initialExpression (field of type ValueNode)
-               |        |     |  L  value: 0
-               |        |     |- name: i
-               |        |     L  type (field of type InvalidType)
-               |        |        L  name: int
-               |        |- termination (field of type ComparisonNode)
-               |        |  |- leftExpression (field of type VariableCallNode)
-               |        |  |  L  symbol (field of type Variable)
-               |        |  |     |- initialExpression (field of type ValueNode)
-               |        |  |     |  L  value: 0
-               |        |  |     |- name: i
-               |        |  |     L  type (field of type InvalidType)
-               |        |  |        L  name: int
-               |        |  |- comparisonOperator: DIAMOND_OPEN
-               |        |  L  rightExpression (field of type ValueNode)
-               |        |     L  value: 10
-               |        |- increment (field of type InfixNode)
-               |        |  |- leftExpression (field of type VariableCallNode)
-               |        |  |  L  symbol (field of type Variable)
-               |        |  |     |- initialExpression (field of type ValueNode)
-               |        |  |     |  L  value: 0
-               |        |  |     |- name: i
-               |        |  |     L  type (field of type InvalidType)
-               |        |  |        L  name: int
-               |        |  |- operator: PLUS
-               |        |  L  rightExpression (field of type ValueNode)
-               |        |     L  value: 2
-               |        L  body
-               |           L  0 (field of type FunctionCallNode)
-               |              |- function (field of type Function)
-               |              |  |- accessModifier: PUBLIC
-               |              |  |- instanceModifier: null
-               |              |  |- name: System.out.println
-               |              |  L  type (field of type BuiltIn)
-               |              |     L  name: void
-               |              L  values
-               |                 L  0 (field of type VariableCallNode)
-               |                    L  symbol (field of type Variable)
-               |                       |- initialExpression (field of type ValueNode)
-               |                       |  L  value: 0
-               |                       |- name: i
-               |                       L  type (field of type InvalidType)
-               |                          L  name: int
+               |- 0 (field of type ForLoopNode)
+               |  |- loopVariable (field of type VariableNode)
+               |  |  L  variableSymbol (field of type Variable)
+               |  |     |- initialExpression (field of type ValueNode)
+               |  |     |  L  value: 1
+               |  |     |- name: i
+               |  |     L  type (field of type BuiltIn)
+               |  |        L  name: int
+               |  |- termination (field of type ComparisonNode)
+               |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  L  symbol (field of type Variable)
+               |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |     |  L  value: 1
+               |  |  |     |- name: i
+               |  |  |     L  type (field of type BuiltIn)
+               |  |  |        L  name: int
+               |  |  |- comparisonOperator: DIAMOND_OPEN
+               |  |  L  rightExpression (field of type ValueNode)
+               |  |     L  value: 11
+               |  |- increment (field of type UnarySuffixNode)
+               |  |  |- operator: INC
+               |  |  L  Expression (field of type VariableCallNode)
+               |  |     L  symbol (field of type Variable)
+               |  |        |- initialExpression (field of type ValueNode)
+               |  |        |  L  value: 1
+               |  |        |- name: i
+               |  |        L  type (field of type BuiltIn)
+               |  |           L  name: int
+               |  L  body
+               |     L  0 (field of type FunctionCallNode)
+               |        |- function (field of type Function)
+               |        |  |- accessModifier: PUBLIC
+               |        |  |- instanceModifier: null
+               |        |  |- name: System.out.println
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: void
+               |        L  values
+               |           L  0 (field of type VariableCallNode)
+               |              L  symbol (field of type Variable)
+               |                 |- initialExpression (field of type ValueNode)
+               |                 |  L  value: 1
+               |                 |- name: i
+               |                 L  type (field of type BuiltIn)
+               |                    L  name: int
+               |- 1 (field of type ForLoopNode)
+               |  |- loopVariable (field of type VariableNode)
+               |  |  L  variableSymbol (field of type Variable)
+               |  |     |- initialExpression (field of type ValueNode)
+               |  |     |  L  value: 0
+               |  |     |- name: i
+               |  |     L  type (field of type BuiltIn)
+               |  |        L  name: int
+               |  |- termination (field of type ComparisonNode)
+               |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  L  symbol (field of type Variable)
+               |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |     |  L  value: 0
+               |  |  |     |- name: i
+               |  |  |     L  type (field of type BuiltIn)
+               |  |  |        L  name: int
+               |  |  |- comparisonOperator: DIAMOND_OPEN
+               |  |  L  rightExpression (field of type ValueNode)
+               |  |     L  value: 10
+               |  |- increment (field of type InfixNode)
+               |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  L  symbol (field of type Variable)
+               |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |     |  L  value: 0
+               |  |  |     |- name: i
+               |  |  |     L  type (field of type BuiltIn)
+               |  |  |        L  name: int
+               |  |  |- operator: PLUS
+               |  |  L  rightExpression (field of type ValueNode)
+               |  |     L  value: 2
+               |  L  body
+               |     L  0 (field of type FunctionCallNode)
+               |        |- function (field of type Function)
+               |        |  |- accessModifier: PUBLIC
+               |        |  |- instanceModifier: null
+               |        |  |- name: System.out.println
+               |        |  L  type (field of type BuiltIn)
+               |        |     L  name: void
+               |        L  values
+               |           L  0 (field of type VariableCallNode)
+               |              L  symbol (field of type Variable)
+               |                 |- initialExpression (field of type ValueNode)
+               |                 |  L  value: 0
+               |                 |- name: i
+               |                 L  type (field of type BuiltIn)
+               |                    L  name: int
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -160,6 +156,4 @@ L  body
                |        |  L  type (field of type BuiltIn)
                |        |     L  name: int
                |        L  dimensions: 1
-               L  3 (field of type BlockScopeNode)
-                  L  controlFlows
-                     L  0: null
+               L  3: null

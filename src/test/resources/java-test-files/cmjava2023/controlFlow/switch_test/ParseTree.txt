@@ -696,7 +696,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |  |     |  |- :
       |     |  |     |  |- Function_scope: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;
       |     |  |     |  |  |- Block_scope: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}
-      |     |  |     |  |  |  L  If_else_statement: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}
+      |     |  |     |  |  |  L  If_block: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}
       |     |  |     |  |  |     |- If_statement: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}
       |     |  |     |  |  |     |  |- if
       |     |  |     |  |  |     |  |- (

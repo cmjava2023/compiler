@@ -17,8 +17,6 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.IfNode) statementNode);
         } else if (statementNode instanceof ASTNodes.ElseNode) {
             return visit((ASTNodes.ElseNode) statementNode);
-        } else if (statementNode instanceof ASTNodes.BlockScopeNode) {
-            return visit((ASTNodes.BlockScopeNode) statementNode);
         } else if (statementNode instanceof ASTNodes.VariableNode) {
             return visit((ASTNodes.VariableNode) statementNode);
         } else if (statementNode instanceof ASTNodes.ReturnNode) {
@@ -31,6 +29,7 @@ public abstract class ASTTraverser<T> {
             throw new NotImplementedError("type " + statementNode.getClass().getName());
         }
     }
+
 
     public T dispatch(ASTNodes.Expression expressionNode) {
         if (expressionNode instanceof ASTNodes.ValueNode<?>) {
@@ -83,8 +82,6 @@ public abstract class ASTTraverser<T> {
 
     public abstract T visit(ASTNodes.ElseNode elseNode);
 
-    public abstract T visit(ASTNodes.BlockScopeNode blockScopeNode);
-
     public abstract T visit(ASTNodes.VariableNode variableNode);
 
     public abstract T visit(ASTNodes.VariableAssignmentNode variableAssignmentNode);
@@ -135,4 +132,8 @@ public abstract class ASTTraverser<T> {
     public abstract T visit(ASTNodes.VariableFieldCallNode variableFieldCallNode);
 
     public abstract T visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode);
+
+    public abstract T visit(T ifBlockNode);
+
+    public abstract ASTNodes.Node visit(ASTNodes.IfBlockNode node);
 }

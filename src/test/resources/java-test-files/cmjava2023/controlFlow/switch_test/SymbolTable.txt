@@ -1,0 +1,69 @@
+GlobalScope
+|- boolean: boolean
+|- void: void
+|- byte: byte
+|- double: double
+|- char: char
+|- short: short
+|- String: String
+|- float: float
+|- Main: Main
+|  L  main: void
+|     |- args: String[]
+|     L  LocalScope
+|        |- month: int
+|        |- year: int
+|        |- monthNumber: int
+|        |- numDays: int
+|        |- month2Example: int
+|        |- monthString: String
+|        |- month3example: int
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |  |- LocalScope
+|        |  L  LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        L  LocalScope
+|- int: int
+|- long: long
+L  System.out.println: void
+   L  x: String

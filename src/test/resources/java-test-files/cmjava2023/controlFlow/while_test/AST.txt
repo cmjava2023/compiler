@@ -42,42 +42,40 @@ L  body
                |     |- name: count
                |     L  type (field of type BuiltIn)
                |        L  name: int
-               L  1 (field of type BlockScopeNode)
-                  L  controlFlows
-                     L  0 (field of type WhileLoopNode)
-                        |- expression (field of type ComparisonNode)
-                        |  |- leftExpression (field of type VariableCallNode)
-                        |  |  L  symbol (field of type Variable)
-                        |  |     |- initialExpression (field of type ValueNode)
-                        |  |     |  L  value: 1
-                        |  |     |- name: count
-                        |  |     L  type (field of type BuiltIn)
-                        |  |        L  name: int
-                        |  |- comparisonOperator: DIAMOND_OPEN
-                        |  L  rightExpression (field of type ValueNode)
-                        |     L  value: 11
-                        L  body
-                           |- 0 (field of type FunctionCallNode)
-                           |  |- function (field of type Function)
-                           |  |  |- accessModifier: PUBLIC
-                           |  |  |- instanceModifier: null
-                           |  |  |- name: System.out.println
-                           |  |  L  type (field of type BuiltIn)
-                           |  |     L  name: void
-                           |  L  values
-                           |     L  0 (field of type VariableCallNode)
-                           |        L  symbol (field of type Variable)
-                           |           |- initialExpression (field of type ValueNode)
-                           |           |  L  value: 1
-                           |           |- name: count
-                           |           L  type (field of type BuiltIn)
-                           |              L  name: int
-                           L  1 (field of type UnarySuffixNode)
-                              |- operator: INC
-                              L  Expression (field of type VariableCallNode)
-                                 L  symbol (field of type Variable)
-                                    |- initialExpression (field of type ValueNode)
-                                    |  L  value: 1
-                                    |- name: count
-                                    L  type (field of type BuiltIn)
-                                       L  name: int
+               L  1 (field of type WhileLoopNode)
+                  |- expression (field of type ComparisonNode)
+                  |  |- leftExpression (field of type VariableCallNode)
+                  |  |  L  symbol (field of type Variable)
+                  |  |     |- initialExpression (field of type ValueNode)
+                  |  |     |  L  value: 1
+                  |  |     |- name: count
+                  |  |     L  type (field of type BuiltIn)
+                  |  |        L  name: int
+                  |  |- comparisonOperator: DIAMOND_OPEN
+                  |  L  rightExpression (field of type ValueNode)
+                  |     L  value: 11
+                  L  body
+                     |- 0 (field of type FunctionCallNode)
+                     |  |- function (field of type Function)
+                     |  |  |- accessModifier: PUBLIC
+                     |  |  |- instanceModifier: null
+                     |  |  |- name: System.out.println
+                     |  |  L  type (field of type BuiltIn)
+                     |  |     L  name: void
+                     |  L  values
+                     |     L  0 (field of type VariableCallNode)
+                     |        L  symbol (field of type Variable)
+                     |           |- initialExpression (field of type ValueNode)
+                     |           |  L  value: 1
+                     |           |- name: count
+                     |           L  type (field of type BuiltIn)
+                     |              L  name: int
+                     L  1 (field of type UnarySuffixNode)
+                        |- operator: INC
+                        L  Expression (field of type VariableCallNode)
+                           L  symbol (field of type Variable)
+                              |- initialExpression (field of type ValueNode)
+                              |  L  value: 1
+                              |- name: count
+                              L  type (field of type BuiltIn)
+                                 L  name: int

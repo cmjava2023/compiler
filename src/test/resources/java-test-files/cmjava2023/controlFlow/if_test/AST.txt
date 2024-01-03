@@ -49,26 +49,27 @@ L  body
                |     |- name: currentSpeed
                |     L  type (field of type BuiltIn)
                |        L  name: int
-               |- 2 (field of type BlockScopeNode)
-               |  L  controlFlows
-               |     L  0 (field of type IfNode)
-               |        |- expression (field of type VariableCallNode)
-               |        |  L  symbol (field of type Variable)
-               |        |     |- initialExpression (field of type ValueNode)
-               |        |     |  L  value: true
-               |        |     |- name: isMoving
-               |        |     L  type (field of type BuiltIn)
-               |        |        L  name: boolean
-               |        L  statements
-               |           L  0 (field of type UnarySuffixNode)
-               |              |- operator: DEC
-               |              L  Expression (field of type VariableCallNode)
-               |                 L  symbol (field of type Variable)
-               |                    |- initialExpression (field of type ValueNode)
-               |                    |  L  value: 5
-               |                    |- name: currentSpeed
-               |                    L  type (field of type BuiltIn)
-               |                       L  name: int
+               |- 2 (field of type IfBlockNode)
+               |  |- ifNodes
+               |  |  L  0 (field of type IfNode)
+               |  |     |- expression (field of type VariableCallNode)
+               |  |     |  L  symbol (field of type Variable)
+               |  |     |     |- initialExpression (field of type ValueNode)
+               |  |     |     |  L  value: true
+               |  |     |     |- name: isMoving
+               |  |     |     L  type (field of type BuiltIn)
+               |  |     |        L  name: boolean
+               |  |     L  statements
+               |  |        L  0 (field of type UnarySuffixNode)
+               |  |           |- operator: DEC
+               |  |           L  Expression (field of type VariableCallNode)
+               |  |              L  symbol (field of type Variable)
+               |  |                 |- initialExpression (field of type ValueNode)
+               |  |                 |  L  value: 5
+               |  |                 |- name: currentSpeed
+               |  |                 L  type (field of type BuiltIn)
+               |  |                    L  name: int
+               |  L  elseNode: null
                |- 3 (field of type VariableAssignmentNode)
                |  |- variable (field of type Variable)
                |  |  |- initialExpression (field of type ValueNode)
@@ -78,38 +79,38 @@ L  body
                |  |     L  name: boolean
                |  L  expression (field of type ValueNode)
                |     L  value: false
-               |- 4 (field of type BlockScopeNode)
-               |  L  controlFlows
-               |     |- 0 (field of type IfNode)
-               |     |  |- expression (field of type VariableCallNode)
-               |     |  |  L  symbol (field of type Variable)
-               |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: true
-               |     |  |     |- name: isMoving
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: boolean
-               |     |  L  statements
-               |     |     L  0 (field of type UnarySuffixNode)
-               |     |        |- operator: DEC
-               |     |        L  Expression (field of type VariableCallNode)
-               |     |           L  symbol (field of type Variable)
-               |     |              |- initialExpression (field of type ValueNode)
-               |     |              |  L  value: 5
-               |     |              |- name: currentSpeed
-               |     |              L  type (field of type BuiltIn)
-               |     |                 L  name: int
-               |     L  1 (field of type ElseNode)
-               |        L  statements
-               |           L  0 (field of type FunctionCallNode)
-               |              |- function (field of type Function)
-               |              |  |- accessModifier: PUBLIC
-               |              |  |- instanceModifier: null
-               |              |  |- name: System.out.println
-               |              |  L  type (field of type BuiltIn)
-               |              |     L  name: void
-               |              L  values
-               |                 L  0 (field of type ValueNode)
-               |                    L  value: The bicycle has already stopped!
+               |- 4 (field of type IfBlockNode)
+               |  |- ifNodes
+               |  |  L  0 (field of type IfNode)
+               |  |     |- expression (field of type VariableCallNode)
+               |  |     |  L  symbol (field of type Variable)
+               |  |     |     |- initialExpression (field of type ValueNode)
+               |  |     |     |  L  value: true
+               |  |     |     |- name: isMoving
+               |  |     |     L  type (field of type BuiltIn)
+               |  |     |        L  name: boolean
+               |  |     L  statements
+               |  |        L  0 (field of type UnarySuffixNode)
+               |  |           |- operator: DEC
+               |  |           L  Expression (field of type VariableCallNode)
+               |  |              L  symbol (field of type Variable)
+               |  |                 |- initialExpression (field of type ValueNode)
+               |  |                 |  L  value: 5
+               |  |                 |- name: currentSpeed
+               |  |                 L  type (field of type BuiltIn)
+               |  |                    L  name: int
+               |  L  elseNode (field of type ElseNode)
+               |     L  statements
+               |        L  0 (field of type FunctionCallNode)
+               |           |- function (field of type Function)
+               |           |  |- accessModifier: PUBLIC
+               |           |  |- instanceModifier: null
+               |           |  |- name: System.out.println
+               |           |  L  type (field of type BuiltIn)
+               |           |     L  name: void
+               |           L  values
+               |              L  0 (field of type ValueNode)
+               |                 L  value: The bicycle has already stopped!
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
@@ -123,29 +124,102 @@ L  body
                |     |- name: grade
                |     L  type (field of type BuiltIn)
                |        L  name: char
-               |- 7 (field of type BlockScopeNode)
-               |  L  controlFlows
-               |     L  0 (field of type IfNode)
-               |        |- expression (field of type ComparisonNode)
-               |        |  |- leftExpression (field of type VariableCallNode)
-               |        |  |  L  symbol (field of type Variable)
-               |        |  |     |- initialExpression (field of type ValueNode)
-               |        |  |     |  L  value: 76
-               |        |  |     |- name: testscore
-               |        |  |     L  type (field of type BuiltIn)
-               |        |  |        L  name: int
-               |        |  |- comparisonOperator: GTE
-               |        |  L  rightExpression (field of type ValueNode)
-               |        |     L  value: 90
-               |        L  statements
-               |           L  0 (field of type VariableAssignmentNode)
-               |              |- variable (field of type Variable)
-               |              |  |- initialExpression: null
-               |              |  |- name: grade
-               |              |  L  type (field of type BuiltIn)
-               |              |     L  name: char
-               |              L  expression (field of type ValueNode)
-               |                 L  value: A
+               |- 7 (field of type IfBlockNode)
+               |  |- ifNodes
+               |  |  |- 0 (field of type IfNode)
+               |  |  |  |- expression (field of type ComparisonNode)
+               |  |  |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  |  |  L  symbol (field of type Variable)
+               |  |  |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |  |  |     |  L  value: 76
+               |  |  |  |  |     |- name: testscore
+               |  |  |  |  |     L  type (field of type BuiltIn)
+               |  |  |  |  |        L  name: int
+               |  |  |  |  |- comparisonOperator: GTE
+               |  |  |  |  L  rightExpression (field of type ValueNode)
+               |  |  |  |     L  value: 90
+               |  |  |  L  statements
+               |  |  |     L  0 (field of type VariableAssignmentNode)
+               |  |  |        |- variable (field of type Variable)
+               |  |  |        |  |- initialExpression: null
+               |  |  |        |  |- name: grade
+               |  |  |        |  L  type (field of type BuiltIn)
+               |  |  |        |     L  name: char
+               |  |  |        L  expression (field of type ValueNode)
+               |  |  |           L  value: A
+               |  |  |- 1 (field of type IfNode)
+               |  |  |  |- expression (field of type ComparisonNode)
+               |  |  |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  |  |  L  symbol (field of type Variable)
+               |  |  |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |  |  |     |  L  value: 76
+               |  |  |  |  |     |- name: testscore
+               |  |  |  |  |     L  type (field of type BuiltIn)
+               |  |  |  |  |        L  name: int
+               |  |  |  |  |- comparisonOperator: GTE
+               |  |  |  |  L  rightExpression (field of type ValueNode)
+               |  |  |  |     L  value: 80
+               |  |  |  L  statements
+               |  |  |     L  0 (field of type VariableAssignmentNode)
+               |  |  |        |- variable (field of type Variable)
+               |  |  |        |  |- initialExpression: null
+               |  |  |        |  |- name: grade
+               |  |  |        |  L  type (field of type BuiltIn)
+               |  |  |        |     L  name: char
+               |  |  |        L  expression (field of type ValueNode)
+               |  |  |           L  value: B
+               |  |  |- 2 (field of type IfNode)
+               |  |  |  |- expression (field of type ComparisonNode)
+               |  |  |  |  |- leftExpression (field of type VariableCallNode)
+               |  |  |  |  |  L  symbol (field of type Variable)
+               |  |  |  |  |     |- initialExpression (field of type ValueNode)
+               |  |  |  |  |     |  L  value: 76
+               |  |  |  |  |     |- name: testscore
+               |  |  |  |  |     L  type (field of type BuiltIn)
+               |  |  |  |  |        L  name: int
+               |  |  |  |  |- comparisonOperator: GTE
+               |  |  |  |  L  rightExpression (field of type ValueNode)
+               |  |  |  |     L  value: 70
+               |  |  |  L  statements
+               |  |  |     L  0 (field of type VariableAssignmentNode)
+               |  |  |        |- variable (field of type Variable)
+               |  |  |        |  |- initialExpression: null
+               |  |  |        |  |- name: grade
+               |  |  |        |  L  type (field of type BuiltIn)
+               |  |  |        |     L  name: char
+               |  |  |        L  expression (field of type ValueNode)
+               |  |  |           L  value: C
+               |  |  L  3 (field of type IfNode)
+               |  |     |- expression (field of type ComparisonNode)
+               |  |     |  |- leftExpression (field of type VariableCallNode)
+               |  |     |  |  L  symbol (field of type Variable)
+               |  |     |  |     |- initialExpression (field of type ValueNode)
+               |  |     |  |     |  L  value: 76
+               |  |     |  |     |- name: testscore
+               |  |     |  |     L  type (field of type BuiltIn)
+               |  |     |  |        L  name: int
+               |  |     |  |- comparisonOperator: GTE
+               |  |     |  L  rightExpression (field of type ValueNode)
+               |  |     |     L  value: 60
+               |  |     L  statements
+               |  |        L  0 (field of type VariableAssignmentNode)
+               |  |           |- variable (field of type Variable)
+               |  |           |  |- initialExpression: null
+               |  |           |  |- name: grade
+               |  |           |  L  type (field of type BuiltIn)
+               |  |           |     L  name: char
+               |  |           L  expression (field of type ValueNode)
+               |  |              L  value: D
+               |  L  elseNode (field of type ElseNode)
+               |     L  statements
+               |        L  0 (field of type VariableAssignmentNode)
+               |           |- variable (field of type Variable)
+               |           |  |- initialExpression: null
+               |           |  |- name: grade
+               |           |  L  type (field of type BuiltIn)
+               |           |     L  name: char
+               |           L  expression (field of type ValueNode)
+               |              L  value: F
                L  8 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC

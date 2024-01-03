@@ -196,36 +196,37 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intresult=ad
       |     |- {
       |     |- Function_scope: if(shouldPrint){System.out.println(message);return;}System.out.println("I will not print this");
       |     |  |- Block_scope: if(shouldPrint){System.out.println(message);return;}
-      |     |  |  L  If_statement: if(shouldPrint){System.out.println(message);return;}
-      |     |  |     |- if
-      |     |  |     |- (
-      |     |  |     |- Expressions: shouldPrint
-      |     |  |     |  L  Expression: shouldPrint
-      |     |  |     |     L  shouldPrint
-      |     |  |     |- )
-      |     |  |     |- {
-      |     |  |     |- Function_scope: System.out.println(message);return;
-      |     |  |     |  |- Expressions: System.out.println(message)
-      |     |  |     |  |  L  Expression: System.out.println(message)
-      |     |  |     |  |     L  Function_call: System.out.println(message)
-      |     |  |     |  |        |- Identifier: System.out.println
-      |     |  |     |  |        |  |- System
-      |     |  |     |  |        |  |- .
-      |     |  |     |  |        |  |- out
-      |     |  |     |  |        |  |- .
-      |     |  |     |  |        |  L  println
-      |     |  |     |  |        |- (
-      |     |  |     |  |        |- Function_args: message
-      |     |  |     |  |        |  L  Function_arg: message
-      |     |  |     |  |        |     L  Expressions: message
-      |     |  |     |  |        |        L  Expression: message
-      |     |  |     |  |        |           L  message
-      |     |  |     |  |        L  )
-      |     |  |     |  |- ;
-      |     |  |     |  |- Return_statement: return
-      |     |  |     |  |  L  return
-      |     |  |     |  L  ;
-      |     |  |     L  }
+      |     |  |  L  If_block: if(shouldPrint){System.out.println(message);return;}
+      |     |  |     L  If_statement: if(shouldPrint){System.out.println(message);return;}
+      |     |  |        |- if
+      |     |  |        |- (
+      |     |  |        |- Expressions: shouldPrint
+      |     |  |        |  L  Expression: shouldPrint
+      |     |  |        |     L  shouldPrint
+      |     |  |        |- )
+      |     |  |        |- {
+      |     |  |        |- Function_scope: System.out.println(message);return;
+      |     |  |        |  |- Expressions: System.out.println(message)
+      |     |  |        |  |  L  Expression: System.out.println(message)
+      |     |  |        |  |     L  Function_call: System.out.println(message)
+      |     |  |        |  |        |- Identifier: System.out.println
+      |     |  |        |  |        |  |- System
+      |     |  |        |  |        |  |- .
+      |     |  |        |  |        |  |- out
+      |     |  |        |  |        |  |- .
+      |     |  |        |  |        |  L  println
+      |     |  |        |  |        |- (
+      |     |  |        |  |        |- Function_args: message
+      |     |  |        |  |        |  L  Function_arg: message
+      |     |  |        |  |        |     L  Expressions: message
+      |     |  |        |  |        |        L  Expression: message
+      |     |  |        |  |        |           L  message
+      |     |  |        |  |        L  )
+      |     |  |        |  |- ;
+      |     |  |        |  |- Return_statement: return
+      |     |  |        |  |  L  return
+      |     |  |        |  L  ;
+      |     |  |        L  }
       |     |  |- Expressions: System.out.println("I will not print this")
       |     |  |  L  Expression: System.out.println("I will not print this")
       |     |  |     L  Function_call: System.out.println("I will not print this")
