@@ -115,7 +115,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
             checkForType(invalidType, "return type of Function", functionSymbol);
         }
 
-        return new ASTNodes.FunctionNode(node.functionSymbol(), getModifiedParameters(node.parameters()), getModifiedStatements(node.body()));
+        return new ASTNodes.FunctionNode(node.functionSymbol(), getModifiedParameters(node.parameters()), node.exception(), getModifiedStatements(node.body()));
     }
 
     @Override

@@ -178,10 +178,14 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
         ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? new ArrayList<>() : getParameters(ctx.function_declaration_args().children);
 
+        ASTNodes.NestedIdentifierNode exception=null;
+        if(ctx.THROWS_KEYWORD()!=null){
+            exception= (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
+        }
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
 
         symbolTable.popScope();
-        return new ASTNodes.FunctionNode(functionSymbol, parameters, statements);
+        return new ASTNodes.FunctionNode(functionSymbol, parameters, exception, statements);
     }
 
     private Function setFunctionScope(MainAntlrParser.Function_declarationContext ctx, ASTNodes.AccessModifier accessModifier, ASTNodes.Modifier modifier) {
