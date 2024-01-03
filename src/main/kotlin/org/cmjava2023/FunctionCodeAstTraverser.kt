@@ -269,10 +269,6 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         throw NotImplementedError()
     }
 
-    override fun visit(blockScopeNode: ASTNodes.BlockScopeNode): List<OpCode> {
-        return listOf()
-    }
-
     override fun visit(variableNode: ASTNodes.VariableNode): List<OpCode> {
         val variableSymbol = variableNode.variableSymbol
         val value = variableSymbol.initialExpression
@@ -654,6 +650,14 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(variableFunctionCallNode: ASTNodes.VariableFunctionCallNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(node: ASTNodes.IfBlockNode?): ASTNodes.Node {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(ifBlockNode: List<OpCode>?): List<OpCode> {
         TODO("Not yet implemented")
     }
 }

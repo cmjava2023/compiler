@@ -11,13 +11,18 @@ GlobalScope
 |  L  main: void
 |     |- args: String[]
 |     L  LocalScope
-|        |- numbers: int[]
+|        |- grade: char
+|        |- isMoving: boolean
+|        |- testscore: int
+|        |- currentSpeed: int
 |        |- LocalScope
-|        |  L  i: int
 |        |- LocalScope
-|        |  L  i: int
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
+|        |- LocalScope
 |        L  LocalScope
-|           L  item: int
 |- int: int
 |- long: long
 L  System.out.println: void

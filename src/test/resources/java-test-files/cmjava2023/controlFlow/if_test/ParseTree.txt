@@ -1,12 +1,4 @@
-Start: packagecmjava2023.controlFlow.if_test;publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);}}
+Start: packagecmjava2023.controlFlow.if_test;publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);}}
 |- Global_scope: packagecmjava2023.controlFlow.if_test;
 |  |- Package_declaration: packagecmjava2023.controlFlow.if_test
 |  |  |- package
@@ -17,47 +9,15 @@ Start: packagecmjava2023.controlFlow.if_test;publicclassMain{publicstaticvoidmai
 |  |     |- .
 |  |     L  if_test
 |  L  ;
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);}
+      |- Class_scope: publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -76,15 +36,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMov
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}System.out.println(grade);
+      |     |- Function_scope: booleanisMoving=true;intcurrentSpeed=5;if(isMoving){currentSpeed--;}isMoving=false;if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}inttestscore=76;chargrade;if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}System.out.println(grade);
       |     |  |- Assignment: booleanisMoving=true
       |     |  |  |- Variable_declaration: booleanisMoving
       |     |  |  |  |- Primitive_type: boolean
@@ -108,23 +60,24 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMov
       |     |  |        L  5
       |     |  |- ;
       |     |  |- Block_scope: if(isMoving){currentSpeed--;}
-      |     |  |  L  If_statement: if(isMoving){currentSpeed--;}
-      |     |  |     |- if
-      |     |  |     |- (
-      |     |  |     |- Expressions: isMoving
-      |     |  |     |  L  Expression: isMoving
-      |     |  |     |     L  isMoving
-      |     |  |     |- )
-      |     |  |     |- {
-      |     |  |     |- Function_scope: currentSpeed--;
-      |     |  |     |  |- Expressions: currentSpeed--
-      |     |  |     |  |  L  Expression: currentSpeed--
-      |     |  |     |  |     |- Expression: currentSpeed
-      |     |  |     |  |     |  L  currentSpeed
-      |     |  |     |  |     L  Expression_suffix: --
-      |     |  |     |  |        L  --
-      |     |  |     |  L  ;
-      |     |  |     L  }
+      |     |  |  L  If_block: if(isMoving){currentSpeed--;}
+      |     |  |     L  If_statement: if(isMoving){currentSpeed--;}
+      |     |  |        |- if
+      |     |  |        |- (
+      |     |  |        |- Expressions: isMoving
+      |     |  |        |  L  Expression: isMoving
+      |     |  |        |     L  isMoving
+      |     |  |        |- )
+      |     |  |        |- {
+      |     |  |        |- Function_scope: currentSpeed--;
+      |     |  |        |  |- Expressions: currentSpeed--
+      |     |  |        |  |  L  Expression: currentSpeed--
+      |     |  |        |  |     |- Expression: currentSpeed
+      |     |  |        |  |     |  L  currentSpeed
+      |     |  |        |  |     L  Expression_suffix: --
+      |     |  |        |  |        L  --
+      |     |  |        |  L  ;
+      |     |  |        L  }
       |     |  |- Assignment: isMoving=false
       |     |  |  |- Identifier: isMoving
       |     |  |  |  L  isMoving
@@ -134,7 +87,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMov
       |     |  |        L  false
       |     |  |- ;
       |     |  |- Block_scope: if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}
-      |     |  |  L  If_else_statement: if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}
+      |     |  |  L  If_block: if(isMoving){currentSpeed--;}else{System.out.println("The bicycle has already stopped!");}
       |     |  |     |- If_statement: if(isMoving){currentSpeed--;}
       |     |  |     |  |- if
       |     |  |     |  |- (
@@ -193,87 +146,120 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){booleanisMov
       |     |  |  |        L  char
       |     |  |  L  grade
       |     |  |- ;
-      |     |  |- Block_scope: if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}
-      |     |  |  L  If_statement: if(testscore>=90){grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';}
-      |     |  |     |- if
-      |     |  |     |- (
-      |     |  |     |- Expressions: testscore>=90
-      |     |  |     |  L  Expression: testscore>=90
-      |     |  |     |     |- Expression: testscore
-      |     |  |     |     |  L  testscore
-      |     |  |     |     |- Expression_operator: >=
-      |     |  |     |     |  L  Numerical_comparison_operator: >=
-      |     |  |     |     |     L  >=
-      |     |  |     |     L  Expression: 90
-      |     |  |     |        L  90
-      |     |  |     |- )
-      |     |  |     |- {
-      |     |  |     |- Function_scope: grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F';
-      |     |  |     |  |- Assignment: grade='A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F'
-      |     |  |     |  |  |- Identifier: grade
-      |     |  |     |  |  |  L  grade
-      |     |  |     |  |  |- =
-      |     |  |     |  |  L  Expressions: 'A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F'
-      |     |  |     |  |     L  Expression: 'A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F'
-      |     |  |     |  |        L  'A';
-        } else if (testscore >= 80) {
-            grade = 'B';
-        } else if (testscore >= 70) {
-            grade = 'C';
-        } else if (testscore >= 60) {
-            grade = 'D';
-        } else {
-            grade = 'F'
-      |     |  |     |  L  ;
-      |     |  |     L  }
+      |     |  |- Block_scope: if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}
+      |     |  |  L  If_block: if(testscore>=90){grade='A';}elseif(testscore>=80){grade='B';}elseif(testscore>=70){grade='C';}elseif(testscore>=60){grade='D';}else{grade='F';}
+      |     |  |     |- If_statement: if(testscore>=90){grade='A';}
+      |     |  |     |  |- if
+      |     |  |     |  |- (
+      |     |  |     |  |- Expressions: testscore>=90
+      |     |  |     |  |  L  Expression: testscore>=90
+      |     |  |     |  |     |- Expression: testscore
+      |     |  |     |  |     |  L  testscore
+      |     |  |     |  |     |- Expression_operator: >=
+      |     |  |     |  |     |  L  Numerical_comparison_operator: >=
+      |     |  |     |  |     |     L  >=
+      |     |  |     |  |     L  Expression: 90
+      |     |  |     |  |        L  90
+      |     |  |     |  |- )
+      |     |  |     |  |- {
+      |     |  |     |  |- Function_scope: grade='A';
+      |     |  |     |  |  |- Assignment: grade='A'
+      |     |  |     |  |  |  |- Identifier: grade
+      |     |  |     |  |  |  |  L  grade
+      |     |  |     |  |  |  |- =
+      |     |  |     |  |  |  L  Expressions: 'A'
+      |     |  |     |  |  |     L  Expression: 'A'
+      |     |  |     |  |  |        L  'A'
+      |     |  |     |  |  L  ;
+      |     |  |     |  L  }
+      |     |  |     |- else
+      |     |  |     |- If_statement: if(testscore>=80){grade='B';}
+      |     |  |     |  |- if
+      |     |  |     |  |- (
+      |     |  |     |  |- Expressions: testscore>=80
+      |     |  |     |  |  L  Expression: testscore>=80
+      |     |  |     |  |     |- Expression: testscore
+      |     |  |     |  |     |  L  testscore
+      |     |  |     |  |     |- Expression_operator: >=
+      |     |  |     |  |     |  L  Numerical_comparison_operator: >=
+      |     |  |     |  |     |     L  >=
+      |     |  |     |  |     L  Expression: 80
+      |     |  |     |  |        L  80
+      |     |  |     |  |- )
+      |     |  |     |  |- {
+      |     |  |     |  |- Function_scope: grade='B';
+      |     |  |     |  |  |- Assignment: grade='B'
+      |     |  |     |  |  |  |- Identifier: grade
+      |     |  |     |  |  |  |  L  grade
+      |     |  |     |  |  |  |- =
+      |     |  |     |  |  |  L  Expressions: 'B'
+      |     |  |     |  |  |     L  Expression: 'B'
+      |     |  |     |  |  |        L  'B'
+      |     |  |     |  |  L  ;
+      |     |  |     |  L  }
+      |     |  |     |- else
+      |     |  |     |- If_statement: if(testscore>=70){grade='C';}
+      |     |  |     |  |- if
+      |     |  |     |  |- (
+      |     |  |     |  |- Expressions: testscore>=70
+      |     |  |     |  |  L  Expression: testscore>=70
+      |     |  |     |  |     |- Expression: testscore
+      |     |  |     |  |     |  L  testscore
+      |     |  |     |  |     |- Expression_operator: >=
+      |     |  |     |  |     |  L  Numerical_comparison_operator: >=
+      |     |  |     |  |     |     L  >=
+      |     |  |     |  |     L  Expression: 70
+      |     |  |     |  |        L  70
+      |     |  |     |  |- )
+      |     |  |     |  |- {
+      |     |  |     |  |- Function_scope: grade='C';
+      |     |  |     |  |  |- Assignment: grade='C'
+      |     |  |     |  |  |  |- Identifier: grade
+      |     |  |     |  |  |  |  L  grade
+      |     |  |     |  |  |  |- =
+      |     |  |     |  |  |  L  Expressions: 'C'
+      |     |  |     |  |  |     L  Expression: 'C'
+      |     |  |     |  |  |        L  'C'
+      |     |  |     |  |  L  ;
+      |     |  |     |  L  }
+      |     |  |     |- else
+      |     |  |     |- If_statement: if(testscore>=60){grade='D';}
+      |     |  |     |  |- if
+      |     |  |     |  |- (
+      |     |  |     |  |- Expressions: testscore>=60
+      |     |  |     |  |  L  Expression: testscore>=60
+      |     |  |     |  |     |- Expression: testscore
+      |     |  |     |  |     |  L  testscore
+      |     |  |     |  |     |- Expression_operator: >=
+      |     |  |     |  |     |  L  Numerical_comparison_operator: >=
+      |     |  |     |  |     |     L  >=
+      |     |  |     |  |     L  Expression: 60
+      |     |  |     |  |        L  60
+      |     |  |     |  |- )
+      |     |  |     |  |- {
+      |     |  |     |  |- Function_scope: grade='D';
+      |     |  |     |  |  |- Assignment: grade='D'
+      |     |  |     |  |  |  |- Identifier: grade
+      |     |  |     |  |  |  |  L  grade
+      |     |  |     |  |  |  |- =
+      |     |  |     |  |  |  L  Expressions: 'D'
+      |     |  |     |  |  |     L  Expression: 'D'
+      |     |  |     |  |  |        L  'D'
+      |     |  |     |  |  L  ;
+      |     |  |     |  L  }
+      |     |  |     L  Else_statement: else{grade='F';}
+      |     |  |        |- else
+      |     |  |        |- {
+      |     |  |        |- Function_scope: grade='F';
+      |     |  |        |  |- Assignment: grade='F'
+      |     |  |        |  |  |- Identifier: grade
+      |     |  |        |  |  |  L  grade
+      |     |  |        |  |  |- =
+      |     |  |        |  |  L  Expressions: 'F'
+      |     |  |        |  |     L  Expression: 'F'
+      |     |  |        |  |        L  'F'
+      |     |  |        |  L  ;
+      |     |  |        L  }
       |     |  |- Expressions: System.out.println(grade)
       |     |  |  L  Expression: System.out.println(grade)
       |     |  |     L  Function_call: System.out.println(grade)

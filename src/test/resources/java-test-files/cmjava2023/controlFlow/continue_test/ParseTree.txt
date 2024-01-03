@@ -76,25 +76,26 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i
       |     |        |- {
       |     |        |- Function_scope: if(i==3){continue;}System.out.println(i);
       |     |        |  |- Block_scope: if(i==3){continue;}
-      |     |        |  |  L  If_statement: if(i==3){continue;}
-      |     |        |  |     |- if
-      |     |        |  |     |- (
-      |     |        |  |     |- Expressions: i==3
-      |     |        |  |     |  L  Expression: i==3
-      |     |        |  |     |     |- Expression: i
-      |     |        |  |     |     |  L  i
-      |     |        |  |     |     |- Expression_operator: ==
-      |     |        |  |     |     |  L  Numerical_comparison_operator: ==
-      |     |        |  |     |     |     L  ==
-      |     |        |  |     |     L  Expression: 3
-      |     |        |  |     |        L  3
-      |     |        |  |     |- )
-      |     |        |  |     |- {
-      |     |        |  |     |- Function_scope: continue;
-      |     |        |  |     |  |- Continue_statement: continue
-      |     |        |  |     |  |  L  continue
-      |     |        |  |     |  L  ;
-      |     |        |  |     L  }
+      |     |        |  |  L  If_block: if(i==3){continue;}
+      |     |        |  |     L  If_statement: if(i==3){continue;}
+      |     |        |  |        |- if
+      |     |        |  |        |- (
+      |     |        |  |        |- Expressions: i==3
+      |     |        |  |        |  L  Expression: i==3
+      |     |        |  |        |     |- Expression: i
+      |     |        |  |        |     |  L  i
+      |     |        |  |        |     |- Expression_operator: ==
+      |     |        |  |        |     |  L  Numerical_comparison_operator: ==
+      |     |        |  |        |     |     L  ==
+      |     |        |  |        |     L  Expression: 3
+      |     |        |  |        |        L  3
+      |     |        |  |        |- )
+      |     |        |  |        |- {
+      |     |        |  |        |- Function_scope: continue;
+      |     |        |  |        |  |- Continue_statement: continue
+      |     |        |  |        |  |  L  continue
+      |     |        |  |        |  L  ;
+      |     |        |  |        L  }
       |     |        |  |- Expressions: System.out.println(i)
       |     |        |  |  L  Expression: System.out.println(i)
       |     |        |  |     L  Function_call: System.out.println(i)

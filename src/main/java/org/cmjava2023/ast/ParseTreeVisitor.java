@@ -97,6 +97,16 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         return expressionList;
     }
 
+    private ArrayList<ASTNodes.IfNode> getIfNodes(List<MainAntlrParser.If_statementContext> children) {
+        ArrayList<ASTNodes.IfNode> ifNodes = new ArrayList<>();
+
+        for (MainAntlrParser.If_statementContext child : children) {
+            ifNodes.add((ASTNodes.IfNode) visit(child));
+        }
+
+        return ifNodes;
+    }
+
     // ########ANTLR########
     // package_declaration: PACKAGE_KEYWORD nested_identifier;
     public ASTNodes.Node visitPackage_declaration(MainAntlrParser.Package_declarationContext ctx) {
@@ -275,19 +285,8 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return new ASTNodes.VariableNode(variable.variableSymbol());
         } else {
             ASTNodes.NestedIdentifierNode variableName = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
-
-            Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName.nestedIdentifier(), symbolTable.getCurrentScope());
-
-            if (variableSymbol instanceof Variable variable) {
-                return new ASTNodes.VariableAssignmentNode(variable, expression);
-            }
-
-            if (variableSymbol instanceof Parameter parameter) {
-                return new ASTNodes.ParameterAssignmentNode(parameter, expression);
-            }
-
-            errors.add(String.format("Variable %s is not declared", String.join(".", variableName.nestedIdentifier())));
-            return new ASTNodes.VariableAssignmentNode(null, expression);
+            
+            return new ASTNodes.VariableAssignmentNode(new InvalidVariable(String.join(".", variableName.nestedIdentifier()), new InvalidType(""), symbolTable.getCurrentScope()), expression);
         }
     }
 
@@ -471,22 +470,17 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // block_scope: if_statement | if_else_statement | while_loop | do_while_loop | for_loop | switch_statement;
     public ASTNodes.Node visitBlock_scope(MainAntlrParser.Block_scopeContext ctx) {
-        ArrayList<ASTNodes.ControlFlow> controlFlows = new ArrayList<>();
-        if (ctx.if_statement() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.if_statement()));
-        } else if (ctx.if_else_statement() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.if_else_statement().if_statement()));
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.if_else_statement().else_statement()));
+        if (ctx.if_block() != null) {
+            return new ASTNodes.IfBlockNode(getIfNodes(ctx.if_block().if_statement()), ctx.if_block().else_statement() != null ? (ASTNodes.ElseNode) visit(ctx.if_block().else_statement()) : null);
         } else if (ctx.while_loop() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.while_loop()));
+            return visit(ctx.while_loop());
         } else if (ctx.do_while_loop() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.do_while_loop()));
+            return visit(ctx.do_while_loop());
         } else if (ctx.for_loop() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.for_loop()));
-        } else if (ctx.switch_statement() != null) {
-            controlFlows.add((ASTNodes.ControlFlow) visit(ctx.switch_statement()));
+            return visit(ctx.for_loop());
+        } else {
+            return visit(ctx.switch_statement());
         }
-        return new ASTNodes.BlockScopeNode(controlFlows);
     }
 
     // ########ANTLR########
@@ -608,8 +602,10 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
             return new ASTNodes.ForEachLoopNode(loopVariable, (ASTNodes.NestedIdentifierNode) visit(ctx.for_each().identifier()), statements);
         } else {
             ASTNodes.VariableUsage loopVariable = (ASTNodes.VariableUsage) visit(ctx.for_init().assignment());
+            ASTNodes.Expression termination = (ASTNodes.Expression) visit(ctx.for_termination().expressions());
+            ASTNodes.Expression update = (ASTNodes.Expression) visit(ctx.for_update().expressions());
             symbolTable.popScope();
-            return new ASTNodes.ForLoopNode(loopVariable, (ASTNodes.Expression) visit(ctx.for_termination().expressions()), (ASTNodes.Expression) visit(ctx.for_update().expressions()), statements);
+            return new ASTNodes.ForLoopNode(loopVariable, termination, update, statements);
         }
     }
 

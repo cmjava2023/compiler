@@ -72,9 +72,6 @@ public class ASTNodes {
     public interface Expression extends Node {
     }
 
-    public interface ControlFlow extends Node {
-    }
-
     public interface VariableUsage extends Node {
     }
 
@@ -151,9 +148,15 @@ public class ASTNodes {
         }
     }
 
+    public record IfBlockNode(ArrayList<IfNode> ifNodes, ElseNode elseNode) implements Node, Statement {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     // if_statement -> IfNode
     public record IfNode(Expression expression,
-                         ArrayList<Statement> statements) implements Node, ControlFlow, Statement {
+                         ArrayList<Statement> statements) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -161,15 +164,7 @@ public class ASTNodes {
 
     // else_statement -> ElseNode
     public record ElseNode(
-            ArrayList<Statement> statements) implements Node, ControlFlow, Statement {
-        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
-            return visitor.visit(this);
-        }
-    }
-
-    // block_scope -> BlockScopeNode
-    public record BlockScopeNode(
-            ArrayList<ControlFlow> controlFlows) implements Node, Statement {
+            ArrayList<Statement> statements) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -314,6 +309,13 @@ public class ASTNodes {
         }
     }
 
+    public record ParameterCallNode(
+            Parameter parameter) implements Node, Expression {
+        public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     public record VariableFieldCallNode(
             Variable variable, Variable field) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
@@ -341,7 +343,7 @@ public class ASTNodes {
     public record ForLoopNode(VariableUsage loopVariable,
                               Expression termination,
                               Expression increment,
-                              ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+                              ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -350,7 +352,7 @@ public class ASTNodes {
     // for_loop -> (ForEachLoopNode)
     public record ForEachLoopNode(VariableUsage variableDeclaration,
                               NestedIdentifierNode values,
-                              ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+                              ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -358,7 +360,7 @@ public class ASTNodes {
 
     // while_loop -> WhileLoopNode
     public record WhileLoopNode(Expression expression,
-                                ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+                                ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -366,7 +368,7 @@ public class ASTNodes {
 
     // do_while_loop -> DoWhileLoopNode
     public record DoWhileLoopNode(Expression expression,
-                                  ArrayList<Statement> body) implements Node, Statement, ControlFlow {
+                                  ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -374,7 +376,7 @@ public class ASTNodes {
 
     // switch_statement ->SwitchNode
     public record SwitchNode(Expression switchEx, ArrayList<CaseNode> caseNodes,
-                             ArrayList<Statement> defaultStatements) implements Node, ControlFlow {
+                             ArrayList<Statement> defaultStatements) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }

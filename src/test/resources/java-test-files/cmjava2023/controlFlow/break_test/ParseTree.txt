@@ -77,25 +77,26 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=1;while
       |     |        |  |        L  )
       |     |        |  |- ;
       |     |        |  |- Block_scope: if(i==5){break;}
-      |     |        |  |  L  If_statement: if(i==5){break;}
-      |     |        |  |     |- if
-      |     |        |  |     |- (
-      |     |        |  |     |- Expressions: i==5
-      |     |        |  |     |  L  Expression: i==5
-      |     |        |  |     |     |- Expression: i
-      |     |        |  |     |     |  L  i
-      |     |        |  |     |     |- Expression_operator: ==
-      |     |        |  |     |     |  L  Numerical_comparison_operator: ==
-      |     |        |  |     |     |     L  ==
-      |     |        |  |     |     L  Expression: 5
-      |     |        |  |     |        L  5
-      |     |        |  |     |- )
-      |     |        |  |     |- {
-      |     |        |  |     |- Function_scope: break;
-      |     |        |  |     |  |- Break_statement: break
-      |     |        |  |     |  |  L  break
-      |     |        |  |     |  L  ;
-      |     |        |  |     L  }
+      |     |        |  |  L  If_block: if(i==5){break;}
+      |     |        |  |     L  If_statement: if(i==5){break;}
+      |     |        |  |        |- if
+      |     |        |  |        |- (
+      |     |        |  |        |- Expressions: i==5
+      |     |        |  |        |  L  Expression: i==5
+      |     |        |  |        |     |- Expression: i
+      |     |        |  |        |     |  L  i
+      |     |        |  |        |     |- Expression_operator: ==
+      |     |        |  |        |     |  L  Numerical_comparison_operator: ==
+      |     |        |  |        |     |     L  ==
+      |     |        |  |        |     L  Expression: 5
+      |     |        |  |        |        L  5
+      |     |        |  |        |- )
+      |     |        |  |        |- {
+      |     |        |  |        |- Function_scope: break;
+      |     |        |  |        |  |- Break_statement: break
+      |     |        |  |        |  |  L  break
+      |     |        |  |        |  L  ;
+      |     |        |  |        L  }
       |     |        |  |- Expressions: i++
       |     |        |  |  L  Expression: i++
       |     |        |  |     |- Expression: i
