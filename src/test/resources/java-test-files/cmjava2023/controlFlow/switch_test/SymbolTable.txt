@@ -1,23 +1,24 @@
 GlobalScope
-|- boolean: boolean
 |- void: void
 |- byte: byte
 |- double: double
-|- char: char
-|- short: short
+|- java.io.IOException: java.io.IOException
 |- String: String
 |- float: float
+|- int: int
+|- long: long
+|- boolean: boolean
+|- char: char
+|- System.in.read: int
+|- short: short
 |- Main: Main
 |  L  main: void
 |     |- args: String[]
 |     L  LocalScope
 |        |- month: int
-|        |- year: int
 |        |- monthNumber: int
-|        |- numDays: int
 |        |- month2Example: int
 |        |- monthString: String
-|        |- month3example: int
 |        |- LocalScope
 |        |- LocalScope
 |        |- LocalScope
@@ -43,12 +44,6 @@ GlobalScope
 |        |- LocalScope
 |        |- LocalScope
 |        |- LocalScope
-|        |- LocalScope
-|        |- LocalScope
-|        |- LocalScope
-|        |- LocalScope
-|        |  |- LocalScope
-|        |  L  LocalScope
 |        |- LocalScope
 |        |- LocalScope
 |        |- LocalScope
@@ -63,7 +58,5 @@ GlobalScope
 |        |- LocalScope
 |        |- LocalScope
 |        L  LocalScope
-|- int: int
-|- long: long
 L  System.out.println: void
    L  x: String

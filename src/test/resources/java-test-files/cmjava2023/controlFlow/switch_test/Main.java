@@ -81,73 +81,45 @@ public class Main {
                 break;
         }
 
-        //  multiple case labels
-
-        int month3example = 2;
-        int year = 2000;
-        int numDays = 0;
-
-        switch (month3example) {
-            case 12:
-                numDays = 31;
-                break;
-            case 11:
-                numDays = 30;
-                break;
-            case 2:
-                if (((year % 4 == 0) &&
-                        !(year % 100 == 0))
-                        || (year % 400 == 0)) {
-                    numDays = 29;
-                } else {
-                    numDays = 28;
-                }
-                break;
-            default:
-                System.out.println("Invalid month.");
-                break;
-        }
-        System.out.println(numDays);
-
         // String match
 
         int monthNumber = 0;
 
-        switch (monthString.toLowerCase()) {
-            case "january":
+        switch (monthString) {
+            case "January":
                 monthNumber = 1;
                 break;
-            case "february":
+            case "February":
                 monthNumber = 2;
                 break;
-            case "march":
+            case "March":
                 monthNumber = 3;
                 break;
-            case "april":
+            case "April":
                 monthNumber = 4;
                 break;
-            case "may":
+            case "May":
                 monthNumber = 5;
                 break;
-            case "june":
+            case "June":
                 monthNumber = 6;
                 break;
-            case "july":
+            case "July":
                 monthNumber = 7;
                 break;
-            case "august":
+            case "August":
                 monthNumber = 8;
                 break;
-            case "september":
+            case "September":
                 monthNumber = 9;
                 break;
-            case "october":
+            case "October":
                 monthNumber = 10;
                 break;
-            case "november":
+            case "November":
                 monthNumber = 11;
                 break;
-            case "december":
+            case "December":
                 monthNumber = 12;
                 break;
             default:

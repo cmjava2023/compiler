@@ -13,6 +13,8 @@ public class SymbolTable {
         HashMap<String, Symbol> builtIn = bindPrimitiveTypes();
 
         bindPrintFunction(builtIn);
+        bindReadFunction(builtIn);
+        bindIoException(builtIn);
 
         this.currentScope.setSymbols(builtIn);
     }
@@ -34,6 +36,17 @@ public class SymbolTable {
         Parameter printParameter = new Parameter("x", builtIn.get("String").getType(), printFunction);
         printFunction.bind(printParameter);
         builtIn.put(printFunction.getName(), printFunction);
+    }
+
+    private void bindReadFunction(HashMap<String, Symbol> builtIn) {
+        Function readFunction = new Function(this.currentScope, new HashMap<>(), "System.in.read", builtIn.get("int").getType(), ASTNodes.AccessModifier.PUBLIC, null);
+        builtIn.put(readFunction.getName(), readFunction);
+    }
+
+    private void bindIoException(HashMap<String, Symbol> builtIn) {
+        Clazz ioExceptionClazz = new Clazz(this.currentScope, new HashMap<>(), "java.io.IOException", null, null, ASTNodes.AccessModifier.PUBLIC, null);
+        ioExceptionClazz.setType(ioExceptionClazz);
+        builtIn.put(ioExceptionClazz.getName(), ioExceptionClazz);
     }
 
     public void addSymbol(Symbol symbol) {

@@ -114,8 +114,21 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         if (functionSymbol.getType() instanceof InvalidType invalidType) {
             checkForType(invalidType, "return type of Function", functionSymbol);
         }
+        
+        Clazz exception = node.exception();
+        
+        if (node.exception() instanceof InvalidClazz invalidException){
+            Clazz resolvedException = (Clazz) exception.getScope().resolve(exception.getName());
+            
+            if (resolvedException != null){
+                exception = resolvedException;
+            }
+            else {
+                errors.add(String.format("Exception %s is not declared", exception.getName()));
+            }
+        }
 
-        return new ASTNodes.FunctionNode(node.functionSymbol(), getModifiedParameters(node.parameters()), node.exception(), getModifiedStatements(node.body()));
+        return new ASTNodes.FunctionNode(node.functionSymbol(), getModifiedParameters(node.parameters()), exception, getModifiedStatements(node.body()));
     }
 
     @Override
@@ -253,7 +266,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         Symbol variableSymbol = ASTVisitorFirst.resolveNestedIdentifier(null, variableName, node.variable().getScope());
 
         if (variableSymbol instanceof Variable variable) {
-            checkVariable(node.variable());
+            checkVariable(variable);
             return new ASTNodes.VariableAssignmentNode(variable, (ASTNodes.Expression) node.expression().accept(this));
         }
 

@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> snapshotTests() throws IOException {
@@ -41,10 +43,14 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
             ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
 
             ASTNodes.Node modifiedAst = ast.accept(astVisitorFirst);
-
+            
             String actual = GenericTreePrinter.print(modifiedAst);
 
             LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+
+            visitor.errors.forEach(System.out::println);
+
+            assertEquals(astVisitorFirst.errors.size(), 0);
         }));
     }
 }

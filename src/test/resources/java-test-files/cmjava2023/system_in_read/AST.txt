@@ -33,11 +33,16 @@ L  body
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
             |           L  dimensions: 1
-            |- exception (field of type NestedIdentifierNode)
-            |  L  nestedIdentifier
-            |     |- 0: java
-            |     |- 1: io
-            |     L  2: IOException
+            |- exception (field of type Clazz)
+            |  |- parentClazz: null
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: null
+            |  |- name: java.io.IOException
+            |  L  type (field of type Clazz)
+            |     |- parentClazz: null
+            |     |- accessModifier: PUBLIC
+            |     |- instanceModifier: null
+            |     L  name: java.io.IOException
             L  body
                |- 0 (field of type FunctionCallNode)
                |  |- function (field of type Function)
@@ -56,10 +61,11 @@ L  body
                |     |  |  L  name: char
                |     |  L  expression (field of type FunctionCallNode)
                |     |     |- function (field of type Function)
-               |     |     |  |- accessModifier: null
+               |     |     |  |- accessModifier: PUBLIC
                |     |     |  |- instanceModifier: null
                |     |     |  |- name: System.in.read
-               |     |     |  L  type: null
+               |     |     |  L  type (field of type BuiltIn)
+               |     |     |     L  name: int
                |     |     L  values
                |     |- name: c
                |     L  type (field of type BuiltIn)
@@ -83,10 +89,11 @@ L  body
                               |  |  L  name: char
                               |  L  expression (field of type FunctionCallNode)
                               |     |- function (field of type Function)
-                              |     |  |- accessModifier: null
+                              |     |  |- accessModifier: PUBLIC
                               |     |  |- instanceModifier: null
                               |     |  |- name: System.in.read
-                              |     |  L  type: null
+                              |     |  L  type (field of type BuiltIn)
+                              |     |     L  name: int
                               |     L  values
                               |- name: c
                               L  type (field of type BuiltIn)
