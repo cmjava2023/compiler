@@ -188,9 +188,10 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
 
         ArrayList<ASTNodes.ParameterNode> parameters = ctx.function_declaration_args() == null ? new ArrayList<>() : getParameters(ctx.function_declaration_args().children);
 
-        ASTNodes.NestedIdentifierNode exception=null;
+        Clazz exception=null;
         if(ctx.THROWS_KEYWORD()!=null){
-            exception= (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
+            ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
+            exception= new InvalidClazz(symbolTable.getCurrentScope(), null, String.join(".", nestedIdentifier.nestedIdentifier()), null, null, null, null);
         }
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
 
@@ -235,7 +236,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitFunction_call(MainAntlrParser.Function_callContext ctx) {
         ASTNodes.NestedIdentifierNode nestedIdentifier = (ASTNodes.NestedIdentifierNode) visit(ctx.identifier());
         ArrayList<ASTNodes.Expression> argumentExpressions = ctx.function_args() == null ? new ArrayList<>() : getExpressions(ctx.function_args().children);
-        return new ASTNodes.FunctionCallNode(new Function(symbolTable.getCurrentScope(), null, String.join(".", nestedIdentifier.nestedIdentifier()), null, null, null), argumentExpressions);
+        return new ASTNodes.FunctionCallNode(new InvalidFunction(symbolTable.getCurrentScope(), null, String.join(".", nestedIdentifier.nestedIdentifier()), null, null, null), argumentExpressions);
     }
 
     // ########ANTLR########

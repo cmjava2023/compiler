@@ -113,7 +113,7 @@ public class ASTNodes {
     // function_declaration -> FunctionNode
     public record FunctionNode(Function functionSymbol,
                                ArrayList<ParameterNode> parameters,
-                                @Nullable NestedIdentifierNode exception,
+                                @Nullable Clazz exception,
                                ArrayList<Statement> body) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);

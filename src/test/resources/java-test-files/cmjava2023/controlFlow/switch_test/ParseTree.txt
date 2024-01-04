@@ -1,4 +1,4 @@
-Start: packagecmjava2023.controlFlow.switch_test;publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}}}
+Start: packagecmjava2023.controlFlow.switch_test;publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}}}
 |- Global_scope: packagecmjava2023.controlFlow.switch_test;
 |  |- Package_declaration: packagecmjava2023.controlFlow.switch_test
 |  |  |- package
@@ -9,15 +9,15 @@ Start: packagecmjava2023.controlFlow.switch_test;publicclassMain{publicstaticvoi
 |  |     |- .
 |  |     L  switch_test
 |  L  ;
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}}
+      |- Class_scope: publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -36,7 +36,7 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonth3example=2;intyear=2000;intnumDays=0;switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}System.out.println(numDays);intmonthNumber=0;switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}
+      |     |- Function_scope: intmonth=8;StringmonthString;switch(month){case1:monthString="January";break;case2:monthString="February";break;case3:monthString="March";break;case4:monthString="April";break;case5:monthString="May";break;case6:monthString="June";break;case7:monthString="July";break;case8:monthString="August";break;case9:monthString="September";break;case10:monthString="October";break;case11:monthString="November";break;case12:monthString="December";break;default:monthString="Invalid month";break;}System.out.println(monthString);intmonth2Example=8;switch(month2Example){case1:System.out.println("January");case2:System.out.println("February");case3:System.out.println("March");case4:System.out.println("April");case5:System.out.println("May");case6:System.out.println("June");case7:System.out.println("July");case8:System.out.println("August");case9:System.out.println("September");case10:System.out.println("October");case11:System.out.println("November");case12:System.out.println("December");break;default:break;}intmonthNumber=0;switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}
       |     |  |- Assignment: intmonth=8
       |     |  |  |- Variable_declaration: intmonth
       |     |  |  |  |- Primitive_type: int
@@ -609,230 +609,6 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |  |     |     |  L  break
       |     |  |     |     L  ;
       |     |  |     L  }
-      |     |  |- Assignment: intmonth3example=2
-      |     |  |  |- Variable_declaration: intmonth3example
-      |     |  |  |  |- Primitive_type: int
-      |     |  |  |  |  L  Numeric_type: int
-      |     |  |  |  |     L  Integral_type: int
-      |     |  |  |  |        L  int
-      |     |  |  |  L  month3example
-      |     |  |  |- =
-      |     |  |  L  Expressions: 2
-      |     |  |     L  Expression: 2
-      |     |  |        L  2
-      |     |  |- ;
-      |     |  |- Assignment: intyear=2000
-      |     |  |  |- Variable_declaration: intyear
-      |     |  |  |  |- Primitive_type: int
-      |     |  |  |  |  L  Numeric_type: int
-      |     |  |  |  |     L  Integral_type: int
-      |     |  |  |  |        L  int
-      |     |  |  |  L  year
-      |     |  |  |- =
-      |     |  |  L  Expressions: 2000
-      |     |  |     L  Expression: 2000
-      |     |  |        L  2000
-      |     |  |- ;
-      |     |  |- Assignment: intnumDays=0
-      |     |  |  |- Variable_declaration: intnumDays
-      |     |  |  |  |- Primitive_type: int
-      |     |  |  |  |  L  Numeric_type: int
-      |     |  |  |  |     L  Integral_type: int
-      |     |  |  |  |        L  int
-      |     |  |  |  L  numDays
-      |     |  |  |- =
-      |     |  |  L  Expressions: 0
-      |     |  |     L  Expression: 0
-      |     |  |        L  0
-      |     |  |- ;
-      |     |  |- Block_scope: switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}
-      |     |  |  L  Switch_statement: switch(month3example){case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;}
-      |     |  |     |- switch
-      |     |  |     |- (
-      |     |  |     |- Expressions: month3example
-      |     |  |     |  L  Expression: month3example
-      |     |  |     |     L  month3example
-      |     |  |     |- )
-      |     |  |     |- {
-      |     |  |     |- Switch_scope: case12:numDays=31;break;case11:numDays=30;break;case2:if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;default:System.out.println("Invalid month.");break;
-      |     |  |     |  |- case
-      |     |  |     |  |- Expressions: 12
-      |     |  |     |  |  L  Expression: 12
-      |     |  |     |  |     L  12
-      |     |  |     |  |- :
-      |     |  |     |  |- Function_scope: numDays=31;break;
-      |     |  |     |  |  |- Assignment: numDays=31
-      |     |  |     |  |  |  |- Identifier: numDays
-      |     |  |     |  |  |  |  L  numDays
-      |     |  |     |  |  |  |- =
-      |     |  |     |  |  |  L  Expressions: 31
-      |     |  |     |  |  |     L  Expression: 31
-      |     |  |     |  |  |        L  31
-      |     |  |     |  |  |- ;
-      |     |  |     |  |  |- Break_statement: break
-      |     |  |     |  |  |  L  break
-      |     |  |     |  |  L  ;
-      |     |  |     |  |- case
-      |     |  |     |  |- Expressions: 11
-      |     |  |     |  |  L  Expression: 11
-      |     |  |     |  |     L  11
-      |     |  |     |  |- :
-      |     |  |     |  |- Function_scope: numDays=30;break;
-      |     |  |     |  |  |- Assignment: numDays=30
-      |     |  |     |  |  |  |- Identifier: numDays
-      |     |  |     |  |  |  |  L  numDays
-      |     |  |     |  |  |  |- =
-      |     |  |     |  |  |  L  Expressions: 30
-      |     |  |     |  |  |     L  Expression: 30
-      |     |  |     |  |  |        L  30
-      |     |  |     |  |  |- ;
-      |     |  |     |  |  |- Break_statement: break
-      |     |  |     |  |  |  L  break
-      |     |  |     |  |  L  ;
-      |     |  |     |  |- case
-      |     |  |     |  |- Expressions: 2
-      |     |  |     |  |  L  Expression: 2
-      |     |  |     |  |     L  2
-      |     |  |     |  |- :
-      |     |  |     |  |- Function_scope: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}break;
-      |     |  |     |  |  |- Block_scope: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}
-      |     |  |     |  |  |  L  If_block: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}else{numDays=28;}
-      |     |  |     |  |  |     |- If_statement: if(((year%4==0)&&!(year%100==0))||(year%400==0)){numDays=29;}
-      |     |  |     |  |  |     |  |- if
-      |     |  |     |  |  |     |  |- (
-      |     |  |     |  |  |     |  |- Expressions: ((year%4==0)&&!(year%100==0))||(year%400==0)
-      |     |  |     |  |  |     |  |  L  Expression: ((year%4==0)&&!(year%100==0))||(year%400==0)
-      |     |  |     |  |  |     |  |     |- Expression: ((year%4==0)&&!(year%100==0))
-      |     |  |     |  |  |     |  |     |  |- (
-      |     |  |     |  |  |     |  |     |  |- Expression: (year%4==0)&&!(year%100==0)
-      |     |  |     |  |  |     |  |     |  |  |- Expression: (year%4==0)
-      |     |  |     |  |  |     |  |     |  |  |  |- (
-      |     |  |     |  |  |     |  |     |  |  |  |- Expression: year%4==0
-      |     |  |     |  |  |     |  |     |  |  |  |  |- Expression: year%4
-      |     |  |     |  |  |     |  |     |  |  |  |  |  |- Expression: year
-      |     |  |     |  |  |     |  |     |  |  |  |  |  |  L  year
-      |     |  |     |  |  |     |  |     |  |  |  |  |  |- Expression_concatinator: %
-      |     |  |     |  |  |     |  |     |  |  |  |  |  |  L  %
-      |     |  |     |  |  |     |  |     |  |  |  |  |  L  Expression: 4
-      |     |  |     |  |  |     |  |     |  |  |  |  |     L  4
-      |     |  |     |  |  |     |  |     |  |  |  |  |- Expression_operator: ==
-      |     |  |     |  |  |     |  |     |  |  |  |  |  L  Numerical_comparison_operator: ==
-      |     |  |     |  |  |     |  |     |  |  |  |  |     L  ==
-      |     |  |     |  |  |     |  |     |  |  |  |  L  Expression: 0
-      |     |  |     |  |  |     |  |     |  |  |  |     L  0
-      |     |  |     |  |  |     |  |     |  |  |  L  )
-      |     |  |     |  |  |     |  |     |  |  |- Expression_operator: &&
-      |     |  |     |  |  |     |  |     |  |  |  L  Logical_comparison_operator: &&
-      |     |  |     |  |  |     |  |     |  |  |     L  &&
-      |     |  |     |  |  |     |  |     |  |  L  Expression: !(year%100==0)
-      |     |  |     |  |  |     |  |     |  |     |- Logical_prefix: !
-      |     |  |     |  |  |     |  |     |  |     |  L  !
-      |     |  |     |  |  |     |  |     |  |     L  Expressions: (year%100==0)
-      |     |  |     |  |  |     |  |     |  |        L  Expression: (year%100==0)
-      |     |  |     |  |  |     |  |     |  |           |- (
-      |     |  |     |  |  |     |  |     |  |           |- Expression: year%100==0
-      |     |  |     |  |  |     |  |     |  |           |  |- Expression: year%100
-      |     |  |     |  |  |     |  |     |  |           |  |  |- Expression: year
-      |     |  |     |  |  |     |  |     |  |           |  |  |  L  year
-      |     |  |     |  |  |     |  |     |  |           |  |  |- Expression_concatinator: %
-      |     |  |     |  |  |     |  |     |  |           |  |  |  L  %
-      |     |  |     |  |  |     |  |     |  |           |  |  L  Expression: 100
-      |     |  |     |  |  |     |  |     |  |           |  |     L  100
-      |     |  |     |  |  |     |  |     |  |           |  |- Expression_operator: ==
-      |     |  |     |  |  |     |  |     |  |           |  |  L  Numerical_comparison_operator: ==
-      |     |  |     |  |  |     |  |     |  |           |  |     L  ==
-      |     |  |     |  |  |     |  |     |  |           |  L  Expression: 0
-      |     |  |     |  |  |     |  |     |  |           |     L  0
-      |     |  |     |  |  |     |  |     |  |           L  )
-      |     |  |     |  |  |     |  |     |  L  )
-      |     |  |     |  |  |     |  |     |- Expression_operator: ||
-      |     |  |     |  |  |     |  |     |  L  Logical_comparison_operator: ||
-      |     |  |     |  |  |     |  |     |     L  ||
-      |     |  |     |  |  |     |  |     L  Expression: (year%400==0)
-      |     |  |     |  |  |     |  |        |- (
-      |     |  |     |  |  |     |  |        |- Expression: year%400==0
-      |     |  |     |  |  |     |  |        |  |- Expression: year%400
-      |     |  |     |  |  |     |  |        |  |  |- Expression: year
-      |     |  |     |  |  |     |  |        |  |  |  L  year
-      |     |  |     |  |  |     |  |        |  |  |- Expression_concatinator: %
-      |     |  |     |  |  |     |  |        |  |  |  L  %
-      |     |  |     |  |  |     |  |        |  |  L  Expression: 400
-      |     |  |     |  |  |     |  |        |  |     L  400
-      |     |  |     |  |  |     |  |        |  |- Expression_operator: ==
-      |     |  |     |  |  |     |  |        |  |  L  Numerical_comparison_operator: ==
-      |     |  |     |  |  |     |  |        |  |     L  ==
-      |     |  |     |  |  |     |  |        |  L  Expression: 0
-      |     |  |     |  |  |     |  |        |     L  0
-      |     |  |     |  |  |     |  |        L  )
-      |     |  |     |  |  |     |  |- )
-      |     |  |     |  |  |     |  |- {
-      |     |  |     |  |  |     |  |- Function_scope: numDays=29;
-      |     |  |     |  |  |     |  |  |- Assignment: numDays=29
-      |     |  |     |  |  |     |  |  |  |- Identifier: numDays
-      |     |  |     |  |  |     |  |  |  |  L  numDays
-      |     |  |     |  |  |     |  |  |  |- =
-      |     |  |     |  |  |     |  |  |  L  Expressions: 29
-      |     |  |     |  |  |     |  |  |     L  Expression: 29
-      |     |  |     |  |  |     |  |  |        L  29
-      |     |  |     |  |  |     |  |  L  ;
-      |     |  |     |  |  |     |  L  }
-      |     |  |     |  |  |     L  Else_statement: else{numDays=28;}
-      |     |  |     |  |  |        |- else
-      |     |  |     |  |  |        |- {
-      |     |  |     |  |  |        |- Function_scope: numDays=28;
-      |     |  |     |  |  |        |  |- Assignment: numDays=28
-      |     |  |     |  |  |        |  |  |- Identifier: numDays
-      |     |  |     |  |  |        |  |  |  L  numDays
-      |     |  |     |  |  |        |  |  |- =
-      |     |  |     |  |  |        |  |  L  Expressions: 28
-      |     |  |     |  |  |        |  |     L  Expression: 28
-      |     |  |     |  |  |        |  |        L  28
-      |     |  |     |  |  |        |  L  ;
-      |     |  |     |  |  |        L  }
-      |     |  |     |  |  |- Break_statement: break
-      |     |  |     |  |  |  L  break
-      |     |  |     |  |  L  ;
-      |     |  |     |  |- default
-      |     |  |     |  |- :
-      |     |  |     |  L  Function_scope: System.out.println("Invalid month.");break;
-      |     |  |     |     |- Expressions: System.out.println("Invalid month.")
-      |     |  |     |     |  L  Expression: System.out.println("Invalid month.")
-      |     |  |     |     |     L  Function_call: System.out.println("Invalid month.")
-      |     |  |     |     |        |- Identifier: System.out.println
-      |     |  |     |     |        |  |- System
-      |     |  |     |     |        |  |- .
-      |     |  |     |     |        |  |- out
-      |     |  |     |     |        |  |- .
-      |     |  |     |     |        |  L  println
-      |     |  |     |     |        |- (
-      |     |  |     |     |        |- Function_args: "Invalid month."
-      |     |  |     |     |        |  L  Function_arg: "Invalid month."
-      |     |  |     |     |        |     L  Expressions: "Invalid month."
-      |     |  |     |     |        |        L  Expression: "Invalid month."
-      |     |  |     |     |        |           L  "Invalid month."
-      |     |  |     |     |        L  )
-      |     |  |     |     |- ;
-      |     |  |     |     |- Break_statement: break
-      |     |  |     |     |  L  break
-      |     |  |     |     L  ;
-      |     |  |     L  }
-      |     |  |- Expressions: System.out.println(numDays)
-      |     |  |  L  Expression: System.out.println(numDays)
-      |     |  |     L  Function_call: System.out.println(numDays)
-      |     |  |        |- Identifier: System.out.println
-      |     |  |        |  |- System
-      |     |  |        |  |- .
-      |     |  |        |  |- out
-      |     |  |        |  |- .
-      |     |  |        |  L  println
-      |     |  |        |- (
-      |     |  |        |- Function_args: numDays
-      |     |  |        |  L  Function_arg: numDays
-      |     |  |        |     L  Expressions: numDays
-      |     |  |        |        L  Expression: numDays
-      |     |  |        |           L  numDays
-      |     |  |        L  )
-      |     |  |- ;
       |     |  |- Assignment: intmonthNumber=0
       |     |  |  |- Variable_declaration: intmonthNumber
       |     |  |  |  |- Primitive_type: int
@@ -845,26 +621,20 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |  |     L  Expression: 0
       |     |  |        L  0
       |     |  |- ;
-      |     |  L  Block_scope: switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}
-      |     |     L  Switch_statement: switch(monthString.toLowerCase()){case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;}
+      |     |  L  Block_scope: switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}
+      |     |     L  Switch_statement: switch(monthString){case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;}
       |     |        |- switch
       |     |        |- (
-      |     |        |- Expressions: monthString.toLowerCase()
-      |     |        |  L  Expression: monthString.toLowerCase()
-      |     |        |     L  Function_call: monthString.toLowerCase()
-      |     |        |        |- Identifier: monthString.toLowerCase
-      |     |        |        |  |- monthString
-      |     |        |        |  |- .
-      |     |        |        |  L  toLowerCase
-      |     |        |        |- (
-      |     |        |        L  )
+      |     |        |- Expressions: monthString
+      |     |        |  L  Expression: monthString
+      |     |        |     L  monthString
       |     |        |- )
       |     |        |- {
-      |     |        |- Switch_scope: case"january":monthNumber=1;break;case"february":monthNumber=2;break;case"march":monthNumber=3;break;case"april":monthNumber=4;break;case"may":monthNumber=5;break;case"june":monthNumber=6;break;case"july":monthNumber=7;break;case"august":monthNumber=8;break;case"september":monthNumber=9;break;case"october":monthNumber=10;break;case"november":monthNumber=11;break;case"december":monthNumber=12;break;default:monthNumber=0;break;
+      |     |        |- Switch_scope: case"January":monthNumber=1;break;case"February":monthNumber=2;break;case"March":monthNumber=3;break;case"April":monthNumber=4;break;case"May":monthNumber=5;break;case"June":monthNumber=6;break;case"July":monthNumber=7;break;case"August":monthNumber=8;break;case"September":monthNumber=9;break;case"October":monthNumber=10;break;case"November":monthNumber=11;break;case"December":monthNumber=12;break;default:monthNumber=0;break;
       |     |        |  |- case
-      |     |        |  |- Expressions: "january"
-      |     |        |  |  L  Expression: "january"
-      |     |        |  |     L  "january"
+      |     |        |  |- Expressions: "January"
+      |     |        |  |  L  Expression: "January"
+      |     |        |  |     L  "January"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=1;break;
       |     |        |  |  |- Assignment: monthNumber=1
@@ -879,9 +649,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "february"
-      |     |        |  |  L  Expression: "february"
-      |     |        |  |     L  "february"
+      |     |        |  |- Expressions: "February"
+      |     |        |  |  L  Expression: "February"
+      |     |        |  |     L  "February"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=2;break;
       |     |        |  |  |- Assignment: monthNumber=2
@@ -896,9 +666,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "march"
-      |     |        |  |  L  Expression: "march"
-      |     |        |  |     L  "march"
+      |     |        |  |- Expressions: "March"
+      |     |        |  |  L  Expression: "March"
+      |     |        |  |     L  "March"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=3;break;
       |     |        |  |  |- Assignment: monthNumber=3
@@ -913,9 +683,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "april"
-      |     |        |  |  L  Expression: "april"
-      |     |        |  |     L  "april"
+      |     |        |  |- Expressions: "April"
+      |     |        |  |  L  Expression: "April"
+      |     |        |  |     L  "April"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=4;break;
       |     |        |  |  |- Assignment: monthNumber=4
@@ -930,9 +700,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "may"
-      |     |        |  |  L  Expression: "may"
-      |     |        |  |     L  "may"
+      |     |        |  |- Expressions: "May"
+      |     |        |  |  L  Expression: "May"
+      |     |        |  |     L  "May"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=5;break;
       |     |        |  |  |- Assignment: monthNumber=5
@@ -947,9 +717,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "june"
-      |     |        |  |  L  Expression: "june"
-      |     |        |  |     L  "june"
+      |     |        |  |- Expressions: "June"
+      |     |        |  |  L  Expression: "June"
+      |     |        |  |     L  "June"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=6;break;
       |     |        |  |  |- Assignment: monthNumber=6
@@ -964,9 +734,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "july"
-      |     |        |  |  L  Expression: "july"
-      |     |        |  |     L  "july"
+      |     |        |  |- Expressions: "July"
+      |     |        |  |  L  Expression: "July"
+      |     |        |  |     L  "July"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=7;break;
       |     |        |  |  |- Assignment: monthNumber=7
@@ -981,9 +751,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "august"
-      |     |        |  |  L  Expression: "august"
-      |     |        |  |     L  "august"
+      |     |        |  |- Expressions: "August"
+      |     |        |  |  L  Expression: "August"
+      |     |        |  |     L  "August"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=8;break;
       |     |        |  |  |- Assignment: monthNumber=8
@@ -998,9 +768,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "september"
-      |     |        |  |  L  Expression: "september"
-      |     |        |  |     L  "september"
+      |     |        |  |- Expressions: "September"
+      |     |        |  |  L  Expression: "September"
+      |     |        |  |     L  "September"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=9;break;
       |     |        |  |  |- Assignment: monthNumber=9
@@ -1015,9 +785,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "october"
-      |     |        |  |  L  Expression: "october"
-      |     |        |  |     L  "october"
+      |     |        |  |- Expressions: "October"
+      |     |        |  |  L  Expression: "October"
+      |     |        |  |     L  "October"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=10;break;
       |     |        |  |  |- Assignment: monthNumber=10
@@ -1032,9 +802,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "november"
-      |     |        |  |  L  Expression: "november"
-      |     |        |  |     L  "november"
+      |     |        |  |- Expressions: "November"
+      |     |        |  |  L  Expression: "November"
+      |     |        |  |     L  "November"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=11;break;
       |     |        |  |  |- Assignment: monthNumber=11
@@ -1049,9 +819,9 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){intmonth=8;S
       |     |        |  |  |  L  break
       |     |        |  |  L  ;
       |     |        |  |- case
-      |     |        |  |- Expressions: "december"
-      |     |        |  |  L  Expression: "december"
-      |     |        |  |     L  "december"
+      |     |        |  |- Expressions: "December"
+      |     |        |  |  L  Expression: "December"
+      |     |        |  |     L  "December"
       |     |        |  |- :
       |     |        |  |- Function_scope: monthNumber=12;break;
       |     |        |  |  |- Assignment: monthNumber=12
