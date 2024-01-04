@@ -33,6 +33,7 @@ L  body
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
             |           L  dimensions: 1
+            |- exception: null
             L  body
                L  0 (field of type FunctionCallNode)
                   |- function (field of type Function)

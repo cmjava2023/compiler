@@ -1,0 +1,115 @@
+Start: packagecmjava2023.system_in_read;publicclassMain{publicstaticvoidmain(String[]args)throwsjava.io.IOException{System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);}}
+|- Global_scope: packagecmjava2023.system_in_read;
+|  |- Package_declaration: packagecmjava2023.system_in_read
+|  |  |- package
+|  |  L  Identifier: cmjava2023.system_in_read
+|  |     |- cmjava2023
+|  |     |- .
+|  |     L  system_in_read
+|  L  ;
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args)throwsjava.io.IOException{System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args)throwsjava.io.IOException{System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args)throwsjava.io.IOException{System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args)throwsjava.io.IOException{System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- throws
+      |     |- Identifier: java.io.IOException
+      |     |  |- java
+      |     |  |- .
+      |     |  |- io
+      |     |  |- .
+      |     |  L  IOException
+      |     |- {
+      |     |- Function_scope: System.out.println("Type one char and press ENTER: ");charc=(char)System.in.read();System.out.println("You entered char: "+c);
+      |     |  |- Expressions: System.out.println("Type one char and press ENTER: ")
+      |     |  |  L  Expression: System.out.println("Type one char and press ENTER: ")
+      |     |  |     L  Function_call: System.out.println("Type one char and press ENTER: ")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "Type one char and press ENTER: "
+      |     |  |        |  L  Function_arg: "Type one char and press ENTER: "
+      |     |  |        |     L  Expressions: "Type one char and press ENTER: "
+      |     |  |        |        L  Expression: "Type one char and press ENTER: "
+      |     |  |        |           L  "Type one char and press ENTER: "
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Assignment: charc=(char)System.in.read()
+      |     |  |  |- Variable_declaration: charc
+      |     |  |  |  |- Primitive_type: char
+      |     |  |  |  |  L  Numeric_type: char
+      |     |  |  |  |     L  Integral_type: char
+      |     |  |  |  |        L  char
+      |     |  |  |  L  c
+      |     |  |  |- =
+      |     |  |  L  Expressions: (char)System.in.read()
+      |     |  |     L  Expression: (char)System.in.read()
+      |     |  |        L  Casting: (char)System.in.read()
+      |     |  |           |- (
+      |     |  |           |- Type: char
+      |     |  |           |  L  Primitive_type: char
+      |     |  |           |     L  Numeric_type: char
+      |     |  |           |        L  Integral_type: char
+      |     |  |           |           L  char
+      |     |  |           |- )
+      |     |  |           L  Expressions: System.in.read()
+      |     |  |              L  Expression: System.in.read()
+      |     |  |                 L  Function_call: System.in.read()
+      |     |  |                    |- Identifier: System.in.read
+      |     |  |                    |  |- System
+      |     |  |                    |  |- .
+      |     |  |                    |  |- in
+      |     |  |                    |  |- .
+      |     |  |                    |  L  read
+      |     |  |                    |- (
+      |     |  |                    L  )
+      |     |  |- ;
+      |     |  |- Expressions: System.out.println("You entered char: "+c)
+      |     |  |  L  Expression: System.out.println("You entered char: "+c)
+      |     |  |     L  Function_call: System.out.println("You entered char: "+c)
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "You entered char: "+c
+      |     |  |        |  L  Function_arg: "You entered char: "+c
+      |     |  |        |     L  Expressions: "You entered char: "+c
+      |     |  |        |        L  Expression: "You entered char: "+c
+      |     |  |        |           |- Expression: "You entered char: "
+      |     |  |        |           |  L  "You entered char: "
+      |     |  |        |           |- Expression_concatinator: +
+      |     |  |        |           |  L  +
+      |     |  |        |           L  Expression: c
+      |     |  |        |              L  c
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }

@@ -34,6 +34,7 @@ L  body
             |           |  L  type (field of type BuiltIn)
             |           |     L  name: String
             |           L  dimensions: 1
+            |- exception: null
             L  body
                L  0 (field of type ForLoopNode)
                   |- loopVariable (field of type VariableNode)
