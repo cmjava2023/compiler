@@ -1,0 +1,79 @@
+Start: packagecmjava2023.helloworld;classAnimal{voideat(){System.out.println("Animal is eating");}}classDogextendsAnimal{voidbark(){System.out.println("Dog is barking");}}
+|- Global_scope: packagecmjava2023.helloworld;
+|  |- Package_declaration: packagecmjava2023.helloworld
+|  |  |- package
+|  |  L  Identifier: cmjava2023.helloworld
+|  |     |- cmjava2023
+|  |     |- .
+|  |     L  helloworld
+|  L  ;
+|- Global_scope: classAnimal{voideat(){System.out.println("Animal is eating");}}
+|  L  Class_declaration: classAnimal{voideat(){System.out.println("Animal is eating");}}
+|     |- class
+|     |- Animal
+|     |- {
+|     |- Class_scope: voideat(){System.out.println("Animal is eating");}
+|     |  L  Function_declaration: voideat(){System.out.println("Animal is eating");}
+|     |     |- Type: void
+|     |     |  L  void
+|     |     |- eat
+|     |     |- (
+|     |     |- )
+|     |     |- {
+|     |     |- Function_scope: System.out.println("Animal is eating");
+|     |     |  |- Expressions: System.out.println("Animal is eating")
+|     |     |  |  L  Expression: System.out.println("Animal is eating")
+|     |     |  |     L  Function_call: System.out.println("Animal is eating")
+|     |     |  |        |- Identifier: System.out.println
+|     |     |  |        |  |- System
+|     |     |  |        |  |- .
+|     |     |  |        |  |- out
+|     |     |  |        |  |- .
+|     |     |  |        |  L  println
+|     |     |  |        |- (
+|     |     |  |        |- Function_args: "Animal is eating"
+|     |     |  |        |  L  Function_arg: "Animal is eating"
+|     |     |  |        |     L  Expressions: "Animal is eating"
+|     |     |  |        |        L  Expression: "Animal is eating"
+|     |     |  |        |           L  "Animal is eating"
+|     |     |  |        L  )
+|     |     |  L  ;
+|     |     L  }
+|     L  }
+L  Global_scope: classDogextendsAnimal{voidbark(){System.out.println("Dog is barking");}}
+   L  Class_declaration: classDogextendsAnimal{voidbark(){System.out.println("Dog is barking");}}
+      |- class
+      |- Dog
+      |- Extends_statement: extendsAnimal
+      |  |- extends
+      |  L  Class_type: Animal
+      |     L  Animal
+      |- {
+      |- Class_scope: voidbark(){System.out.println("Dog is barking");}
+      |  L  Function_declaration: voidbark(){System.out.println("Dog is barking");}
+      |     |- Type: void
+      |     |  L  void
+      |     |- bark
+      |     |- (
+      |     |- )
+      |     |- {
+      |     |- Function_scope: System.out.println("Dog is barking");
+      |     |  |- Expressions: System.out.println("Dog is barking")
+      |     |  |  L  Expression: System.out.println("Dog is barking")
+      |     |  |     L  Function_call: System.out.println("Dog is barking")
+      |     |  |        |- Identifier: System.out.println
+      |     |  |        |  |- System
+      |     |  |        |  |- .
+      |     |  |        |  |- out
+      |     |  |        |  |- .
+      |     |  |        |  L  println
+      |     |  |        |- (
+      |     |  |        |- Function_args: "Dog is barking"
+      |     |  |        |  L  Function_arg: "Dog is barking"
+      |     |  |        |     L  Expressions: "Dog is barking"
+      |     |  |        |        L  Expression: "Dog is barking"
+      |     |  |        |           L  "Dog is barking"
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }

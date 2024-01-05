@@ -41,7 +41,8 @@ bit_comparison_operator: BAND | BOR | BXOR | LOGICAL_SHIFT_R | BIT_SHIFT_L | BIT
 package_declaration: PACKAGE_KEYWORD identifier;
 
 // Classes
-class_declaration: access_modifier CLASS_KEYWORD IDENTIFIER CURLY_OPEN class_scope CURLY_CLOSE;
+class_declaration: access_modifier? CLASS_KEYWORD IDENTIFIER (extends_statement)? CURLY_OPEN class_scope CURLY_CLOSE;
+extends_statement: EXTENDS_KEYWORD class_type;
 
 // Enums
 enum_declaration: ENUM_KEYWORD IDENTIFIER CURLY_OPEN IDENTIFIER (COMMA IDENTIFIER)* CURLY_CLOSE;
@@ -95,7 +96,7 @@ casting: PAREN_OPEN type PAREN_CLOSE expressions;
 access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
 
 // Functions
-function_declaration: access_modifier INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE (THROWS_KEYWORD identifier)? CURLY_OPEN function_scope CURLY_CLOSE;
+function_declaration: access_modifier? INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE (THROWS_KEYWORD identifier)? CURLY_OPEN function_scope CURLY_CLOSE;
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
 function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
