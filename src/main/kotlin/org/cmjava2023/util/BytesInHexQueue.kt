@@ -1,5 +1,6 @@
 package org.cmjava2023.util
 
+import java.nio.ByteBuffer
 import java.util.*
 
 class BytesInHexQueue(bytes: ByteArray): LinkedList<Byte>(bytes.toList()) {
@@ -37,28 +38,14 @@ class BytesInHexQueue(bytes: ByteArray): LinkedList<Byte>(bytes.toList()) {
     }
 
     fun dequeue2ByteShort(): Short {
-        val bytes = pollMultiple(Short.SIZE_BYTES)
-        return  ((bytes[0].toInt() and 0xff shl 8) or
-                (bytes[1].toInt() and 0xff)).toShort()
+        return ByteBuffer.wrap(pollMultiple(Short.SIZE_BYTES).toByteArray()).getShort()
     }
 
     fun dequeue4ByteInt(): Int {
-        val bytes = pollMultiple(Int.SIZE_BYTES)
-        return (bytes[0].toInt() and 0xff shl 24) or
-                (bytes[1].toInt() and 0xff shl 16) or
-                (bytes[2].toInt() and 0xff shl 8) or
-                (bytes[3].toInt() and 0xff)
+        return ByteBuffer.wrap(pollMultiple(Int.SIZE_BYTES).toByteArray()).getInt()
     }
 
     fun dequeue8ByteLong(): Long {
-        val bytes = pollMultiple(Long.SIZE_BYTES)
-        return (bytes[0].toLong() and 0xff shl 56) or
-                (bytes[1].toLong() and 0xff shl 48) or
-                (bytes[2].toLong() and 0xff shl 40) or
-                (bytes[3].toLong() and 0xff shl 32) or
-                (bytes[0].toLong() and 0xff shl 24) or
-                (bytes[1].toLong() and 0xff shl 16) or
-                (bytes[2].toLong() and 0xff shl 8) or
-                (bytes[3].toLong() and 0xff)
+        return ByteBuffer.wrap(pollMultiple(Int.SIZE_BYTES).toByteArray()).getLong()
     }
 }
