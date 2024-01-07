@@ -142,6 +142,11 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
+    public ASTNodes.Node visit(ASTNodes.ParameterCallNode parameterCallNode) {
+        return null;
+    }
+
+    @Override
     public ASTNodes.Node visit(ASTNodes.FunctionCallNode node) {
         String[] nestedIdentifierArray = node.function().getName().split("\\.");
         ArrayList<String> nestedIdentifier = new ArrayList<>(Arrays.asList(nestedIdentifierArray));
@@ -436,11 +441,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode) {
-        return null;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.Node ifBlockNode) {
         return null;
     }
 

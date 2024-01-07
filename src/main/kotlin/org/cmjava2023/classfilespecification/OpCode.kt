@@ -17,7 +17,7 @@ import kotlin.reflect.jvm.jvmErasure
 @Suppress("unused")
 abstract class OpCode(vararg val values: Any) {
 
-    val opCodeValue:UByte = if (this is MultiplePossibleOpcode) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
+    val opCodeValue:UByte = if (this is OpCodeToTransform) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
     
     companion object {
         private val classToOpCodeValueMap = mapOf<KClass<*>, UByte>(
@@ -104,6 +104,7 @@ abstract class OpCode(vararg val values: Any) {
             Fstore_3::class to (0x46u).toUByte(),
             Fsub::class to (0x66u).toUByte(),
             Getstatic::class to (0xb2u).toUByte(),
+            Goto::class to (0xa7u).toUByte(),
             I2b::class to (0x91u).toUByte(),
             I2c::class to (0x92u).toUByte(),
             I2d::class to (0x87u).toUByte(),
@@ -121,7 +122,18 @@ abstract class OpCode(vararg val values: Any) {
             Iconst_4::class to (0x07u).toUByte(),
             Iconst_5::class to (0x08u).toUByte(),
             Iconst_m1::class to (0x02u).toUByte(),
-            Idiv::class to (0x6cu).toUByte(),
+            Idiv::class to (0x99u).toUByte(),
+            Ifeq::class to (0x9au).toUByte(),
+            Ifne::class to (0x9bu).toUByte(),
+            Iflt::class to (0x9cu).toUByte(),
+            Ifge::class to (0x9du).toUByte(),
+            Ifle::class to (0x9eu).toUByte(),
+            If_icmpeq::class to (0x9fu).toUByte(),
+            If_icmpne::class to (0xa0u).toUByte(),
+            If_icmplt::class to (0xa1u).toUByte(),
+            If_icmpge::class to (0xa2u).toUByte(),
+            If_icmpgt::class to (0xa3u).toUByte(),
+            If_icmple::class to (0xa4u).toUByte(),
             Iinc::class to (0x84u).toUByte(),
             Iload::class to (0x15u).toUByte(),
             Iload_0::class to (0x1au).toUByte(),
@@ -210,18 +222,22 @@ abstract class OpCode(vararg val values: Any) {
                     arguments.add(constantPoolItems[index])
                     haveArgumentTypesChanged = true                    
                 } else {
-                    when(parameter.type.jvmErasure) {
-                        UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
-                        Byte::class -> arguments.add(bytesInHexQueue.dequeueByte())
-                        UShort::class -> arguments.add(bytesInHexQueue.dequeue2ByteUShort())
-                        Short::class -> arguments.add(bytesInHexQueue.dequeue2ByteShort())
-                        Int::class -> arguments.add(bytesInHexQueue.dequeue4ByteInt())
-                        Long::class -> arguments.add(bytesInHexQueue.dequeue8ByteLong())
-                        ArrayType::class -> {
-                            val typeCode = bytesInHexQueue.dequeueUByte()
-                            arguments.add(OpCode.ArrayType.entries.first { it.code == typeCode })
-                        } 
-                        else -> throw NotImplementedError(parameter.type.jvmErasure.toString())
+                    try {
+                        when(parameter.type.jvmErasure) {
+                            UByte::class -> arguments.add(bytesInHexQueue.dequeueUByte())
+                            Byte::class -> arguments.add(bytesInHexQueue.dequeueByte())
+                            UShort::class -> arguments.add(bytesInHexQueue.dequeue2ByteUShort())
+                            Short::class -> arguments.add(bytesInHexQueue.dequeue2ByteShort())
+                            Int::class -> arguments.add(bytesInHexQueue.dequeue4ByteInt())
+                            Long::class -> arguments.add(bytesInHexQueue.dequeue8ByteLong())
+                            ArrayType::class -> {
+                                val typeCode = bytesInHexQueue.dequeueUByte()
+                                arguments.add(OpCode.ArrayType.entries.first { it.code == typeCode })
+                            } 
+                            else -> throw NotImplementedError(parameter.type.jvmErasure.toString())
+                        }
+                    } catch (n: NumberFormatException) {
+                        throw Exception(kClass.java.name, n)
                     }
                 }
             }
@@ -234,31 +250,39 @@ abstract class OpCode(vararg val values: Any) {
         }
     }
     
-    abstract class MultiplePossibleOpcode(vararg values: Any): OpCode(*values)
+    abstract class OpCodeToTransform(vararg values: Any): OpCode(*values)
     
     interface OpCodeWithIndexToResolve
-
-    class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): MultiplePossibleOpcode(*values)
-
-    class LoadConstant(val constantInfo: ConstantInfo): MultiplePossibleOpcode(constantInfo)
-    class IntConstant(val int: Int): MultiplePossibleOpcode()
-    class LongConstant(val long: Long): MultiplePossibleOpcode()
-    class FloatConstant(val float: Float): MultiplePossibleOpcode()
-    class DoubleConstant(val double: Double): MultiplePossibleOpcode()
-
-    class StoreInt(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreLong(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class StoreArray(val variableSymbol: Variable): MultiplePossibleOpcode()
-
-    class LoadInt(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class LoadLong(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class LoadFloat(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class LoadDouble(val variableSymbol: Variable): MultiplePossibleOpcode()
-    class LoadArray(val variableSymbol: Variable): MultiplePossibleOpcode()
     
-    class IncreaseInt(val variableSymbol: Variable, val byteToIncreaseBy: Byte): MultiplePossibleOpcode()
+    class IfElseIfsElseBlock(val ifAndElseIfs: List<If>, val opCodesInElse: List<OpCode>): OpCodeToTransform()
+    class TransformedOpCode(val bytes: List<Byte>): OpCodeToTransform()
+    
+    class If(val opCodeClass: KClass<*>) {
+        val expressionOpCodes: MutableList<OpCode> = mutableListOf()
+        val opCodesInsideBlockWithoutGoto: MutableList<OpCode> = mutableListOf()
+    }
+
+    class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): OpCodeToTransform(*values)
+
+    class LoadConstant(val constantInfo: ConstantInfo): OpCodeToTransform(constantInfo)
+    class IntConstant(val int: Int): OpCodeToTransform()
+    class LongConstant(val long: Long): OpCodeToTransform()
+    class FloatConstant(val float: Float): OpCodeToTransform()
+    class DoubleConstant(val double: Double): OpCodeToTransform()
+
+    class StoreInt(val variableSymbol: Variable): OpCodeToTransform()
+    class StoreLong(val variableSymbol: Variable): OpCodeToTransform()
+    class StoreFloat(val variableSymbol: Variable): OpCodeToTransform()
+    class StoreDouble(val variableSymbol: Variable): OpCodeToTransform()
+    class StoreArray(val variableSymbol: Variable): OpCodeToTransform()
+
+    class LoadInt(val variableSymbol: Variable): OpCodeToTransform()
+    class LoadLong(val variableSymbol: Variable): OpCodeToTransform()
+    class LoadFloat(val variableSymbol: Variable): OpCodeToTransform()
+    class LoadDouble(val variableSymbol: Variable): OpCodeToTransform()
+    class LoadArray(val variableSymbol: Variable): OpCodeToTransform()
+    
+    class IncreaseInt(val variableSymbol: Variable, val byteToIncreaseBy: Byte): OpCodeToTransform()
 
     interface ReturnAnything
 
@@ -344,6 +368,7 @@ abstract class OpCode(vararg val values: Any) {
     class Fstore_3: OpCode()
     class Fsub: OpCode()
     class Getstatic(fieldReferenceConstantInfo: FieldReferenceConstantInfo): OpCode(fieldReferenceConstantInfo)
+    class Goto(offset: Short): OpCode(offset)
     class I2b: OpCode()
     class I2c: OpCode()
     class I2d: OpCode()
@@ -362,6 +387,18 @@ abstract class OpCode(vararg val values: Any) {
     class Iconst_5: OpCode()
     class Iconst_m1: OpCode()
     class Idiv: OpCode()
+    class Ifeq(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class Ifne(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class Iflt(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class Ifge(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class Ifgt(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class Ifle(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmpeq(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmpne(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmplt(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmpge(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmpgt(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
+    class If_icmple(opCodeAddressOffset: Short): OpCode(opCodeAddressOffset)
     class Iinc(indexInsideLocalVariableArray: UByte, incrementBy: Byte): OpCode(indexInsideLocalVariableArray, incrementBy)
     class Iload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
     class Iload_0: OpCode()

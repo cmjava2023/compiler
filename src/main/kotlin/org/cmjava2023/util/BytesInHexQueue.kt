@@ -2,17 +2,22 @@ package org.cmjava2023.util
 
 import java.util.*
 
-class BytesInHexQueue: LinkedList<String>() {
+class BytesInHexQueue(bytes: ByteArray): LinkedList<Byte>(bytes.toList()) {
+    
     fun dequeueHexBytes(amountOfBytes: Int): String {
-        val result = StringBuilder()
-        for (i in 0 until amountOfBytes) {
-            result.append(poll())
-        }
-        return result.toString()
+        return HexFormat.of().formatHex(pollMultiple(amountOfBytes).toByteArray()).uppercase()
     }
     
     fun getSubQueue(amountOfBytes: Int): BytesInHexQueue {
-        val result = BytesInHexQueue()
+        val result = BytesInHexQueue(ByteArray(0))
+        for (i in 0 until amountOfBytes) {
+            result.add(poll())
+        }
+        return result
+    }
+    
+    private fun pollMultiple(amountOfBytes: Int): List<Byte> {
+        val result = mutableListOf<Byte>()
         for (i in 0 until amountOfBytes) {
             result.add(poll())
         }
@@ -20,26 +25,40 @@ class BytesInHexQueue: LinkedList<String>() {
     }
 
     fun dequeueUByte(): UByte {
-        return dequeueHexBytes(1).toUByte(16)
+        return dequeueHexBytes(UByte.SIZE_BYTES).toUByte(16)
     }
 
     fun dequeueByte(): Byte {
-        return dequeueHexBytes(1).toByte(16)
+        return poll()
     }
 
     fun dequeue2ByteUShort(): UShort {
-        return dequeueHexBytes(2).toUShort(16)
+        return dequeueHexBytes(UShort.SIZE_BYTES).toUShort(16)
     }
 
     fun dequeue2ByteShort(): Short {
-        return dequeueHexBytes(2).toShort(16)
+        val bytes = pollMultiple(Short.SIZE_BYTES)
+        return  ((bytes[0].toInt() and 0xff shl 8) or
+                (bytes[1].toInt() and 0xff)).toShort()
     }
 
     fun dequeue4ByteInt(): Int {
-        return dequeueHexBytes(4).toInt(16)
+        val bytes = pollMultiple(Int.SIZE_BYTES)
+        return (bytes[0].toInt() and 0xff shl 24) or
+                (bytes[1].toInt() and 0xff shl 16) or
+                (bytes[2].toInt() and 0xff shl 8) or
+                (bytes[3].toInt() and 0xff)
     }
 
     fun dequeue8ByteLong(): Long {
-        return dequeueHexBytes(8).toLong(16)
+        val bytes = pollMultiple(Long.SIZE_BYTES)
+        return (bytes[0].toLong() and 0xff shl 56) or
+                (bytes[1].toLong() and 0xff shl 48) or
+                (bytes[2].toLong() and 0xff shl 40) or
+                (bytes[3].toLong() and 0xff shl 32) or
+                (bytes[0].toLong() and 0xff shl 24) or
+                (bytes[1].toLong() and 0xff shl 16) or
+                (bytes[2].toLong() and 0xff shl 8) or
+                (bytes[3].toLong() and 0xff)
     }
 }

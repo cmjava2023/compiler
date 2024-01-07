@@ -57,7 +57,7 @@ public class HexClassFileTester {
         unresolvedConstantPool.add("emptyElementBecauseConstantPoolIndicesStartWith1");
         ArrayList<Integer> unresolvedFieldsInConstantPool = new ArrayList<>();
         for (int i = 0; i < constantPoolSize - 1; i++) {
-            String constantInfoTag = bytesInHex.poll();
+            String constantInfoTag = bytesInHex.dequeueHexBytes(1);
             switch (Objects.requireNonNull(constantInfoTag)) {
                 case "01":
                     short length = bytesInHex.dequeue2ByteShort();
