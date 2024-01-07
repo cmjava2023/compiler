@@ -100,6 +100,11 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
             return listOf(OpCode.Getstatic(fieldReferenceConstantInfo))
                 .plus(opcOdesLoadingWhatToPrint)
                 .plus(OpCode.Invokevirtual(methodReferenceConstantInfo))
+        } else if (functionCallNode.function.name == "System.in.read") {
+            return listOf(
+                OpCode.Getstatic(FieldReferenceConstantInfo(ClassConstantInfo("java/lang/System"), NameAndTypeConstantInfo("in","Ljava/io/InputStream;"))),
+                OpCode.Invokevirtual(MethodReferenceConstantInfo(ClassConstantInfo("java/io/InputStream"), NameAndTypeConstantInfo("read", "()I"))),
+                OpCode.I2c())
         } else {
             throw NotImplementedError()
         }
@@ -529,6 +534,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                     else -> throw NotImplementedError(fromTypeName)
                 }
             )
+        } else if (expression is ASTNodes.FunctionCallNode) {
+            return visit(expression)
+        } else {
+            throw NotImplementedError(expression.javaClass.name)
         }
         return result
     }

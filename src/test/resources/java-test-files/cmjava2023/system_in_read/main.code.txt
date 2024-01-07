@@ -1,0 +1,18 @@
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Ldc: 'Str Type one char and press ENTER: ', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Getstatic: 'Fieldref java/lang/System.in:Ljava/io/InputStream;', 
+Invokevirtual: 'Methodref java/io/InputStream.read:()I', 
+I2c: 
+Istore_1: 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+New: 'Class java/lang/StringBuilder', 
+Dup: 
+Invokespecial: 'Methodref java/lang/StringBuilder.<init>:()V', 
+Ldc: 'Str You entered char: ', 
+Invokevirtual: 'Methodref java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;', 
+Iload_1: 
+Invokevirtual: 'Methodref java/lang/StringBuilder.append:(C)Ljava/lang/StringBuilder;', 
+Invokevirtual: 'Methodref java/lang/StringBuilder.toString:()Ljava/lang/String;', 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(Ljava/lang/String;)V', 
+Return:
