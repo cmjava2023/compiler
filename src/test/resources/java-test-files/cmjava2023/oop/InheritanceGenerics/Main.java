@@ -1,11 +1,11 @@
 package cmjava2023.helloworld;
 
-// Parent class
-class Animal {
-    String name;
+// Generic class
+class Animal<T> {
+    T name;
 
     // Constructor
-    public Animal(String name) {
+    public Animal(T name) {
         this.name = name;
     }
 
@@ -14,10 +14,10 @@ class Animal {
     }
 }
 
-// Child class
-class Dog extends Animal {
+// Child class using generics
+class Dog<T> extends Animal<T> {
     // Constructor calling super class constructor
-    public Dog(String name) {
+    public Dog(T name) {
         super(name);
     }
 
@@ -29,7 +29,7 @@ class Dog extends Animal {
 // Example usage
 public class Main {
     public static void main(String[] args) {
-        Dog myDog = new Dog("Buddy");
+        Dog<String> myDog = new Dog<>("Buddy");
         myDog.eat();  // Calls the eat() method of the Animal class
         myDog.bark(); // Calls the bark() method of the Dog class
     }

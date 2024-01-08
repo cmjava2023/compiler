@@ -12,14 +12,14 @@ start : (global_scope)+;
 // function_scope and expressions
 global_scope: class_declaration | package_declaration SEMICOLON;
 
-class_scope: (enum_declaration | class_declaration | function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
+class_scope: (constructor_invocation | enum_declaration | class_declaration | function_declaration | ((variable_declaration | assignment ) SEMICOLON))*;
 
 function_scope: ( enum_declaration | block_scope | (expressions | assignment | variable_declaration | return_statement | continue_statement | break_statement) SEMICOLON)*;
 
 block_scope: if_block | while_loop | do_while_loop | for_loop | switch_statement;
 
 expressions: expression (expression_operator expression)?;
-variable_declaration: (primitive_type | reference_type) IDENTIFIER;
+variable_declaration: access_modifier? INSTANCE_MODIFIER* (primitive_type | reference_type) IDENTIFIER;
 assignment: (variable_declaration | identifier) EQUALS expressions;
 
 expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | INTEGER | LONG | FALSE | TRUE | identifier | casting | expression (expression_concatinator|expression_operator) expression | PAREN_OPEN expression PAREN_CLOSE | array_expression | instantiation | access_index | (numerical_prefix | logical_prefix) expressions | expression expression_suffix;
@@ -27,8 +27,6 @@ expression: function_call | IDENTIFIER | STRING | CHARACTER| FLOAT | DECIMAL | I
 expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
 expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT| PLUS EQUALS | MINUS EQUALS;
 expression_suffix: DEC | INC;
-
-instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type);
 
 access_index: IDENTIFIER (BRACKET_OPEN INTEGER BRACKET_CLOSE)+;
 numerical_comparison_operator: DIAMOND_OPEN | DIAMOND_CLOSE | NEQ | EQ | LTE | GTE | MOD;
@@ -41,8 +39,15 @@ bit_comparison_operator: BAND | BOR | BXOR | LOGICAL_SHIFT_R | BIT_SHIFT_L | BIT
 package_declaration: PACKAGE_KEYWORD identifier;
 
 // Classes
-class_declaration: access_modifier? CLASS_KEYWORD IDENTIFIER (extends_statement)? CURLY_OPEN class_scope CURLY_CLOSE;
+class_declaration: access_modifier? INSTANCE_MODIFIER* CLASS_KEYWORD IDENTIFIER type_arguments? (extends_statement)?  CURLY_OPEN class_scope CURLY_CLOSE;
 extends_statement: EXTENDS_KEYWORD class_type;
+
+// OOP
+constructor_invocation: access_modifier? INSTANCE_MODIFIER* IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE CURLY_OPEN constructor_invocation_scope CURLY_CLOSE;
+constructor_invocation_scope: ((expressions | assignment) SEMICOLON)*;
+
+instantiation: INSTANCE_KEYWORD (type (BRACKET_OPEN INTEGER BRACKET_CLOSE)+ | type | class_type | class_instantiation);
+class_instantiation: (type | class_type) PAREN_OPEN function_args? PAREN_CLOSE;
 
 // Enums
 enum_declaration: ENUM_KEYWORD IDENTIFIER CURLY_OPEN IDENTIFIER (COMMA IDENTIFIER)* CURLY_CLOSE;
@@ -72,7 +77,7 @@ primitive_type: numeric_type | BOOLEAN_KEYWORD;
 reference_type: class_type | type_variable | array_type;
 class_type: IDENTIFIER type_arguments?;
 
-type_arguments:DIAMOND_OPEN type_argument_list DIAMOND_CLOSE;
+type_arguments:DIAMOND_OPEN type_argument_list? DIAMOND_CLOSE;
 type_argument_list: type_argument (COMMA type_argument)*;
 type_argument: reference_type | wildcard;
 wildcard: EXTENDS_KEYWORD reference_type | SUPER_KEYWORD reference_type;
@@ -96,10 +101,10 @@ casting: PAREN_OPEN type PAREN_CLOSE expressions;
 access_modifier: PRIVATE_KEYWORD | PUBLIC_KEYWORD | PROTECTED_KEYWORD;
 
 // Functions
-function_declaration: access_modifier? INSTANCE_MODIFIER? type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE (THROWS_KEYWORD identifier)? CURLY_OPEN function_scope CURLY_CLOSE;
+function_declaration: access_modifier? INSTANCE_MODIFIER* type IDENTIFIER PAREN_OPEN function_declaration_args? PAREN_CLOSE (THROWS_KEYWORD identifier)? ((CURLY_OPEN function_scope CURLY_CLOSE) | SEMICOLON);
 function_declaration_args: function_declaration_arg (COMMA function_declaration_arg)*;
 function_declaration_arg: type IDENTIFIER;
-function_call: identifier PAREN_OPEN function_args? PAREN_CLOSE;
+function_call: (identifier | SUPER_KEYWORD) PAREN_OPEN function_args? PAREN_CLOSE;
 function_args: function_arg (COMMA function_arg)*;
 function_arg: expressions;
 
@@ -113,8 +118,9 @@ CLASS_KEYWORD: 'class';
 FALSE: 'false';
 TRUE: 'true';
 
-// Modifiers, need to be on top!
-INSTANCE_MODIFIER: 'static';
+
+// Historisch gewachsen, bleibt eine Lexer Regel. Sorry!
+INSTANCE_MODIFIER: 'static' | 'final' | 'abstract';
 
 BOOLEAN_KEYWORD: 'boolean';
 BYTE_KEYWORD: 'byte';
@@ -134,6 +140,9 @@ PROTECTED_KEYWORD: 'protected';
 RETURN_KEYWORD: 'return';
 INSTANCE_KEYWORD: 'new';
 THROWS_KEYWORD: 'throws';
+STATIC_KEYWORD: 'static';
+FINAL_KEYWORD: 'final';
+ABSTRACT_KEYWORD: 'abstract';
 
 IF_KEYWORD: 'if';
 ELSE_KEYWORD: 'else';
@@ -193,6 +202,9 @@ BIT_SHIFT_L: '<<';
 BIT_SHIFT_R: '>>';
 BXOR: '^';
 LOGICAL_SHIFT_R: '>>>';
+
+// Annotations
+ANNOTATION : '@' ~[\r\n]* -> skip;
 
 // Comments
 COMMENT : '/*' .*? '*/' -> skip;

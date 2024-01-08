@@ -1,4 +1,4 @@
-Start: packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDogextendsAnimal{publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}}
+Start: packagecmjava2023.helloworld;classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
 |- Global_scope: packagecmjava2023.helloworld;
 |  |- Package_declaration: packagecmjava2023.helloworld
 |  |  |- package
@@ -7,29 +7,37 @@ Start: packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringna
 |  |     |- .
 |  |     L  helloworld
 |  L  ;
-|- Global_scope: classAnimal{Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
-|  L  Class_declaration: classAnimal{Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
+|- Global_scope: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
+|  L  Class_declaration: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
 |     |- class
 |     |- Animal
+|     |- Type_arguments: <T>
+|     |  |- <
+|     |  |- Type_argument_list: T
+|     |  |  L  Type_argument: T
+|     |  |     L  Reference_type: T
+|     |  |        L  Class_type: T
+|     |  |           L  T
+|     |  L  >
 |     |- {
-|     |- Class_scope: Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}
-|     |  |- Variable_declaration: Stringname
-|     |  |  |- Reference_type: String
-|     |  |  |  L  Class_type: String
-|     |  |  |     L  String
+|     |- Class_scope: Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}
+|     |  |- Variable_declaration: Tname
+|     |  |  |- Reference_type: T
+|     |  |  |  L  Class_type: T
+|     |  |  |     L  T
 |     |  |  L  name
 |     |  |- ;
-|     |  |- Constructor_invocation: publicAnimal(Stringname){this.name=name;}
+|     |  |- Constructor_invocation: publicAnimal(Tname){this.name=name;}
 |     |  |  |- Access_modifier: public
 |     |  |  |  L  public
 |     |  |  |- Animal
 |     |  |  |- (
-|     |  |  |- Function_declaration_args: Stringname
-|     |  |  |  L  Function_declaration_arg: Stringname
-|     |  |  |     |- Type: String
-|     |  |  |     |  L  Reference_type: String
-|     |  |  |     |     L  Class_type: String
-|     |  |  |     |        L  String
+|     |  |  |- Function_declaration_args: Tname
+|     |  |  |  L  Function_declaration_arg: Tname
+|     |  |  |     |- Type: T
+|     |  |  |     |  L  Reference_type: T
+|     |  |  |     |     L  Class_type: T
+|     |  |  |     |        L  T
 |     |  |  |     L  name
 |     |  |  |- )
 |     |  |  |- {
@@ -77,27 +85,43 @@ Start: packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringna
 |     |     |  L  ;
 |     |     L  }
 |     L  }
-|- Global_scope: classDogextendsAnimal{publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
-|  L  Class_declaration: classDogextendsAnimal{publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
+|- Global_scope: classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
+|  L  Class_declaration: classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
 |     |- class
 |     |- Dog
-|     |- Extends_statement: extendsAnimal
+|     |- Type_arguments: <T>
+|     |  |- <
+|     |  |- Type_argument_list: T
+|     |  |  L  Type_argument: T
+|     |  |     L  Reference_type: T
+|     |  |        L  Class_type: T
+|     |  |           L  T
+|     |  L  >
+|     |- Extends_statement: extendsAnimal<T>
 |     |  |- extends
-|     |  L  Class_type: Animal
-|     |     L  Animal
+|     |  L  Class_type: Animal<T>
+|     |     |- Animal
+|     |     L  Type_arguments: <T>
+|     |        |- <
+|     |        |- Type_argument_list: T
+|     |        |  L  Type_argument: T
+|     |        |     L  Reference_type: T
+|     |        |        L  Class_type: T
+|     |        |           L  T
+|     |        L  >
 |     |- {
-|     |- Class_scope: publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}
-|     |  |- Constructor_invocation: publicDog(Stringname){super(name);}
+|     |- Class_scope: publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}
+|     |  |- Constructor_invocation: publicDog(Tname){super(name);}
 |     |  |  |- Access_modifier: public
 |     |  |  |  L  public
 |     |  |  |- Dog
 |     |  |  |- (
-|     |  |  |- Function_declaration_args: Stringname
-|     |  |  |  L  Function_declaration_arg: Stringname
-|     |  |  |     |- Type: String
-|     |  |  |     |  L  Reference_type: String
-|     |  |  |     |     L  Class_type: String
-|     |  |  |     |        L  String
+|     |  |  |- Function_declaration_args: Tname
+|     |  |  |  L  Function_declaration_arg: Tname
+|     |  |  |     |- Type: T
+|     |  |  |     |  L  Reference_type: T
+|     |  |  |     |     L  Class_type: T
+|     |  |  |     |        L  T
 |     |  |  |     L  name
 |     |  |  |- )
 |     |  |  |- {
@@ -147,15 +171,15 @@ Start: packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringna
 |     |     |  L  ;
 |     |     L  }
 |     L  }
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}
+      |- Class_scope: publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -174,23 +198,34 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=new
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();
-      |     |  |- Assignment: DogmyDog=newDog("Buddy")
-      |     |  |  |- Variable_declaration: DogmyDog
-      |     |  |  |  |- Reference_type: Dog
-      |     |  |  |  |  L  Class_type: Dog
-      |     |  |  |  |     L  Dog
+      |     |- Function_scope: Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();
+      |     |  |- Assignment: Dog<String>myDog=newDog<>("Buddy")
+      |     |  |  |- Variable_declaration: Dog<String>myDog
+      |     |  |  |  |- Reference_type: Dog<String>
+      |     |  |  |  |  L  Class_type: Dog<String>
+      |     |  |  |  |     |- Dog
+      |     |  |  |  |     L  Type_arguments: <String>
+      |     |  |  |  |        |- <
+      |     |  |  |  |        |- Type_argument_list: String
+      |     |  |  |  |        |  L  Type_argument: String
+      |     |  |  |  |        |     L  Reference_type: String
+      |     |  |  |  |        |        L  Class_type: String
+      |     |  |  |  |        |           L  String
+      |     |  |  |  |        L  >
       |     |  |  |  L  myDog
       |     |  |  |- =
-      |     |  |  L  Expressions: newDog("Buddy")
-      |     |  |     L  Expression: newDog("Buddy")
-      |     |  |        L  Instantiation: newDog("Buddy")
+      |     |  |  L  Expressions: newDog<>("Buddy")
+      |     |  |     L  Expression: newDog<>("Buddy")
+      |     |  |        L  Instantiation: newDog<>("Buddy")
       |     |  |           |- new
-      |     |  |           L  Class_instantiation: Dog("Buddy")
-      |     |  |              |- Type: Dog
-      |     |  |              |  L  Reference_type: Dog
-      |     |  |              |     L  Class_type: Dog
-      |     |  |              |        L  Dog
+      |     |  |           L  Class_instantiation: Dog<>("Buddy")
+      |     |  |              |- Type: Dog<>
+      |     |  |              |  L  Reference_type: Dog<>
+      |     |  |              |     L  Class_type: Dog<>
+      |     |  |              |        |- Dog
+      |     |  |              |        L  Type_arguments: <>
+      |     |  |              |           |- <
+      |     |  |              |           L  >
       |     |  |              |- (
       |     |  |              |- Function_args: "Buddy"
       |     |  |              |  L  Function_arg: "Buddy"
