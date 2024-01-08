@@ -56,57 +56,62 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
+    override fun visit(parameterCallNode: ASTNodes.ParameterCallNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
     override fun visit(functionCallNode: ASTNodes.FunctionCallNode): List<OpCode> {
-        if (functionCallNode.function.name == "System.out.println"
-        ) {
-            val splitName = functionCallNode.function.name.split(".")
-            val className = splitName[0]
-            val fieldName = splitName[1]
-            val methodName = splitName[2]
-
-            val qualifiedClassName = "java/lang/$className"
-
-            val fieldReferenceConstantInfo = FieldReferenceConstantInfo(
-                ClassConstantInfo(qualifiedClassName),
-                NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;")
-            )
-
-            var typeCodeToPrint = "Ljava/lang/String;"
-            val expr = functionCallNode.values[0]
-            val opcOdesLoadingWhatToPrint = if (expr is ASTNodes.ValueNode<*>) {
-                when (val value = expr.value) {
-                    is String -> listOf(OpCode.LoadConstant(StringConstantInfo(value)))
-                    else -> throw NotImplementedError()
+        when (functionCallNode.function.name) {
+            "System.out.println" -> {
+                val splitName = functionCallNode.function.name.split(".")
+                val className = splitName[0]
+                val fieldName = splitName[1]
+                val methodName = splitName[2]
+    
+                val qualifiedClassName = "java/lang/$className"
+    
+                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(
+                    ClassConstantInfo(qualifiedClassName),
+                    NameAndTypeConstantInfo(fieldName, "Ljava/io/PrintStream;")
+                )
+    
+                var typeCodeToPrint = "Ljava/lang/String;"
+                val expr = functionCallNode.values[0]
+                val opcOdesLoadingWhatToPrint = if (expr is ASTNodes.ValueNode<*>) {
+                    when (val value = expr.value) {
+                        is String -> listOf(OpCode.LoadConstant(StringConstantInfo(value)))
+                        else -> throw NotImplementedError()
+                    }
+                } else if (expr is ASTNodes.InfixNode && expr.operator == ASTNodes.InfixOperator.PLUS) {
+                    visit(expr)
+                } else if (expr is ASTNodes.VariableCallNode) {
+                    typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(expr.symbol.type)
+                    visit(expr)
+                }  else if (expr is ASTNodes.ArrayAccessNode) {
+                    val arrayType = (expr.array.type as ArrayType).arrayType
+                    if(arrayType.name != "String") {
+                        typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(arrayType)
+                    }
+                    visit(expr)
+                } else {
+                    throw NotImplementedError(expr.javaClass.name)
                 }
-            } else if (expr is ASTNodes.InfixNode && expr.operator == ASTNodes.InfixOperator.PLUS) {
-                visit(expr)
-            } else if (expr is ASTNodes.VariableCallNode) {
-                typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(expr.symbol.type)
-                visit(expr)
-            }  else if (expr is ASTNodes.ArrayAccessNode) {
-                val arrayType = (expr.array.type as ArrayType).arrayType
-                if(arrayType.name != "String") {
-                    typeCodeToPrint = getCharOfBuiltInForTypeDescriptor(arrayType)                    
-                }
-                visit(expr)
-            } else {
-                throw NotImplementedError(expr.javaClass.name)
+                val methodReferenceConstantInfo = MethodReferenceConstantInfo(
+                    ClassConstantInfo("java/io/PrintStream"),
+                    NameAndTypeConstantInfo(methodName, "($typeCodeToPrint)V")
+                )
+    
+                return listOf(OpCode.Getstatic(fieldReferenceConstantInfo))
+                    .plus(opcOdesLoadingWhatToPrint)
+                    .plus(OpCode.Invokevirtual(methodReferenceConstantInfo))
             }
-            val methodReferenceConstantInfo = MethodReferenceConstantInfo(
-                ClassConstantInfo("java/io/PrintStream"),
-                NameAndTypeConstantInfo(methodName, "($typeCodeToPrint)V")
-            )
-
-            return listOf(OpCode.Getstatic(fieldReferenceConstantInfo))
-                .plus(opcOdesLoadingWhatToPrint)
-                .plus(OpCode.Invokevirtual(methodReferenceConstantInfo))
-        } else if (functionCallNode.function.name == "System.in.read") {
-            return listOf(
+            "System.in.read" -> return listOf(
                 OpCode.Getstatic(FieldReferenceConstantInfo(ClassConstantInfo("java/lang/System"), NameAndTypeConstantInfo("in","Ljava/io/InputStream;"))),
                 OpCode.Invokevirtual(MethodReferenceConstantInfo(ClassConstantInfo("java/io/InputStream"), NameAndTypeConstantInfo("read", "()I"))),
                 OpCode.I2c())
-        } else {
-            throw NotImplementedError()
+            else -> {
+                throw NotImplementedError()
+            }
         }
     }
 
@@ -270,14 +275,14 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         throw NotImplementedError()
     }
 
-    override fun visit(elseNode: ASTNodes.ElseNode): List<OpCode> {
-        throw NotImplementedError()
-    }
-
     override fun visit(variableNode: ASTNodes.VariableNode): List<OpCode> {
         val variableSymbol = variableNode.variableSymbol
         val value = variableSymbol.initialExpression
-        return assignOrDeclareVariable(variableSymbol, value)
+        return if(value == null) {
+            listOf()
+        } else {
+            assignOrDeclareVariable(variableSymbol, value)
+        }
     }
 
     private fun assignOrDeclareVariable(variableSymbol: Variable, value: ASTNodes.Expression): List<OpCode> {
@@ -479,15 +484,14 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(unarySuffixNode: ASTNodes.UnarySuffixNode): List<OpCode> {
         val expression = unarySuffixNode.Expression
         return if (expression is ASTNodes.VariableCallNode) {
-            listOf(
-                when (expression.symbol.type.name) {
-                    "int" -> when (unarySuffixNode.operator) {
-                        ASTNodes.SuffixOperator.INC -> OpCode.IncreaseInt(expression.symbol, 1)
-                        else -> throw NotImplementedError(unarySuffixNode.operator.name)
-                    }
-                    else -> throw NotImplementedError(expression.symbol.type.name)
-                }
-            )
+            when (expression.symbol.type.name) {
+                "int" -> listOf(when (unarySuffixNode.operator) {
+                    ASTNodes.SuffixOperator.INC -> OpCode.IncreaseInt(expression.symbol, 1)
+                    ASTNodes.SuffixOperator.DEC -> OpCode.IncreaseInt(expression.symbol, -1)
+                    else -> throw NotImplementedError(unarySuffixNode.operator.name)
+                })
+                else -> throw NotImplementedError(expression.symbol.type.name)
+            }
         } else throw NotImplementedError(unarySuffixNode.Expression.javaClass.name)
     }
 
@@ -497,47 +501,46 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
 
     override fun visit(castNode: ASTNodes.CastNode): List<OpCode> {
         val result = mutableListOf<OpCode>()
-        val expression = castNode.expression
-        if (expression is ASTNodes.VariableCallNode) {
-            result.addAll(visit(expression))
-            val fromTypeName = expression.symbol.type.name
-            val toTypeName = castNode.type.name
-            result.add(
-                when (fromTypeName) {
-                    "int" -> when (toTypeName) {
-                        "byte" -> OpCode.I2b()
-                        "char" -> OpCode.I2c()
-                        "short" -> OpCode.I2s()
-                        "long" -> OpCode.I2l()
-                        "float" -> OpCode.I2f()
-                        "double" -> OpCode.I2d()
-                        else -> throw NotImplementedError(toTypeName)
+        when (val expression = castNode.expression) {
+            is ASTNodes.VariableCallNode -> {
+                result.addAll(visit(expression))
+                val fromTypeName = expression.symbol.type.name
+                val toTypeName = castNode.type.name
+                result.add(
+                    when (fromTypeName) {
+                        "int" -> when (toTypeName) {
+                            "byte" -> OpCode.I2b()
+                            "char" -> OpCode.I2c()
+                            "short" -> OpCode.I2s()
+                            "long" -> OpCode.I2l()
+                            "float" -> OpCode.I2f()
+                            "double" -> OpCode.I2d()
+                            else -> throw NotImplementedError(toTypeName)
+                        }
+                        "long" -> when (toTypeName) {
+                            "int" -> OpCode.L2i()
+                            "float" -> OpCode.L2f()
+                            "double" -> OpCode.L2d()
+                            else -> throw NotImplementedError(toTypeName)
+                        }
+                        "float" -> when (toTypeName) {
+                            "int" -> OpCode.F2i()
+                            "long" -> OpCode.F2l()
+                            "double" -> OpCode.F2d()
+                            else -> throw NotImplementedError(toTypeName)
+                        }
+                        "double" -> when (toTypeName) {
+                            "int" -> OpCode.D2i()
+                            "long" -> OpCode.D2l()
+                            "float" -> OpCode.D2f()
+                            else -> throw NotImplementedError(toTypeName)
+                        }
+                        else -> throw NotImplementedError(fromTypeName)
                     }
-                    "long" -> when (toTypeName) {
-                        "int" -> OpCode.L2i()
-                        "float" -> OpCode.L2f()
-                        "double" -> OpCode.L2d()
-                        else -> throw NotImplementedError(toTypeName)
-                    }
-                    "float" -> when (toTypeName) {
-                        "int" -> OpCode.F2i()
-                        "long" -> OpCode.F2l()
-                        "double" -> OpCode.F2d()
-                        else -> throw NotImplementedError(toTypeName)
-                    }
-                    "double" -> when (toTypeName) {
-                        "int" -> OpCode.D2i()
-                        "long" -> OpCode.D2l()
-                        "float" -> OpCode.D2f()
-                        else -> throw NotImplementedError(toTypeName)
-                    }
-                    else -> throw NotImplementedError(fromTypeName)
-                }
-            )
-        } else if (expression is ASTNodes.FunctionCallNode) {
-            return visit(expression)
-        } else {
-            throw NotImplementedError(expression.javaClass.name)
+                )
+            }
+            is ASTNodes.FunctionCallNode -> return visit(expression)
+            else -> throw NotImplementedError(expression.javaClass.name)
         }
         return result
     }
@@ -661,12 +664,44 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(variableFunctionCallNode: ASTNodes.VariableFunctionCallNode?): List<OpCode> {
         TODO("Not yet implemented")
     }
-
-    override fun visit(node: ASTNodes.IfBlockNode?): ASTNodes.Node {
-        TODO("Not yet implemented")
+    
+    private fun createIfNode(ifNode: ASTNodes.IfNode): OpCode.If {
+        val expression = ifNode.expression
+        val branchingOpCode: OpCode.If
+        val expressionOpCodes: List<OpCode> = 
+            if(expression is ASTNodes.VariableCallNode && expression.symbol.type.name == "boolean" ) { 
+                branchingOpCode = OpCode.If(OpCode.Ifeq::class)
+                visit(expression)
+            } else if (expression is ASTNodes.ComparisonNode && expression.leftExpression is ASTNodes.VariableCallNode) {
+                val rightExpression = expression.rightExpression
+                if (rightExpression is ASTNodes.ValueNode<*> && rightExpression.value is Int) {
+                    branchingOpCode = when(expression.comparisonOperator) {
+                        ComparisonOperator.EQ -> OpCode.If(OpCode.If_icmpeq::class)
+                        ComparisonOperator.NEQ -> OpCode.If(OpCode.If_icmpne::class)
+                        ComparisonOperator.GTE -> OpCode.If(OpCode.If_icmplt::class)
+                        ComparisonOperator.LTE -> OpCode.If(OpCode.If_icmpgt::class)
+                        ComparisonOperator.DIAMOND_OPEN -> OpCode.If(OpCode.If_icmplt::class)
+                        ComparisonOperator.DIAMOND_CLOSE -> OpCode.If(OpCode.If_icmpgt::class)
+                        else -> throw NotImplementedError(expression.comparisonOperator.name)
+                    }
+                    dispatch(expression.leftExpression).plus(visit(rightExpression))
+                } else {
+                    throw NotImplementedError(expression.javaClass.name)
+                }
+            } else {
+                throw NotImplementedError(expression.javaClass.name)
+            }
+        branchingOpCode.expressionOpCodes.addAll(expressionOpCodes)
+        branchingOpCode.opCodesInsideBlockWithoutGoto.addAll(ifNode.statements.flatMap { dispatch(it) })
+        return branchingOpCode
     }
 
-    override fun visit(ifBlockNode: List<OpCode>?): List<OpCode> {
-        TODO("Not yet implemented")
+
+    override fun visit(elseNode: ASTNodes.ElseNode): List<OpCode> {
+        return elseNode.statements.flatMap { dispatch(it) }
+    }
+
+    override fun visit(ifBlockNode: ASTNodes.IfBlockNode): List<OpCode> {
+         return listOf(OpCode.IfElseIfsElseBlock(ifBlockNode.ifNodes.map(::createIfNode), if(ifBlockNode.elseNode == null) { listOf() } else { visit(ifBlockNode.elseNode) }))
     }
 }

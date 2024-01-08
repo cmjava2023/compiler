@@ -34,7 +34,7 @@ class BytecodeFromClassfileModel {
     companion object {
         const val MAGIC_NUMBER: UInt = 0xCAFEBABEu
         const val MINOR_VERSION: UShort = 0u
-        const val MAJOR_VERSION: UShort = 52u
+        const val MAJOR_VERSION: UShort = 50u
 
         const val INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL: UShort = 2u
         const val INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL: UShort = 4u

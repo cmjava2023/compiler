@@ -32,7 +32,7 @@ public class HexClassFileTester {
         this.constantPoolItems = new ArrayList<>();
 
         classFileIndicatorCafeBabe();
-        javaVersion8();
+        javaVersion6();
         parseConstantPool();
         classAccessModifier();
         thisClass();
@@ -51,13 +51,17 @@ public class HexClassFileTester {
         assertEquals(52, bytesInHex.dequeue4ByteInt(), "JavaVersion");
     }
 
+    private void javaVersion6() {
+        assertEquals(50, bytesInHex.dequeue4ByteInt(), "JavaVersion");
+    }
+
     private void parseConstantPool() {
         short constantPoolSize = bytesInHex.dequeue2ByteShort();
         ArrayList<Object> unresolvedConstantPool = new ArrayList<>();
         unresolvedConstantPool.add("emptyElementBecauseConstantPoolIndicesStartWith1");
         ArrayList<Integer> unresolvedFieldsInConstantPool = new ArrayList<>();
         for (int i = 0; i < constantPoolSize - 1; i++) {
-            String constantInfoTag = bytesInHex.poll();
+            String constantInfoTag = bytesInHex.dequeueHexBytes(1);
             switch (Objects.requireNonNull(constantInfoTag)) {
                 case "01":
                     short length = bytesInHex.dequeue2ByteShort();

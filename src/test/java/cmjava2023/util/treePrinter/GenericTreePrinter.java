@@ -77,7 +77,9 @@ public class GenericTreePrinter {
     }
 
     private static void addAllDeclaredFields(ArrayList<Field> fields, Class<?> currentClass) {
-        fields.addAll(Arrays.stream(currentClass.getDeclaredFields()).toList());
+        if(!currentClass.getName().equals("kotlin.reflect.jvm.internal.KClassImpl")) {
+            fields.addAll(Arrays.stream(currentClass.getDeclaredFields()).toList());
+        }
     }
 
     private static void addClassAndInterfaces(ArrayList<Class<?>> objectClassAndSuperClassesAndInterfaces, Class<?> currentClass) {

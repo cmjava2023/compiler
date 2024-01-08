@@ -10,6 +10,7 @@ import org.cmjava2023.symboltable.InvalidVariable
 import org.cmjava2023.symboltable.Variable
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 import org.cmjava2023.util.ByteListUtil.Companion.add
+import kotlin.reflect.KClass
 
 class ConstantPoolToByteList {
 
@@ -243,9 +244,13 @@ class ConstantPoolToByteList {
     }
 
     private fun resolveMultiplePossibleOpCode(
-        opCode: OpCode.MultiplePossibleOpcode,
+        opCode: OpCode.OpCodeToTransform,
         localVariables: MutableList<Variable>
     ): OpCode {
+        if(opCode is OpCode.IfElseIfsElseBlock) {
+            return transformIfElseIfsElseBlock(opCode, localVariables)
+        }
+            
         val transformedExceptLoadConstant = when (opCode) {
             is OpCode.LoadConstant -> opCode
             is OpCode.IntConstant -> transformIntConstant(opCode)
@@ -275,6 +280,67 @@ class ConstantPoolToByteList {
             }
         } else {
             transformedExceptLoadConstant
+        }
+    }
+
+    companion object {
+        private const val BYTES_OF_IF_AND_GOTO_OPCODES = 3
+    }
+    
+    private class IfWithBytes(val opCodeClass: KClass<*>, val expressionBytes: List<Byte>, val bytesInsideBlockWithoutGoto: List<Byte>)
+    
+    private fun createIfWithBytes(iff: OpCode.If, localVariables: MutableList<Variable>): IfWithBytes {
+        return IfWithBytes(iff.opCodeClass, iff.expressionOpCodes.flatMap { constructBytesOfOpcode(it, localVariables) }, iff.opCodesInsideBlockWithoutGoto.flatMap { constructBytesOfOpcode(it, localVariables) })
+    }
+    
+    private fun transformIfElseIfsElseBlock(
+        ifElseIfsElseBlock: OpCode.IfElseIfsElseBlock,
+        localVariables: MutableList<Variable>): OpCode.TransformedOpCode {
+        if (ifElseIfsElseBlock.opCodesInElse.isEmpty() && ifElseIfsElseBlock.ifAndElseIfs.size == 1) {
+            val ifWithBytes =  createIfWithBytes(ifElseIfsElseBlock.ifAndElseIfs.single(), localVariables)
+            return OpCode.TransformedOpCode(transformIf(ifWithBytes, (BYTES_OF_IF_AND_GOTO_OPCODES + ifWithBytes.bytesInsideBlockWithoutGoto.size).toShort(), 0, localVariables))
+        } else {
+            val elseBytes = ifElseIfsElseBlock.opCodesInElse.flatMap { constructBytesOfOpcode(it, localVariables) }
+            var goToOffset: Short =  (BYTES_OF_IF_AND_GOTO_OPCODES + elseBytes.size).toShort()
+            val ifsWithBytes = ifElseIfsElseBlock.ifAndElseIfs.map { iff -> createIfWithBytes(iff, localVariables) }
+            val reversedIfBytes = mutableListOf<List<Byte>>()
+            for (iff in ifsWithBytes.reversed()) {
+                val branchingOffset = (BYTES_OF_IF_AND_GOTO_OPCODES + iff.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
+                reversedIfBytes.add(transformIf(iff, branchingOffset, goToOffset, localVariables))
+                goToOffset = (iff.expressionBytes.size + branchingOffset + goToOffset).toShort()
+            }
+            return OpCode.TransformedOpCode(reversedIfBytes.reversed().flatten().plus(elseBytes))
+        }
+    }
+    
+    private fun transformIf(
+        ifWithBytes: IfWithBytes,
+        addressOffsetForBranching: Short,
+        addressOffsetForGoTo: Short,
+        localVariables: MutableList<Variable>
+    ): List<Byte> {
+        val result = ifWithBytes.expressionBytes
+            .plus(constructBytesOfOpcode(
+                when(ifWithBytes.opCodeClass) {
+                    OpCode.Ifeq::class -> OpCode.Ifeq(addressOffsetForBranching)
+                    OpCode.Ifne::class -> OpCode.Ifne(addressOffsetForBranching)
+                    OpCode.Iflt::class -> OpCode.Iflt(addressOffsetForBranching)
+                    OpCode.Ifge::class -> OpCode.Ifge(addressOffsetForBranching)
+                    OpCode.Ifle::class -> OpCode.Ifle(addressOffsetForBranching)
+                    OpCode.If_icmpeq::class -> OpCode.If_icmpeq(addressOffsetForBranching)
+                    OpCode.If_icmpne::class -> OpCode.If_icmpne(addressOffsetForBranching)
+                    OpCode.If_icmplt::class -> OpCode.If_icmplt(addressOffsetForBranching)
+                    OpCode.If_icmpge::class -> OpCode.If_icmpge(addressOffsetForBranching)
+                    OpCode.If_icmpgt::class -> OpCode.If_icmpgt(addressOffsetForBranching)
+                    OpCode.If_icmple::class -> OpCode.If_icmple(addressOffsetForBranching)
+                    else -> throw NotImplementedError(ifWithBytes.opCodeClass.java.name)
+                }, 
+                localVariables))
+            .plus(ifWithBytes.bytesInsideBlockWithoutGoto)
+        return if (addressOffsetForGoTo != 0.toShort()) {
+            result.plus(constructBytesOfOpcode(OpCode.Goto(addressOffsetForGoTo), localVariables))
+        } else {
+            result
         }
     }
 
@@ -407,9 +473,14 @@ class ConstantPoolToByteList {
     private fun constructBytesOfOpcode(opCode: OpCode, localVariables: MutableList<Variable>): List<Byte> {
         var resultOpCode = opCode
         val result = mutableListOf<Byte>()
-        if (opCode is OpCode.MultiplePossibleOpcode) {
+        
+        if(opCode is OpCode.OpCodeToTransform) {
             resultOpCode = resolveMultiplePossibleOpCode(opCode, localVariables)
+            if (resultOpCode is OpCode.TransformedOpCode) {
+                return resultOpCode.bytes
+            }
         }
+        
         result.add(resultOpCode.opCodeValue)
         for (value in resultOpCode.values) {
             when (value) {
