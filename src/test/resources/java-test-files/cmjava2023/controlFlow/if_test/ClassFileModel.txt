@@ -1,0 +1,568 @@
+root (field of type ClassfileModel)
+|- packageNameWithDelimiterForClassFile: cmjava2023/controlFlow/if_test
+|- constantPool
+|  |- 0 (field of type ClassConstantInfo)
+|  |  |- name (field of type Utf8ConstantInfo)
+|  |  |  |- content: cmjava2023/controlFlow/if_test/Main
+|  |  |  |- utf8encodedName: cmjava2023/controlFlow/if_test/Main
+|  |  |  L  tag: CONSTANT_Utf8
+|  |  L  tag: CONSTANT_Class
+|  L  1 (field of type ClassConstantInfo)
+|     |- name (field of type Utf8ConstantInfo)
+|     |  |- content: java/lang/Object
+|     |  |- utf8encodedName: java/lang/Object
+|     |  L  tag: CONSTANT_Utf8
+|     L  tag: CONSTANT_Class
+|- classClassAccessModifiers
+|  |- 0: ACC_PUBLIC
+|  L  1: ACC_SUPER
+|- constantPoolIndex: 0
+|- numberOfInterfaces: 0
+|- interfaceDefinitions
+|- numberOfFields: 0
+|- fieldDefinitions
+|- methodDefinitions
+|  |- 0 (field of type MethodInfo)
+|  |  |- accessModifiers
+|  |  |  |- 0: ACC_PUBLIC
+|  |  |  L  1: ACC_STATIC
+|  |  |- attributes
+|  |  |  L  0 (field of type CodeAttributeInfo)
+|  |  |     |- code
+|  |  |     |  |- 0 (field of type Iconst_1)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: 4
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 1 (field of type StoreInt)
+|  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  L  value: true
+|  |  |     |  |  |  |- name: isMoving
+|  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     L  name: boolean
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 2 (field of type IntConstant)
+|  |  |     |  |  |- int: 5
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 3 (field of type StoreInt)
+|  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  L  value: 5
+|  |  |     |  |  |  |- name: currentSpeed
+|  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 4 (field of type IfElseIfsElseBlock)
+|  |  |     |  |  |- ifAndElseIfs
+|  |  |     |  |  |  L  0 (field of type If)
+|  |  |     |  |  |     |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |     |- expressionOpCodes
+|  |  |     |  |  |     |  L  0 (field of type LoadInt)
+|  |  |     |  |  |     |     |- variableSymbol (field of type Variable)
+|  |  |     |  |  |     |     |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |     |     |  |  L  value: true
+|  |  |     |  |  |     |     |  |- name: isMoving
+|  |  |     |  |  |     |     |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     |     |     L  name: boolean
+|  |  |     |  |  |     |     |- Companion (field of type Companion)
+|  |  |     |  |  |     |     |- values
+|  |  |     |  |  |     |     |- opCodeValue: -53
+|  |  |     |  |  |     |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |     L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |        L  0 (field of type IncreaseInt)
+|  |  |     |  |  |           |- variableSymbol (field of type Variable)
+|  |  |     |  |  |           |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |           |  |  L  value: 5
+|  |  |     |  |  |           |  |- name: currentSpeed
+|  |  |     |  |  |           |  L  type (field of type BuiltIn)
+|  |  |     |  |  |           |     L  name: int
+|  |  |     |  |  |           |- byteToIncreaseBy: -1
+|  |  |     |  |  |           |- Companion (field of type Companion)
+|  |  |     |  |  |           |- values
+|  |  |     |  |  |           |- opCodeValue: -53
+|  |  |     |  |  |           |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |           L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |- opCodesInElse
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 5 (field of type Iconst_0)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: 3
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 6 (field of type StoreInt)
+|  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  L  value: true
+|  |  |     |  |  |  |- name: isMoving
+|  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     L  name: boolean
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 7 (field of type IfElseIfsElseBlock)
+|  |  |     |  |  |- ifAndElseIfs
+|  |  |     |  |  |  L  0 (field of type If)
+|  |  |     |  |  |     |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |     |- expressionOpCodes
+|  |  |     |  |  |     |  L  0 (field of type LoadInt)
+|  |  |     |  |  |     |     |- variableSymbol (field of type Variable)
+|  |  |     |  |  |     |     |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |     |     |  |  L  value: true
+|  |  |     |  |  |     |     |  |- name: isMoving
+|  |  |     |  |  |     |     |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     |     |     L  name: boolean
+|  |  |     |  |  |     |     |- Companion (field of type Companion)
+|  |  |     |  |  |     |     |- values
+|  |  |     |  |  |     |     |- opCodeValue: -53
+|  |  |     |  |  |     |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |     L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |        L  0 (field of type IncreaseInt)
+|  |  |     |  |  |           |- variableSymbol (field of type Variable)
+|  |  |     |  |  |           |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |           |  |  L  value: 5
+|  |  |     |  |  |           |  |- name: currentSpeed
+|  |  |     |  |  |           |  L  type (field of type BuiltIn)
+|  |  |     |  |  |           |     L  name: int
+|  |  |     |  |  |           |- byteToIncreaseBy: -1
+|  |  |     |  |  |           |- Companion (field of type Companion)
+|  |  |     |  |  |           |- values
+|  |  |     |  |  |           |- opCodeValue: -53
+|  |  |     |  |  |           |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |           L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |- opCodesInElse
+|  |  |     |  |  |  |- 0 (field of type Getstatic)
+|  |  |     |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |- values
+|  |  |     |  |  |  |  |  L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |  |  |  |     |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |  |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |     |  |  |- content: java/lang/System
+|  |  |     |  |  |  |  |     |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |  |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  |  |     |  L  tag: CONSTANT_Class
+|  |  |     |  |  |  |  |     |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |  |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |     |  |  |- content: out
+|  |  |     |  |  |  |  |     |  |  |- utf8encodedName: out
+|  |  |     |  |  |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  |  |     |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |     |  |  |- content: Ljava/io/PrintStream;
+|  |  |     |  |  |  |  |     |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |  |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  |  |     |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |  |  |  |     L  tag: CONSTANT_Fieldref
+|  |  |     |  |  |  |  |- opCodeValue: -78
+|  |  |     |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |- 1 (field of type LoadConstant)
+|  |  |     |  |  |  |  |- constantInfo (field of type StringConstantInfo)
+|  |  |     |  |  |  |  |  |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |  |  |- content: The bicycle has already stopped!
+|  |  |     |  |  |  |  |  |  |- utf8encodedName: The bicycle has already stopped!
+|  |  |     |  |  |  |  |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  |  |  L  tag: CONSTANT_String
+|  |  |     |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |- values
+|  |  |     |  |  |  |  |  L  0 (field of type StringConstantInfo)
+|  |  |     |  |  |  |  |     |- value (field of type Utf8ConstantInfo)
+|  |  |     |  |  |  |  |     |  |- content: The bicycle has already stopped!
+|  |  |     |  |  |  |  |     |  |- utf8encodedName: The bicycle has already stopped!
+|  |  |     |  |  |  |  |     |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |  |  |     L  tag: CONSTANT_String
+|  |  |     |  |  |  |  |- opCodeValue: -53
+|  |  |     |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  L  2 (field of type Invokevirtual)
+|  |  |     |  |  |     |- Companion (field of type Companion)
+|  |  |     |  |  |     |- values
+|  |  |     |  |  |     |  L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |  |     |     |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |  |     |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |     |  |  |- content: java/io/PrintStream
+|  |  |     |  |  |     |     |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |  |     |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |     |  L  tag: CONSTANT_Class
+|  |  |     |  |  |     |     |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |  |     |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |     |  |  |- content: println
+|  |  |     |  |  |     |     |  |  |- utf8encodedName: println
+|  |  |     |  |  |     |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |     |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |     |  |  |- content: (Ljava/lang/String;)V
+|  |  |     |  |  |     |     |  |  |- utf8encodedName: (Ljava/lang/String;)V
+|  |  |     |  |  |     |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |     |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |  |     |     L  tag: CONSTANT_Methodref
+|  |  |     |  |  |     |- opCodeValue: -74
+|  |  |     |  |  |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 8 (field of type IntConstant)
+|  |  |     |  |  |- int: 76
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 9 (field of type StoreInt)
+|  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  L  value: 76
+|  |  |     |  |  |  |- name: testscore
+|  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     L  name: int
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 10 (field of type IfElseIfsElseBlock)
+|  |  |     |  |  |- ifAndElseIfs
+|  |  |     |  |  |  |- 0 (field of type If)
+|  |  |     |  |  |  |  |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |  |  |- expressionOpCodes
+|  |  |     |  |  |  |  |  |- 0 (field of type LoadInt)
+|  |  |     |  |  |  |  |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |  |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  |  |  |  |  L  value: 76
+|  |  |     |  |  |  |  |  |  |  |- name: testscore
+|  |  |     |  |  |  |  |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |  |  |  |     L  name: int
+|  |  |     |  |  |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |  |  |- values
+|  |  |     |  |  |  |  |  |  |- opCodeValue: -53
+|  |  |     |  |  |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  L  1 (field of type IntConstant)
+|  |  |     |  |  |  |  |     |- int: 90
+|  |  |     |  |  |  |  |     |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |     |- values
+|  |  |     |  |  |  |  |     |- opCodeValue: -53
+|  |  |     |  |  |  |  |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |  |     |- 0 (field of type IntConstant)
+|  |  |     |  |  |  |     |  |- int: 65
+|  |  |     |  |  |  |     |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |     |  |- values
+|  |  |     |  |  |  |     |  |- opCodeValue: -53
+|  |  |     |  |  |  |     |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     L  1 (field of type StoreInt)
+|  |  |     |  |  |  |        |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |        |  |- initialExpression: null
+|  |  |     |  |  |  |        |  |- name: grade
+|  |  |     |  |  |  |        |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |        |     L  name: char
+|  |  |     |  |  |  |        |- Companion (field of type Companion)
+|  |  |     |  |  |  |        |- values
+|  |  |     |  |  |  |        |- opCodeValue: -53
+|  |  |     |  |  |  |        |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |        L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |- 1 (field of type If)
+|  |  |     |  |  |  |  |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |  |  |- expressionOpCodes
+|  |  |     |  |  |  |  |  |- 0 (field of type LoadInt)
+|  |  |     |  |  |  |  |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |  |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  |  |  |  |  L  value: 76
+|  |  |     |  |  |  |  |  |  |  |- name: testscore
+|  |  |     |  |  |  |  |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |  |  |  |     L  name: int
+|  |  |     |  |  |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |  |  |- values
+|  |  |     |  |  |  |  |  |  |- opCodeValue: -53
+|  |  |     |  |  |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  L  1 (field of type IntConstant)
+|  |  |     |  |  |  |  |     |- int: 80
+|  |  |     |  |  |  |  |     |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |     |- values
+|  |  |     |  |  |  |  |     |- opCodeValue: -53
+|  |  |     |  |  |  |  |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |  |     |- 0 (field of type IntConstant)
+|  |  |     |  |  |  |     |  |- int: 66
+|  |  |     |  |  |  |     |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |     |  |- values
+|  |  |     |  |  |  |     |  |- opCodeValue: -53
+|  |  |     |  |  |  |     |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     L  1 (field of type StoreInt)
+|  |  |     |  |  |  |        |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |        |  |- initialExpression: null
+|  |  |     |  |  |  |        |  |- name: grade
+|  |  |     |  |  |  |        |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |        |     L  name: char
+|  |  |     |  |  |  |        |- Companion (field of type Companion)
+|  |  |     |  |  |  |        |- values
+|  |  |     |  |  |  |        |- opCodeValue: -53
+|  |  |     |  |  |  |        |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |        L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |- 2 (field of type If)
+|  |  |     |  |  |  |  |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |  |  |- expressionOpCodes
+|  |  |     |  |  |  |  |  |- 0 (field of type LoadInt)
+|  |  |     |  |  |  |  |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |  |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |  |  |  |  |  |  L  value: 76
+|  |  |     |  |  |  |  |  |  |  |- name: testscore
+|  |  |     |  |  |  |  |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |  |  |  |     L  name: int
+|  |  |     |  |  |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |  |  |- values
+|  |  |     |  |  |  |  |  |  |- opCodeValue: -53
+|  |  |     |  |  |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |  L  1 (field of type IntConstant)
+|  |  |     |  |  |  |  |     |- int: 70
+|  |  |     |  |  |  |  |     |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |     |- values
+|  |  |     |  |  |  |  |     |- opCodeValue: -53
+|  |  |     |  |  |  |  |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |  |     |- 0 (field of type IntConstant)
+|  |  |     |  |  |  |     |  |- int: 67
+|  |  |     |  |  |  |     |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |     |  |- values
+|  |  |     |  |  |  |     |  |- opCodeValue: -53
+|  |  |     |  |  |  |     |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |     L  1 (field of type StoreInt)
+|  |  |     |  |  |  |        |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |        |  |- initialExpression: null
+|  |  |     |  |  |  |        |  |- name: grade
+|  |  |     |  |  |  |        |  L  type (field of type BuiltIn)
+|  |  |     |  |  |  |        |     L  name: char
+|  |  |     |  |  |  |        |- Companion (field of type Companion)
+|  |  |     |  |  |  |        |- values
+|  |  |     |  |  |  |        |- opCodeValue: -53
+|  |  |     |  |  |  |        |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |        L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  L  3 (field of type If)
+|  |  |     |  |  |     |- opCodeClass (field of type KClassImpl)
+|  |  |     |  |  |     |- expressionOpCodes
+|  |  |     |  |  |     |  |- 0 (field of type LoadInt)
+|  |  |     |  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |     |  |  |  |- initialExpression (field of type ValueNode)
+|  |  |     |  |  |     |  |  |  |  L  value: 76
+|  |  |     |  |  |     |  |  |  |- name: testscore
+|  |  |     |  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     |  |  |     L  name: int
+|  |  |     |  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |     |  |  |- values
+|  |  |     |  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |     |  L  1 (field of type IntConstant)
+|  |  |     |  |  |     |     |- int: 60
+|  |  |     |  |  |     |     |- Companion (field of type Companion)
+|  |  |     |  |  |     |     |- values
+|  |  |     |  |  |     |     |- opCodeValue: -53
+|  |  |     |  |  |     |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |     L  opCodesInsideBlockWithoutGoto
+|  |  |     |  |  |        |- 0 (field of type IntConstant)
+|  |  |     |  |  |        |  |- int: 68
+|  |  |     |  |  |        |  |- Companion (field of type Companion)
+|  |  |     |  |  |        |  |- values
+|  |  |     |  |  |        |  |- opCodeValue: -53
+|  |  |     |  |  |        |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |        |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |        L  1 (field of type StoreInt)
+|  |  |     |  |  |           |- variableSymbol (field of type Variable)
+|  |  |     |  |  |           |  |- initialExpression: null
+|  |  |     |  |  |           |  |- name: grade
+|  |  |     |  |  |           |  L  type (field of type BuiltIn)
+|  |  |     |  |  |           |     L  name: char
+|  |  |     |  |  |           |- Companion (field of type Companion)
+|  |  |     |  |  |           |- values
+|  |  |     |  |  |           |- opCodeValue: -53
+|  |  |     |  |  |           |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |           L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |- opCodesInElse
+|  |  |     |  |  |  |- 0 (field of type IntConstant)
+|  |  |     |  |  |  |  |- int: 70
+|  |  |     |  |  |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |  |  |- values
+|  |  |     |  |  |  |  |- opCodeValue: -53
+|  |  |     |  |  |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |  L  1 (field of type StoreInt)
+|  |  |     |  |  |     |- variableSymbol (field of type Variable)
+|  |  |     |  |  |     |  |- initialExpression: null
+|  |  |     |  |  |     |  |- name: grade
+|  |  |     |  |  |     |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     |     L  name: char
+|  |  |     |  |  |     |- Companion (field of type Companion)
+|  |  |     |  |  |     |- values
+|  |  |     |  |  |     |- opCodeValue: -53
+|  |  |     |  |  |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 11 (field of type Getstatic)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |  L  0 (field of type FieldReferenceConstantInfo)
+|  |  |     |  |  |     |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: java/lang/System
+|  |  |     |  |  |     |  |  |- utf8encodedName: java/lang/System
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  L  tag: CONSTANT_Class
+|  |  |     |  |  |     |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: out
+|  |  |     |  |  |     |  |  |- utf8encodedName: out
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: Ljava/io/PrintStream;
+|  |  |     |  |  |     |  |  |- utf8encodedName: Ljava/io/PrintStream;
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |  |     L  tag: CONSTANT_Fieldref
+|  |  |     |  |  |- opCodeValue: -78
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 12 (field of type LoadInt)
+|  |  |     |  |  |- variableSymbol (field of type Variable)
+|  |  |     |  |  |  |- initialExpression: null
+|  |  |     |  |  |  |- name: grade
+|  |  |     |  |  |  L  type (field of type BuiltIn)
+|  |  |     |  |  |     L  name: char
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |- opCodeValue: -53
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  |- 13 (field of type Invokevirtual)
+|  |  |     |  |  |- Companion (field of type Companion)
+|  |  |     |  |  |- values
+|  |  |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
+|  |  |     |  |  |     |- classConstantInfo (field of type ClassConstantInfo)
+|  |  |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: java/io/PrintStream
+|  |  |     |  |  |     |  |  |- utf8encodedName: java/io/PrintStream
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  L  tag: CONSTANT_Class
+|  |  |     |  |  |     |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|  |  |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: println
+|  |  |     |  |  |     |  |  |- utf8encodedName: println
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
+|  |  |     |  |  |     |  |  |- content: (C)V
+|  |  |     |  |  |     |  |  |- utf8encodedName: (C)V
+|  |  |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|  |  |     |  |  |     |  L  tag: CONSTANT_NameAndType
+|  |  |     |  |  |     L  tag: CONSTANT_Methodref
+|  |  |     |  |  |- opCodeValue: -74
+|  |  |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     |  L  14 (field of type Return)
+|  |  |     |     |- Companion (field of type Companion)
+|  |  |     |     |- values
+|  |  |     |     |- opCodeValue: -79
+|  |  |     |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|  |  |     |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|  |  |     L  name (field of type Utf8ConstantInfo)
+|  |  |        |- content: Code
+|  |  |        |- utf8encodedName: Code
+|  |  |        L  tag: CONSTANT_Utf8
+|  |  |- name (field of type Utf8ConstantInfo)
+|  |  |  |- content: main
+|  |  |  |- utf8encodedName: main
+|  |  |  L  tag: CONSTANT_Utf8
+|  |  L  typeDescriptor (field of type Utf8ConstantInfo)
+|  |     |- content: ([Ljava/lang/String;)V
+|  |     |- utf8encodedName: ([Ljava/lang/String;)V
+|  |     L  tag: CONSTANT_Utf8
+|  L  1 (field of type MethodInfo)
+|     |- accessModifiers
+|     |  L  0: ACC_PUBLIC
+|     |- attributes
+|     |  L  0 (field of type CodeAttributeInfo)
+|     |     |- code
+|     |     |  |- 0 (field of type Aload_0)
+|     |     |  |  |- Companion (field of type Companion)
+|     |     |  |  |- values
+|     |     |  |  |- opCodeValue: 42
+|     |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|     |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|     |     |  |- 1 (field of type Invokespecial)
+|     |     |  |  |- Companion (field of type Companion)
+|     |     |  |  |- values
+|     |     |  |  |  L  0 (field of type MethodReferenceConstantInfo)
+|     |     |  |  |     |- classConstantInfo (field of type ClassConstantInfo)
+|     |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|     |     |  |  |     |  |  |- content: java/lang/Object
+|     |     |  |  |     |  |  |- utf8encodedName: java/lang/Object
+|     |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|     |     |  |  |     |  L  tag: CONSTANT_Class
+|     |     |  |  |     |- nameAndTypeConstantInfo (field of type NameAndTypeConstantInfo)
+|     |     |  |  |     |  |- name (field of type Utf8ConstantInfo)
+|     |     |  |  |     |  |  |- content: <init>
+|     |     |  |  |     |  |  |- utf8encodedName: <init>
+|     |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|     |     |  |  |     |  |- type (field of type Utf8ConstantInfo)
+|     |     |  |  |     |  |  |- content: ()V
+|     |     |  |  |     |  |  |- utf8encodedName: ()V
+|     |     |  |  |     |  |  L  tag: CONSTANT_Utf8
+|     |     |  |  |     |  L  tag: CONSTANT_NameAndType
+|     |     |  |  |     L  tag: CONSTANT_Methodref
+|     |     |  |  |- opCodeValue: -73
+|     |     |  |  |- classToOpCodeValueMap (field of type LinkedHashMap)
+|     |     |  |  L  opCodeValueToClassMap (field of type LinkedHashMap)
+|     |     |  L  2 (field of type Return)
+|     |     |     |- Companion (field of type Companion)
+|     |     |     |- values
+|     |     |     |- opCodeValue: -79
+|     |     |     |- classToOpCodeValueMap (field of type LinkedHashMap)
+|     |     |     L  opCodeValueToClassMap (field of type LinkedHashMap)
+|     |     L  name (field of type Utf8ConstantInfo)
+|     |        |- content: Code
+|     |        |- utf8encodedName: Code
+|     |        L  tag: CONSTANT_Utf8
+|     |- name (field of type Utf8ConstantInfo)
+|     |  |- content: <init>
+|     |  |- utf8encodedName: <init>
+|     |  L  tag: CONSTANT_Utf8
+|     L  typeDescriptor (field of type Utf8ConstantInfo)
+|        |- content: ()V
+|        |- utf8encodedName: ()V
+|        L  tag: CONSTANT_Utf8
+|- attributesCount: 0
+L  attributeDefinitions

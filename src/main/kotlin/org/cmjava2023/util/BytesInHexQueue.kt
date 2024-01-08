@@ -46,6 +46,6 @@ class BytesInHexQueue(bytes: ByteArray): LinkedList<Byte>(bytes.toList()) {
     }
 
     fun dequeue8ByteLong(): Long {
-        return ByteBuffer.wrap(pollMultiple(Int.SIZE_BYTES).toByteArray()).getLong()
+        return ByteBuffer.wrap(pollMultiple(Long.SIZE_BYTES).toByteArray()).getLong()
     }
 }
