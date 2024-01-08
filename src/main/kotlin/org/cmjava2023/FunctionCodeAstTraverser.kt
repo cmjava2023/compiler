@@ -678,8 +678,8 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                     branchingOpCode = when(expression.comparisonOperator) {
                         ComparisonOperator.EQ -> OpCode.If(OpCode.If_icmpeq::class)
                         ComparisonOperator.NEQ -> OpCode.If(OpCode.If_icmpne::class)
-                        ComparisonOperator.GTE -> OpCode.If(OpCode.If_icmpge::class)
-                        ComparisonOperator.LTE -> OpCode.If(OpCode.If_icmple::class)
+                        ComparisonOperator.GTE -> OpCode.If(OpCode.If_icmplt::class)
+                        ComparisonOperator.LTE -> OpCode.If(OpCode.If_icmpgt::class)
                         ComparisonOperator.DIAMOND_OPEN -> OpCode.If(OpCode.If_icmplt::class)
                         ComparisonOperator.DIAMOND_CLOSE -> OpCode.If(OpCode.If_icmpgt::class)
                         else -> throw NotImplementedError(expression.comparisonOperator.name)

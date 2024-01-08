@@ -298,16 +298,16 @@ class ConstantPoolToByteList {
         localVariables: MutableList<Variable>): OpCode.TransformedOpCode {
         if (ifElseIfsElseBlock.opCodesInElse.isEmpty() && ifElseIfsElseBlock.ifAndElseIfs.size == 1) {
             val ifWithBytes =  createIfWithBytes(ifElseIfsElseBlock.ifAndElseIfs.single(), localVariables)
-            return OpCode.TransformedOpCode(transformIf(ifWithBytes, (BYTES_OF_IF_AND_GOTO_OPCODES + ifWithBytes.expressionBytes.size).toShort(), 0, localVariables))
+            return OpCode.TransformedOpCode(transformIf(ifWithBytes, (BYTES_OF_IF_AND_GOTO_OPCODES + ifWithBytes.bytesInsideBlockWithoutGoto.size).toShort(), 0, localVariables))
         } else {
             val elseBytes = ifElseIfsElseBlock.opCodesInElse.flatMap { constructBytesOfOpcode(it, localVariables) }
-            var goToOffset: Short = elseBytes.size.toShort()
+            var goToOffset: Short =  (BYTES_OF_IF_AND_GOTO_OPCODES + elseBytes.size).toShort()
             val ifsWithBytes = ifElseIfsElseBlock.ifAndElseIfs.map { iff -> createIfWithBytes(iff, localVariables) }
             val reversedIfBytes = mutableListOf<List<Byte>>()
             for (iff in ifsWithBytes.reversed()) {
-                val branchingOffset = (BYTES_OF_IF_AND_GOTO_OPCODES + iff.expressionBytes.size + BYTES_OF_IF_AND_GOTO_OPCODES + elseBytes.size).toShort()
-                reversedIfBytes.add(transformIf(iff, branchingOffset, (BYTES_OF_IF_AND_GOTO_OPCODES + goToOffset).toShort(), localVariables))
-                goToOffset = branchingOffset               
+                val branchingOffset = (BYTES_OF_IF_AND_GOTO_OPCODES + iff.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
+                reversedIfBytes.add(transformIf(iff, branchingOffset, goToOffset, localVariables))
+                goToOffset = (iff.expressionBytes.size + branchingOffset + goToOffset).toShort()
             }
             return OpCode.TransformedOpCode(reversedIfBytes.reversed().flatten().plus(elseBytes))
         }
