@@ -1,0 +1,323 @@
+Start: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}finalclassCircleextendsShape<Double>{privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}}publicclassMain{publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}}
+|- Global_scope: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}
+|  L  Class_declaration: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}
+|     |- abstract
+|     |- class
+|     |- Shape
+|     |- Type_arguments: <T>
+|     |  |- <
+|     |  |- Type_argument_list: T
+|     |  |  L  Type_argument: T
+|     |  |     L  Reference_type: T
+|     |  |        L  Class_type: T
+|     |  |           L  T
+|     |  L  >
+|     |- {
+|     |- Class_scope: Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}
+|     |  |- Variable_declaration: Tdimension
+|     |  |  |- Reference_type: T
+|     |  |  |  L  Class_type: T
+|     |  |  |     L  T
+|     |  |  L  dimension
+|     |  |- ;
+|     |  |- Constructor_invocation: publicShape(Tdimension){this.dimension=dimension;}
+|     |  |  |- Access_modifier: public
+|     |  |  |  L  public
+|     |  |  |- Shape
+|     |  |  |- (
+|     |  |  |- Function_declaration_args: Tdimension
+|     |  |  |  L  Function_declaration_arg: Tdimension
+|     |  |  |     |- Type: T
+|     |  |  |     |  L  Reference_type: T
+|     |  |  |     |     L  Class_type: T
+|     |  |  |     |        L  T
+|     |  |  |     L  dimension
+|     |  |  |- )
+|     |  |  |- {
+|     |  |  |- Constructor_invocation_scope: this.dimension=dimension;
+|     |  |  |  |- Assignment: this.dimension=dimension
+|     |  |  |  |  |- Identifier: this.dimension
+|     |  |  |  |  |  |- this
+|     |  |  |  |  |  |- .
+|     |  |  |  |  |  L  dimension
+|     |  |  |  |  |- =
+|     |  |  |  |  L  Expressions: dimension
+|     |  |  |  |     L  Expression: dimension
+|     |  |  |  |        L  dimension
+|     |  |  |  L  ;
+|     |  |  L  }
+|     |  |- Function_declaration: abstractvoidcalculateArea();
+|     |  |  |- abstract
+|     |  |  |- Type: void
+|     |  |  |  L  void
+|     |  |  |- calculateArea
+|     |  |  |- (
+|     |  |  |- )
+|     |  |  L  ;
+|     |  L  Function_declaration: voiddisplayInfo(){System.out.println("This is a shape.");}
+|     |     |- Type: void
+|     |     |  L  void
+|     |     |- displayInfo
+|     |     |- (
+|     |     |- )
+|     |     |- {
+|     |     |- Function_scope: System.out.println("This is a shape.");
+|     |     |  |- Expressions: System.out.println("This is a shape.")
+|     |     |  |  L  Expression: System.out.println("This is a shape.")
+|     |     |  |     L  Function_call: System.out.println("This is a shape.")
+|     |     |  |        |- Identifier: System.out.println
+|     |     |  |        |  |- System
+|     |     |  |        |  |- .
+|     |     |  |        |  |- out
+|     |     |  |        |  |- .
+|     |     |  |        |  L  println
+|     |     |  |        |- (
+|     |     |  |        |- Function_args: "This is a shape."
+|     |     |  |        |  L  Function_arg: "This is a shape."
+|     |     |  |        |     L  Expressions: "This is a shape."
+|     |     |  |        |        L  Expression: "This is a shape."
+|     |     |  |        |           L  "This is a shape."
+|     |     |  |        L  )
+|     |     |  L  ;
+|     |     L  }
+|     L  }
+|- Global_scope: finalclassCircleextendsShape<Double>{privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}}
+|  L  Class_declaration: finalclassCircleextendsShape<Double>{privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}}
+|     |- final
+|     |- class
+|     |- Circle
+|     |- Extends_statement: extendsShape<Double>
+|     |  |- extends
+|     |  L  Class_type: Shape<Double>
+|     |     |- Shape
+|     |     L  Type_arguments: <Double>
+|     |        |- <
+|     |        |- Type_argument_list: Double
+|     |        |  L  Type_argument: Double
+|     |        |     L  Reference_type: Double
+|     |        |        L  Class_type: Double
+|     |        |           L  Double
+|     |        L  >
+|     |- {
+|     |- Class_scope: privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}
+|     |  |- Assignment: privatestaticfinaldoublePI=3.14159
+|     |  |  |- Variable_declaration: privatestaticfinaldoublePI
+|     |  |  |  |- Access_modifier: private
+|     |  |  |  |  L  private
+|     |  |  |  |- static
+|     |  |  |  |- final
+|     |  |  |  |- Primitive_type: double
+|     |  |  |  |  L  Numeric_type: double
+|     |  |  |  |     L  Floating_point_type: double
+|     |  |  |  |        L  double
+|     |  |  |  L  PI
+|     |  |  |- =
+|     |  |  L  Expressions: 3.14159
+|     |  |     L  Expression: 3.14159
+|     |  |        L  3.14159
+|     |  |- ;
+|     |  |- Constructor_invocation: publicCircle(Doubleradius){super(radius);}
+|     |  |  |- Access_modifier: public
+|     |  |  |  L  public
+|     |  |  |- Circle
+|     |  |  |- (
+|     |  |  |- Function_declaration_args: Doubleradius
+|     |  |  |  L  Function_declaration_arg: Doubleradius
+|     |  |  |     |- Type: Double
+|     |  |  |     |  L  Reference_type: Double
+|     |  |  |     |     L  Class_type: Double
+|     |  |  |     |        L  Double
+|     |  |  |     L  radius
+|     |  |  |- )
+|     |  |  |- {
+|     |  |  |- Constructor_invocation_scope: super(radius);
+|     |  |  |  |- Expressions: super(radius)
+|     |  |  |  |  L  Expression: super(radius)
+|     |  |  |  |     L  Function_call: super(radius)
+|     |  |  |  |        |- super
+|     |  |  |  |        |- (
+|     |  |  |  |        |- Function_args: radius
+|     |  |  |  |        |  L  Function_arg: radius
+|     |  |  |  |        |     L  Expressions: radius
+|     |  |  |  |        |        L  Expression: radius
+|     |  |  |  |        |           L  radius
+|     |  |  |  |        L  )
+|     |  |  |  L  ;
+|     |  |  L  }
+|     |  |- Function_declaration: voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}
+|     |  |  |- Type: void
+|     |  |  |  L  void
+|     |  |  |- calculateArea
+|     |  |  |- (
+|     |  |  |- )
+|     |  |  |- {
+|     |  |  |- Function_scope: doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);
+|     |  |  |  |- Assignment: doubleradius=dimension
+|     |  |  |  |  |- Variable_declaration: doubleradius
+|     |  |  |  |  |  |- Primitive_type: double
+|     |  |  |  |  |  |  L  Numeric_type: double
+|     |  |  |  |  |  |     L  Floating_point_type: double
+|     |  |  |  |  |  |        L  double
+|     |  |  |  |  |  L  radius
+|     |  |  |  |  |- =
+|     |  |  |  |  L  Expressions: dimension
+|     |  |  |  |     L  Expression: dimension
+|     |  |  |  |        L  dimension
+|     |  |  |  |- ;
+|     |  |  |  |- Assignment: doublearea=PI*radius*radius
+|     |  |  |  |  |- Variable_declaration: doublearea
+|     |  |  |  |  |  |- Primitive_type: double
+|     |  |  |  |  |  |  L  Numeric_type: double
+|     |  |  |  |  |  |     L  Floating_point_type: double
+|     |  |  |  |  |  |        L  double
+|     |  |  |  |  |  L  area
+|     |  |  |  |  |- =
+|     |  |  |  |  L  Expressions: PI*radius*radius
+|     |  |  |  |     L  Expression: PI*radius*radius
+|     |  |  |  |        |- Expression: PI*radius
+|     |  |  |  |        |  |- Expression: PI
+|     |  |  |  |        |  |  L  PI
+|     |  |  |  |        |  |- Expression_concatinator: *
+|     |  |  |  |        |  |  L  *
+|     |  |  |  |        |  L  Expression: radius
+|     |  |  |  |        |     L  radius
+|     |  |  |  |        |- Expression_concatinator: *
+|     |  |  |  |        |  L  *
+|     |  |  |  |        L  Expression: radius
+|     |  |  |  |           L  radius
+|     |  |  |  |- ;
+|     |  |  |  |- Expressions: System.out.println("Area of the circle: "+area)
+|     |  |  |  |  L  Expression: System.out.println("Area of the circle: "+area)
+|     |  |  |  |     L  Function_call: System.out.println("Area of the circle: "+area)
+|     |  |  |  |        |- Identifier: System.out.println
+|     |  |  |  |        |  |- System
+|     |  |  |  |        |  |- .
+|     |  |  |  |        |  |- out
+|     |  |  |  |        |  |- .
+|     |  |  |  |        |  L  println
+|     |  |  |  |        |- (
+|     |  |  |  |        |- Function_args: "Area of the circle: "+area
+|     |  |  |  |        |  L  Function_arg: "Area of the circle: "+area
+|     |  |  |  |        |     L  Expressions: "Area of the circle: "+area
+|     |  |  |  |        |        L  Expression: "Area of the circle: "+area
+|     |  |  |  |        |           |- Expression: "Area of the circle: "
+|     |  |  |  |        |           |  L  "Area of the circle: "
+|     |  |  |  |        |           |- Expression_concatinator: +
+|     |  |  |  |        |           |  L  +
+|     |  |  |  |        |           L  Expression: area
+|     |  |  |  |        |              L  area
+|     |  |  |  |        L  )
+|     |  |  |  L  ;
+|     |  |  L  }
+|     |  L  Function_declaration: staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}
+|     |     |- static
+|     |     |- Type: void
+|     |     |  L  void
+|     |     |- printStaticInfo
+|     |     |- (
+|     |     |- )
+|     |     |- {
+|     |     |- Function_scope: System.out.println("This is a static method in the Circle class.");
+|     |     |  |- Expressions: System.out.println("This is a static method in the Circle class.")
+|     |     |  |  L  Expression: System.out.println("This is a static method in the Circle class.")
+|     |     |  |     L  Function_call: System.out.println("This is a static method in the Circle class.")
+|     |     |  |        |- Identifier: System.out.println
+|     |     |  |        |  |- System
+|     |     |  |        |  |- .
+|     |     |  |        |  |- out
+|     |     |  |        |  |- .
+|     |     |  |        |  L  println
+|     |     |  |        |- (
+|     |     |  |        |- Function_args: "This is a static method in the Circle class."
+|     |     |  |        |  L  Function_arg: "This is a static method in the Circle class."
+|     |     |  |        |     L  Expressions: "This is a static method in the Circle class."
+|     |     |  |        |        L  Expression: "This is a static method in the Circle class."
+|     |     |  |        |           L  "This is a static method in the Circle class."
+|     |     |  |        L  )
+|     |     |  L  ;
+|     |     L  }
+|     L  }
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();
+      |     |  |- Assignment: Circlecircle=newCircle(5.0)
+      |     |  |  |- Variable_declaration: Circlecircle
+      |     |  |  |  |- Reference_type: Circle
+      |     |  |  |  |  L  Class_type: Circle
+      |     |  |  |  |     L  Circle
+      |     |  |  |  L  circle
+      |     |  |  |- =
+      |     |  |  L  Expressions: newCircle(5.0)
+      |     |  |     L  Expression: newCircle(5.0)
+      |     |  |        L  Instantiation: newCircle(5.0)
+      |     |  |           |- new
+      |     |  |           L  Class_instantiation: Circle(5.0)
+      |     |  |              |- Type: Circle
+      |     |  |              |  L  Reference_type: Circle
+      |     |  |              |     L  Class_type: Circle
+      |     |  |              |        L  Circle
+      |     |  |              |- (
+      |     |  |              |- Function_args: 5.0
+      |     |  |              |  L  Function_arg: 5.0
+      |     |  |              |     L  Expressions: 5.0
+      |     |  |              |        L  Expression: 5.0
+      |     |  |              |           L  5.0
+      |     |  |              L  )
+      |     |  |- ;
+      |     |  |- Expressions: circle.calculateArea()
+      |     |  |  L  Expression: circle.calculateArea()
+      |     |  |     L  Function_call: circle.calculateArea()
+      |     |  |        |- Identifier: circle.calculateArea
+      |     |  |        |  |- circle
+      |     |  |        |  |- .
+      |     |  |        |  L  calculateArea
+      |     |  |        |- (
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: circle.displayInfo()
+      |     |  |  L  Expression: circle.displayInfo()
+      |     |  |     L  Function_call: circle.displayInfo()
+      |     |  |        |- Identifier: circle.displayInfo
+      |     |  |        |  |- circle
+      |     |  |        |  |- .
+      |     |  |        |  L  displayInfo
+      |     |  |        |- (
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: Circle.printStaticInfo()
+      |     |  |  L  Expression: Circle.printStaticInfo()
+      |     |  |     L  Function_call: Circle.printStaticInfo()
+      |     |  |        |- Identifier: Circle.printStaticInfo
+      |     |  |        |  |- Circle
+      |     |  |        |  |- .
+      |     |  |        |  L  printStaticInfo
+      |     |  |        |- (
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }

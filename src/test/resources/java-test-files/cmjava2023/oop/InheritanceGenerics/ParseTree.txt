@@ -1,0 +1,258 @@
+Start: packagecmjava2023.helloworld;classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
+|- Global_scope: packagecmjava2023.helloworld;
+|  |- Package_declaration: packagecmjava2023.helloworld
+|  |  |- package
+|  |  L  Identifier: cmjava2023.helloworld
+|  |     |- cmjava2023
+|  |     |- .
+|  |     L  helloworld
+|  L  ;
+|- Global_scope: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
+|  L  Class_declaration: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
+|     |- class
+|     |- Animal
+|     |- Type_arguments: <T>
+|     |  |- <
+|     |  |- Type_argument_list: T
+|     |  |  L  Type_argument: T
+|     |  |     L  Reference_type: T
+|     |  |        L  Class_type: T
+|     |  |           L  T
+|     |  L  >
+|     |- {
+|     |- Class_scope: Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}
+|     |  |- Variable_declaration: Tname
+|     |  |  |- Reference_type: T
+|     |  |  |  L  Class_type: T
+|     |  |  |     L  T
+|     |  |  L  name
+|     |  |- ;
+|     |  |- Constructor_invocation: publicAnimal(Tname){this.name=name;}
+|     |  |  |- Access_modifier: public
+|     |  |  |  L  public
+|     |  |  |- Animal
+|     |  |  |- (
+|     |  |  |- Function_declaration_args: Tname
+|     |  |  |  L  Function_declaration_arg: Tname
+|     |  |  |     |- Type: T
+|     |  |  |     |  L  Reference_type: T
+|     |  |  |     |     L  Class_type: T
+|     |  |  |     |        L  T
+|     |  |  |     L  name
+|     |  |  |- )
+|     |  |  |- {
+|     |  |  |- Constructor_invocation_scope: this.name=name;
+|     |  |  |  |- Assignment: this.name=name
+|     |  |  |  |  |- Identifier: this.name
+|     |  |  |  |  |  |- this
+|     |  |  |  |  |  |- .
+|     |  |  |  |  |  L  name
+|     |  |  |  |  |- =
+|     |  |  |  |  L  Expressions: name
+|     |  |  |  |     L  Expression: name
+|     |  |  |  |        L  name
+|     |  |  |  L  ;
+|     |  |  L  }
+|     |  L  Function_declaration: voideat(){System.out.println(name+" is eating.");}
+|     |     |- Type: void
+|     |     |  L  void
+|     |     |- eat
+|     |     |- (
+|     |     |- )
+|     |     |- {
+|     |     |- Function_scope: System.out.println(name+" is eating.");
+|     |     |  |- Expressions: System.out.println(name+" is eating.")
+|     |     |  |  L  Expression: System.out.println(name+" is eating.")
+|     |     |  |     L  Function_call: System.out.println(name+" is eating.")
+|     |     |  |        |- Identifier: System.out.println
+|     |     |  |        |  |- System
+|     |     |  |        |  |- .
+|     |     |  |        |  |- out
+|     |     |  |        |  |- .
+|     |     |  |        |  L  println
+|     |     |  |        |- (
+|     |     |  |        |- Function_args: name+" is eating."
+|     |     |  |        |  L  Function_arg: name+" is eating."
+|     |     |  |        |     L  Expressions: name+" is eating."
+|     |     |  |        |        L  Expression: name+" is eating."
+|     |     |  |        |           |- Expression: name
+|     |     |  |        |           |  L  name
+|     |     |  |        |           |- Expression_concatinator: +
+|     |     |  |        |           |  L  +
+|     |     |  |        |           L  Expression: " is eating."
+|     |     |  |        |              L  " is eating."
+|     |     |  |        L  )
+|     |     |  L  ;
+|     |     L  }
+|     L  }
+|- Global_scope: classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
+|  L  Class_declaration: classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}
+|     |- class
+|     |- Dog
+|     |- Type_arguments: <T>
+|     |  |- <
+|     |  |- Type_argument_list: T
+|     |  |  L  Type_argument: T
+|     |  |     L  Reference_type: T
+|     |  |        L  Class_type: T
+|     |  |           L  T
+|     |  L  >
+|     |- Extends_statement: extendsAnimal<T>
+|     |  |- extends
+|     |  L  Class_type: Animal<T>
+|     |     |- Animal
+|     |     L  Type_arguments: <T>
+|     |        |- <
+|     |        |- Type_argument_list: T
+|     |        |  L  Type_argument: T
+|     |        |     L  Reference_type: T
+|     |        |        L  Class_type: T
+|     |        |           L  T
+|     |        L  >
+|     |- {
+|     |- Class_scope: publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}
+|     |  |- Constructor_invocation: publicDog(Tname){super(name);}
+|     |  |  |- Access_modifier: public
+|     |  |  |  L  public
+|     |  |  |- Dog
+|     |  |  |- (
+|     |  |  |- Function_declaration_args: Tname
+|     |  |  |  L  Function_declaration_arg: Tname
+|     |  |  |     |- Type: T
+|     |  |  |     |  L  Reference_type: T
+|     |  |  |     |     L  Class_type: T
+|     |  |  |     |        L  T
+|     |  |  |     L  name
+|     |  |  |- )
+|     |  |  |- {
+|     |  |  |- Constructor_invocation_scope: super(name);
+|     |  |  |  |- Expressions: super(name)
+|     |  |  |  |  L  Expression: super(name)
+|     |  |  |  |     L  Function_call: super(name)
+|     |  |  |  |        |- super
+|     |  |  |  |        |- (
+|     |  |  |  |        |- Function_args: name
+|     |  |  |  |        |  L  Function_arg: name
+|     |  |  |  |        |     L  Expressions: name
+|     |  |  |  |        |        L  Expression: name
+|     |  |  |  |        |           L  name
+|     |  |  |  |        L  )
+|     |  |  |  L  ;
+|     |  |  L  }
+|     |  L  Function_declaration: voidbark(){System.out.println(name+" is barking.");}
+|     |     |- Type: void
+|     |     |  L  void
+|     |     |- bark
+|     |     |- (
+|     |     |- )
+|     |     |- {
+|     |     |- Function_scope: System.out.println(name+" is barking.");
+|     |     |  |- Expressions: System.out.println(name+" is barking.")
+|     |     |  |  L  Expression: System.out.println(name+" is barking.")
+|     |     |  |     L  Function_call: System.out.println(name+" is barking.")
+|     |     |  |        |- Identifier: System.out.println
+|     |     |  |        |  |- System
+|     |     |  |        |  |- .
+|     |     |  |        |  |- out
+|     |     |  |        |  |- .
+|     |     |  |        |  L  println
+|     |     |  |        |- (
+|     |     |  |        |- Function_args: name+" is barking."
+|     |     |  |        |  L  Function_arg: name+" is barking."
+|     |     |  |        |     L  Expressions: name+" is barking."
+|     |     |  |        |        L  Expression: name+" is barking."
+|     |     |  |        |           |- Expression: name
+|     |     |  |        |           |  L  name
+|     |     |  |        |           |- Expression_concatinator: +
+|     |     |  |        |           |  L  +
+|     |     |  |        |           L  Expression: " is barking."
+|     |     |  |        |              L  " is barking."
+|     |     |  |        L  )
+|     |     |  L  ;
+|     |     L  }
+|     L  }
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
+      |- Access_modifier: public
+      |  L  public
+      |- class
+      |- Main
+      |- {
+      |- Class_scope: publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}
+      |     |- Access_modifier: public
+      |     |  L  public
+      |     |- static
+      |     |- Type: void
+      |     |  L  void
+      |     |- main
+      |     |- (
+      |     |- Function_declaration_args: String[]args
+      |     |  L  Function_declaration_arg: String[]args
+      |     |     |- Type: String[]
+      |     |     |  L  Array_type: String[]
+      |     |     |     |- Class_type: String
+      |     |     |     |  L  String
+      |     |     |     |- [
+      |     |     |     L  ]
+      |     |     L  args
+      |     |- )
+      |     |- {
+      |     |- Function_scope: Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();
+      |     |  |- Assignment: Dog<String>myDog=newDog<>("Buddy")
+      |     |  |  |- Variable_declaration: Dog<String>myDog
+      |     |  |  |  |- Reference_type: Dog<String>
+      |     |  |  |  |  L  Class_type: Dog<String>
+      |     |  |  |  |     |- Dog
+      |     |  |  |  |     L  Type_arguments: <String>
+      |     |  |  |  |        |- <
+      |     |  |  |  |        |- Type_argument_list: String
+      |     |  |  |  |        |  L  Type_argument: String
+      |     |  |  |  |        |     L  Reference_type: String
+      |     |  |  |  |        |        L  Class_type: String
+      |     |  |  |  |        |           L  String
+      |     |  |  |  |        L  >
+      |     |  |  |  L  myDog
+      |     |  |  |- =
+      |     |  |  L  Expressions: newDog<>("Buddy")
+      |     |  |     L  Expression: newDog<>("Buddy")
+      |     |  |        L  Instantiation: newDog<>("Buddy")
+      |     |  |           |- new
+      |     |  |           L  Class_instantiation: Dog<>("Buddy")
+      |     |  |              |- Type: Dog<>
+      |     |  |              |  L  Reference_type: Dog<>
+      |     |  |              |     L  Class_type: Dog<>
+      |     |  |              |        |- Dog
+      |     |  |              |        L  Type_arguments: <>
+      |     |  |              |           |- <
+      |     |  |              |           L  >
+      |     |  |              |- (
+      |     |  |              |- Function_args: "Buddy"
+      |     |  |              |  L  Function_arg: "Buddy"
+      |     |  |              |     L  Expressions: "Buddy"
+      |     |  |              |        L  Expression: "Buddy"
+      |     |  |              |           L  "Buddy"
+      |     |  |              L  )
+      |     |  |- ;
+      |     |  |- Expressions: myDog.eat()
+      |     |  |  L  Expression: myDog.eat()
+      |     |  |     L  Function_call: myDog.eat()
+      |     |  |        |- Identifier: myDog.eat
+      |     |  |        |  |- myDog
+      |     |  |        |  |- .
+      |     |  |        |  L  eat
+      |     |  |        |- (
+      |     |  |        L  )
+      |     |  |- ;
+      |     |  |- Expressions: myDog.bark()
+      |     |  |  L  Expression: myDog.bark()
+      |     |  |     L  Function_call: myDog.bark()
+      |     |  |        |- Identifier: myDog.bark
+      |     |  |        |  |- myDog
+      |     |  |        |  |- .
+      |     |  |        |  L  bark
+      |     |  |        |- (
+      |     |  |        L  )
+      |     |  L  ;
+      |     L  }
+      L  }
