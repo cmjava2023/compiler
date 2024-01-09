@@ -645,8 +645,8 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
 
-    override fun visit(whileLoopNode: ASTNodes.WhileLoopNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(whileLoopNode: ASTNodes.WhileLoopNode): List<OpCode> {
+        return listOf<OpCode>(OpCode.While(createBranchingOpCode(whileLoopNode.expression, whileLoopNode.body)))
     }
 
     override fun visit(doWhileLoopNode: ASTNodes.DoWhileLoopNode?): List<OpCode> {
@@ -665,25 +665,16 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         TODO("Not yet implemented")
     }
     
-    private fun createIfNode(ifNode: ASTNodes.IfNode): OpCode.If {
-        val expression = ifNode.expression
-        val branchingOpCode: OpCode.If
-        val expressionOpCodes: List<OpCode> = 
-            if(expression is ASTNodes.VariableCallNode && expression.symbol.type.name == "boolean" ) { 
-                branchingOpCode = OpCode.If(OpCode.Ifeq::class)
+    private fun createBranchingOpCode(expression: ASTNodes.Expression, statements: ArrayList<ASTNodes.Statement>): OpCode.Branching {
+        val branchingOpCode: OpCode.Branching
+        val expressionOpCodes: List<OpCode> =
+            if(expression is ASTNodes.VariableCallNode && expression.symbol.type.name == "boolean" ) {
+                branchingOpCode = OpCode.Branching(OpCode.ComparisonType.WithZeroForBooleans, ComparisonOperator.EQ)
                 visit(expression)
             } else if (expression is ASTNodes.ComparisonNode && expression.leftExpression is ASTNodes.VariableCallNode) {
                 val rightExpression = expression.rightExpression
                 if (rightExpression is ASTNodes.ValueNode<*> && rightExpression.value is Int) {
-                    branchingOpCode = when(expression.comparisonOperator) {
-                        ComparisonOperator.EQ -> OpCode.If(OpCode.If_icmpeq::class)
-                        ComparisonOperator.NEQ -> OpCode.If(OpCode.If_icmpne::class)
-                        ComparisonOperator.GTE -> OpCode.If(OpCode.If_icmplt::class)
-                        ComparisonOperator.LTE -> OpCode.If(OpCode.If_icmpgt::class)
-                        ComparisonOperator.DIAMOND_OPEN -> OpCode.If(OpCode.If_icmplt::class)
-                        ComparisonOperator.DIAMOND_CLOSE -> OpCode.If(OpCode.If_icmpgt::class)
-                        else -> throw NotImplementedError(expression.comparisonOperator.name)
-                    }
+                    branchingOpCode = OpCode.Branching(OpCode.ComparisonType.BetweenTwoInts, expression.comparisonOperator)
                     dispatch(expression.leftExpression).plus(visit(rightExpression))
                 } else {
                     throw NotImplementedError(expression.javaClass.name)
@@ -692,8 +683,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
                 throw NotImplementedError(expression.javaClass.name)
             }
         branchingOpCode.expressionOpCodes.addAll(expressionOpCodes)
-        branchingOpCode.opCodesInsideBlockWithoutGoto.addAll(ifNode.statements.flatMap { dispatch(it) })
+        branchingOpCode.opCodesInsideBlockWithoutGoto.addAll(statements.flatMap { dispatch(it) })
         return branchingOpCode
+    }
+    
+    private fun createIfNode(ifNode: ASTNodes.IfNode): OpCode.If {
+        return OpCode.If(createBranchingOpCode(ifNode.expression, ifNode.statements))
     }
 
 

@@ -1,5 +1,6 @@
 package org.cmjava2023
 
+import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.MethodInfo
 import org.cmjava2023.classfilespecification.OpCode
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
@@ -10,7 +11,6 @@ import org.cmjava2023.symboltable.InvalidVariable
 import org.cmjava2023.symboltable.Variable
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 import org.cmjava2023.util.ByteListUtil.Companion.add
-import kotlin.reflect.KClass
 
 class ConstantPoolToByteList {
 
@@ -249,6 +249,8 @@ class ConstantPoolToByteList {
     ): OpCode {
         if(opCode is OpCode.IfElseIfsElseBlock) {
             return transformIfElseIfsElseBlock(opCode, localVariables)
+        } else if (opCode is OpCode.While) {
+            return transformWhile(opCode, localVariables)
         }
             
         val transformedExceptLoadConstant = when (opCode) {
@@ -283,26 +285,38 @@ class ConstantPoolToByteList {
         }
     }
 
+    private fun transformWhile(opCode: OpCode.While, localVariables: MutableList<Variable>): OpCode {
+        val branchingWithBytes = createBranchingWithBytes(opCode, localVariables)
+        val addressOffsetForBranching = (BYTES_OF_IF_AND_GOTO_OPCODES + branchingWithBytes.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
+        val bytes = getAllBytesForBranchingExceptGoto(branchingWithBytes, addressOffsetForBranching, localVariables)
+        val addressOffsetForGoTo = (-bytes.size).toShort()
+        return OpCode.TransformedOpCode(bytes.plus(constructBytesOfOpcode(OpCode.Goto(addressOffsetForGoTo), localVariables)))
+    }
+
     companion object {
         private const val BYTES_OF_IF_AND_GOTO_OPCODES = 3
     }
     
-    private class IfWithBytes(val opCodeClass: KClass<*>, val expressionBytes: List<Byte>, val bytesInsideBlockWithoutGoto: List<Byte>)
+    private class BranchingWithBytes(val comparisonType: OpCode.ComparisonType, val comparisonOperator: ASTNodes.ComparisonOperator, val expressionBytes: List<Byte>, val bytesInsideBlockWithoutGoto: List<Byte>)
     
-    private fun createIfWithBytes(iff: OpCode.If, localVariables: MutableList<Variable>): IfWithBytes {
-        return IfWithBytes(iff.opCodeClass, iff.expressionOpCodes.flatMap { constructBytesOfOpcode(it, localVariables) }, iff.opCodesInsideBlockWithoutGoto.flatMap { constructBytesOfOpcode(it, localVariables) })
+    private fun createBranchingWithBytes(branching: OpCode.Branching, localVariables: MutableList<Variable>): BranchingWithBytes {
+        return BranchingWithBytes(
+            branching.comparisonType,
+            branching.comparisonOperator,
+            branching.expressionOpCodes.flatMap { constructBytesOfOpcode(it, localVariables) },
+            branching.opCodesInsideBlockWithoutGoto.flatMap { constructBytesOfOpcode(it, localVariables) })
     }
     
     private fun transformIfElseIfsElseBlock(
         ifElseIfsElseBlock: OpCode.IfElseIfsElseBlock,
         localVariables: MutableList<Variable>): OpCode.TransformedOpCode {
         if (ifElseIfsElseBlock.opCodesInElse.isEmpty() && ifElseIfsElseBlock.ifAndElseIfs.size == 1) {
-            val ifWithBytes =  createIfWithBytes(ifElseIfsElseBlock.ifAndElseIfs.single(), localVariables)
+            val ifWithBytes =  createBranchingWithBytes(ifElseIfsElseBlock.ifAndElseIfs.single(), localVariables)
             return OpCode.TransformedOpCode(transformIf(ifWithBytes, (BYTES_OF_IF_AND_GOTO_OPCODES + ifWithBytes.bytesInsideBlockWithoutGoto.size).toShort(), 0, localVariables))
         } else {
             val elseBytes = ifElseIfsElseBlock.opCodesInElse.flatMap { constructBytesOfOpcode(it, localVariables) }
             var goToOffset: Short =  (BYTES_OF_IF_AND_GOTO_OPCODES + elseBytes.size).toShort()
-            val ifsWithBytes = ifElseIfsElseBlock.ifAndElseIfs.map { iff -> createIfWithBytes(iff, localVariables) }
+            val ifsWithBytes = ifElseIfsElseBlock.ifAndElseIfs.map { iff -> createBranchingWithBytes(iff, localVariables) }
             val reversedIfBytes = mutableListOf<List<Byte>>()
             for (iff in ifsWithBytes.reversed()) {
                 val branchingOffset = (BYTES_OF_IF_AND_GOTO_OPCODES + iff.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
@@ -313,30 +327,35 @@ class ConstantPoolToByteList {
         }
     }
     
+    private fun getAllBytesForBranchingExceptGoto(
+        branchingWithBytes: BranchingWithBytes,
+        addressOffsetForBranching: Short,
+        localVariables: MutableList<Variable>): List<Byte> {
+        return branchingWithBytes.expressionBytes
+            .plus(constructBytesOfOpcode(
+                when(branchingWithBytes.comparisonType) {
+                    OpCode.ComparisonType.WithZeroForBooleans -> 
+                        when(branchingWithBytes.comparisonOperator) {
+                            ASTNodes.ComparisonOperator.EQ -> OpCode.Ifeq(addressOffsetForBranching)
+                            else -> throw NotImplementedError(branchingWithBytes.comparisonOperator.name)
+                        }
+                    OpCode.ComparisonType.BetweenTwoInts -> when(branchingWithBytes.comparisonOperator) {
+                        ASTNodes.ComparisonOperator.DIAMOND_OPEN -> OpCode.If_icmpge(addressOffsetForBranching)
+                        ASTNodes.ComparisonOperator.GTE -> OpCode.If_icmplt(addressOffsetForBranching)
+                        else -> throw NotImplementedError(branchingWithBytes.comparisonOperator.name)
+                    }
+                },
+                localVariables))
+            .plus(branchingWithBytes.bytesInsideBlockWithoutGoto)
+    }
+    
     private fun transformIf(
-        ifWithBytes: IfWithBytes,
+        branchingWithBytes: BranchingWithBytes,
         addressOffsetForBranching: Short,
         addressOffsetForGoTo: Short,
         localVariables: MutableList<Variable>
     ): List<Byte> {
-        val result = ifWithBytes.expressionBytes
-            .plus(constructBytesOfOpcode(
-                when(ifWithBytes.opCodeClass) {
-                    OpCode.Ifeq::class -> OpCode.Ifeq(addressOffsetForBranching)
-                    OpCode.Ifne::class -> OpCode.Ifne(addressOffsetForBranching)
-                    OpCode.Iflt::class -> OpCode.Iflt(addressOffsetForBranching)
-                    OpCode.Ifge::class -> OpCode.Ifge(addressOffsetForBranching)
-                    OpCode.Ifle::class -> OpCode.Ifle(addressOffsetForBranching)
-                    OpCode.If_icmpeq::class -> OpCode.If_icmpeq(addressOffsetForBranching)
-                    OpCode.If_icmpne::class -> OpCode.If_icmpne(addressOffsetForBranching)
-                    OpCode.If_icmplt::class -> OpCode.If_icmplt(addressOffsetForBranching)
-                    OpCode.If_icmpge::class -> OpCode.If_icmpge(addressOffsetForBranching)
-                    OpCode.If_icmpgt::class -> OpCode.If_icmpgt(addressOffsetForBranching)
-                    OpCode.If_icmple::class -> OpCode.If_icmple(addressOffsetForBranching)
-                    else -> throw NotImplementedError(ifWithBytes.opCodeClass.java.name)
-                }, 
-                localVariables))
-            .plus(ifWithBytes.bytesInsideBlockWithoutGoto)
+        val result = getAllBytesForBranchingExceptGoto(branchingWithBytes, addressOffsetForBranching, localVariables)
         return if (addressOffsetForGoTo != 0.toShort()) {
             result.plus(constructBytesOfOpcode(OpCode.Goto(addressOffsetForGoTo), localVariables))
         } else {
