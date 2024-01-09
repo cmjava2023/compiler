@@ -1,5 +1,6 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
@@ -14,9 +15,10 @@ import kotlin.reflect.jvm.jvmErasure
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
  * https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
  */
-@Suppress("unused")
+@Suppress("unused", "ClassName")
 abstract class OpCode(vararg val values: Any) {
 
+    @Suppress("LeakingThis")
     val opCodeValue:UByte = if (this is OpCodeToTransform) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
     
     companion object {
@@ -258,10 +260,24 @@ abstract class OpCode(vararg val values: Any) {
     class IfElseIfsElseBlock(val ifAndElseIfs: List<If>, val opCodesInElse: List<OpCode>): OpCodeToTransform()
     class TransformedOpCode(val bytes: List<Byte>): OpCodeToTransform()
     
-    class If(val opCodeClass: KClass<*>) {
+    enum class ComparisonType {
+        WithZeroForBooleans,
+        BetweenTwoInts
+    }
+        
+    open class Branching(val comparisonType: ComparisonType, val comparisonOperator: ASTNodes.ComparisonOperator): OpCodeToTransform() {
         val expressionOpCodes: MutableList<OpCode> = mutableListOf()
         val opCodesInsideBlockWithoutGoto: MutableList<OpCode> = mutableListOf()
+        
+        constructor(other: Branching) : this(other.comparisonType, other.comparisonOperator) {
+            this.expressionOpCodes.addAll(other.expressionOpCodes)
+            this.opCodesInsideBlockWithoutGoto.addAll(other.opCodesInsideBlockWithoutGoto)
+        }
     }
+    
+    class If(branching: Branching) : Branching(branching)
+    
+    class While(branching: Branching) : Branching(branching)
 
     class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): OpCodeToTransform(*values)
 
