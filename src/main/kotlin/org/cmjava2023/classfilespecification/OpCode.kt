@@ -21,6 +21,7 @@ abstract class OpCode(vararg val values: Any) {
     @Suppress("LeakingThis")
     val opCodeValue:UByte = if (this is OpCodeToTransform) { 0xcbu } else { classToOpCodeValueMap.getValue(this::class) }
     val maxStackSizeModifier: Int = if(this is Invokevirtual){ computeStackChangeForMethods(this.values[0] as MethodReferenceConstantInfo) }
+    else if (this is OpCodeToTransform) { 0 }
     else{classToMaxStackSizeModifierMap.getValue(this::class)}
     companion object {
         private fun computeStackChangeForMethods(methodReferenceConstantInfo: MethodReferenceConstantInfo): Int {
@@ -308,6 +309,7 @@ abstract class OpCode(vararg val values: Any) {
             Fstore_3::class to -1,
             Fsub::class to -1,
             Getstatic::class to 1,
+            Goto::class to 0,
             I2b::class to 0,
             I2c::class to 0,
             I2d::class to 0,
@@ -326,6 +328,18 @@ abstract class OpCode(vararg val values: Any) {
             Iconst_5::class to 1,
             Iconst_m1::class to 1,
             Idiv::class to -1,
+            Ifeq::class to -1,
+            Ifne::class to -1,
+            Iflt::class to -1,
+            Ifge::class to -1,
+            Ifgt::class to -1,
+            Ifle::class to -1,
+            If_icmpeq::class to -2,
+            If_icmpne::class to -2,
+            If_icmplt::class to -2,
+            If_icmpge::class to -2,
+            If_icmpgt::class to -2,
+            If_icmple::class to -2,
             Iinc::class to 0,
             Iload::class to 1,
             Iload_0::class to 1,
@@ -394,6 +408,7 @@ abstract class OpCode(vararg val values: Any) {
             Sastore::class to -3,
             Sipush::class to 1,
             Swap::class to 0,
+
             LoadConstant::class to 1,
             LoadInt::class to 1,
             LoadLong::class to 1,
