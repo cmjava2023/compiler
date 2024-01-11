@@ -24,7 +24,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     }
 
     override fun visit(continueNodeNode: ASTNodes.ContinueNode?): List<OpCode> {
-        TODO("Not yet implemented")
+        return listOf(OpCode.Continue())
     }
 
     override fun visit(breakNode: ASTNodes.BreakNode?): List<OpCode> {

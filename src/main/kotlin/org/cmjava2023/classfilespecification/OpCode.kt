@@ -278,6 +278,8 @@ abstract class OpCode(vararg val values: Any) {
     class If(branching: Branching) : Branching(branching)
     
     class While(branching: Branching) : Branching(branching)
+    
+    class Continue: OpCodeToTransform()
 
     class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): OpCodeToTransform(*values)
 

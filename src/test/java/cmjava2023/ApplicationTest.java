@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> tests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this, null);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this, "continue");
     }
 
     @Override
