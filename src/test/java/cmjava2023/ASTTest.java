@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
+import org.cmjava2023.optimization.OptimizationVisitor;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -43,8 +44,12 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
             ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
 
             ASTNodes.Node modifiedAst = ast.accept(astVisitorFirst);
-            
-            String actual = GenericTreePrinter.print(modifiedAst);
+
+            OptimizationVisitor optimizationVisitor = new OptimizationVisitor(astVisitorFirst.errors);
+
+            ASTNodes.Node optimizedAst = modifiedAst.accept(optimizationVisitor);
+
+            String actual = GenericTreePrinter.print(optimizedAst);
 
             LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
 

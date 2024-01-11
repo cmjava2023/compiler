@@ -1,0 +1,68 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     L  1: helloworld
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type (field of type BuiltIn)
+            |     L  name: void
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType (field of type BuiltIn)
+            |           |  |- name: String
+            |           |  L  type (field of type BuiltIn)
+            |           |     L  name: String
+            |           L  dimensions: 1
+            |- exception: null
+            L  body
+               |- 0 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 42.0
+               |     |- name: i
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 1 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: true
+               |     |- name: b
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               L  2 (field of type IfBlockNode)
+                  |- ifNodes
+                  |  L  0 (field of type IfNode)
+                  |     |- expression (field of type ValueNode)
+                  |     |  L  value: true
+                  |     L  statements
+                  |        L  0 (field of type FunctionCallNode)
+                  |           |- function (field of type Function)
+                  |           |  |- accessModifier: PUBLIC
+                  |           |  |- instanceModifier: null
+                  |           |  |- name: System.out.println
+                  |           |  L  type (field of type BuiltIn)
+                  |           |     L  name: void
+                  |           L  values
+                  |              L  0 (field of type ValueNode)
+                  |                 L  value: constant folding
+                  L  elseNode: null
