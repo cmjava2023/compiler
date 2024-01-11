@@ -279,6 +279,8 @@ abstract class OpCode(vararg val values: Any) {
     
     class While(branching: Branching) : Branching(branching)
 
+    class DoWhile(branching: Branching) : Branching(branching)
+
     class OpCodeParsedFromClassFile(val opCodeClass: KClass<*>, vararg values: Any): OpCodeToTransform(*values)
 
     class LoadConstant(val constantInfo: ConstantInfo): OpCodeToTransform(constantInfo)

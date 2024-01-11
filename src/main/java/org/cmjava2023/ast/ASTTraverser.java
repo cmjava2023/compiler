@@ -29,6 +29,8 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.IfBlockNode) statementNode);
         } else if (statementNode instanceof ASTNodes.WhileLoopNode) {
             return visit((ASTNodes.WhileLoopNode) statementNode);
+        } else if (statementNode instanceof ASTNodes.DoWhileLoopNode) {
+            return visit((ASTNodes.DoWhileLoopNode) statementNode);
         } else {
             throw new NotImplementedError("type " + statementNode.getClass().getName());
         }

@@ -251,6 +251,8 @@ class ConstantPoolToByteList {
             return transformIfElseIfsElseBlock(opCode, localVariables)
         } else if (opCode is OpCode.While) {
             return transformWhile(opCode, localVariables)
+        } else if (opCode is OpCode.DoWhile) {
+            return transformDoWhile(opCode, localVariables)
         }
             
         val transformedExceptLoadConstant = when (opCode) {
@@ -286,6 +288,14 @@ class ConstantPoolToByteList {
     }
 
     private fun transformWhile(opCode: OpCode.While, localVariables: MutableList<Variable>): OpCode {
+        val branchingWithBytes = createBranchingWithBytes(opCode, localVariables)
+        val addressOffsetForBranching = (BYTES_OF_IF_AND_GOTO_OPCODES + branchingWithBytes.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
+        val bytes = getAllBytesForBranchingExceptGoto(branchingWithBytes, addressOffsetForBranching, localVariables)
+        val addressOffsetForGoTo = (-bytes.size).toShort()
+        return OpCode.TransformedOpCode(bytes.plus(constructBytesOfOpcode(OpCode.Goto(addressOffsetForGoTo), localVariables)))
+    }
+
+    private fun transformDoWhile(opCode: OpCode.DoWhile, localVariables: MutableList<Variable>): OpCode {
         val branchingWithBytes = createBranchingWithBytes(opCode, localVariables)
         val addressOffsetForBranching = (BYTES_OF_IF_AND_GOTO_OPCODES + branchingWithBytes.bytesInsideBlockWithoutGoto.size + BYTES_OF_IF_AND_GOTO_OPCODES).toShort()
         val bytes = getAllBytesForBranchingExceptGoto(branchingWithBytes, addressOffsetForBranching, localVariables)

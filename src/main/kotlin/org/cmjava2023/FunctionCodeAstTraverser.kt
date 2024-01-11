@@ -649,8 +649,8 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
         return listOf<OpCode>(OpCode.While(createBranchingOpCode(whileLoopNode.expression, whileLoopNode.body)))
     }
 
-    override fun visit(doWhileLoopNode: ASTNodes.DoWhileLoopNode?): List<OpCode> {
-        TODO("Not yet implemented")
+    override fun visit(doWhileLoopNode: ASTNodes.DoWhileLoopNode): List<OpCode> {
+        return listOf<OpCode>(OpCode.DoWhile(createBranchingOpCode(doWhileLoopNode.expression, doWhileLoopNode.body)))
     }
 
     override fun visit(operatorNode: ASTNodes.OperatorNode?): List<OpCode> {
