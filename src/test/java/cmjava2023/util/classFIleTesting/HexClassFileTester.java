@@ -1,7 +1,7 @@
 package cmjava2023.util.classFIleTesting;
 
+import cmjava2023.bytecodeTestUtil.NextOpCodeFromByteQueueQuery;
 import kotlin.NotImplementedError;
-import org.cmjava2023.classfilespecification.OpCode;
 import org.cmjava2023.util.BytesInHexQueue;
 
 import java.util.ArrayList;
@@ -45,10 +45,6 @@ public class HexClassFileTester {
 
     private void classFileIndicatorCafeBabe() {
         assertEquals("CAFEBABE", bytesInHex.dequeueHexBytes(4), "ClassFile Start");
-    }
-
-    private void javaVersion8() {
-        assertEquals(52, bytesInHex.dequeue4ByteInt(), "JavaVersion");
     }
 
     private void javaVersion6() {
@@ -190,28 +186,21 @@ public class HexClassFileTester {
     private void codeAttribute(MethodDescription methodDescription) {
         dequeueResolveAssertConstantPoolIndex("Code", methodDescription.getAssertMessage("attributeName"));
         int actualAttributeSize = bytesInHex.dequeue4ByteInt();
-        short maxStackSize = bytesInHex.dequeue2ByteShort();
-        short maxLocalVars = bytesInHex.dequeue2ByteShort();
+        @SuppressWarnings("unused") short maxStackSize = bytesInHex.dequeue2ByteShort();
+        @SuppressWarnings("unused") short maxLocalVars = bytesInHex.dequeue2ByteShort();
 
         int actualCodeSize = bytesInHex.dequeue4ByteInt();
         BytesInHexQueue actualCode = bytesInHex.getSubQueue(actualCodeSize);
-        ArrayList<OpCode> opCodes = new ArrayList<>();
+        ArrayList<NextOpCodeFromByteQueueQuery.ParsedOpCode> parsedOpCodes = new ArrayList<>();
         while(!actualCode.isEmpty()){
-            opCodes.add(OpCode.Companion.parseNext(actualCode, constantPoolItems));
+            parsedOpCodes.add(NextOpCodeFromByteQueueQuery.Companion.fetch(actualCode, constantPoolItems));
         }
         
         StringBuilder opCodesAsString = new StringBuilder();
-        for (OpCode opCode : opCodes) {
-            if(opCode instanceof OpCode.OpCodeParsedFromClassFile o) {
-                opCodesAsString.append(o.getOpCodeClass().getSimpleName()); 
-            } else {
-                opCodesAsString.append(opCode.getClass().getSimpleName());
-            }
-            opCodesAsString.append(": ");
-            for(Object value : opCode.getValues()) {
-                opCodesAsString.append("'");
-                opCodesAsString.append(value.toString());
-                opCodesAsString.append("', ");
+        for (NextOpCodeFromByteQueueQuery.ParsedOpCode parsedOpCode : parsedOpCodes) {            
+            opCodesAsString.append(parsedOpCode.getName()).append(": ");
+            for(Object value : parsedOpCode.getParameterValues()) {
+                opCodesAsString.append("'").append(value.toString()).append("', ");
             }
             opCodesAsString.append("\n");
         }                

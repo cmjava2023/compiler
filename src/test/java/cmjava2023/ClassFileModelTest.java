@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.cmjava2023.ClassfileModelFromAst;
+import org.cmjava2023.astToClassFileModel.ClassfileModelFromAst;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;

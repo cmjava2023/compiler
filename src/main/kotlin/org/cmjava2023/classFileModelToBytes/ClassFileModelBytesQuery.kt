@@ -1,21 +1,29 @@
-package org.cmjava2023
+package org.cmjava2023.classFileModelToBytes
 
 import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileModel
+import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 
-class BytecodeFromClassfileModel {
+class ClassFileModelBytesQuery {
 
-    fun generate(model: ClassfileModel): ByteArray {
-        val classFileBytes = ConstantPoolToByteList().mapToClassFileBytes(model.constantPool, model.methodDefinitions)
+    private fun addAllClassesToConstantPool(constantPoolBuilder: ConstantPoolBuilder, constantInfos: List<ConstantInfo>) {
+        constantInfos.filterIsInstance<ClassConstantInfo>().forEach { constantPoolBuilder.getIndexByResolvingOrAdding(it) }
+    }
+
+    fun fetch(model: ClassfileModel): ByteArray {
+        val constantPoolBuilder = ConstantPoolBuilder()
+        addAllClassesToConstantPool(constantPoolBuilder, model.constantInfos)
+        val bytesOfMethodInfos = model.methodDefinitions.flatMap { MethodInfoBytesQuery.fetch(constantPoolBuilder, it) }
 
         val result: MutableList<Byte> = mutableListOf()
         result.add(MAGIC_NUMBER)
         result.add(MINOR_VERSION)
         result.add(MAJOR_VERSION)
-        result.add(classFileBytes.constantPoolItemCount)
-        result.addAll(classFileBytes.constantPoolBytes)
+        result.add(constantPoolBuilder.itemCount)
+        result.addAll(constantPoolBuilder.resultBytes)
         result.add(model.classClassAccessModifiers.map { it.value }.bitwiseOrCombine())
         result.add(INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL)
         result.add(INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL)
@@ -23,8 +31,8 @@ class BytecodeFromClassfileModel {
         result.addAll(model.interfaceDefinitions)
         result.add(model.numberOfFields)
         result.addAll(model.fieldDefinitions)
-        result.add(classFileBytes.methodInfoCount)
-        result.addAll(classFileBytes.methodInfosBytes)
+        result.add(model.methodDefinitions.size.toUShort())
+        result.addAll(bytesOfMethodInfos)
         result.add(model.attributesCount)
         result.addAll(model.attributeDefinitions)
 

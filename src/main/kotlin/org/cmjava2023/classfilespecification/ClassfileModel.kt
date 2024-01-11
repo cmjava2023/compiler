@@ -4,7 +4,7 @@ import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
 
 data class ClassfileModel(
         val packageNameWithDelimiterForClassFile: String,
-        val constantPool: List<ConstantInfo>,
+        val constantInfos: List<ConstantInfo>,
         val classClassAccessModifiers: List<ClassAccessModifier>,
         val constantPoolIndex: UShort,
         val numberOfInterfaces: UShort,

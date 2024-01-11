@@ -20,13 +20,12 @@ public class SymbolTable {
     }
 
     private HashMap<String, Symbol> bindPrimitiveTypes() {
-        String[] primitiveTypes = {"byte", "short", "int", "long", "float", "double", "char", "boolean", "void", "String"};
         HashMap<String, Symbol> builtIn = new HashMap<>();
 
-        for (String type : primitiveTypes) {
-            BuiltIn builtInSymbol = new BuiltIn(type, null, this.currentScope);
+        for (BuiltInType type : BuiltInType.values()) {
+            BuiltIn builtInSymbol = new BuiltIn(type, this.currentScope);
             builtInSymbol.setType(builtInSymbol);
-            builtIn.put(type, builtInSymbol);
+            builtIn.put(type.getName(), builtInSymbol);
         }
         return builtIn;
     }
@@ -51,10 +50,6 @@ public class SymbolTable {
 
     public void addSymbol(Symbol symbol) {
         this.currentScope.bind(symbol);
-    }
-
-    public void setSymbols(HashMap<String, Symbol> symbols) {
-        this.currentScope.setSymbols(symbols);
     }
 
     public void setScope(Scope scope) {
