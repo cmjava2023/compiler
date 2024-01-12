@@ -1,58 +1,29 @@
 package org.cmjava2023.util
 
-import org.cmjava2023.classfilespecification.constantpool.*
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolConstants.*
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolConstants.Companion.QUALIFIED_CLASSNAME_OF_STRING
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry.*
+import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
 import org.cmjava2023.classfilespecification.opCodes.OpCode
 import org.cmjava2023.classfilespecification.opCodes.OpCodeOrPlaceHolder
-import org.cmjava2023.classfilespecification.opCodes.PlaceHolderLoadingConstantInfo
+import org.cmjava2023.classfilespecification.opCodes.PlaceHolderLoadConstantPoolItem
 
 class OpCodesToConcatStringLiteralAndVariableQuery {
     companion object {
         fun fetch(
             stringLiteralValue: String,
-            opCodesOrPlaceHoldersOfRightExpression: List<OpCodeOrPlaceHolder>,
-            constantPoolTypeOfRightExpression: String
+            opCodesOrPlaceHoldersToLoadRightValue: List<OpCodeOrPlaceHolder>,
+            typeDescriptorOfRightValue: TypeDescriptor
         ): List<OpCodeOrPlaceHolder> {
-            val stringBuilderClassConstantInfo = ClassConstantInfo(StringBuilder.QUALIFIED_CLASSNAME)
-
-            return listOf(
-                OpCode.New(stringBuilderClassConstantInfo),
-                OpCode.Dup(),
-                OpCode.Invokespecial(
-                    MethodReferenceConstantInfo(
-                        stringBuilderClassConstantInfo,
-                        NameAndTypeConstantInfo(ConstantPoolConstants.CONSTRUCTOR_NAME, Type.createVoidMethod())
-                    )
-                ),
-                PlaceHolderLoadingConstantInfo(StringConstantInfo(stringLiteralValue)),
-                OpCode.Invokevirtual(
-                    MethodReferenceConstantInfo(
-                        stringBuilderClassConstantInfo,
-                        NameAndTypeConstantInfo(StringBuilder.Method.APPEND,  Type.createMethodReturning1with2toNAsParameterTypes(StringBuilder.QUALIFIED_CLASSNAME, Type.createForQualifiedClassName(QUALIFIED_CLASSNAME_OF_STRING)))
-                    )
-                )
-            )
-                .plus(opCodesOrPlaceHoldersOfRightExpression)
-                .plus(
-                    OpCode.Invokevirtual(
-                        MethodReferenceConstantInfo(
-                            stringBuilderClassConstantInfo,
-                            NameAndTypeConstantInfo(
-                                StringBuilder.Method.TO_STRING,
-                                Type.createMethodReturning1with2toNAsParameterTypes(Type.createForQualifiedClassName(QUALIFIED_CLASSNAME_OF_STRING), constantPoolTypeOfRightExpression)
-                            )
-                        )
-                    )
-                )
-                .plus(
-                    OpCode.Invokevirtual(
-                        MethodReferenceConstantInfo(
-                            stringBuilderClassConstantInfo,
-                            NameAndTypeConstantInfo(StringBuilder.Method.TO_STRING, Type.createMethodReturning1with2toNAsParameterTypes(Type.createForQualifiedClassName(QUALIFIED_CLASSNAME_OF_STRING)))
-                        )
-                    )
-                )
+            
+            val result = mutableListOf<OpCodeOrPlaceHolder>()
+            result += OpCode.New(ClassConstant.STRING_BUILDER)
+            result += OpCode.Dup()
+            result += OpCode.Invokespecial(MethodReferenceConstant.defaultConstructorOf(ClassConstant.STRING_BUILDER))
+            result += PlaceHolderLoadConstantPoolItem(StringConstant(stringLiteralValue))
+            result += OpCode.Invokevirtual(MethodReferenceConstant.STRING_BUILDER_APPEND_STRING)
+            result.addAll(opCodesOrPlaceHoldersToLoadRightValue)
+            result += OpCode.Invokevirtual(MethodReferenceConstant.a)
+            result += OpCode.Invokevirtual(MethodReferenceConstant.STRING_BUILDER_TO_STRING)            
+            return 
         }
     }
 }

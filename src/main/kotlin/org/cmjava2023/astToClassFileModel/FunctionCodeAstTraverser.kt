@@ -3,7 +3,6 @@ package org.cmjava2023.astToClassFileModel
 import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.ast.ASTNodes.ComparisonOperator
 import org.cmjava2023.ast.ASTTraverser
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolConstants
 import org.cmjava2023.classfilespecification.constantpool.*
 import org.cmjava2023.classfilespecification.opCodes.*
 import org.cmjava2023.classfilespecification.opCodes.OpCodeOrPlaceHolder.Companion.assureAllAreFinalOpCodes
@@ -72,10 +71,10 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
     override fun visit(functionCallNode: ASTNodes.FunctionCallNode): List<OpCodeOrPlaceHolder> {
         when (functionCallNode.function.name) {
             "System.out.println" -> {
-                val fieldReferenceConstantInfo = FieldReferenceConstantInfo(
-                    ClassConstantInfo(ConstantPoolConstants.QUALIFIED_CLASSNAME_OF_STRING), NameAndTypeConstantInfo(
+                val fieldReferenceConstantInfo = FieldReferenceConstantPoolEntry(
+                    ClassConstantPoolEntry(TypeDescriptorHelper.STRING), NameAndTypeConstantPoolEntry(
                         "out",
-                        ConstantPoolConstants.Type.createForQualifiedClassName(ConstantPoolConstants.QUALIFIED_CLASSNAME_OF_PRINT_STREAM)
+                        TypeDescriptorHelper.createForClassName(TypeDescriptorHelper.PRINT_STREAM)
                     )
                 )
 
@@ -83,16 +82,16 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
                 val expr = functionCallNode.values[0]
                 val opcOdesLoadingWhatToPrint = when {
                     expr is ASTNodes.ValueNode<*> -> {
-                        parameterTypeCode = ConstantPoolConstants.Type.map(BuiltInType.typeOf(expr.value))
+                        parameterTypeCode = TypeDescriptorHelper.map(BuiltInType.typeOf(expr.value))
                         visit(expr)
                     }
 
                     expr is ASTNodes.InfixNode && expr.operator == ASTNodes.InfixOperator.PLUS && expr.leftExpression is ASTNodes.ValueNode<*> && (expr.leftExpression as ASTNodes.ValueNode<*>).value is String -> {
-                        parameterTypeCode = ConstantPoolConstants.Type.createForQualifiedClassName(ConstantPoolConstants.QUALIFIED_CLASSNAME_OF_STRING)
+                        parameterTypeCode = TypeDescriptorHelper.createForClassName(TypeDescriptorHelper.STRING)
                         visit(expr)
                     }
                     expr is ASTNodes.VariableCallNode -> {
-                        parameterTypeCode = ConstantPoolConstants.Type.map(expr.symbol.type)
+                        parameterTypeCode = TypeDescriptorHelper.map(expr.symbol.type)
                         visit(expr)
                     }
 
@@ -101,7 +100,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
                         if (arrayType == BuiltInType.STRING) {
                             throw NotImplementedError("String Arrays")
                         } else {
-                            parameterTypeCode = ConstantPoolConstants.Type.map(arrayType)
+                            parameterTypeCode = TypeDescriptorHelper.map(arrayType)
                         }
                         visit(expr)
                     }
@@ -110,11 +109,11 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
                         throw NotImplementedError(expr.javaClass.name)
                     }
                 }
-                val methodReferenceConstantInfo = MethodReferenceConstantInfo(
-                    ClassConstantInfo(ConstantPoolConstants.QUALIFIED_CLASSNAME_OF_PRINT_STREAM),
-                    NameAndTypeConstantInfo(
-                        ConstantPoolConstants.QUALIFIED_CLASSNAME_OF_STRING,
-                        ConstantPoolConstants.Type.createVoidMethod(parameterTypeCode)
+                val methodReferenceConstantInfo = MethodReferenceConstantPoolEntry(
+                    ClassConstantPoolEntry(TypeDescriptorHelper.PRINT_STREAM),
+                    NameAndTypeConstantPoolEntry(
+                        TypeDescriptorHelper.STRING,
+                        TypeDescriptorHelper.createVoidMethod(parameterTypeCode)
                     )
                 )
 
@@ -128,12 +127,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
 
             "System.in.read" -> return listOf(
                 OpCode.Getstatic(
-                    FieldReferenceConstantInfo(
-                        ClassConstantInfo("java/lang/System"), NameAndTypeConstantInfo("in", ConstantPoolConstants.Type.createForQualifiedClassName("java/io/InputStream"))
+                    FieldReferenceConstantPoolEntry(
+                        ClassConstantPoolEntry("java/lang/System"), NameAndTypeConstantPoolEntry("in", TypeDescriptorHelper.createForClassName("java/io/InputStream"))
                     )
                 ), OpCode.Invokevirtual(
-                    MethodReferenceConstantInfo(
-                        ClassConstantInfo("java/io/InputStream"), NameAndTypeConstantInfo("read", ConstantPoolConstants.Type.createMethodReturning1with2toNAsParameterTypes(ConstantPoolConstants.Type.map(BuiltInType.INT)))
+                    MethodReferenceConstantPoolEntry(
+                        ClassConstantPoolEntry("java/io/InputStream"), NameAndTypeConstantPoolEntry("read", TypeDescriptorHelper.createMethodReturning1with2toNAsParameterTypes(TypeDescriptorHelper.map(BuiltInType.INT)))
                     )
                 ), OpCode.I2c()
             )
@@ -151,7 +150,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
             OpCodesToConcatStringLiteralAndVariableQuery.fetch(
                 leftExpression.value as String,
                 visit(rightExpression),
-                ConstantPoolConstants.Type.map(rightExpression.symbol.type)
+                TypeDescriptorHelper.map(rightExpression.symbol.type)
             )
         } else {
             val leftType = getTypeOf(leftExpression)
@@ -327,7 +326,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
         val value = valueNode.value
         return listOf(
             when (value) {
-                is String -> PlaceHolderLoadingConstantInfo(StringConstantInfo(value))
+                is String -> PlaceHolderLoadConstantPoolItem(StringConstantPoolEntry(value))
                 is Boolean -> OpCodeToPutBooleanOnStackQuery.fetch(value)
                 is Char -> OpCodeToPutIntegerOnStackQuery.fetch(value.digitToInt())
                 is Byte -> OpCodeToPutIntegerOnStackQuery.fetch(value.toInt())
@@ -555,7 +554,7 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
         if (valueNodesOrNull.none { it == null }) {
             result.add(
                 when (arrayType.arrayType.name) {
-                    "String" -> OpCode.Anewarray(ClassConstantInfo("java/lang/String"))
+                    "String" -> OpCode.Anewarray(ClassConstantPoolEntry("java/lang/String"))
                     "boolean" -> OpCode.Newarray(OpCode.ArrayType.T_BOOLEAN)
                     "int" -> OpCode.Newarray(OpCode.ArrayType.T_INT)
                     "byte" -> OpCode.Newarray(OpCode.ArrayType.T_BYTE)
@@ -605,9 +604,9 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCodeOrPlaceHolder>>() {
         val numberOfDimensions = arrayInstantiationNode.dimensionSizes.size.toUByte()
         result.add(
             OpCode.Multianewarray(
-                ClassConstantInfo(
-                    ConstantPoolConstants.Type.asArrayOfDimension(
-                        ConstantPoolConstants.Type.map(
+                ClassConstantPoolEntry(
+                    TypeDescriptorHelper.asArrayOfDimension(
+                        TypeDescriptorHelper.map(
                             arrayInstantiationNode.type
                         ), numberOfDimensions.toInt()
                     )

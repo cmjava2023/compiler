@@ -1,9 +1,9 @@
 package org.cmjava2023.classfilespecification.opCodes.queries
 
-import org.cmjava2023.classfilespecification.constantpool.IntegerConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.IntegerConstantPoolEntry
 import org.cmjava2023.classfilespecification.opCodes.OpCode
 import org.cmjava2023.classfilespecification.opCodes.OpCodeOrPlaceHolder
-import org.cmjava2023.classfilespecification.opCodes.PlaceHolderLoadingConstantInfo
+import org.cmjava2023.classfilespecification.opCodes.PlaceHolderLoadConstantPoolItem
 
 class OpCodeToPutIntegerOnStackQuery {
     companion object {
@@ -21,7 +21,7 @@ class OpCodeToPutIntegerOnStackQuery {
                 } else if (int >= Short.MIN_VALUE && int <= Short.MAX_VALUE) {
                     OpCode.Sipush(int.toShort())
                 } else {
-                    PlaceHolderLoadingConstantInfo(IntegerConstantInfo(int))
+                    PlaceHolderLoadConstantPoolItem(IntegerConstantPoolEntry(int))
                 }
             }
         }

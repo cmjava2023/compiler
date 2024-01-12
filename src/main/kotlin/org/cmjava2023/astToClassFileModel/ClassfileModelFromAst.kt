@@ -12,12 +12,12 @@ class ClassfileModelFromAst {
         private const val PACKAGE_DELIMITER_IN_CLASS_FILES = "/"
     }
 
-    private val constantInfos = mutableListOf<ConstantInfo>()
+    private val constantPoolEntries = mutableListOf<ConstantPoolEntry>()
     private val methodInfos = mutableListOf<MethodInfo>()
     private val classAccessModifiers = mutableListOf<ClassAccessModifier>()
 
     private fun resetFields() {
-        constantInfos.clear()
+        constantPoolEntries.clear()
         methodInfos.clear()
         classAccessModifiers.clear()
     }
@@ -30,7 +30,7 @@ class ClassfileModelFromAst {
 
         return ClassfileModel(
             packageNameWithDelimiterForClassFile,
-            constantInfos,
+            constantPoolEntries,
             classAccessModifiers,
             0u,
             0u,
@@ -52,9 +52,9 @@ class ClassfileModelFromAst {
                 listOf(
                     OpCode.Aload_0(),
                     OpCode.Invokespecial(
-                        MethodReferenceConstantInfo(
-                            ClassConstantInfo("java/lang/Object"),
-                            NameAndTypeConstantInfo("<init>", "()V")
+                        MethodReferenceConstantPoolEntry(
+                            ClassConstantPoolEntry("java/lang/Object"),
+                            NameAndTypeConstantPoolEntry("<init>", "()V")
                         )
                     ),
                     OpCode.Return()
@@ -85,13 +85,13 @@ class ClassfileModelFromAst {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
 
-        constantInfos.add(
-            ClassConstantInfo(
+        constantPoolEntries.add(
+            ClassConstantPoolEntry(
                 packages.plus(className)
                     .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
             )
         )
-        constantInfos.add(ClassConstantInfo("java/lang/Object"))
+        constantPoolEntries.add(ClassConstantPoolEntry("java/lang/Object"))
 
         return packages.joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
     }

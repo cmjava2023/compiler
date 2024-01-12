@@ -1,6 +1,6 @@
 package cmjava2023.bytecodeTestUtil
 
-import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.opCodes.OpCode
 import org.cmjava2023.util.BytesInHexQueue
 import kotlin.reflect.KClass
@@ -19,7 +19,7 @@ class NextOpCodeFromByteQueueQuery {
             val constructor = opCodeKClass.constructors.single()
             val arguments = mutableListOf<Any>()
             for (parameter in constructor.parameters) {
-                if (parameter.type.jvmErasure.isSubclassOf(ConstantInfo::class) || opCodeKClass.isSubclassOf(OpCode.Ldc_w::class)) {
+                if (parameter.type.jvmErasure.isSubclassOf(ConstantPoolEntry::class) || opCodeKClass.isSubclassOf(OpCode.Ldc_w::class)) {
                     val index = bytesInHexQueue.dequeue2ByteUShort().toInt()
                     arguments.add(constantPoolItems[index])
                 } else if (opCodeKClass.isSubclassOf(OpCode.Ldc::class)) {

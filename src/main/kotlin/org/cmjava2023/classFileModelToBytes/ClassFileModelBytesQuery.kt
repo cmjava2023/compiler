@@ -2,20 +2,20 @@ package org.cmjava2023.classFileModelToBytes
 
 import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileModel
-import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
-import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ClassConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 
 class ClassFileModelBytesQuery {
 
-    private fun addAllClassesToConstantPool(constantPoolBuilder: ConstantPoolBuilder, constantInfos: List<ConstantInfo>) {
-        constantInfos.filterIsInstance<ClassConstantInfo>().forEach { constantPoolBuilder.getIndexByResolvingOrAdding(it) }
+    private fun addAllClassesToConstantPool(constantPoolBuilder: ConstantPoolBuilder, constantPoolEntries: List<ConstantPoolEntry>) {
+        constantPoolEntries.filterIsInstance<ClassConstantPoolEntry>().forEach { constantPoolBuilder.getIndexByResolvingOrAdding(it) }
     }
 
     fun fetch(model: ClassfileModel): ByteArray {
         val constantPoolBuilder = ConstantPoolBuilder()
-        addAllClassesToConstantPool(constantPoolBuilder, model.constantInfos)
+        addAllClassesToConstantPool(constantPoolBuilder, model.constantPoolEntries)
         val bytesOfMethodInfos = model.methodDefinitions.flatMap { MethodInfoBytesQuery.fetch(constantPoolBuilder, it) }
 
         val result: MutableList<Byte> = mutableListOf()

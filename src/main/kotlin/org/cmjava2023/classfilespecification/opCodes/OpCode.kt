@@ -1,9 +1,9 @@
 package org.cmjava2023.classfilespecification.opCodes
 
-import org.cmjava2023.classfilespecification.constantpool.ClassConstantInfo
-import org.cmjava2023.classfilespecification.constantpool.ConstantInfo
-import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantInfo
-import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantInfo
+import org.cmjava2023.classfilespecification.constantpool.ClassConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.FieldReferenceConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.MethodReferenceConstantPoolEntry
 import kotlin.reflect.KClass
 
 /**
@@ -26,7 +26,7 @@ abstract class OpCode(vararg val values: Any): OpCodeOrPlaceHolder {
     class Aload_1: OpCode()
     class Aload_2: OpCode()
     class Aload_3: OpCode()
-    class Anewarray(classConstantInfo: ClassConstantInfo): OpCode(classConstantInfo)
+    class Anewarray(classConstantInfo: ClassConstantPoolEntry): OpCode(classConstantInfo)
     class Areturn: OpCode(), ReturningOpCode
     class Arraylength: OpCode()
     class Astore(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
@@ -99,7 +99,7 @@ abstract class OpCode(vararg val values: Any): OpCodeOrPlaceHolder {
     class Fstore_2: OpCode()
     class Fstore_3: OpCode()
     class Fsub: OpCode()
-    class Getstatic(fieldReferenceConstantInfo: FieldReferenceConstantInfo): OpCode(fieldReferenceConstantInfo)
+    class Getstatic(fieldReferenceConstantInfo: FieldReferenceConstantPoolEntry): OpCode(fieldReferenceConstantInfo)
     class Goto(offset: Short): OpCode(offset)
     class I2b: OpCode()
     class I2c: OpCode()
@@ -139,8 +139,8 @@ abstract class OpCode(vararg val values: Any): OpCodeOrPlaceHolder {
     class Iload_3: OpCode()
     class Imul: OpCode()
     class Ineg: OpCode()
-    class Invokespecial(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(methodReferenceConstantInfo)
-    class Invokevirtual(methodReferenceConstantInfo: MethodReferenceConstantInfo): OpCode(methodReferenceConstantInfo)
+    class Invokespecial(methodReferenceConstantInfo: MethodReferenceConstantPoolEntry): OpCode(methodReferenceConstantInfo)
+    class Invokevirtual(methodReferenceConstantInfo: MethodReferenceConstantPoolEntry): OpCode(methodReferenceConstantInfo)
     class Ior: OpCode()
     class Irem: OpCode()
     class Ireturn: OpCode(), ReturningOpCode
@@ -165,7 +165,7 @@ abstract class OpCode(vararg val values: Any): OpCodeOrPlaceHolder {
     class Lconst_0: OpCode()
     class Lconst_1: OpCode()
     class Ldc(indexInConstantPool: UByte): OpCode(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
-    class Ldc2_w(longOrDoubleToLoad: ConstantInfo): OpCode(longOrDoubleToLoad)
+    class Ldc2_w(longOrDoubleToLoad: ConstantPoolEntry): OpCode(longOrDoubleToLoad)
     class Ldc_w(indexInConstantPool: UShort): OpCode(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
     class Ldiv: OpCode()
     class Lload(indexInsideLocalVariableArray: UByte): OpCode(indexInsideLocalVariableArray)
@@ -188,8 +188,8 @@ abstract class OpCode(vararg val values: Any): OpCodeOrPlaceHolder {
     class Lsub: OpCode()
     class Lushr: OpCode()
     class Lxor: OpCode()
-    class Multianewarray(classConstantInfo: ClassConstantInfo, dimensions: UByte): OpCode(classConstantInfo, dimensions)
-    class New(classConstantInfo: ClassConstantInfo): OpCode(classConstantInfo)
+    class Multianewarray(classConstantInfo: ClassConstantPoolEntry, dimensions: UByte): OpCode(classConstantInfo, dimensions)
+    class New(classConstantInfo: ClassConstantPoolEntry): OpCode(classConstantInfo)
     enum class ArrayType(val code: UByte) {
         T_BOOLEAN(4u),
         T_CHAR(5u),
