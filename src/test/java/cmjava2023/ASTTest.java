@@ -1,7 +1,6 @@
 package cmjava2023;
 
 
-import cmjava2023.util.BetterNamedAssertions;
 import cmjava2023.util.DynamicTestsForTestFilesHelper;
 import cmjava2023.util.LineWiseEqualsAssertion;
 import cmjava2023.util.treePrinter.GenericTreePrinter;
@@ -21,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory

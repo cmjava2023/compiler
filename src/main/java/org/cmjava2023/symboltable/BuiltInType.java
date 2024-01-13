@@ -22,14 +22,8 @@ public enum BuiltInType implements Type {
         }
         return nameInCode;
     }
-    
-    public static boolean builtInTypeSensitiveEquals(Object a, Object b) {
-        if (a instanceof BuiltInType aAsBuiltIn && b instanceof BuiltInType bAsBuiltIn) {
-           return aAsBuiltIn == bAsBuiltIn;
-        } else if (a instanceof Type aASType && b instanceof Type bAsType) {
-            return aASType.getName().equals(bAsType.getName());
-        } else {
-            throw new NotImplementedError("a:" + a.getClass().getName() + "\nb:" + b.getClass().getName());
-        }
+
+    public boolean equals(InvalidType invalidType) {
+        return invalidType.getName().equals(getName());
     }
 }

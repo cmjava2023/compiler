@@ -11,6 +11,7 @@ import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.SystemOutPrintlnPlaceHoldersQuery
+import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
 
 class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
@@ -81,9 +82,10 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
             result.add(LoadConstantPlaceHolder.IntegerConstant(dimensionSize))
         }
         val numberOfDimensions = arrayInstantiationNode.dimensionSizes.size
+        val arrayType = (arrayInstantiationNode.type as ArrayType).arrayType
         result.add(
             Operation.Multianewarray(
-                ConstantPoolEntry.ClassConstant.arrayWithDimension( TypeDescriptor.createForBuildInType(arrayInstantiationNode.type).stringRepresentation, numberOfDimensions),
+                ConstantPoolEntry.ClassConstant(TypeDescriptor.createForBuildInType(arrayType).asArrayOfDimension(numberOfDimensions).stringRepresentation),
                 numberOfDimensions.toUByte()
             )
         )

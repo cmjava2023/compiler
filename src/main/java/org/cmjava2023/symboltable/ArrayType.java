@@ -23,10 +23,4 @@ public class ArrayType implements Type {
     public String toString() {
         return arrayType.getName() + "[]".repeat(dimensions);
     }
-
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-    @Override
-    public boolean equals(Object other) {
-        return BuiltInType.builtInTypeSensitiveEquals(this, other);
-    }
 }

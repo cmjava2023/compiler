@@ -27,8 +27,6 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
             val PRINT_STREAM = ClassConstant(PRINT_STREAM_CLASSNAME)
             val INPUT_STREAM = ClassConstant(INPUT_STREAM_CLASSNAME)
             val SYSTEM = ClassConstant("java/lang/System")
-            
-            fun arrayWithDimension(className: String, numberOfDimensions: Int): ClassConstant = ClassConstant("[".repeat(numberOfDimensions) + className)
         }
     }
     class StringConstant(value: String): ConstantPoolEntry(0X08) {

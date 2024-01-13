@@ -1,11 +1,13 @@
 package org.cmjava2023.semanticanalysis;
 
+import kotlin.NotImplementedError;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ASTTraverser;
 import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ArrayList<String> errors;
@@ -349,6 +351,19 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.ArrayInstantiationWithValuesNode node) {
         return new ASTNodes.ArrayInstantiationWithValuesNode(getModifiedExpressions(node.expressions()));
+    }
+    @Override
+    public ASTNodes.Node visit(ASTNodes.ArrayInstantiationNode node) {
+        if (node.type() instanceof InvalidType invalidType) {
+            for (BuiltInType builtInType : BuiltInType.values()) {
+                if(builtInType.equals(invalidType)) {
+                    return new ASTNodes.ArrayInstantiationNode(new ArrayType(builtInType, node.dimensionSizes().size()), node.dimensionSizes());
+                }
+            }
+            throw new NotImplementedError("Array Type not primitive");
+        }
+        
+        return node;
     }
 
     @Override

@@ -10,13 +10,8 @@ public class InvalidType implements Type{
     public String getName() {
         return name;
     }
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-    @Override
-    public boolean equals(Object other) {
-        return BuiltInType.builtInTypeSensitiveEquals(this, other);
-    }
     
-    public boolean equals(BuiltInType other) {
-        return BuiltInType.builtInTypeSensitiveEquals(this, other);
+    public boolean equals(BuiltInType builtInType) {
+        return builtInType.getName().equals(getName());
     }
 }

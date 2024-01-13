@@ -54,10 +54,6 @@ public class SymbolTable {
         this.currentScope = scope;
     }
 
-    public void setSymbols(HashMap<String, Symbol> symbols) {
-        this.currentScope.setSymbols(symbols);
-    }
-
     public void popScope() {
         this.currentScope = currentScope.getEnclosingScope();
     }

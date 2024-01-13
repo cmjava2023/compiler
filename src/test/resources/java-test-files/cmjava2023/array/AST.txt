@@ -143,7 +143,9 @@ L  body
                |- 8 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationNode)
-               |     |  |- type: int
+               |     |  |- type (field of type ArrayType)
+               |     |  |  |- arrayType: INT
+               |     |  |  L  dimensions: 2
                |     |  L  dimensionSizes
                |     |     |- 0: 10
                |     |     L  1: 10
@@ -171,7 +173,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: o:
                |        L  builtInType: STRING
@@ -181,7 +183,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -201,7 +203,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: by:
                |        L  builtInType: STRING
@@ -211,7 +213,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -234,7 +236,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: boo:
                |        L  builtInType: STRING
@@ -244,7 +246,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -267,7 +269,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: c:
                |        L  builtInType: STRING
@@ -277,7 +279,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -300,7 +302,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: d:
                |        L  builtInType: STRING
@@ -310,7 +312,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -333,7 +335,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: f:
                |        L  builtInType: STRING
@@ -343,7 +345,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -366,7 +368,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: i:
                |        L  builtInType: STRING
@@ -376,7 +378,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -399,7 +401,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l:
                |        L  builtInType: STRING
@@ -409,7 +411,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
@@ -432,7 +434,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: i2:
                |        L  builtInType: STRING
@@ -442,11 +444,13 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationNode)
-               |        |  |  |- type: int
+               |        |  |  |- type (field of type ArrayType)
+               |        |  |  |  |- arrayType: INT
+               |        |  |  |  L  dimensions: 2
                |        |  |  L  dimensionSizes
                |        |  |     |- 0: 10
                |        |  |     L  1: 10
@@ -463,7 +467,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: s:
                |        L  builtInType: STRING
@@ -473,7 +477,7 @@ L  body
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
                   |  L  type: VOID
-                  L  getArgumentExpressions
+                  L  argumentExpressions
                      L  0 (field of type ArrayAccessNode)
                         |- array (field of type Variable)
                         |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
