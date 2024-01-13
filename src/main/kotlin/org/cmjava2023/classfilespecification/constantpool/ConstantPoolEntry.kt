@@ -1,9 +1,10 @@
 package org.cmjava2023.classfilespecification.constantpool
 
+import org.cmjava2023.symboltable.BuiltInType
 import org.cmjava2023.util.ByteListUtil.Companion.toByteList
 
 abstract class ConstantPoolEntry(val tagByte: Byte) {    
-    class Utf8Constant(val content: String): ConstantPoolEntry(0x01) {
+    class Utf8Constant(content: String): ConstantPoolEntry(0x01) {
         private val utf8encodedContent: String = String(content.toByteArray(), Charsets.UTF_8)
         val stringLengthInBytes: List<Byte> = utf8encodedContent.length.toUShort().toByteList()
         val contentInBytes: List<Byte> = utf8encodedContent.toByteArray().toList()
@@ -15,7 +16,10 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
     class ClassConstant(name: TypeDescriptor): ConstantPoolEntry(0X07) {
         val name = Utf8Constant(name.stringRepresentation)
         companion object {
-            val STRING_BUILDER = ClassConstant(TypeDescriptor("java/lang/StringBuilder"))  
+            val STRING = ClassConstant(TypeDescriptor.STRING)
+            val OBJECT = ClassConstant(TypeDescriptor.OBJECT)
+            val STRING_BUILDER = ClassConstant(TypeDescriptor.createForClassName("java/lang/StringBuilder"))  
+            val SYSTEM = ClassConstant(TypeDescriptor.createForClassName("java/lang/System"))
         }
     }
     class StringConstant(value: String): ConstantPoolEntry(0X08) {
@@ -27,39 +31,38 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
     }
     
     class FieldReferenceConstant(
-        className: TypeDescriptor,
+        classConstant: ClassConstant,
         fieldName: String,
         fieldType: TypeDescriptor
-    ): ReferenceConstantPoolEntry(0X09, ClassConstant(className), NameAndTypeConstant(fieldName, fieldType))
+    ): ReferenceConstant(0X09, classConstant, NameAndTypeConstant(fieldName, fieldType)) {
+        companion object {
+            val SYSTEM_IN = FieldReferenceConstant(ClassConstant.SYSTEM, "in", TypeDescriptor.createForClassName("java/io/InputStream"))
+            val SYSTEM_OUT = FieldReferenceConstant(ClassConstant.SYSTEM, "out", TypeDescriptor.createForClassName("java/io/PrintStream"))
+        }
+    }
     
     class MethodReferenceConstant(
         classConstant: ClassConstant,
         methodName: String,
         methodType: MethodTypeDescriptor
-    ): ReferenceConstantPoolEntry(0X0A, classConstant, NameAndTypeConstant(methodName, methodType)) {
-        
-        constructor(
-            className: TypeDescriptor,
-            methodName: String,
-            methodType: MethodTypeDescriptor
-        ) : this(ClassConstant(className), methodName, methodType)
-
+    ): ReferenceConstant(0X0A, classConstant, NameAndTypeConstant(methodName, methodType)) {
         companion object {
             private const val CONSTRUCTOR_NAME = "<init>"
-            private const val STRING_BUILDER_APPEND = "append"
-            private const val STRING_BUILDER_TO_STRING = "toString"
+            private const val STRING_BUILDER_METHOD_NAME_APPEND = "append"
+            private const val STRING_BUILDER_METHOD_NAME_TO_STRING = "toString"
 
-            val a =  MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_TO_STRING, MethodTypeDescriptor(TypeDescriptor.STRING))
-            val STRING_BUILDER_APPEND_STRING = stringBuilderAppendForInstanceOf(TypeDescriptor.STRING)
-            fun stringBuilderAppendForInstanceOf(typeDescriptor: TypeDescriptor) = MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_APPEND, MethodTypeDescriptor(TypeDescriptor.createForClassName(typeDescriptor)))
+            val STRING_BUILDER_TO_STRING =  MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_TO_STRING, MethodTypeDescriptor.voidWithParameters(TypeDescriptor.STRING))
+            val SYSTEM_IN_READ = MethodReferenceConstant(ClassConstant.SYSTEM, "read", MethodTypeDescriptor.voidWithParameters().returning(TypeDescriptor.forBuildInType(BuiltInType.INT)))
+            fun stringBuilderAppendFor(type: TypeDescriptor) =
+                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_APPEND, MethodTypeDescriptor.voidWithParameters(type))
             fun stringBuilderToStringFor(type: org.cmjava2023.symboltable.Type) =
-                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_TO_STRING, MethodTypeDescriptor(TypeDescriptor.STRING, TypeDescriptor.createFromSymbolTableType(type)))
-            fun defaultConstructorOf(typeDescriptor: TypeDescriptor) = MethodReferenceConstant(typeDescriptor, CONSTRUCTOR_NAME, MethodTypeDescriptor())
-            fun defaultConstructorOf(classConstant: ClassConstant) = MethodReferenceConstant(classConstant, CONSTRUCTOR_NAME, MethodTypeDescriptor())
+                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_TO_STRING, MethodTypeDescriptor.voidWithParameters(TypeDescriptor.forBuildInType(type)).returning(TypeDescriptor.STRING))
+            fun defaultConstructorOf(typeDescriptor: TypeDescriptor) = MethodReferenceConstant(ClassConstant(typeDescriptor), CONSTRUCTOR_NAME, MethodTypeDescriptor.voidWithParameters())
+            fun defaultConstructorOf(classConstant: ClassConstant) = MethodReferenceConstant(classConstant, CONSTRUCTOR_NAME, MethodTypeDescriptor.voidWithParameters())
         }
     }
     
-    abstract class ReferenceConstantPoolEntry(
+    abstract class ReferenceConstant(
         tagByte: Byte,
         val classConstantInfo: ClassConstant,
         val nameAndTypeConstantInfo: NameAndTypeConstant

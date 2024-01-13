@@ -1,7 +1,7 @@
 package org.cmjava2023.classfilespecification.attributeInfo
 
-import org.cmjava2023.classfilespecification.constantpool.Utf8ConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 
 abstract class AbstractAttributeInfo(name: String) {
-    val name = Utf8ConstantPoolEntry(name)
+    val name = ConstantPoolEntry.Utf8Constant(name)
 }

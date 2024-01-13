@@ -1,3 +1,0 @@
-package org.cmjava2023.classfilespecification.opCodes
-
-interface PlaceHolder: OpCodeOrPlaceHolder

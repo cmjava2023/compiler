@@ -68,34 +68,18 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         return caseNodeList;
     }
 
+
+    @Override
+    public ASTNodes.Node defaultValue(ASTNodes.Node node) { return node; }
+
     @Override
     public ASTNodes.Node visit(ASTNodes.StartNode node) {
         return new ASTNodes.StartNode(getModifiedStatements(node.body()));
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.PackageNode node) {
-        return node;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.ClassNode node) {
         return new ASTNodes.ClassNode(node.classSymbol(), getModifiedStatements(node.body()));
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ContinueNode continueNodeNode) {
-        return continueNodeNode;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.BreakNode breakNode) {
-        return breakNode;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.EnumNode enumNode) {
-        return enumNode;
     }
 
     @Override
@@ -117,7 +101,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         
         Clazz exception = node.exception();
         
-        if (node.exception() instanceof InvalidClazz invalidException){
+        if (node.exception() instanceof InvalidClazz){
             Clazz resolvedException = (Clazz) exception.getScope().resolve(exception.getName());
             
             if (resolvedException != null){
@@ -153,7 +137,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         Symbol functionSymbol = resolveNestedIdentifier(null, nestedIdentifier, node.function().getScope());
 
         if (functionSymbol instanceof Function function) {
-            return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.values()));
+            return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.getArgumentExpressions()));
         }
 
         errors.add(String.format("Function %s is not declared", String.join(".", node.function().getName())));
@@ -284,16 +268,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.ValueNode<?> valueNode) {
-        return valueNode;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.NestedIdentifierNode node) {
-        return node;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
         return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.comparisonOperator(), (ASTNodes.Expression) node.rightExpression().accept(this));
     }
@@ -325,33 +299,18 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.TypeNode node) {
-        return node;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ArrayTypeNode node) {
-        return node;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ParameterAssignmentNode node) {
-        return node;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.InfixNode node) {
         return new ASTNodes.InfixNode((ASTNodes.Expression) node.leftExpression().accept(this), node.operator(), (ASTNodes.Expression) node.rightExpression().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnaryPrefixNode node) {
-        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
+        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.getVariableCallNode().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnarySuffixNode node) {
-        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.Expression().accept(this));
+        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.getVariableCallNode().accept(this));
     }
 
     @Override
@@ -395,21 +354,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     @Override
-    public ASTNodes.Node visit(ASTNodes.ArrayInstantiationNode node) {
-        return node;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ArrayAccessNode node) {
-        return node;
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.ObjectInstantiationNode node) {
-        return node;
-    }
-
-    @Override
     public ASTNodes.Node visit(ASTNodes.ForLoopNode node) {
         return new ASTNodes.ForLoopNode((ASTNodes.VariableUsage) node.loopVariable().accept(this), (ASTNodes.Expression) node.termination().accept(this), (ASTNodes.Expression) node.increment().accept(this), getModifiedStatements(node.body()));
     }
@@ -427,11 +371,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.DoWhileLoopNode node) {
         return new ASTNodes.DoWhileLoopNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.body()));
-    }
-
-    @Override
-    public ASTNodes.Node visit(ASTNodes.OperatorNode node) {
-        return node;
     }
 
     @Override
