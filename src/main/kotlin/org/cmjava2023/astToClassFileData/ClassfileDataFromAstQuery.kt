@@ -1,4 +1,4 @@
-package org.cmjava2023.astToClassFileModel
+package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.classfilespecification.*
@@ -66,10 +66,8 @@ class ClassfileDataFromAstQuery {
         }
 
         constantPoolEntries += ConstantPoolEntry.ClassConstant(
-            TypeDescriptor.createForClassName(
-                packages.plus(className)
-                    .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
-            )
+            packages.plus(className)
+                .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
         )
         constantPoolEntries += ConstantPoolEntry.ClassConstant.OBJECT
 
@@ -80,7 +78,7 @@ class ClassfileDataFromAstQuery {
         for (statement in statements) {
             when (statement) {
                 is ASTNodes.FunctionNode -> parseFunctionNode(statement)
-                else -> throw NotImplementedError()
+                else -> throw NotImplementedError(statement.javaClass.name)
             }
         }
     }

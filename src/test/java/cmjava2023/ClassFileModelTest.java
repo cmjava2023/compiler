@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
-import org.cmjava2023.astToClassFileModel.ClassfileDataFromAstQuery;
+import org.cmjava2023.astToClassFileData.ClassfileDataFromAstQuery;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -41,7 +41,7 @@ public class ClassFileModelTest implements DynamicTestsForTestFilesHelper.Dynami
 
             var classFileData = new ClassfileDataFromAstQuery().fetch((ASTNodes.StartNode)modifiedAST);
             String actual = GenericTreePrinter.print(classFileData);
-            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(contentOfExpectationFile, actual);
         }));
     }
 }

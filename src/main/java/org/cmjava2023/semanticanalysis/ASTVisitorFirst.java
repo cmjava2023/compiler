@@ -243,7 +243,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
-        if (Objects.equals(invalidType.getName(), "void")) {
+        if (Objects.equals(invalidType.getName(), BuiltInType.VOID.name())) {
             errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
         }
     }
@@ -321,7 +321,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.CastNode node) {
         if (node.type() instanceof InvalidType invalidType) {
-            if (Objects.equals(invalidType.getName(), "void")) {
+            if (Objects.equals(invalidType.getName(), BuiltInType.VOID.name())) {
                 errors.add("Casts cannot be of type void");
             }
 
@@ -347,7 +347,6 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         }
         return node;
     }
-
     @Override
     public ASTNodes.Node visit(ASTNodes.ArrayInstantiationWithValuesNode node) {
         return new ASTNodes.ArrayInstantiationWithValuesNode(getModifiedExpressions(node.expressions()));

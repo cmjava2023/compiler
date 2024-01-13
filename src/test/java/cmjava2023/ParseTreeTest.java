@@ -31,7 +31,7 @@ public class ParseTreeTest implements DynamicTestsForTestFilesHelper.DynamicTest
 
             ParseTree tree = parser.start();
             String actual = ParseTreePrinter.print(tree);
-            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(contentOfExpectationFile, actual);
         }));
     }
 }

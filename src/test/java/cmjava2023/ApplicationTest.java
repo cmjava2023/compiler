@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> tests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this, "continue");
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileContent.json", this, null);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/") + "/Main";
             String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);
             String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
-            LineWiseEqualsAssertion.expectedEqualsActual(expectedOutput, actualOutput);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(expectedOutput, actualOutput);
         }));
     }
 

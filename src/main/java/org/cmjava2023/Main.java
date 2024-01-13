@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
-import org.cmjava2023.astToClassFileModel.ClassfileDataFromAstQuery;
+import org.cmjava2023.astToClassFileData.ClassfileDataFromAstQuery;
 import org.cmjava2023.parsedClassFileDataToBytes.ClassFileModelBytesQuery;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
@@ -31,6 +31,9 @@ public class Main {
         ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
         ASTNodes.Node modifiedAST = ast.accept(astVisitorFirst);
 
+        if(!visitor.errors.isEmpty()) {
+            throw new IllegalArgumentException(String.join("\n\n", visitor.errors));
+        }
         var classFileModel = new ClassfileDataFromAstQuery().fetch((ASTNodes.StartNode)modifiedAST);
         var bytesForClassFile = new ClassFileModelBytesQuery().fetch(classFileModel);
 

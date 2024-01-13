@@ -10,7 +10,7 @@ class SystemInReadPlaceHoldersLeavingKnownTypeOnStackQuery {
         fun fetch(): PlaceHoldersLeavingKnownTypeOnStack {
             val result = mutableListOf<Operation>()
             result += Operation.Getstatic(ConstantPoolEntry.FieldReferenceConstant.SYSTEM_IN)
-            result += Operation.Invokevirtual(ConstantPoolEntry.MethodReferenceConstant.SYSTEM_IN_READ)
+            result += Operation.Invokevirtual(ConstantPoolEntry.MethodReferenceConstant.INPUT_STREAM_READ)
             result += Operation.I2c()
             return PlaceHoldersLeavingKnownTypeOnStack(result, BuiltInType.INT)
         }

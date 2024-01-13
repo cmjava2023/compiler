@@ -21,17 +21,13 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
@@ -40,179 +36,162 @@ L  body
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     L  0 (field of type ValueNode)
-               |     |        L  value: Hello World
+               |     |        |- value: Hello World
+               |     |        L  builtInType: STRING
                |     |- name: o
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: String
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: String
+               |        |- arrayType: STRING
                |        L  dimensions: 1
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: by
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: byte
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: byte
+               |        |- arrayType: BYTE
                |        L  dimensions: 1
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: true
+               |     |     |  |- value: true
+               |     |     |  L  builtInType: BOOLEAN
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: false
+               |     |        |- value: false
+               |     |        L  builtInType: BOOLEAN
                |     |- name: boo
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: boolean
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: boolean
+               |        |- arrayType: BOOLEAN
                |        L  dimensions: 1
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: c
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: char
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: char
+               |        |- arrayType: CHAR
                |        L  dimensions: 1
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: d
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: double
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: double
+               |        |- arrayType: DOUBLE
                |        L  dimensions: 1
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: f
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: float
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: float
+               |        |- arrayType: FLOAT
                |        L  dimensions: 1
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: i
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: int
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: int
+               |        |- arrayType: INT
                |        L  dimensions: 1
                |- 7 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: l
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: long
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: long
+               |        |- arrayType: LONG
                |        L  dimensions: 1
                |- 8 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationNode)
-               |     |  |- type (field of type InvalidType)
-               |     |  |  L  name: int
+               |     |  |- type: int
                |     |  L  dimensionSizes
                |     |     |- 0: 10
                |     |     L  1: 10
                |     |- name: i2
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: int
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: int
+               |        |- arrayType: INT
                |        L  dimensions: 2
                |- 9 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 10
+               |     |     |  |- value: 10
+               |     |     |  L  builtInType: INT
                |     |     L  1 (field of type ValueNode)
-               |     |        L  value: 11
+               |     |        |- value: 11
+               |     |        L  builtInType: INT
                |     |- name: s
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: short
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: short
+               |        |- arrayType: SHORT
                |        L  dimensions: 1
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: o:
+               |        |- value: o:
+               |        L  builtInType: STRING
                |- 11 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     L  0 (field of type ValueNode)
-               |        |  |        L  value: Hello World
+               |        |  |        |- value: Hello World
+               |        |  |        L  builtInType: STRING
                |        |  |- name: o
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: String
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: String
+               |        |     |- arrayType: STRING
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -221,33 +200,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: by:
+               |        |- value: by:
+               |        L  builtInType: STRING
                |- 13 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: by
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: byte
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: byte
+               |        |     |- arrayType: BYTE
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -256,33 +233,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: boo:
+               |        |- value: boo:
+               |        L  builtInType: STRING
                |- 15 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: true
+               |        |  |     |  |- value: true
+               |        |  |     |  L  builtInType: BOOLEAN
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: false
+               |        |  |        |- value: false
+               |        |  |        L  builtInType: BOOLEAN
                |        |  |- name: boo
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: boolean
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: boolean
+               |        |     |- arrayType: BOOLEAN
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -291,33 +266,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: c:
+               |        |- value: c:
+               |        L  builtInType: STRING
                |- 17 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: c
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: char
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: char
+               |        |     |- arrayType: CHAR
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -326,33 +299,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: d:
+               |        |- value: d:
+               |        L  builtInType: STRING
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: d
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: double
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: double
+               |        |     |- arrayType: DOUBLE
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -361,33 +332,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f:
+               |        |- value: f:
+               |        L  builtInType: STRING
                |- 21 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: f
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: float
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: float
+               |        |     |- arrayType: FLOAT
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -396,33 +365,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: i:
+               |        |- value: i:
+               |        L  builtInType: STRING
                |- 23 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: i
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: int
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: int
+               |        |     |- arrayType: INT
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -431,33 +398,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l:
+               |        |- value: l:
+               |        L  builtInType: STRING
                |- 25 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |        |  |  L  expressions
                |        |  |     |- 0 (field of type ValueNode)
-               |        |  |     |  L  value: 10
+               |        |  |     |  |- value: 10
+               |        |  |     |  L  builtInType: INT
                |        |  |     L  1 (field of type ValueNode)
-               |        |  |        L  value: 11
+               |        |  |        |- value: 11
+               |        |  |        L  builtInType: INT
                |        |  |- name: l
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: long
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: long
+               |        |     |- arrayType: LONG
                |        |     L  dimensions: 1
                |        L  elementIndicesAccessed
                |           L  0: 0
@@ -466,33 +431,28 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: i2:
+               |        |- value: i2:
+               |        L  builtInType: STRING
                |- 27 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ArrayAccessNode)
                |        |- array (field of type Variable)
                |        |  |- initialExpression (field of type ArrayInstantiationNode)
-               |        |  |  |- type (field of type InvalidType)
-               |        |  |  |  L  name: int
+               |        |  |  |- type: int
                |        |  |  L  dimensionSizes
                |        |  |     |- 0: 10
                |        |  |     L  1: 10
                |        |  |- name: i2
                |        |  L  type (field of type ArrayType)
-               |        |     |- arrayType (field of type BuiltIn)
-               |        |     |  |- name: int
-               |        |     |  L  type (field of type BuiltIn)
-               |        |     |     L  name: int
+               |        |     |- arrayType: INT
                |        |     L  dimensions: 2
                |        L  elementIndicesAccessed
                |           |- 0: 0
@@ -502,33 +462,31 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: s:
+               |        |- value: s:
+               |        L  builtInType: STRING
                L  29 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  getArgumentExpressions
                      L  0 (field of type ArrayAccessNode)
                         |- array (field of type Variable)
                         |  |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                         |  |  L  expressions
                         |  |     |- 0 (field of type ValueNode)
-                        |  |     |  L  value: 10
+                        |  |     |  |- value: 10
+                        |  |     |  L  builtInType: INT
                         |  |     L  1 (field of type ValueNode)
-                        |  |        L  value: 11
+                        |  |        |- value: 11
+                        |  |        L  builtInType: INT
                         |  |- name: s
                         |  L  type (field of type ArrayType)
-                        |     |- arrayType (field of type BuiltIn)
-                        |     |  |- name: short
-                        |     |  L  type (field of type BuiltIn)
-                        |     |     L  name: short
+                        |     |- arrayType: SHORT
                         |     L  dimensions: 1
                         L  elementIndicesAccessed
                            L  0: 0

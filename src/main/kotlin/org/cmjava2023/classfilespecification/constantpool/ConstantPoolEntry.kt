@@ -6,20 +6,29 @@ import org.cmjava2023.util.ByteListUtil.Companion.toByteList
 abstract class ConstantPoolEntry(val tagByte: Byte) {    
     class Utf8Constant(content: String): ConstantPoolEntry(0x01) {
         private val utf8encodedContent: String = String(content.toByteArray(), Charsets.UTF_8)
-        val stringLengthInBytes: List<Byte> = utf8encodedContent.length.toUShort().toByteList()
-        val contentInBytes: List<Byte> = utf8encodedContent.toByteArray().toList()
+        fun stringLengthInBytes(): List<Byte> = utf8encodedContent.length.toUShort().toByteList()
+        fun contentInBytes(): List<Byte> = utf8encodedContent.toByteArray().toList()
     }
     class IntegerConstant(val value: Int) : ConstantPoolEntry(0x03)
     class FloatConstant(val value: Float) : ConstantPoolEntry(0x04)
     class LongConstant(val value: Long) : ConstantPoolEntry(0x05)
     class DoubleConstant(val value: Double): ConstantPoolEntry(0x06)
-    class ClassConstant(name: TypeDescriptor): ConstantPoolEntry(0X07) {
-        val name = Utf8Constant(name.stringRepresentation)
+    class ClassConstant(name: String): ConstantPoolEntry(0X07) {
+        val name = Utf8Constant(name)
         companion object {
-            val STRING = ClassConstant(TypeDescriptor.STRING)
-            val OBJECT = ClassConstant(TypeDescriptor.OBJECT)
-            val STRING_BUILDER = ClassConstant(TypeDescriptor.createForClassName("java/lang/StringBuilder"))  
-            val SYSTEM = ClassConstant(TypeDescriptor.createForClassName("java/lang/System"))
+            const val STRING_CLASS_CLASSNAME = "java/lang/String"
+            const val OBJECT_CLASS_CLASSNAME = "java/lang/Object"
+            const val STRING_BUILDER_CLASSNAME = "java/lang/StringBuilder"
+            const val PRINT_STREAM_CLASSNAME = "java/io/PrintStream"
+            const val INPUT_STREAM_CLASSNAME = "java/io/InputStream"
+            val STRING = ClassConstant(STRING_CLASS_CLASSNAME)
+            val OBJECT = ClassConstant(OBJECT_CLASS_CLASSNAME)
+            val STRING_BUILDER = ClassConstant(STRING_BUILDER_CLASSNAME)
+            val PRINT_STREAM = ClassConstant(PRINT_STREAM_CLASSNAME)
+            val INPUT_STREAM = ClassConstant(INPUT_STREAM_CLASSNAME)
+            val SYSTEM = ClassConstant("java/lang/System")
+            
+            fun arrayWithDimension(className: String, numberOfDimensions: Int): ClassConstant = ClassConstant("[".repeat(numberOfDimensions) + className)
         }
     }
     class StringConstant(value: String): ConstantPoolEntry(0X08) {
@@ -36,8 +45,8 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
         fieldType: TypeDescriptor
     ): ReferenceConstant(0X09, classConstant, NameAndTypeConstant(fieldName, fieldType)) {
         companion object {
-            val SYSTEM_IN = FieldReferenceConstant(ClassConstant.SYSTEM, "in", TypeDescriptor.createForClassName("java/io/InputStream"))
-            val SYSTEM_OUT = FieldReferenceConstant(ClassConstant.SYSTEM, "out", TypeDescriptor.createForClassName("java/io/PrintStream"))
+            val SYSTEM_IN = FieldReferenceConstant(ClassConstant.SYSTEM, "in", TypeDescriptor.createForClassName(ClassConstant.INPUT_STREAM_CLASSNAME))
+            val SYSTEM_OUT = FieldReferenceConstant(ClassConstant.SYSTEM, "out", TypeDescriptor.createForClassName(ClassConstant.PRINT_STREAM_CLASSNAME))
         }
     }
     
@@ -51,13 +60,12 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
             private const val STRING_BUILDER_METHOD_NAME_APPEND = "append"
             private const val STRING_BUILDER_METHOD_NAME_TO_STRING = "toString"
 
-            val STRING_BUILDER_TO_STRING =  MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_TO_STRING, MethodTypeDescriptor.voidWithParameters(TypeDescriptor.STRING))
-            val SYSTEM_IN_READ = MethodReferenceConstant(ClassConstant.SYSTEM, "read", MethodTypeDescriptor.voidWithParameters().returning(TypeDescriptor.forBuildInType(BuiltInType.INT)))
+            val STRING_BUILDER_TO_STRING =  MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_TO_STRING, MethodTypeDescriptor.voidWithParameters().returning(TypeDescriptor.STRING))
+            val INPUT_STREAM_READ = MethodReferenceConstant(ClassConstant.INPUT_STREAM, "read", MethodTypeDescriptor.voidWithParameters().returning(TypeDescriptor.createForBuildInType(BuiltInType.INT)))
+            fun printStreamPrintlnFor(parameterTypeDescriptor: TypeDescriptor) = MethodReferenceConstant(ClassConstant.PRINT_STREAM, "println", MethodTypeDescriptor.voidWithParameters(parameterTypeDescriptor))
             fun stringBuilderAppendFor(type: TypeDescriptor) =
-                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_APPEND, MethodTypeDescriptor.voidWithParameters(type))
-            fun stringBuilderToStringFor(type: org.cmjava2023.symboltable.Type) =
-                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_TO_STRING, MethodTypeDescriptor.voidWithParameters(TypeDescriptor.forBuildInType(type)).returning(TypeDescriptor.STRING))
-            fun defaultConstructorOf(typeDescriptor: TypeDescriptor) = MethodReferenceConstant(ClassConstant(typeDescriptor), CONSTRUCTOR_NAME, MethodTypeDescriptor.voidWithParameters())
+                MethodReferenceConstant(ClassConstant.STRING_BUILDER, STRING_BUILDER_METHOD_NAME_APPEND, MethodTypeDescriptor.voidWithParameters(type).returning(TypeDescriptor.createForClassName(ClassConstant.STRING_BUILDER_CLASSNAME)))
+            fun defaultConstructorOf(className: String) = MethodReferenceConstant(ClassConstant(className), CONSTRUCTOR_NAME, MethodTypeDescriptor.voidWithParameters())
             fun defaultConstructorOf(classConstant: ClassConstant) = MethodReferenceConstant(classConstant, CONSTRUCTOR_NAME, MethodTypeDescriptor.voidWithParameters())
         }
     }

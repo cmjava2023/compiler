@@ -8,12 +8,11 @@ open class TypeDescriptor protected constructor(val stringRepresentation: String
     fun asArrayOfDimension(numberOfDimensions: Int): TypeDescriptor = TypeDescriptor("[".repeat(numberOfDimensions) + this.stringRepresentation)
 
     companion object {
-        val STRING = TypeDescriptor("java/lang/String")
-        val OBJECT = TypeDescriptor("java/lang/Object")
+        val STRING = createForClassName(ConstantPoolEntry.ClassConstant.STRING_CLASS_CLASSNAME)
         val VOID = TypeDescriptor("V")
         fun createForClassName(className: String): TypeDescriptor = TypeDescriptor("L$className;")
 
-        fun forBuildInType(type: org.cmjava2023.symboltable.Type): TypeDescriptor {
+        fun createForBuildInType(type: org.cmjava2023.symboltable.Type): TypeDescriptor {
             return when (type) {
                 BuiltInType.INT -> TypeDescriptor("I")
                 BuiltInType.LONG -> TypeDescriptor("J")
@@ -24,7 +23,7 @@ open class TypeDescriptor protected constructor(val stringRepresentation: String
                 BuiltInType.BYTE -> TypeDescriptor("I")
                 BuiltInType.SHORT -> TypeDescriptor("I")
                 BuiltInType.STRING -> STRING
-                else -> throw NotImplementedError(type.name)
+                else -> throw NotImplementedError(type.javaClass.name + ":" + type.name)
             }
         }
     }

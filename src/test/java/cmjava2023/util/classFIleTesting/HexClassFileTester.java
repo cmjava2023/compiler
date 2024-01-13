@@ -1,6 +1,6 @@
 package cmjava2023.util.classFIleTesting;
 
-import cmjava2023.bytecodeTestUtil.NextOpCodeFromByteQueueQuery;
+import cmjava2023.bytecodeTestUtil.NextOperationFromByteQueueQuery;
 import kotlin.NotImplementedError;
 import org.cmjava2023.util.BytesInHexQueue;
 
@@ -191,15 +191,15 @@ public class HexClassFileTester {
 
         int actualCodeSize = bytesInHex.dequeue4ByteInt();
         BytesInHexQueue actualCode = bytesInHex.getSubQueue(actualCodeSize);
-        ArrayList<NextOpCodeFromByteQueueQuery.ParsedOpCode> parsedOpCodes = new ArrayList<>();
+        ArrayList<NextOperationFromByteQueueQuery.ParsedOperation> parsedOperations = new ArrayList<>();
         while(!actualCode.isEmpty()){
-            parsedOpCodes.add(NextOpCodeFromByteQueueQuery.Companion.fetch(actualCode, constantPoolItems));
+            parsedOperations.add(NextOperationFromByteQueueQuery.Companion.fetch(actualCode, constantPoolItems));
         }
         
         StringBuilder opCodesAsString = new StringBuilder();
-        for (NextOpCodeFromByteQueueQuery.ParsedOpCode parsedOpCode : parsedOpCodes) {            
-            opCodesAsString.append(parsedOpCode.getName()).append(": ");
-            for(Object value : parsedOpCode.getParameterValues()) {
+        for (NextOperationFromByteQueueQuery.ParsedOperation parsedOperation : parsedOperations) {            
+            opCodesAsString.append(parsedOperation.getName()).append(": ");
+            for(Object value : parsedOperation.getOperands()) {
                 opCodesAsString.append("'").append(value.toString()).append("', ");
             }
             opCodesAsString.append("\n");

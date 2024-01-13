@@ -48,6 +48,8 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.ArrayInstantiationWithValuesNode) node);
         } else if (node instanceof ASTNodes.ArrayInstantiationNode) {
             return visit((ASTNodes.ArrayInstantiationNode) node);
+        } else if (node instanceof ASTNodes.ArrayAccessNode) {
+            return visit((ASTNodes.ArrayAccessNode) node);
         } else {
             throw new NotImplementedError("type " + node.getClass().getName());
         }

@@ -4,7 +4,6 @@ import org.cmjava2023.classfilespecification.attributeInfo.AbstractAttributeInfo
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.constantpool.MethodTypeDescriptor
-import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
 
 class MethodInfo(
     val accessModifiers: List<MethodAccessModifier>,
@@ -23,7 +22,7 @@ class MethodInfo(
                 CodeAttributeInfo(
                     listOf(
                         Operation.Aload_0(),
-                        Operation.Invokespecial(ConstantPoolEntry.MethodReferenceConstant.defaultConstructorOf(TypeDescriptor.OBJECT)),
+                        Operation.Invokespecial(ConstantPoolEntry.MethodReferenceConstant.defaultConstructorOf(ConstantPoolEntry.ClassConstant.OBJECT_CLASS_CLASSNAME)),
                         Operation.Return()
                     )
                 )

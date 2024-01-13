@@ -46,7 +46,7 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
             
             String actual = GenericTreePrinter.print(modifiedAst);
 
-            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(contentOfExpectationFile, actual);
 
             visitor.errors.forEach(System.out::println);
 

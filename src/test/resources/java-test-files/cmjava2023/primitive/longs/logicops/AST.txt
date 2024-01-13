@@ -23,114 +23,110 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 4
+               |     |  |- value: 4
+               |     |  L  builtInType: INT
                |     |- name: l
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 8
+               |     |  |- value: 8
+               |     |  L  builtInType: INT
                |     |- name: eight
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 4
+               |     |  |     |  |- value: 4
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: l
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: BAND
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 2
+               |     |     |- value: 2
+               |     |     L  builtInType: INT
                |     |- name: l2
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 4
+               |     |  |     |  |- value: 4
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: l
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: BOR
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 2
+               |     |     |- value: 2
+               |     |     L  builtInType: INT
                |     |- name: l3
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 8
+               |     |  |     |  |- value: 8
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: BIT_SHIFT_L
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 1
+               |     |     |- value: 1
+               |     |     L  builtInType: INT
                |     |- name: l4
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 8
+               |     |  |     |  |- value: 8
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: BIT_SHIFT_R
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 1
+               |     |     |- value: 1
+               |     |     L  builtInType: INT
                |     |- name: l5
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 8
+               |     |  |     |  |- value: 8
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: LOGICAL_SHIFT_R
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 1
+               |     |     |- value: 1
+               |     |     L  builtInType: INT
                |     |- name: l6
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 7 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ComparisonNode)
@@ -140,260 +136,252 @@ L  body
                |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  |     |  L  value: 4
+               |     |  |     |  |     |  |- value: 4
+               |     |  |     |  |     |  L  builtInType: INT
                |     |  |     |  |     |- name: l
-               |     |  |     |  |     L  type (field of type BuiltIn)
-               |     |  |     |  |        L  name: long
+               |     |  |     |  |     L  type: LONG
                |     |  |     |  |- comparisonOperator: BAND
                |     |  |     |  L  rightExpression (field of type ValueNode)
-               |     |  |     |     L  value: 2
+               |     |  |     |     |- value: 2
+               |     |  |     |     L  builtInType: INT
                |     |  |     |- name: l2
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: long
+               |     |  |     L  type: LONG
                |     |  |- comparisonOperator: BXOR
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 2
+               |     |     |- value: 2
+               |     |     L  builtInType: INT
                |     |- name: l7
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 8 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l:
+               |        |- value: l:
+               |        L  builtInType: STRING
                |- 9 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
-               |           |  L  value: 4
+               |           |  |- value: 4
+               |           |  L  builtInType: INT
                |           |- name: l
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: eight:
+               |        |- value: eight:
+               |        L  builtInType: STRING
                |- 11 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
-               |           |  L  value: 8
+               |           |  |- value: 8
+               |           |  L  builtInType: INT
                |           |- name: eight
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 12 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l2:
+               |        |- value: l2:
+               |        L  builtInType: STRING
                |- 13 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 4
+               |           |  |     |  |- value: 4
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: l
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: long
+               |           |  |     L  type: LONG
                |           |  |- comparisonOperator: BAND
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 2
+               |           |     |- value: 2
+               |           |     L  builtInType: INT
                |           |- name: l2
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 14 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l3:
+               |        |- value: l3:
+               |        L  builtInType: STRING
                |- 15 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 4
+               |           |  |     |  |- value: 4
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: l
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: long
+               |           |  |     L  type: LONG
                |           |  |- comparisonOperator: BOR
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 2
+               |           |     |- value: 2
+               |           |     L  builtInType: INT
                |           |- name: l3
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 16 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l4:
+               |        |- value: l4:
+               |        L  builtInType: STRING
                |- 17 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 8
+               |           |  |     |  |- value: 8
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: long
+               |           |  |     L  type: LONG
                |           |  |- comparisonOperator: BIT_SHIFT_L
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 1
+               |           |     |- value: 1
+               |           |     L  builtInType: INT
                |           |- name: l4
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 18 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l5:
+               |        |- value: l5:
+               |        L  builtInType: STRING
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 8
+               |           |  |     |  |- value: 8
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: long
+               |           |  |     L  type: LONG
                |           |  |- comparisonOperator: BIT_SHIFT_R
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 1
+               |           |     |- value: 1
+               |           |     L  builtInType: INT
                |           |- name: l5
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 20 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l6:
+               |        |- value: l6:
+               |        L  builtInType: STRING
                |- 21 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 8
+               |           |  |     |  |- value: 8
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: long
+               |           |  |     L  type: LONG
                |           |  |- comparisonOperator: LOGICAL_SHIFT_R
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 1
+               |           |     |- value: 1
+               |           |     L  builtInType: INT
                |           |- name: l6
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 22 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l7:
+               |        |- value: l7:
+               |        L  builtInType: STRING
                L  23 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  getArgumentExpressions
                      L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type ComparisonNode)
@@ -403,19 +391,19 @@ L  body
                            |  |     |  |- leftExpression (field of type VariableCallNode)
                            |  |     |  |  L  symbol (field of type Variable)
                            |  |     |  |     |- initialExpression (field of type ValueNode)
-                           |  |     |  |     |  L  value: 4
+                           |  |     |  |     |  |- value: 4
+                           |  |     |  |     |  L  builtInType: INT
                            |  |     |  |     |- name: l
-                           |  |     |  |     L  type (field of type BuiltIn)
-                           |  |     |  |        L  name: long
+                           |  |     |  |     L  type: LONG
                            |  |     |  |- comparisonOperator: BAND
                            |  |     |  L  rightExpression (field of type ValueNode)
-                           |  |     |     L  value: 2
+                           |  |     |     |- value: 2
+                           |  |     |     L  builtInType: INT
                            |  |     |- name: l2
-                           |  |     L  type (field of type BuiltIn)
-                           |  |        L  name: long
+                           |  |     L  type: LONG
                            |  |- comparisonOperator: BXOR
                            |  L  rightExpression (field of type ValueNode)
-                           |     L  value: 2
+                           |     |- value: 2
+                           |     L  builtInType: INT
                            |- name: l7
-                           L  type (field of type BuiltIn)
-                              L  name: long
+                           L  type: LONG

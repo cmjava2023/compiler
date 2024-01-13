@@ -7,15 +7,15 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.jvm.jvmErasure
 
-class NextOpCodeFromByteQueueQuery {
-    class ParsedOpCode(val name: String, vararg val parameterValues: Any)
+class NextOperationFromByteQueueQuery {
+    class ParsedOperation(val name: String, vararg val operands: Any)
     
     companion object {
         private val opCodeValueToClassMap: Map<UByte, KClass<*>> = Operation.classToOpCodeValueMap.entries.associate { Pair(it.value, it.key) }
 
-        fun fetch(bytesInHexQueue: BytesInHexQueue, constantPoolItems: List<String>): ParsedOpCode {
+        fun fetch(bytesInHexQueue: BytesInHexQueue, constantPoolItems: List<String>): ParsedOperation {
             val opCodeKClass = opCodeValueToClassMap[bytesInHexQueue.dequeueUByte()]!!
-            val opCodeName = opCodeKClass.java.name
+            val opCodeName = opCodeKClass.java.name.removePrefix("org.cmjava2023.classfilespecification.Operation$")
             val constructor = opCodeKClass.constructors.single()
             val arguments = mutableListOf<Any>()
             for (parameter in constructor.parameters) {
@@ -47,7 +47,7 @@ class NextOpCodeFromByteQueueQuery {
                 }
             }
 
-            return ParsedOpCode(opCodeName, *arguments.toTypedArray())
+            return ParsedOperation(opCodeName, *arguments.toTypedArray())
         }
     }
 }

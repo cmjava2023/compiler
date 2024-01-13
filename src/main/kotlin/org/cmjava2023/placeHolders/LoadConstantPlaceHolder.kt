@@ -12,7 +12,7 @@ interface LoadConstantPlaceHolder : PlaceHolder {
             return when (value) {
                 is String -> ConstantFromConstantPool(ConstantPoolEntry.StringConstant(value))
                 is Boolean -> BooleanConstant(value)
-                is Char -> IntegerConstant(value.digitToInt())
+                is Char -> IntegerConstant(value.code)
                 is Byte -> IntegerConstant(value.toInt())
                 is Short -> IntegerConstant(value.toInt())
                 is Int -> IntegerConstant(value)
@@ -70,7 +70,7 @@ interface LoadConstantPlaceHolder : PlaceHolder {
             return when (long) {
                 0L -> Operation.Lconst_0()
                 1L -> Operation.Lconst_1()
-                else -> ConstantFromConstantPool(ConstantPoolEntry.LongConstant(long)).toFinalOpCode(constantPoolBuilder)
+                else -> Operation.Ldc2_w(ConstantPoolEntry.LongConstant(long))
             }
         }
     }

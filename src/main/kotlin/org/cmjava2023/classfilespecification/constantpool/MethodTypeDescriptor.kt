@@ -16,7 +16,7 @@ class MethodTypeDescriptor private constructor(
         fun forFunctionNode(functionNode: FunctionNode): MethodTypeDescriptor {
             val returnTypeDescriptor = when (functionNode.functionSymbol.type) {
                 BuiltInType.VOID -> VOID
-                else -> throw NotImplementedError()
+                else -> throw NotImplementedError(functionNode.functionSymbol.type.name)
             }
             return MethodTypeDescriptor(returnTypeDescriptor, parseParameterTypeDescriptors(
                 functionNode.parameters.toCollection(ArrayList())
@@ -28,7 +28,7 @@ class MethodTypeDescriptor private constructor(
             for (parameter in parameters) {
                 when (parameter.parameterSymbol.type.name) {
                     "String[]" -> result += STRING.asArrayOfDimension(1)
-                    else -> throw NotImplementedError()
+                    else -> throw NotImplementedError(parameter.parameterSymbol.type.name)
                 }
             }
 

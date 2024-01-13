@@ -1,4 +1,4 @@
-package org.cmjava2023.astToClassFileModel
+package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes
 
@@ -14,6 +14,10 @@ enum class BinaryOperator {
     BIT_SHIFT_L,
     BIT_SHIFT_R,
     LOGICAL_SHIFT_R;
+
+    fun isBitShift(): Boolean {
+        return this == BIT_SHIFT_L || this == BIT_SHIFT_R || this == LOGICAL_SHIFT_R
+    }
 
     companion object {
         fun fromInfixOperator(infixOperator: ASTNodes.InfixOperator): BinaryOperator {

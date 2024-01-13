@@ -8,8 +8,8 @@ class ConstantPoolBuilder {
     private var lastOccupiedConstantPoolIndex: UShort = 0u
     private var bytesAtIndex = mutableListOf<List<Byte>>()
     
-    val itemCount = (lastOccupiedConstantPoolIndex + 1u).toUShort()
-    val resultBytes = bytesAtIndex.flatten()
+    fun itemCount() = (lastOccupiedConstantPoolIndex + 1u).toUShort()
+    fun resultBytes() = bytesAtIndex.flatten()
     
     fun getIndexByResolvingOrAdding(constantPoolEntry: ConstantPoolEntry): UShort {
         return when (constantPoolEntry) {
@@ -25,8 +25,8 @@ class ConstantPoolBuilder {
     }
     
     fun addUtf8ConstantAndGetStartIndex(utf8Constant: Utf8Constant): UShort {
-        val dataBytes = utf8Constant.stringLengthInBytes
-            .plus(utf8Constant.contentInBytes)
+        val dataBytes = utf8Constant.stringLengthInBytes()
+            .plus(utf8Constant.contentInBytes())
         return assureOnConstantPoolAndGetIndex(utf8Constant, dataBytes)
     }
 

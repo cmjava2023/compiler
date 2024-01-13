@@ -5,7 +5,7 @@ import org.cmjava2023.symboltable.*
 
 class LocalVariableIndexAssigner(methodTypeDescriptor: MethodTypeDescriptor) {
     private val localVariables: MutableList<Variable> = mutableListOf()
-    val maxLocalVariableSize: UShort = if (localVariables.isEmpty()) {
+    fun maxLocalVariableSize(): UShort = if (localVariables.isEmpty()) {
         1
     } else {
         localVariables.size

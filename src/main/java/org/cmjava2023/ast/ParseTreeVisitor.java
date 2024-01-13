@@ -148,7 +148,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         constantsNodes.remove(constantsNodes.get(0));
         ArrayList<Variable> constants = new ArrayList<>();
         for (TerminalNode constant : constantsNodes) {
-            Variable constantVariable = new Variable(constant.getText(), (Type) symbolTable.getCurrentScope().resolve("int"), symbolTable.getCurrentScope());
+            Variable constantVariable = new Variable(constant.getText(), BuiltInType.INT, symbolTable.getCurrentScope());
             constants.add(constantVariable);
         }
 
@@ -468,6 +468,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (type instanceof ASTNodes.TypeNode baseType) {
             castType = new InvalidType(baseType.type());
         }
+        
         return castType;
     }
 

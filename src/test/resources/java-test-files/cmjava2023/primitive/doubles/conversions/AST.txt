@@ -23,84 +23,73 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 10.0
+               |     |  |- value: 10.0
+               |     |  L  builtInType: DOUBLE
                |     |- name: d
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type: DOUBLE
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: float
+               |     |  |- type: FLOAT
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10.0
+               |     |        |  |- value: 10.0
+               |     |        |  L  builtInType: DOUBLE
                |     |        |- name: d
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: double
+               |     |        L  type: DOUBLE
                |     |- name: f
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: int
+               |     |  |- type: INT
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10.0
+               |     |        |  |- value: 10.0
+               |     |        |  L  builtInType: DOUBLE
                |     |        |- name: d
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: double
+               |     |        L  type: DOUBLE
                |     |- name: i
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type: INT
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: long
+               |     |  |- type: LONG
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10.0
+               |     |        |  |- value: 10.0
+               |     |        |  L  builtInType: DOUBLE
                |     |        |- name: d
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: double
+               |     |        L  type: DOUBLE
                |     |- name: l
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type VariableCallNode)
                |     |  L  symbol (field of type Variable)
                |     |     |- initialExpression (field of type ValueNode)
-               |     |     |  L  value: 10.0
+               |     |     |  |- value: 10.0
+               |     |     |  L  builtInType: DOUBLE
                |     |     |- name: d
-               |     |     L  type (field of type BuiltIn)
-               |     |        L  name: double
+               |     |     L  type: DOUBLE
                |     |- name: force_store
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type: DOUBLE
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type VariableCallNode)
@@ -108,165 +97,152 @@ L  body
                |     |     |- initialExpression (field of type VariableCallNode)
                |     |     |  L  symbol (field of type Variable)
                |     |     |     |- initialExpression (field of type ValueNode)
-               |     |     |     |  L  value: 10.0
+               |     |     |     |  |- value: 10.0
+               |     |     |     |  L  builtInType: DOUBLE
                |     |     |     |- name: d
-               |     |     |     L  type (field of type BuiltIn)
-               |     |     |        L  name: double
+               |     |     |     L  type: DOUBLE
                |     |     |- name: force_store
-               |     |     L  type (field of type BuiltIn)
-               |     |        L  name: double
+               |     |     L  type: DOUBLE
                |     |- name: force_load
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type: DOUBLE
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 1.0
+               |     |  |- value: 1.0
+               |     |  L  builtInType: DOUBLE
                |     |- name: force_const
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type: DOUBLE
                |- 7 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: d:
+               |        |- value: d:
+               |        L  builtInType: STRING
                |- 8 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
-               |           |  L  value: 10.0
+               |           |  |- value: 10.0
+               |           |  L  builtInType: DOUBLE
                |           |- name: d
-               |           L  type (field of type BuiltIn)
-               |              L  name: double
+               |           L  type: DOUBLE
                |- 9 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f:
+               |        |- value: f:
+               |        L  builtInType: STRING
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: float
+               |           |  |- type: FLOAT
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10.0
+               |           |        |  |- value: 10.0
+               |           |        |  L  builtInType: DOUBLE
                |           |        |- name: d
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: double
+               |           |        L  type: DOUBLE
                |           |- name: f
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 11 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: k:
+               |        |- value: k:
+               |        L  builtInType: STRING
                |- 12 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: int
+               |           |  |- type: INT
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10.0
+               |           |        |  |- value: 10.0
+               |           |        |  L  builtInType: DOUBLE
                |           |        |- name: d
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: double
+               |           |        L  type: DOUBLE
                |           |- name: i
-               |           L  type (field of type BuiltIn)
-               |              L  name: int
+               |           L  type: INT
                |- 13 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l:
+               |        |- value: l:
+               |        L  builtInType: STRING
                |- 14 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: long
+               |           |  |- type: LONG
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10.0
+               |           |        |  |- value: 10.0
+               |           |        |  L  builtInType: DOUBLE
                |           |        |- name: d
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: double
+               |           |        L  type: DOUBLE
                |           |- name: l
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 15 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: force_load:
+               |        |- value: force_load:
+               |        L  builtInType: STRING
                |- 16 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type VariableCallNode)
@@ -274,68 +250,63 @@ L  body
                |           |     |- initialExpression (field of type VariableCallNode)
                |           |     |  L  symbol (field of type Variable)
                |           |     |     |- initialExpression (field of type ValueNode)
-               |           |     |     |  L  value: 10.0
+               |           |     |     |  |- value: 10.0
+               |           |     |     |  L  builtInType: DOUBLE
                |           |     |     |- name: d
-               |           |     |     L  type (field of type BuiltIn)
-               |           |     |        L  name: double
+               |           |     |     L  type: DOUBLE
                |           |     |- name: force_store
-               |           |     L  type (field of type BuiltIn)
-               |           |        L  name: double
+               |           |     L  type: DOUBLE
                |           |- name: force_load
-               |           L  type (field of type BuiltIn)
-               |              L  name: double
+               |           L  type: DOUBLE
                |- 17 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: force_store:
+               |        |- value: force_store:
+               |        L  builtInType: STRING
                |- 18 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type VariableCallNode)
                |           |  L  symbol (field of type Variable)
                |           |     |- initialExpression (field of type ValueNode)
-               |           |     |  L  value: 10.0
+               |           |     |  |- value: 10.0
+               |           |     |  L  builtInType: DOUBLE
                |           |     |- name: d
-               |           |     L  type (field of type BuiltIn)
-               |           |        L  name: double
+               |           |     L  type: DOUBLE
                |           |- name: force_store
-               |           L  type (field of type BuiltIn)
-               |              L  name: double
+               |           L  type: DOUBLE
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  getArgumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: force_const:
+               |        |- value: force_const:
+               |        L  builtInType: STRING
                L  20 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  getArgumentExpressions
                      L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type ValueNode)
-                           |  L  value: 1.0
+                           |  |- value: 1.0
+                           |  L  builtInType: DOUBLE
                            |- name: force_const
-                           L  type (field of type BuiltIn)
-                              L  name: double
+                           L  type: DOUBLE

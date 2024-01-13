@@ -56,4 +56,10 @@ public class Clazz extends SymbolWithScope implements Type {
     public ASTNodes.Modifier getInstanceModifier() {
         return instanceModifier;
     }
+    
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    @Override
+    public boolean equals(Object other) {
+        return BuiltInType.builtInTypeSensitiveEquals(this, other);
+    }
 }
