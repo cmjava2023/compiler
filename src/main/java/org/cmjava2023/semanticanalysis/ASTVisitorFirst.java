@@ -6,7 +6,6 @@ import org.cmjava2023.symboltable.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     public ArrayList<String> errors;
@@ -137,7 +136,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
         Symbol functionSymbol = resolveNestedIdentifier(null, nestedIdentifier, node.function().getScope());
 
         if (functionSymbol instanceof Function function) {
-            return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.getArgumentExpressions()));
+            return new ASTNodes.FunctionCallNode(function, getModifiedExpressions(node.argumentExpressions()));
         }
 
         errors.add(String.format("Function %s is not declared", String.join(".", node.function().getName())));
@@ -243,7 +242,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     }
 
     private void checkForVoidType(String objectName, Symbol symbol, InvalidType invalidType) {
-        if (Objects.equals(invalidType.getName(), BuiltInType.VOID.name())) {
+        if (invalidType.equals(BuiltInType.VOID)) {
             errors.add(String.format("%s %s cannot have the type void", objectName, symbol.getName()));
         }
     }
@@ -305,12 +304,12 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnaryPrefixNode node) {
-        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.getVariableCallNode().accept(this));
+        return new ASTNodes.UnaryPrefixNode(node.operator(), (ASTNodes.Expression) node.variableCallNode().accept(this));
     }
 
     @Override
     public ASTNodes.Node visit(ASTNodes.UnarySuffixNode node) {
-        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.getVariableCallNode().accept(this));
+        return new ASTNodes.UnarySuffixNode(node.operator(), (ASTNodes.Expression) node.variableCallNode().accept(this));
     }
 
     @Override
@@ -321,7 +320,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.CastNode node) {
         if (node.type() instanceof InvalidType invalidType) {
-            if (Objects.equals(invalidType.getName(), BuiltInType.VOID.name())) {
+            if (invalidType.equals(BuiltInType.VOID)) {
                 errors.add("Casts cannot be of type void");
             }
 

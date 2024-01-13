@@ -110,11 +110,11 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack : ASTTraverser<PlaceH
     }
 
     override fun visit(unaryPrefixNode: UnaryPrefixNode): PlaceHoldersLeavingKnownTypeOnStack {
-        val loadVariablePlaceHoldersLeavingKnownTypeOnStack = dispatch(unaryPrefixNode.variableCallNode as VariableCallNode)
+        val loadVariablePlaceHoldersLeavingKnownTypeOnStack = dispatch(unaryPrefixNode.variableCallNode() as VariableCallNode)
         
         return PlaceHoldersLeavingKnownTypeOnStack(loadVariablePlaceHoldersLeavingKnownTypeOnStack.placeHolders.plus(
             when (unaryPrefixNode.operator) {
-                PrefixOperator.MINUS -> when (val type = TypeOfExpressionQuery.fetch(unaryPrefixNode.variableCallNode)) {
+                PrefixOperator.MINUS -> when (val type = TypeOfExpressionQuery.fetch(unaryPrefixNode.variableCallNode())) {
                     BuiltInType.INT -> Operation.Ineg()
                     BuiltInType.LONG -> Operation.Lneg()
                     BuiltInType.FLOAT -> Operation.Fneg()

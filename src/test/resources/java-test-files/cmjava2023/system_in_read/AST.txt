@@ -46,7 +46,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: Type one char and press ENTER: 
                |        L  builtInType: STRING
@@ -60,7 +60,7 @@ L  body
                |     |     |  |- instanceModifier: null
                |     |     |  |- name: System.in.read
                |     |     |  L  type: INT
-               |     |     L  getArgumentExpressions
+               |     |     L  argumentExpressions
                |     |- name: c
                |     L  type: CHAR
                L  2 (field of type FunctionCallNode)
@@ -69,7 +69,7 @@ L  body
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
                   |  L  type: VOID
-                  L  getArgumentExpressions
+                  L  argumentExpressions
                      L  0 (field of type InfixNode)
                         |- leftExpression (field of type ValueNode)
                         |  |- value: You entered char: 
@@ -85,6 +85,6 @@ L  body
                               |     |  |- instanceModifier: null
                               |     |  |- name: System.in.read
                               |     |  L  type: INT
-                              |     L  getArgumentExpressions
+                              |     L  argumentExpressions
                               |- name: c
                               L  type: CHAR

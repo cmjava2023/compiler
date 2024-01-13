@@ -10,7 +10,8 @@ import org.cmjava2023.placeHolders.PlaceHolder
 class SystemOutPrintlnPlaceHoldersQuery {
     companion object {
         fun fetch(functionCallNode: ASTNodes.FunctionCallNode, astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack): List<PlaceHolder> {
-            val loadArgumentPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(functionCallNode.argumentExpressions.single())
+            val loadArgumentPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(functionCallNode.argumentExpressions()
+                .single())
             val result = mutableListOf<PlaceHolder>()
             result += Operation.Getstatic(ConstantPoolEntry.FieldReferenceConstant.SYSTEM_OUT)
             result += loadArgumentPlaceHoldersLeavingKnownTypeOnStack.placeHolders

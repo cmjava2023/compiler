@@ -59,7 +59,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
     }
 
     override fun visit(unarySuffixNode: UnarySuffixNode): List<LocalVariableIndexPlaceHolder> {
-        val variableSymbol = (unarySuffixNode.variableCallNode as VariableCallNode).symbol
+        val variableSymbol = (unarySuffixNode.variableCallNode() as VariableCallNode).symbol
         return when (variableSymbol.type) {
             BuiltInType.INT -> listOf(
                 LocalVariableIndexPlaceHolder.IncreaseInt(

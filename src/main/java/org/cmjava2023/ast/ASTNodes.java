@@ -129,7 +129,7 @@ public class ASTNodes {
 
     // function_call -> FunctionCallNode
     public record FunctionCallNode(Function function,
-                                   ArrayList<Expression> getArgumentExpressions) implements Node, Statement, Expression {
+                                   ArrayList<Expression> argumentExpressions) implements Node, Statement, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -215,7 +215,7 @@ public class ASTNodes {
     // To give an expression a prefix.
     // (numerical_prefix | logical_prefix) expressions
     public record UnaryPrefixNode(PrefixOperator operator,
-                                  Expression getVariableCallNode) implements Node, Expression {
+                                  Expression variableCallNode) implements Node, Expression {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -227,7 +227,7 @@ public class ASTNodes {
     // Thus, this node could potentially also be called Increment/Decrement Node
     //expression expression_suffix
     public record UnarySuffixNode(SuffixOperator operator,
-                                  Expression getVariableCallNode) implements Node, Expression, Statement {
+                                  Expression variableCallNode) implements Node, Expression, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -292,9 +292,9 @@ public class ASTNodes {
         }
     }
 
-    // (arguments) -> ComparisonNode
-    // arguments[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
-    // NOTE: This will only be the case if the arguments is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
+    // (expressions) -> ComparisonNode
+    // expressions[expression (-> ExpressionNode), expression_operator(->Operators), expression (->Expression)-> ComparisonNode
+    // NOTE: This will only be the case if the expressions is a Comparison. If it is a single expression, this is not applicable, rather use a simple ExpressionNode for this then.
     public record ComparisonNode(Expression leftExpression,
                                  ComparisonOperator comparisonOperator,
                                  Expression rightExpression) implements Node, Expression {

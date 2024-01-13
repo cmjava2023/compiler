@@ -45,7 +45,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: integer: 
@@ -74,7 +74,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: integer: 
@@ -100,7 +100,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: bool: 
@@ -129,7 +129,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: bool: 
@@ -155,7 +155,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: floatingPoint: 
@@ -184,7 +184,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: floatingPoint: 
@@ -210,7 +210,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: longVariable: 
@@ -239,7 +239,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: longVariable: 
@@ -265,7 +265,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: character: 
@@ -294,7 +294,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: character: 
@@ -320,7 +320,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: byteVariable: 
@@ -349,7 +349,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: byteVariable: 
@@ -375,7 +375,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: shortVariable: 
@@ -404,7 +404,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: shortVariable: 
@@ -430,7 +430,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type InfixNode)
                |        |- leftExpression (field of type ValueNode)
                |        |  |- value: doubleVariable: 
@@ -459,7 +459,7 @@ L  body
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
                   |  L  type: VOID
-                  L  getArgumentExpressions
+                  L  argumentExpressions
                      L  0 (field of type InfixNode)
                         |- leftExpression (field of type ValueNode)
                         |  |- value: doubleVariable: 

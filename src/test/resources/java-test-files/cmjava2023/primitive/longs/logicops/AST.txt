@@ -158,7 +158,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l:
                |        L  builtInType: STRING
@@ -168,7 +168,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
@@ -182,7 +182,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: eight:
                |        L  builtInType: STRING
@@ -192,7 +192,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
@@ -206,7 +206,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l2:
                |        L  builtInType: STRING
@@ -216,7 +216,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
@@ -239,7 +239,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l3:
                |        L  builtInType: STRING
@@ -249,7 +249,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
@@ -272,7 +272,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l4:
                |        L  builtInType: STRING
@@ -282,7 +282,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
@@ -305,7 +305,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l5:
                |        L  builtInType: STRING
@@ -315,7 +315,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
@@ -338,7 +338,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l6:
                |        L  builtInType: STRING
@@ -348,7 +348,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ComparisonNode)
@@ -371,7 +371,7 @@ L  body
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
                |  |  L  type: VOID
-               |  L  getArgumentExpressions
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
                |        |- value: l7:
                |        L  builtInType: STRING
@@ -381,7 +381,7 @@ L  body
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
                   |  L  type: VOID
-                  L  getArgumentExpressions
+                  L  argumentExpressions
                      L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type ComparisonNode)

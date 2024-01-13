@@ -37,7 +37,7 @@ L  body
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
                   |  L  type: VOID
-                  L  getArgumentExpressions
+                  L  argumentExpressions
                      L  0 (field of type ValueNode)
                         |- value: Hello world!
                         L  builtInType: STRING

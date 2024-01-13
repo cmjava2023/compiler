@@ -15,4 +15,8 @@ public class InvalidType implements Type{
     public boolean equals(Object other) {
         return BuiltInType.builtInTypeSensitiveEquals(this, other);
     }
+    
+    public boolean equals(BuiltInType other) {
+        return BuiltInType.builtInTypeSensitiveEquals(this, other);
+    }
 }
