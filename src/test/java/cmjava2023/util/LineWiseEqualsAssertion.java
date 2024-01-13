@@ -1,6 +1,6 @@
 package cmjava2023.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
 
 public class LineWiseEqualsAssertion {
     public static void expectedEqualsActualSystemIndependent(String expected, String actual) {
@@ -8,6 +8,6 @@ public class LineWiseEqualsAssertion {
         String[] actualLines = actual.split("\r?\n");
         String lineTerminationIndependentExcepted = String.join("\n", expectedLines);
         String lineTerminationIndependentActual = String.join("\n", actualLines);
-        assertEquals(lineTerminationIndependentExcepted, lineTerminationIndependentActual);
+        assertExpectedEqualsActual(lineTerminationIndependentExcepted, lineTerminationIndependentActual);
     }
 }

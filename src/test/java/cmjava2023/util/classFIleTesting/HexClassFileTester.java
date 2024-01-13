@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
 import static com.ibm.icu.impl.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,11 +45,11 @@ public class HexClassFileTester {
     }
 
     private void classFileIndicatorCafeBabe() {
-        assertEquals("CAFEBABE", bytesInHex.dequeueHexBytes(4), "ClassFile Start");
+       assertExpectedEqualsActual("CAFEBABE", bytesInHex.dequeueHexBytes(4), "ClassFile Start");
     }
 
     private void javaVersion6() {
-        assertEquals(50, bytesInHex.dequeue4ByteInt(), "JavaVersion");
+       assertExpectedEqualsActual(50, bytesInHex.dequeue4ByteInt(), "JavaVersion");
     }
 
     private void parseConstantPool() {
@@ -152,7 +153,7 @@ public class HexClassFileTester {
     }
 
     private void classAccessModifier() {
-        assertEquals(classAccessModifierHex, bytesInHex.dequeueHexBytes(2), "classAccessModifier");
+       assertExpectedEqualsActual(classAccessModifierHex, bytesInHex.dequeueHexBytes(2), "classAccessModifier");
     }
 
     private void thisClass() {
@@ -164,21 +165,21 @@ public class HexClassFileTester {
     }
 
     private void noInterfaces() {
-        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), "interfaceCount");
+       assertExpectedEqualsActual((short) 0, bytesInHex.dequeue2ByteShort(), "interfaceCount");
     }
 
     private void noFields() {
-        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), "FieldCount");
+       assertExpectedEqualsActual((short) 0, bytesInHex.dequeue2ByteShort(), "FieldCount");
     }
 
     private void methods() {
-        assertEquals((short) methodDescriptions.length, bytesInHex.dequeue2ByteShort(), "methodCount");
+       assertExpectedEqualsActual((short) methodDescriptions.length, bytesInHex.dequeue2ByteShort(), "methodCount");
 
         for (MethodDescription methodDescription : methodDescriptions) {
-            assertEquals(methodDescription.accessModifierHex(), bytesInHex.dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
+           assertExpectedEqualsActual(methodDescription.accessModifierHex(), bytesInHex.dequeueHexBytes(2), methodDescription.getAssertMessage("accessModifier"));
             dequeueResolveAssertConstantPoolIndex(methodDescription.name(), methodDescription.getAssertMessage("name"));
             dequeueResolveAssertConstantPoolIndex(methodDescription.typeDescriptor(), methodDescription.getAssertMessage("typeDescriptor"));
-            assertEquals((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeCount"));
+           assertExpectedEqualsActual((short) 1, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeCount"));
             codeAttribute(methodDescription);
         }
     }
@@ -205,22 +206,22 @@ public class HexClassFileTester {
             opCodesAsString.append("\n");
         }                
         
-        assertEquals(methodDescription.code(), opCodesAsString.toString().stripTrailing(), methodDescription.getAssertMessage("code"));
-        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
-        assertEquals((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
+       assertExpectedEqualsActual(methodDescription.code(), opCodesAsString.toString().stripTrailing(), methodDescription.getAssertMessage("code"));
+       assertExpectedEqualsActual((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("exceptionTableLength"));
+       assertExpectedEqualsActual((short) 0, bytesInHex.dequeue2ByteShort(), methodDescription.getAssertMessage("attributeAttributesCount"));
 
         int expectedAttributeSize = 2 + 2 + 4 + actualCodeSize + 2 + 2;
-        assertEquals(expectedAttributeSize, actualAttributeSize, methodDescription.getAssertMessage("attributeSize"));
+       assertExpectedEqualsActual(expectedAttributeSize, actualAttributeSize, methodDescription.getAssertMessage("attributeSize"));
     }
 
     private void noClassAttributes() {
         short classAttributeCount = bytesInHex.dequeue2ByteShort();
         assertTrue(bytesInHex.isEmpty(), "classFile ends when expected");
-        assertEquals((short) 0, classAttributeCount, "classAttributesCount");
+       assertExpectedEqualsActual((short) 0, classAttributeCount, "classAttributesCount");
     }
 
     private void dequeueResolveAssertConstantPoolIndex(String expected, String context) {
         short index = bytesInHex.dequeue2ByteShort();
-        assertEquals(expected, constantPoolItems.get(index), context + ": ConstantPoolItem at index " + index);
+       assertExpectedEqualsActual(expected, constantPoolItems.get(index), context + ": ConstantPoolItem at index " + index);
     }
 }

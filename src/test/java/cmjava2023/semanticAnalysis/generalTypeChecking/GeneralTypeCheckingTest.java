@@ -1,5 +1,6 @@
 package cmjava2023.semanticAnalysis.generalTypeChecking;
 
+import cmjava2023.util.CollectionAssertions;
 import cmjava2023.util.TestPathsHelper;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -35,7 +36,13 @@ public class GeneralTypeCheckingTest {
         ast.accept(astVisitorFirst);
 
         astVisitorFirst.errors.forEach(System.out::println);
+        
+        String[] expected = new String[] {
+            "Parameter car cannot have the type void",
+            "Cannot find type Plane for return type of Function plainChecker",
+            "Cannot find type Plane for Parameter plane"
+        };
 
-        assertEquals(astVisitorFirst.errors.size(), 3);
+        CollectionAssertions.assertExpectedArrayListEqualsActual(expected, astVisitorFirst.errors);
     }
 }
