@@ -13,8 +13,9 @@ class JumpIfComparisonPlaceHoldersQuery {
             leftExpression: Expression,
             comparisonOperator: ComparisonOperator,
             rightExpression: Expression,
-            jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse,
-            astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
+            jumpTarget: JumpOffsetPlaceHolder.JumpTarget,
+            astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack,
+            jumpWhen: Boolean
         ): List<PlaceHolder> {
             val leftPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(leftExpression)
             val rightPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(rightExpression)
@@ -27,30 +28,55 @@ class JumpIfComparisonPlaceHoldersQuery {
                     val result = mutableListOf<PlaceHolder>()
                     result += leftPlaceHoldersLeavingKnownTypeOnStack.placeHolders
                     result += rightPlaceHoldersLeavingKnownTypeOnStack.placeHolders
-                    
-                    val jumpOffsetPlaceHolderForIntegersWithOperator = jumpOffsetPlaceHolderForIntegersWithOperator(comparisonOperator)
-                    jumpOffsetPlaceHolderForIntegersWithOperator.jumpTargetIfFalse = jumpTargetIfFalse
+
+                    val jumpOffsetPlaceHolderForIntegersWithOperator = jumpOffsetPlaceHolderForIntegersWithOperator(comparisonOperator, jumpWhen)
+                    jumpOffsetPlaceHolderForIntegersWithOperator.jumpTarget = jumpTarget
 
                     result += jumpOffsetPlaceHolderForIntegersWithOperator
 
                     return result
                 }
+
                 leftType != rightType && rightExpression is ValueNode<*> -> {
-                    fetch(leftExpression, comparisonOperator, ValueNodeTransformedToTypeQuery.fetch(rightExpression, leftType), jumpTargetIfFalse, astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
+                    fetch(
+                        leftExpression,
+                        comparisonOperator,
+                        ValueNodeTransformedToTypeQuery.fetch(rightExpression, leftType),
+                        jumpTarget,
+                        astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack,
+                        jumpWhen
+                    )
                 }
 
                 else -> throw NotImplementedError(leftExpression.javaClass.name + ":" + leftType.name + " " + comparisonOperator.name + " " + rightExpression.javaClass.name + ":" + rightType.name)
             }
         }
 
-        private fun jumpOffsetPlaceHolderForIntegersWithOperator(comparisonOperator: ComparisonOperator): JumpOffsetPlaceHolder {
-            @Suppress("REDUNDANT_ELSE_IN_WHEN") return when (comparisonOperator) {
-                ComparisonOperator.EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegersAreNotEqual()
-                ComparisonOperator.NOT_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegersAreEqual()
-                ComparisonOperator.GREATER_THAN_OR_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegerALessThanB()
-                ComparisonOperator.LESS_THAN_OR_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegerAGreaterThanB()
-                ComparisonOperator.LESS_THAN -> JumpOffsetPlaceHolder.JumpIfIntegerAGreaterThanOrEqualToB()
-                ComparisonOperator.GREATER_THAN -> JumpOffsetPlaceHolder.JumpIfIntegerALessThanOrEqualToB()
+        private val mapOperatorToLogicalOpposite = mapOf(
+            ComparisonOperator.EQUALS to ComparisonOperator.NOT_EQUALS,
+            ComparisonOperator.NOT_EQUALS to ComparisonOperator.EQUALS,
+            ComparisonOperator.GREATER_THAN_OR_EQUALS to ComparisonOperator.LESS_THAN,
+            ComparisonOperator.LESS_THAN_OR_EQUALS to ComparisonOperator.GREATER_THAN,
+            ComparisonOperator.LESS_THAN to ComparisonOperator.GREATER_THAN_OR_EQUALS,
+            ComparisonOperator.GREATER_THAN to ComparisonOperator.LESS_THAN_OR_EQUALS
+        )
+
+        private fun jumpOffsetPlaceHolderForIntegersWithOperator(
+            comparisonOperator: ComparisonOperator,
+            jumpWhen: Boolean
+        ): JumpOffsetPlaceHolder {
+            val evaluatedOperator = if (jumpWhen) {
+                comparisonOperator
+            } else {
+                mapOperatorToLogicalOpposite[comparisonOperator]                
+            }
+            return when (evaluatedOperator) {
+                ComparisonOperator.EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegersAreEqual()
+                ComparisonOperator.NOT_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegersAreNotEqual()
+                ComparisonOperator.GREATER_THAN_OR_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegerAGreaterThanOrEqualToB()
+                ComparisonOperator.LESS_THAN_OR_EQUALS -> JumpOffsetPlaceHolder.JumpIfIntegerALessThanOrEqualToB()
+                ComparisonOperator.LESS_THAN -> JumpOffsetPlaceHolder.JumpIfIntegerALessThanB()
+                ComparisonOperator.GREATER_THAN -> JumpOffsetPlaceHolder.JumpIfIntegerAGreaterThanB()
                 else -> throw NotImplementedError(comparisonOperator.name)
             }
         }

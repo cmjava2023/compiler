@@ -7,19 +7,19 @@ import org.cmjava2023.placeHolders.PlaceHolder
 
 abstract class JumpOffsetPlaceHolder : PlaceHolder, PlaceHolderBytesQuery.ByteOrJumpOffsetPlaceHolder {
     abstract fun toFinalOpCode(jumpOffset: Short): Operation
-    var jumpTargetIfFalse: JumpTargetIfFalse = JumpTargetIfFalse.NONE
+    var jumpTarget: JumpTarget = JumpTarget.NONE
     companion object {
         const val SIZE_IN_BYTES = 3
     }
-    enum class JumpTargetIfFalse {
+    enum class JumpTarget {
         START,
         NEXT,
         END,
         NONE
     }
     class Jump() : JumpOffsetPlaceHolder() {
-        constructor(jumpTargetIfFalse: JumpTargetIfFalse): this() {
-            this.jumpTargetIfFalse = jumpTargetIfFalse
+        constructor(jumpTarget: JumpTarget): this() {
+            this.jumpTarget = jumpTarget
         }
         override fun toFinalOpCode(jumpOffset: Short): Operation {
             return Operation.Goto(jumpOffset)

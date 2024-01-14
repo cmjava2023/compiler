@@ -13,7 +13,7 @@ public record ClassFileDescriptor(
         String thisClass,
         String superClass,
         MethodDescription[] methodDescriptions) {
-    public static ClassFileDescriptor load(String jsonContent, String pathToMain) {
+    public static ClassFileDescriptor load(String jsonContent, String pathToMain, String nonRootPackagePartsTheClassIsIn) {
         ClassFileDescriptor initial = new Gson().fromJson(jsonContent, ClassFileDescriptor.class);
         MethodDescription[] resolvedMethodDescriptions = new MethodDescription[initial.methodDescriptions.length];
         MethodDescription[] descriptions = initial.methodDescriptions;
@@ -30,6 +30,6 @@ public record ClassFileDescriptor(
                 resolvedMethodDescriptions[i] = methodDescription;
             }
         }
-        return new ClassFileDescriptor(initial.classAccessModifierHex, initial.thisClass, initial.superClass, resolvedMethodDescriptions);
+        return new ClassFileDescriptor(initial.classAccessModifierHex,  "Class cmjava2023/" + nonRootPackagePartsTheClassIsIn + "/Main", initial.superClass, resolvedMethodDescriptions);
     }
 }

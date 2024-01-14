@@ -39,7 +39,7 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
         return DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " ClassFileAsExpected", () -> {
             String pathToFileCompiledByUs = new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/")).GetPathOfMainClassCompiledByUsInSamePackage();
             BytesInHexQueue bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(pathToFileCompiledByUs);
-            new HexClassFileTester().test(bytesInHex, ClassFileDescriptor.load(contentOfExpectationFile, pathToMain));
+            new HexClassFileTester().test(bytesInHex, ClassFileDescriptor.load(contentOfExpectationFile, pathToMain, nonRootPackagePartsTheClassIsIn));
         });
     }
     

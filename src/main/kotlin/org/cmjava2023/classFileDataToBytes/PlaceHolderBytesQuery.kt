@@ -39,12 +39,12 @@ class PlaceHolderBytesQuery(
         
         private fun bytesLeftInside(currentIndex: Int): Int = inside - currentIndex
         
-        fun resolveJumpOffset(currentIndex: Int, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): Short {
-            return when(jumpTargetIfFalse) {
-                JumpOffsetPlaceHolder.JumpTargetIfFalse.START -> (-(before + currentIndex)).toShort()
-                JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT -> bytesLeftInside(currentIndex).toShort()
-                JumpOffsetPlaceHolder.JumpTargetIfFalse.END -> (after + bytesLeftInside(currentIndex)).toShort()
-                else -> throw NotImplementedError(jumpTargetIfFalse.name)
+        fun resolveJumpOffset(currentIndex: Int, jumpTarget: JumpOffsetPlaceHolder.JumpTarget): Short {
+            return when(jumpTarget) {
+                JumpOffsetPlaceHolder.JumpTarget.START -> (-(before + currentIndex)).toShort()
+                JumpOffsetPlaceHolder.JumpTarget.NEXT -> bytesLeftInside(currentIndex).toShort()
+                JumpOffsetPlaceHolder.JumpTarget.END -> (after + bytesLeftInside(currentIndex)).toShort()
+                else -> throw NotImplementedError(jumpTarget.name)
             }
         }
     }
@@ -106,7 +106,7 @@ class PlaceHolderBytesQuery(
         for(byteOrJumpOffsetPlaceHolder in this) {
             when(byteOrJumpOffsetPlaceHolder) {
                 is JumpOffsetPlaceHolder -> {
-                    result += byteOrJumpOffsetPlaceHolder.toFinalOpCode(numberOfBytes.resolveJumpOffset(currentIndex, byteOrJumpOffsetPlaceHolder.jumpTargetIfFalse)).toBytes(constantPoolBuilder)
+                    result += byteOrJumpOffsetPlaceHolder.toFinalOpCode(numberOfBytes.resolveJumpOffset(currentIndex, byteOrJumpOffsetPlaceHolder.jumpTarget)).toBytes(constantPoolBuilder)
                     currentIndex += JumpOffsetPlaceHolder.SIZE_IN_BYTES
                 }
                 is ByteWrapper -> {
