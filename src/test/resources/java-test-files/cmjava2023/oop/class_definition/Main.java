@@ -1,3 +1,5 @@
+package cmjava2023.oop.class_definition;
+
 // Example of a basic class
 class BasicClass {
     // Field declarations

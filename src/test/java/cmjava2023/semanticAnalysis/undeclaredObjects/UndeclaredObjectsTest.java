@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
@@ -36,6 +37,6 @@ public class UndeclaredObjectsTest {
 
         visitorFirst.errors.forEach(System.out::println);
 
-        assertEquals(visitorFirst.errors.size(), 2);
+        assertExpectedEqualsActual(2, visitorFirst.errors.size());
     }
 }

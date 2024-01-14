@@ -22,17 +22,13 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
@@ -40,121 +36,129 @@ L  body
                |  |- loopVariable (field of type VariableNode)
                |  |  L  variableSymbol (field of type Variable)
                |  |     |- initialExpression (field of type ValueNode)
-               |  |     |  L  value: 1
+               |  |     |  |- value: 1
+               |  |     |  L  builtInType: INT
                |  |     |- name: i
-               |  |     L  type (field of type BuiltIn)
-               |  |        L  name: int
+               |  |     L  type: INT
                |  |- termination (field of type ComparisonNode)
                |  |  |- leftExpression (field of type VariableCallNode)
                |  |  |  L  symbol (field of type Variable)
                |  |  |     |- initialExpression (field of type ValueNode)
-               |  |  |     |  L  value: 1
+               |  |  |     |  |- value: 1
+               |  |  |     |  L  builtInType: INT
                |  |  |     |- name: i
-               |  |  |     L  type (field of type BuiltIn)
-               |  |  |        L  name: int
-               |  |  |- comparisonOperator: DIAMOND_OPEN
+               |  |  |     L  type: INT
+               |  |  |- operator: LESS_THAN
                |  |  L  rightExpression (field of type ValueNode)
-               |  |     L  value: 11
+               |  |     |- value: 11
+               |  |     L  builtInType: INT
                |  |- increment (field of type UnarySuffixNode)
                |  |  |- operator: INC
-               |  |  L  Expression (field of type VariableCallNode)
+               |  |  L  variableCallNode (field of type VariableCallNode)
                |  |     L  symbol (field of type Variable)
                |  |        |- initialExpression (field of type ValueNode)
-               |  |        |  L  value: 1
+               |  |        |  |- value: 1
+               |  |        |  L  builtInType: INT
                |  |        |- name: i
-               |  |        L  type (field of type BuiltIn)
-               |  |           L  name: int
+               |  |        L  type: INT
                |  L  body
                |     L  0 (field of type FunctionCallNode)
                |        |- function (field of type Function)
                |        |  |- accessModifier: PUBLIC
                |        |  |- instanceModifier: null
                |        |  |- name: System.out.println
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: void
-               |        L  values
+               |        |  L  type: VOID
+               |        L  argumentExpressions
                |           L  0 (field of type VariableCallNode)
                |              L  symbol (field of type Variable)
                |                 |- initialExpression (field of type ValueNode)
-               |                 |  L  value: 1
+               |                 |  |- value: 1
+               |                 |  L  builtInType: INT
                |                 |- name: i
-               |                 L  type (field of type BuiltIn)
-               |                    L  name: int
+               |                 L  type: INT
                |- 1 (field of type ForLoopNode)
                |  |- loopVariable (field of type VariableNode)
                |  |  L  variableSymbol (field of type Variable)
                |  |     |- initialExpression (field of type ValueNode)
-               |  |     |  L  value: 0
+               |  |     |  |- value: 0
+               |  |     |  L  builtInType: INT
                |  |     |- name: i
-               |  |     L  type (field of type BuiltIn)
-               |  |        L  name: int
+               |  |     L  type: INT
                |  |- termination (field of type ComparisonNode)
                |  |  |- leftExpression (field of type VariableCallNode)
                |  |  |  L  symbol (field of type Variable)
                |  |  |     |- initialExpression (field of type ValueNode)
-               |  |  |     |  L  value: 0
+               |  |  |     |  |- value: 0
+               |  |  |     |  L  builtInType: INT
                |  |  |     |- name: i
-               |  |  |     L  type (field of type BuiltIn)
-               |  |  |        L  name: int
-               |  |  |- comparisonOperator: DIAMOND_OPEN
+               |  |  |     L  type: INT
+               |  |  |- operator: LESS_THAN
                |  |  L  rightExpression (field of type ValueNode)
-               |  |     L  value: 10
+               |  |     |- value: 10
+               |  |     L  builtInType: INT
                |  |- increment (field of type InfixNode)
                |  |  |- leftExpression (field of type VariableCallNode)
                |  |  |  L  symbol (field of type Variable)
                |  |  |     |- initialExpression (field of type ValueNode)
-               |  |  |     |  L  value: 0
+               |  |  |     |  |- value: 0
+               |  |  |     |  L  builtInType: INT
                |  |  |     |- name: i
-               |  |  |     L  type (field of type BuiltIn)
-               |  |  |        L  name: int
+               |  |  |     L  type: INT
                |  |  |- operator: PLUS
                |  |  L  rightExpression (field of type ValueNode)
-               |  |     L  value: 2
+               |  |     |- value: 2
+               |  |     L  builtInType: INT
                |  L  body
                |     L  0 (field of type FunctionCallNode)
                |        |- function (field of type Function)
                |        |  |- accessModifier: PUBLIC
                |        |  |- instanceModifier: null
                |        |  |- name: System.out.println
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: void
-               |        L  values
+               |        |  L  type: VOID
+               |        L  argumentExpressions
                |           L  0 (field of type VariableCallNode)
                |              L  symbol (field of type Variable)
                |                 |- initialExpression (field of type ValueNode)
-               |                 |  L  value: 0
+               |                 |  |- value: 0
+               |                 |  L  builtInType: INT
                |                 |- name: i
-               |                 L  type (field of type BuiltIn)
-               |                    L  name: int
+               |                 L  type: INT
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ArrayInstantiationWithValuesNode)
                |     |  L  expressions
                |     |     |- 0 (field of type ValueNode)
-               |     |     |  L  value: 1
+               |     |     |  |- value: 1
+               |     |     |  L  builtInType: INT
                |     |     |- 1 (field of type ValueNode)
-               |     |     |  L  value: 2
+               |     |     |  |- value: 2
+               |     |     |  L  builtInType: INT
                |     |     |- 2 (field of type ValueNode)
-               |     |     |  L  value: 3
+               |     |     |  |- value: 3
+               |     |     |  L  builtInType: INT
                |     |     |- 3 (field of type ValueNode)
-               |     |     |  L  value: 4
+               |     |     |  |- value: 4
+               |     |     |  L  builtInType: INT
                |     |     |- 4 (field of type ValueNode)
-               |     |     |  L  value: 5
+               |     |     |  |- value: 5
+               |     |     |  L  builtInType: INT
                |     |     |- 5 (field of type ValueNode)
-               |     |     |  L  value: 6
+               |     |     |  |- value: 6
+               |     |     |  L  builtInType: INT
                |     |     |- 6 (field of type ValueNode)
-               |     |     |  L  value: 7
+               |     |     |  |- value: 7
+               |     |     |  L  builtInType: INT
                |     |     |- 7 (field of type ValueNode)
-               |     |     |  L  value: 8
+               |     |     |  |- value: 8
+               |     |     |  L  builtInType: INT
                |     |     |- 8 (field of type ValueNode)
-               |     |     |  L  value: 9
+               |     |     |  |- value: 9
+               |     |     |  L  builtInType: INT
                |     |     L  9 (field of type ValueNode)
-               |     |        L  value: 10
+               |     |        |- value: 10
+               |     |        L  builtInType: INT
                |     |- name: numbers
                |     L  type (field of type ArrayType)
-               |        |- arrayType (field of type BuiltIn)
-               |        |  |- name: int
-               |        |  L  type (field of type BuiltIn)
-               |        |     L  name: int
+               |        |- arrayType: INT
                |        L  dimensions: 1
                L  3: null

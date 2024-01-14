@@ -23,395 +23,353 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 10
+               |     |  |- value: 10
+               |     |  L  builtInType: INT
                |     |- name: i
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type: INT
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: byte
+               |     |  |- type: BYTE
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: b
-               |     L  type (field of type BuiltIn)
-               |        L  name: byte
+               |     L  type: BYTE
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: char
+               |     |  |- type: CHAR
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: c
-               |     L  type (field of type BuiltIn)
-               |        L  name: char
+               |     L  type: CHAR
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: double
+               |     |  |- type: DOUBLE
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: d
-               |     L  type (field of type BuiltIn)
-               |        L  name: double
+               |     L  type: DOUBLE
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: float
+               |     |  |- type: FLOAT
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: f
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: long
+               |     |  |- type: LONG
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: l
-               |     L  type (field of type BuiltIn)
-               |        L  name: long
+               |     L  type: LONG
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: short
+               |     |  |- type: SHORT
                |     |  L  expression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: i
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: int
+               |     |        L  type: INT
                |     |- name: s
-               |     L  type (field of type BuiltIn)
-               |        L  name: short
+               |     L  type: SHORT
                |- 7 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type VariableCallNode)
                |     |  L  symbol (field of type Variable)
                |     |     |- initialExpression (field of type CastNode)
-               |     |     |  |- type (field of type BuiltIn)
-               |     |     |  |  L  name: short
+               |     |     |  |- type: SHORT
                |     |     |  L  expression (field of type VariableCallNode)
                |     |     |     L  symbol (field of type Variable)
                |     |     |        |- initialExpression (field of type ValueNode)
-               |     |     |        |  L  value: 10
+               |     |     |        |  |- value: 10
+               |     |     |        |  L  builtInType: INT
                |     |     |        |- name: i
-               |     |     |        L  type (field of type BuiltIn)
-               |     |     |           L  name: int
+               |     |     |        L  type: INT
                |     |     |- name: s
-               |     |     L  type (field of type BuiltIn)
-               |     |        L  name: short
+               |     |     L  type: SHORT
                |     |- name: force_load
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type: INT
                |- 8 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: i:
+               |        |- value: i:
+               |        L  builtInType: STRING
                |- 9 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
-               |           |  L  value: 10
+               |           |  |- value: 10
+               |           |  L  builtInType: INT
                |           |- name: i
-               |           L  type (field of type BuiltIn)
-               |              L  name: int
+               |           L  type: INT
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: b:
+               |        |- value: b:
+               |        L  builtInType: STRING
                |- 11 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: byte
+               |           |  |- type: BYTE
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: b
-               |           L  type (field of type BuiltIn)
-               |              L  name: byte
+               |           L  type: BYTE
                |- 12 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: c:
+               |        |- value: c:
+               |        L  builtInType: STRING
                |- 13 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: char
+               |           |  |- type: CHAR
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: c
-               |           L  type (field of type BuiltIn)
-               |              L  name: char
+               |           L  type: CHAR
                |- 14 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: d:
+               |        |- value: d:
+               |        L  builtInType: STRING
                |- 15 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: double
+               |           |  |- type: DOUBLE
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: d
-               |           L  type (field of type BuiltIn)
-               |              L  name: double
+               |           L  type: DOUBLE
                |- 16 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f:
+               |        |- value: f:
+               |        L  builtInType: STRING
                |- 17 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: float
+               |           |  |- type: FLOAT
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: f
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 18 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: l:
+               |        |- value: l:
+               |        L  builtInType: STRING
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: long
+               |           |  |- type: LONG
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: l
-               |           L  type (field of type BuiltIn)
-               |              L  name: long
+               |           L  type: LONG
                |- 20 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: s:
+               |        |- value: s:
+               |        L  builtInType: STRING
                |- 21 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type CastNode)
-               |           |  |- type (field of type BuiltIn)
-               |           |  |  L  name: short
+               |           |  |- type: SHORT
                |           |  L  expression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: i
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: int
+               |           |        L  type: INT
                |           |- name: s
-               |           L  type (field of type BuiltIn)
-               |              L  name: short
+               |           L  type: SHORT
                |- 22 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: force_load:
+               |        |- value: force_load:
+               |        L  builtInType: STRING
                L  23 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  argumentExpressions
                      L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type VariableCallNode)
                            |  L  symbol (field of type Variable)
                            |     |- initialExpression (field of type CastNode)
-                           |     |  |- type (field of type BuiltIn)
-                           |     |  |  L  name: short
+                           |     |  |- type: SHORT
                            |     |  L  expression (field of type VariableCallNode)
                            |     |     L  symbol (field of type Variable)
                            |     |        |- initialExpression (field of type ValueNode)
-                           |     |        |  L  value: 10
+                           |     |        |  |- value: 10
+                           |     |        |  L  builtInType: INT
                            |     |        |- name: i
-                           |     |        L  type (field of type BuiltIn)
-                           |     |           L  name: int
+                           |     |        L  type: INT
                            |     |- name: s
-                           |     L  type (field of type BuiltIn)
-                           |        L  name: short
+                           |     L  type: SHORT
                            |- name: force_load
-                           L  type (field of type BuiltIn)
-                              L  name: int
+                           L  type: INT

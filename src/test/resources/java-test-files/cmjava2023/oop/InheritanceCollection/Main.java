@@ -1,3 +1,5 @@
+package cmjava2023.oop.InheritanceCollection;
+
 // Abstract class with generics
 abstract class Shape<T> {
     T dimension;

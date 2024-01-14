@@ -1,3 +1,5 @@
+package cmjava2023.oop.encapsulation;
+
 // Example class to demonstrate encapsulation
 class EncapsulatedObject {
     // Private variables

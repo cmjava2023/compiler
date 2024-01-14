@@ -15,8 +15,8 @@ GlobalScope
 |  L  main: void
 |     |- args: String[]
 |     L  LocalScope
+|        |- i: int
 |        L  LocalScope
-|           |- i: int
 |           L  LocalScope
 L  System.out.println: void
    L  x: String

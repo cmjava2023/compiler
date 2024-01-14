@@ -1,0 +1,9 @@
+Iconst_1: 
+Istore_1: 
+Iload_1: 
+Iconst_5: 
+If_icmpgt: '12', 
+Iinc: '1', '1', 
+Goto: '-8', 
+Goto: '-11', 
+Return:

@@ -35,6 +35,9 @@ tasks.test {
 tasks.compileKotlin{
     dependsOn("generateGrammarSource")
 }
+tasks.compileTestKotlin{
+    dependsOn("generateTestGrammarSource")
+}
 
 tasks.register("compileTestFilesWithJdk8AndCreateJavaP") {
     doLast {

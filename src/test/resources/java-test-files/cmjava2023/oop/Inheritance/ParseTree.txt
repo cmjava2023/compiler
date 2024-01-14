@@ -1,4 +1,14 @@
-Start: packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDogextendsAnimal{publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}}
+Start: packagecmjava2023.oop.Inheritance;packagecmjava2023.helloworld;classAnimal{Stringname;publicAnimal(Stringname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDogextendsAnimal{publicDog(Stringname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){DogmyDog=newDog("Buddy");myDog.eat();myDog.bark();}}
+|- Global_scope: packagecmjava2023.oop.Inheritance;
+|  |- Package_declaration: packagecmjava2023.oop.Inheritance
+|  |  |- package
+|  |  L  Identifier: cmjava2023.oop.Inheritance
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- oop
+|  |     |- .
+|  |     L  Inheritance
+|  L  ;
 |- Global_scope: packagecmjava2023.helloworld;
 |  |- Package_declaration: packagecmjava2023.helloworld
 |  |  |- package

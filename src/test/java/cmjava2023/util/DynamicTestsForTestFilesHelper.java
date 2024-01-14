@@ -23,7 +23,7 @@ public class DynamicTestsForTestFilesHelper {
                         Path txtFileWithExpected = file.resolveSibling(expectedFileName);
 
                         if (Files.exists(txtFileWithExpected)) {
-                            String nonRootPackagePartsTheHelpedClassIsIn = Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/cmjava2023").relativize(file.getParent()).toString();
+                            String nonRootPackagePartsTheHelpedClassIsIn = Path.of(TestPathsHelper.JAVA_TEST_FILES_RESOURCE_FOLDER_PATH + "/cmjava2023").relativize(file.getParent()).toString().replace("\\", "/");
                             result.addAll(dynamicTestCallback.createTestForMainAndExpectedContent(
                                     nonRootPackagePartsTheHelpedClassIsIn,
                                     file.toString(),

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
 
 public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
@@ -46,11 +46,11 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
             
             String actual = GenericTreePrinter.print(modifiedAst);
 
-            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(contentOfExpectationFile, actual);
 
             visitor.errors.forEach(System.out::println);
 
-            assertEquals(astVisitorFirst.errors.size(), 0);
+            assertExpectedEqualsActual(0, astVisitorFirst.errors.size());
         }));
     }
 }

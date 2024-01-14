@@ -1,11 +1,13 @@
-Start: packagecmjava2023.helloworld;classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
-|- Global_scope: packagecmjava2023.helloworld;
-|  |- Package_declaration: packagecmjava2023.helloworld
+Start: packagecmjava2023.oop.InheritanceGenerics;classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}classDog<T>extendsAnimal<T>{publicDog(Tname){super(name);}voidbark(){System.out.println(name+" is barking.");}}publicclassMain{publicstaticvoidmain(String[]args){Dog<String>myDog=newDog<>("Buddy");myDog.eat();myDog.bark();}}
+|- Global_scope: packagecmjava2023.oop.InheritanceGenerics;
+|  |- Package_declaration: packagecmjava2023.oop.InheritanceGenerics
 |  |  |- package
-|  |  L  Identifier: cmjava2023.helloworld
+|  |  L  Identifier: cmjava2023.oop.InheritanceGenerics
 |  |     |- cmjava2023
 |  |     |- .
-|  |     L  helloworld
+|  |     |- oop
+|  |     |- .
+|  |     L  InheritanceGenerics
 |  L  ;
 |- Global_scope: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}
 |  L  Class_declaration: classAnimal<T>{Tname;publicAnimal(Tname){this.name=name;}voideat(){System.out.println(name+" is eating.");}}

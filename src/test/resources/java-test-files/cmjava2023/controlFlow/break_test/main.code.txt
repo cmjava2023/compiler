@@ -1,0 +1,12 @@
+Iconst_1: 
+Istore_1: 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload_1: 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Iload_1: 
+Iconst_5: 
+If_icmpne: '6', 
+Goto: '3', 
+Iinc: '1', '1', 
+Goto: '-18', 
+Return:

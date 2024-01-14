@@ -42,7 +42,7 @@ public class SymbolTableTest implements DynamicTestsForTestFilesHelper.DynamicTe
             ast.accept(astVisitorFirst);
 
             String actual = SymbolTableTreePrinter.print(visitor.symbolTable);
-            LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
+            LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(contentOfExpectationFile, actual);
         }));
     }
 }

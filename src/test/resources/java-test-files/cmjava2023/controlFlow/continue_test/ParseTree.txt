@@ -1,4 +1,4 @@
-Start: packagecmjava2023.controlFlow.continue_test;publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}}}
+Start: packagecmjava2023.controlFlow.continue_test;publicclassMain{publicstaticvoidmain(String[]args){inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}}}
 |- Global_scope: packagecmjava2023.controlFlow.continue_test;
 |  |- Package_declaration: packagecmjava2023.controlFlow.continue_test
 |  |  |- package
@@ -9,15 +9,15 @@ Start: packagecmjava2023.controlFlow.continue_test;publicclassMain{publicstaticv
 |  |     |- .
 |  |     L  continue_test
 |  L  ;
-L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}}}
-   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}}}
+L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}}}
+   L  Class_declaration: publicclassMain{publicstaticvoidmain(String[]args){inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}}}
       |- Access_modifier: public
       |  L  public
       |- class
       |- Main
       |- {
-      |- Class_scope: publicstaticvoidmain(String[]args){for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}}
-      |  L  Function_declaration: publicstaticvoidmain(String[]args){for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}}
+      |- Class_scope: publicstaticvoidmain(String[]args){inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}}
+      |  L  Function_declaration: publicstaticvoidmain(String[]args){inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}}
       |     |- Access_modifier: public
       |     |  L  public
       |     |- static
@@ -36,45 +36,42 @@ L  Global_scope: publicclassMain{publicstaticvoidmain(String[]args){for(inti=1;i
       |     |     L  args
       |     |- )
       |     |- {
-      |     |- Function_scope: for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}
-      |     |  L  Block_scope: for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}
-      |     |     L  For_loop: for(inti=1;i<=5;i++){if(i==3){continue;}System.out.println(i);}
-      |     |        |- for
+      |     |- Function_scope: inti=1;while(i<=5){i++;if(i==3){continue;}System.out.println(i);}
+      |     |  |- Assignment: inti=1
+      |     |  |  |- Variable_declaration: inti
+      |     |  |  |  |- Primitive_type: int
+      |     |  |  |  |  L  Numeric_type: int
+      |     |  |  |  |     L  Integral_type: int
+      |     |  |  |  |        L  int
+      |     |  |  |  L  i
+      |     |  |  |- =
+      |     |  |  L  Expressions: 1
+      |     |  |     L  Expression: 1
+      |     |  |        L  1
+      |     |  |- ;
+      |     |  L  Block_scope: while(i<=5){i++;if(i==3){continue;}System.out.println(i);}
+      |     |     L  While_loop: while(i<=5){i++;if(i==3){continue;}System.out.println(i);}
+      |     |        |- while
       |     |        |- (
-      |     |        |- For_init: inti=1
-      |     |        |  L  Assignment: inti=1
-      |     |        |     |- Variable_declaration: inti
-      |     |        |     |  |- Primitive_type: int
-      |     |        |     |  |  L  Numeric_type: int
-      |     |        |     |  |     L  Integral_type: int
-      |     |        |     |  |        L  int
+      |     |        |- Expressions: i<=5
+      |     |        |  L  Expression: i<=5
+      |     |        |     |- Expression: i
       |     |        |     |  L  i
-      |     |        |     |- =
-      |     |        |     L  Expressions: 1
-      |     |        |        L  Expression: 1
-      |     |        |           L  1
-      |     |        |- ;
-      |     |        |- For_termination: i<=5
-      |     |        |  L  Expressions: i<=5
-      |     |        |     L  Expression: i<=5
-      |     |        |        |- Expression: i
-      |     |        |        |  L  i
-      |     |        |        |- Expression_operator: <=
-      |     |        |        |  L  Numerical_comparison_operator: <=
-      |     |        |        |     L  <=
-      |     |        |        L  Expression: 5
-      |     |        |           L  5
-      |     |        |- ;
-      |     |        |- For_update: i++
-      |     |        |  L  Expressions: i++
-      |     |        |     L  Expression: i++
-      |     |        |        |- Expression: i
-      |     |        |        |  L  i
-      |     |        |        L  Expression_suffix: ++
-      |     |        |           L  ++
+      |     |        |     |- Expression_operator: <=
+      |     |        |     |  L  Numerical_comparison_operator: <=
+      |     |        |     |     L  <=
+      |     |        |     L  Expression: 5
+      |     |        |        L  5
       |     |        |- )
       |     |        |- {
-      |     |        |- Function_scope: if(i==3){continue;}System.out.println(i);
+      |     |        |- Function_scope: i++;if(i==3){continue;}System.out.println(i);
+      |     |        |  |- Expressions: i++
+      |     |        |  |  L  Expression: i++
+      |     |        |  |     |- Expression: i
+      |     |        |  |     |  L  i
+      |     |        |  |     L  Expression_suffix: ++
+      |     |        |  |        L  ++
+      |     |        |  |- ;
       |     |        |  |- Block_scope: if(i==3){continue;}
       |     |        |  |  L  If_block: if(i==3){continue;}
       |     |        |  |     L  If_statement: if(i==3){continue;}

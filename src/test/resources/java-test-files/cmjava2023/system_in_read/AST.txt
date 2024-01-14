@@ -21,17 +21,13 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception (field of type Clazz)
             |  |- parentClazz: null
@@ -49,52 +45,46 @@ L  body
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: Type one char and press ENTER: 
+               |        |- value: Type one char and press ENTER: 
+               |        L  builtInType: STRING
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type CastNode)
-               |     |  |- type (field of type BuiltIn)
-               |     |  |  L  name: char
+               |     |  |- type: CHAR
                |     |  L  expression (field of type FunctionCallNode)
                |     |     |- function (field of type Function)
                |     |     |  |- accessModifier: PUBLIC
                |     |     |  |- instanceModifier: null
                |     |     |  |- name: System.in.read
-               |     |     |  L  type (field of type BuiltIn)
-               |     |     |     L  name: int
-               |     |     L  values
+               |     |     |  L  type: INT
+               |     |     L  argumentExpressions
                |     |- name: c
-               |     L  type (field of type BuiltIn)
-               |        L  name: char
+               |     L  type: CHAR
                L  2 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  argumentExpressions
                      L  0 (field of type InfixNode)
                         |- leftExpression (field of type ValueNode)
-                        |  L  value: You entered char: 
+                        |  |- value: You entered char: 
+                        |  L  builtInType: STRING
                         |- operator: PLUS
                         L  rightExpression (field of type VariableCallNode)
                            L  symbol (field of type Variable)
                               |- initialExpression (field of type CastNode)
-                              |  |- type (field of type BuiltIn)
-                              |  |  L  name: char
+                              |  |- type: CHAR
                               |  L  expression (field of type FunctionCallNode)
                               |     |- function (field of type Function)
                               |     |  |- accessModifier: PUBLIC
                               |     |  |- instanceModifier: null
                               |     |  |- name: System.in.read
-                              |     |  L  type (field of type BuiltIn)
-                              |     |     L  name: int
-                              |     L  values
+                              |     |  L  type: INT
+                              |     L  argumentExpressions
                               |- name: c
-                              L  type (field of type BuiltIn)
-                                 L  name: char
+                              L  type: CHAR

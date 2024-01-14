@@ -10,4 +10,8 @@ public class InvalidType implements Type{
     public String getName() {
         return name;
     }
+    
+    public boolean equals(BuiltInType builtInType) {
+        return builtInType.getName().equals(getName());
+    }
 }

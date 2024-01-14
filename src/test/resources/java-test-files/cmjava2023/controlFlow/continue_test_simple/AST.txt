@@ -1,0 +1,65 @@
+root (field of type StartNode)
+L  body
+   |- 0 (field of type PackageNode)
+   |  L  nestedIdentifier
+   |     |- 0: cmjava2023
+   |     |- 1: controlFlow
+   |     L  2: continue_test_simple
+   L  1 (field of type ClassNode)
+      |- classSymbol (field of type Clazz)
+      |  |- parentClazz: null
+      |  |- accessModifier: PUBLIC
+      |  |- instanceModifier: null
+      |  |- name: Main
+      |  L  type (field of type Clazz)
+      |     |- parentClazz: null
+      |     |- accessModifier: PUBLIC
+      |     |- instanceModifier: null
+      |     L  name: Main
+      L  body
+         L  0 (field of type FunctionNode)
+            |- functionSymbol (field of type Function)
+            |  |- accessModifier: PUBLIC
+            |  |- instanceModifier: STATIC
+            |  |- name: main
+            |  L  type: VOID
+            |- parameters
+            |  L  0 (field of type ParameterNode)
+            |     L  parameterSymbol (field of type Parameter)
+            |        |- name: args
+            |        L  type (field of type ArrayType)
+            |           |- arrayType: STRING
+            |           L  dimensions: 1
+            |- exception: null
+            L  body
+               |- 0 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  |- value: 1
+               |     |  L  builtInType: INT
+               |     |- name: i
+               |     L  type: INT
+               L  1 (field of type WhileLoopNode)
+                  |- expression (field of type ComparisonNode)
+                  |  |- leftExpression (field of type VariableCallNode)
+                  |  |  L  symbol (field of type Variable)
+                  |  |     |- initialExpression (field of type ValueNode)
+                  |  |     |  |- value: 1
+                  |  |     |  L  builtInType: INT
+                  |  |     |- name: i
+                  |  |     L  type: INT
+                  |  |- operator: LESS_THAN_OR_EQUALS
+                  |  L  rightExpression (field of type ValueNode)
+                  |     |- value: 5
+                  |     L  builtInType: INT
+                  L  body
+                     |- 0 (field of type UnarySuffixNode)
+                     |  |- operator: INC
+                     |  L  variableCallNode (field of type VariableCallNode)
+                     |     L  symbol (field of type Variable)
+                     |        |- initialExpression (field of type ValueNode)
+                     |        |  |- value: 1
+                     |        |  L  builtInType: INT
+                     |        |- name: i
+                     |        L  type: INT
+                     L  1 (field of type ContinueNode)

@@ -20,26 +20,23 @@ public class SymbolTable {
     }
 
     private HashMap<String, Symbol> bindPrimitiveTypes() {
-        String[] primitiveTypes = {"byte", "short", "int", "long", "float", "double", "char", "boolean", "void", "String"};
         HashMap<String, Symbol> builtIn = new HashMap<>();
 
-        for (String type : primitiveTypes) {
-            BuiltIn builtInSymbol = new BuiltIn(type, null, this.currentScope);
-            builtInSymbol.setType(builtInSymbol);
-            builtIn.put(type, builtInSymbol);
+        for (BuiltInType type : BuiltInType.values()) {
+            builtIn.put(type.getName(), new BuiltInSymbol(type, this.currentScope));
         }
         return builtIn;
     }
 
     private void bindPrintFunction(HashMap<String, Symbol> builtIn) {
-        Function printFunction = new Function(this.currentScope, new HashMap<>(), "System.out.println", builtIn.get("void").getType(), ASTNodes.AccessModifier.PUBLIC, null);
-        Parameter printParameter = new Parameter("x", builtIn.get("String").getType(), printFunction);
+        Function printFunction = new Function(this.currentScope, new HashMap<>(), "System.out.println", BuiltInType.VOID, ASTNodes.AccessModifier.PUBLIC, null);
+        Parameter printParameter = new Parameter("x", BuiltInType.STRING, printFunction);
         printFunction.bind(printParameter);
         builtIn.put(printFunction.getName(), printFunction);
     }
 
     private void bindReadFunction(HashMap<String, Symbol> builtIn) {
-        Function readFunction = new Function(this.currentScope, new HashMap<>(), "System.in.read", builtIn.get("int").getType(), ASTNodes.AccessModifier.PUBLIC, null);
+        Function readFunction = new Function(this.currentScope, new HashMap<>(), "System.in.read", BuiltInType.INT, ASTNodes.AccessModifier.PUBLIC, null);
         builtIn.put(readFunction.getName(), readFunction);
     }
 
@@ -51,10 +48,6 @@ public class SymbolTable {
 
     public void addSymbol(Symbol symbol) {
         this.currentScope.bind(symbol);
-    }
-
-    public void setSymbols(HashMap<String, Symbol> symbols) {
-        this.currentScope.setSymbols(symbols);
     }
 
     public void setScope(Scope scope) {

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static cmjava2023.util.BetterNamedAssertions.assertExpectedEqualsActual;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(cmjava2023.util.QualifiedDisplayNameGenerator.class)
@@ -31,6 +32,6 @@ public class ObjectAlreadyDefinedTest {
 
         visitor.errors.forEach(System.out::println);
 
-        assertEquals(visitor.errors.size(), 5);
+        assertExpectedEqualsActual(5, visitor.errors.size());
     }
 }

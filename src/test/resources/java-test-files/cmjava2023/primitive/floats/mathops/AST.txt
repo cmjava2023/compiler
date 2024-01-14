@@ -23,48 +23,43 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 10
+               |     |  |- value: 10
+               |     |  L  builtInType: INT
                |     |- name: f
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 10
+               |     |  |     |  |- value: 10
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: f
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: float
+               |     |  |     L  type: FLOAT
                |     |  |- operator: PLUS
                |     |  L  rightExpression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: f
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: float
+               |     |        L  type: FLOAT
                |     |- name: f2
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 2 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
@@ -74,27 +69,26 @@ L  body
                |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  |     |  L  value: 10
+               |     |  |     |  |     |  |- value: 10
+               |     |  |     |  |     |  L  builtInType: INT
                |     |  |     |  |     |- name: f
-               |     |  |     |  |     L  type (field of type BuiltIn)
-               |     |  |     |  |        L  name: float
+               |     |  |     |  |     L  type: FLOAT
                |     |  |     |  |- operator: PLUS
                |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
-               |     |  |     |        |  L  value: 10
+               |     |  |     |        |  |- value: 10
+               |     |  |     |        |  L  builtInType: INT
                |     |  |     |        |- name: f
-               |     |  |     |        L  type (field of type BuiltIn)
-               |     |  |     |           L  name: float
+               |     |  |     |        L  type: FLOAT
                |     |  |     |- name: f2
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: float
+               |     |  |     L  type: FLOAT
                |     |  |- operator: DIVISION
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 2
+               |     |     |- value: 2
+               |     |     L  builtInType: INT
                |     |- name: f3
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 3 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
@@ -104,55 +98,52 @@ L  body
                |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  |     |  L  value: 10
+               |     |  |     |  |     |  |- value: 10
+               |     |  |     |  |     |  L  builtInType: INT
                |     |  |     |  |     |- name: f
-               |     |  |     |  |     L  type (field of type BuiltIn)
-               |     |  |     |  |        L  name: float
+               |     |  |     |  |     L  type: FLOAT
                |     |  |     |  |- operator: PLUS
                |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
-               |     |  |     |        |  L  value: 10
+               |     |  |     |        |  |- value: 10
+               |     |  |     |        |  L  builtInType: INT
                |     |  |     |        |- name: f
-               |     |  |     |        L  type (field of type BuiltIn)
-               |     |  |     |           L  name: float
+               |     |  |     |        L  type: FLOAT
                |     |  |     |- name: f2
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: float
+               |     |  |     L  type: FLOAT
                |     |  |- operator: MULTIPLICATION
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 2
+               |     |     |- value: 2
+               |     |     L  builtInType: INT
                |     |- name: f4
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 4 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type UnaryPrefixNode)
                |     |  |- operator: MINUS
-               |     |  L  Expression (field of type VariableCallNode)
+               |     |  L  variableCallNode (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type InfixNode)
                |     |        |  |- leftExpression (field of type VariableCallNode)
                |     |        |  |  L  symbol (field of type Variable)
                |     |        |  |     |- initialExpression (field of type ValueNode)
-               |     |        |  |     |  L  value: 10
+               |     |        |  |     |  |- value: 10
+               |     |        |  |     |  L  builtInType: INT
                |     |        |  |     |- name: f
-               |     |        |  |     L  type (field of type BuiltIn)
-               |     |        |  |        L  name: float
+               |     |        |  |     L  type: FLOAT
                |     |        |  |- operator: PLUS
                |     |        |  L  rightExpression (field of type VariableCallNode)
                |     |        |     L  symbol (field of type Variable)
                |     |        |        |- initialExpression (field of type ValueNode)
-               |     |        |        |  L  value: 10
+               |     |        |        |  |- value: 10
+               |     |        |        |  L  builtInType: INT
                |     |        |        |- name: f
-               |     |        |        L  type (field of type BuiltIn)
-               |     |        |           L  name: float
+               |     |        |        L  type: FLOAT
                |     |        |- name: f2
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: float
+               |     |        L  type: FLOAT
                |     |- name: f5
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 5 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
@@ -162,130 +153,124 @@ L  body
                |     |  |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |     |  |  L  symbol (field of type Variable)
                |     |  |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  |     |  L  value: 10
+               |     |  |     |  |     |  |- value: 10
+               |     |  |     |  |     |  L  builtInType: INT
                |     |  |     |  |     |- name: f
-               |     |  |     |  |     L  type (field of type BuiltIn)
-               |     |  |     |  |        L  name: float
+               |     |  |     |  |     L  type: FLOAT
                |     |  |     |  |- operator: PLUS
                |     |  |     |  L  rightExpression (field of type VariableCallNode)
                |     |  |     |     L  symbol (field of type Variable)
                |     |  |     |        |- initialExpression (field of type ValueNode)
-               |     |  |     |        |  L  value: 10
+               |     |  |     |        |  |- value: 10
+               |     |  |     |        |  L  builtInType: INT
                |     |  |     |        |- name: f
-               |     |  |     |        L  type (field of type BuiltIn)
-               |     |  |     |           L  name: float
+               |     |  |     |        L  type: FLOAT
                |     |  |     |- name: f2
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: float
+               |     |  |     L  type: FLOAT
                |     |  |- operator: MOD
                |     |  L  rightExpression (field of type ValueNode)
-               |     |     L  value: 10
+               |     |     |- value: 10
+               |     |     L  builtInType: INT
                |     |- name: f6
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 6 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type InfixNode)
                |     |  |- leftExpression (field of type VariableCallNode)
                |     |  |  L  symbol (field of type Variable)
                |     |  |     |- initialExpression (field of type ValueNode)
-               |     |  |     |  L  value: 10
+               |     |  |     |  |- value: 10
+               |     |  |     |  L  builtInType: INT
                |     |  |     |- name: f
-               |     |  |     L  type (field of type BuiltIn)
-               |     |  |        L  name: float
+               |     |  |     L  type: FLOAT
                |     |  |- operator: MINUS
                |     |  L  rightExpression (field of type VariableCallNode)
                |     |     L  symbol (field of type Variable)
                |     |        |- initialExpression (field of type ValueNode)
-               |     |        |  L  value: 10
+               |     |        |  |- value: 10
+               |     |        |  L  builtInType: INT
                |     |        |- name: f
-               |     |        L  type (field of type BuiltIn)
-               |     |           L  name: float
+               |     |        L  type: FLOAT
                |     |- name: f7
-               |     L  type (field of type BuiltIn)
-               |        L  name: float
+               |     L  type: FLOAT
                |- 7 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f:
+               |        |- value: f:
+               |        L  builtInType: STRING
                |- 8 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type ValueNode)
-               |           |  L  value: 10
+               |           |  |- value: 10
+               |           |  L  builtInType: INT
                |           |- name: f
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 9 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f2:
+               |        |- value: f2:
+               |        L  builtInType: STRING
                |- 10 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
                |           |  |- leftExpression (field of type VariableCallNode)
                |           |  |  L  symbol (field of type Variable)
                |           |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  L  value: 10
+               |           |  |     |  |- value: 10
+               |           |  |     |  L  builtInType: INT
                |           |  |     |- name: f
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: float
+               |           |  |     L  type: FLOAT
                |           |  |- operator: PLUS
                |           |  L  rightExpression (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type ValueNode)
-               |           |        |  L  value: 10
+               |           |        |  |- value: 10
+               |           |        |  L  builtInType: INT
                |           |        |- name: f
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: float
+               |           |        L  type: FLOAT
                |           |- name: f2
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 11 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f3:
+               |        |- value: f3:
+               |        L  builtInType: STRING
                |- 12 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
@@ -295,45 +280,43 @@ L  body
                |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  |     |  L  value: 10
+               |           |  |     |  |     |  |- value: 10
+               |           |  |     |  |     |  L  builtInType: INT
                |           |  |     |  |     |- name: f
-               |           |  |     |  |     L  type (field of type BuiltIn)
-               |           |  |     |  |        L  name: float
+               |           |  |     |  |     L  type: FLOAT
                |           |  |     |  |- operator: PLUS
                |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
-               |           |  |     |        |  L  value: 10
+               |           |  |     |        |  |- value: 10
+               |           |  |     |        |  L  builtInType: INT
                |           |  |     |        |- name: f
-               |           |  |     |        L  type (field of type BuiltIn)
-               |           |  |     |           L  name: float
+               |           |  |     |        L  type: FLOAT
                |           |  |     |- name: f2
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: float
+               |           |  |     L  type: FLOAT
                |           |  |- operator: DIVISION
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 2
+               |           |     |- value: 2
+               |           |     L  builtInType: INT
                |           |- name: f3
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 13 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f4:
+               |        |- value: f4:
+               |        L  builtInType: STRING
                |- 14 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
@@ -343,91 +326,86 @@ L  body
                |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  |     |  L  value: 10
+               |           |  |     |  |     |  |- value: 10
+               |           |  |     |  |     |  L  builtInType: INT
                |           |  |     |  |     |- name: f
-               |           |  |     |  |     L  type (field of type BuiltIn)
-               |           |  |     |  |        L  name: float
+               |           |  |     |  |     L  type: FLOAT
                |           |  |     |  |- operator: PLUS
                |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
-               |           |  |     |        |  L  value: 10
+               |           |  |     |        |  |- value: 10
+               |           |  |     |        |  L  builtInType: INT
                |           |  |     |        |- name: f
-               |           |  |     |        L  type (field of type BuiltIn)
-               |           |  |     |           L  name: float
+               |           |  |     |        L  type: FLOAT
                |           |  |     |- name: f2
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: float
+               |           |  |     L  type: FLOAT
                |           |  |- operator: MULTIPLICATION
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 2
+               |           |     |- value: 2
+               |           |     L  builtInType: INT
                |           |- name: f4
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 15 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f5:
+               |        |- value: f5:
+               |        L  builtInType: STRING
                |- 16 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type UnaryPrefixNode)
                |           |  |- operator: MINUS
-               |           |  L  Expression (field of type VariableCallNode)
+               |           |  L  variableCallNode (field of type VariableCallNode)
                |           |     L  symbol (field of type Variable)
                |           |        |- initialExpression (field of type InfixNode)
                |           |        |  |- leftExpression (field of type VariableCallNode)
                |           |        |  |  L  symbol (field of type Variable)
                |           |        |  |     |- initialExpression (field of type ValueNode)
-               |           |        |  |     |  L  value: 10
+               |           |        |  |     |  |- value: 10
+               |           |        |  |     |  L  builtInType: INT
                |           |        |  |     |- name: f
-               |           |        |  |     L  type (field of type BuiltIn)
-               |           |        |  |        L  name: float
+               |           |        |  |     L  type: FLOAT
                |           |        |  |- operator: PLUS
                |           |        |  L  rightExpression (field of type VariableCallNode)
                |           |        |     L  symbol (field of type Variable)
                |           |        |        |- initialExpression (field of type ValueNode)
-               |           |        |        |  L  value: 10
+               |           |        |        |  |- value: 10
+               |           |        |        |  L  builtInType: INT
                |           |        |        |- name: f
-               |           |        |        L  type (field of type BuiltIn)
-               |           |        |           L  name: float
+               |           |        |        L  type: FLOAT
                |           |        |- name: f2
-               |           |        L  type (field of type BuiltIn)
-               |           |           L  name: float
+               |           |        L  type: FLOAT
                |           |- name: f5
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 17 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f6:
+               |        |- value: f6:
+               |        L  builtInType: STRING
                |- 18 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type VariableCallNode)
                |        L  symbol (field of type Variable)
                |           |- initialExpression (field of type InfixNode)
@@ -437,63 +415,60 @@ L  body
                |           |  |     |  |- leftExpression (field of type VariableCallNode)
                |           |  |     |  |  L  symbol (field of type Variable)
                |           |  |     |  |     |- initialExpression (field of type ValueNode)
-               |           |  |     |  |     |  L  value: 10
+               |           |  |     |  |     |  |- value: 10
+               |           |  |     |  |     |  L  builtInType: INT
                |           |  |     |  |     |- name: f
-               |           |  |     |  |     L  type (field of type BuiltIn)
-               |           |  |     |  |        L  name: float
+               |           |  |     |  |     L  type: FLOAT
                |           |  |     |  |- operator: PLUS
                |           |  |     |  L  rightExpression (field of type VariableCallNode)
                |           |  |     |     L  symbol (field of type Variable)
                |           |  |     |        |- initialExpression (field of type ValueNode)
-               |           |  |     |        |  L  value: 10
+               |           |  |     |        |  |- value: 10
+               |           |  |     |        |  L  builtInType: INT
                |           |  |     |        |- name: f
-               |           |  |     |        L  type (field of type BuiltIn)
-               |           |  |     |           L  name: float
+               |           |  |     |        L  type: FLOAT
                |           |  |     |- name: f2
-               |           |  |     L  type (field of type BuiltIn)
-               |           |  |        L  name: float
+               |           |  |     L  type: FLOAT
                |           |  |- operator: MOD
                |           |  L  rightExpression (field of type ValueNode)
-               |           |     L  value: 10
+               |           |     |- value: 10
+               |           |     L  builtInType: INT
                |           |- name: f6
-               |           L  type (field of type BuiltIn)
-               |              L  name: float
+               |           L  type: FLOAT
                |- 19 (field of type FunctionCallNode)
                |  |- function (field of type Function)
                |  |  |- accessModifier: PUBLIC
                |  |  |- instanceModifier: null
                |  |  |- name: System.out.println
-               |  |  L  type (field of type BuiltIn)
-               |  |     L  name: void
-               |  L  values
+               |  |  L  type: VOID
+               |  L  argumentExpressions
                |     L  0 (field of type ValueNode)
-               |        L  value: f7:
+               |        |- value: f7:
+               |        L  builtInType: STRING
                L  20 (field of type FunctionCallNode)
                   |- function (field of type Function)
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  argumentExpressions
                      L  0 (field of type VariableCallNode)
                         L  symbol (field of type Variable)
                            |- initialExpression (field of type InfixNode)
                            |  |- leftExpression (field of type VariableCallNode)
                            |  |  L  symbol (field of type Variable)
                            |  |     |- initialExpression (field of type ValueNode)
-                           |  |     |  L  value: 10
+                           |  |     |  |- value: 10
+                           |  |     |  L  builtInType: INT
                            |  |     |- name: f
-                           |  |     L  type (field of type BuiltIn)
-                           |  |        L  name: float
+                           |  |     L  type: FLOAT
                            |  |- operator: MINUS
                            |  L  rightExpression (field of type VariableCallNode)
                            |     L  symbol (field of type Variable)
                            |        |- initialExpression (field of type ValueNode)
-                           |        |  L  value: 10
+                           |        |  |- value: 10
+                           |        |  L  builtInType: INT
                            |        |- name: f
-                           |        L  type (field of type BuiltIn)
-                           |           L  name: float
+                           |        L  type: FLOAT
                            |- name: f7
-                           L  type (field of type BuiltIn)
-                              L  name: float
+                           L  type: FLOAT
