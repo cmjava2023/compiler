@@ -4,7 +4,7 @@ L  body
    |  L  nestedIdentifier
    |     |- 0: cmjava2023
    |     |- 1: controlFlow
-   |     L  2: continue_test
+   |     L  2: continue_test_simple
    L  1 (field of type ClassNode)
       |- classSymbol (field of type Clazz)
       |  |- parentClazz: null
@@ -62,35 +62,4 @@ L  body
                      |        |  L  builtInType: INT
                      |        |- name: i
                      |        L  type: INT
-                     |- 1 (field of type IfBlockNode)
-                     |  |- ifNodes
-                     |  |  L  0 (field of type IfNode)
-                     |  |     |- expression (field of type ComparisonNode)
-                     |  |     |  |- leftExpression (field of type VariableCallNode)
-                     |  |     |  |  L  symbol (field of type Variable)
-                     |  |     |  |     |- initialExpression (field of type ValueNode)
-                     |  |     |  |     |  |- value: 1
-                     |  |     |  |     |  L  builtInType: INT
-                     |  |     |  |     |- name: i
-                     |  |     |  |     L  type: INT
-                     |  |     |  |- operator: EQUALS
-                     |  |     |  L  rightExpression (field of type ValueNode)
-                     |  |     |     |- value: 3
-                     |  |     |     L  builtInType: INT
-                     |  |     L  statements
-                     |  |        L  0 (field of type ContinueNode)
-                     |  L  elseNode: null
-                     L  2 (field of type FunctionCallNode)
-                        |- function (field of type Function)
-                        |  |- accessModifier: PUBLIC
-                        |  |- instanceModifier: null
-                        |  |- name: System.out.println
-                        |  L  type: VOID
-                        L  argumentExpressions
-                           L  0 (field of type VariableCallNode)
-                              L  symbol (field of type Variable)
-                                 |- initialExpression (field of type ValueNode)
-                                 |  |- value: 1
-                                 |  L  builtInType: INT
-                                 |- name: i
-                                 L  type: INT
+                     L  1 (field of type ContinueNode)

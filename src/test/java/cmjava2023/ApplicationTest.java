@@ -28,7 +28,7 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
         ArrayList<DynamicTest> result = new ArrayList<>();
         result.add(createClassFileAsExpectedTest(nonRootPackagePartsTheClassIsIn, pathToMain, contentOfExpectationFile));
         
-        if(!pathToMain.contains("continue")) {
+        if(!nonRootPackagePartsTheClassIsIn.equals("controlFlow/continue_test")) {
             result.add(createSameOutputAsJdkTest(nonRootPackagePartsTheClassIsIn, pathToMain));
         }
         
