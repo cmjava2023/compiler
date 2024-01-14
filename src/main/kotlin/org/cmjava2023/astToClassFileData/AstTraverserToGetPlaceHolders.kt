@@ -26,6 +26,20 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
 
     override fun defaultValue(node: Node): List<PlaceHolder> = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(node).placeHolders
 
+    private fun createBooleanJump(type: org.cmjava2023.symboltable.Type, jumpWhen: Boolean): JumpOffsetPlaceHolder {
+        return when (type) {
+            BuiltInType.BOOLEAN -> {
+                if (jumpWhen) {
+                    JumpOffsetPlaceHolder.JumpIfNotEqualToZeroWhichMeansTrue()
+                } else {
+                    JumpOffsetPlaceHolder.JumpIfEqualToZeroWhichMeansFalse()
+                }
+            }
+
+            else -> throw NotImplementedError(type.name)
+        }
+    }
+
     private fun visitBooleanExpressionForJumpPlaceHolders(
         booleanExpression: Expression,
         jumpTarget: JumpTarget,
@@ -45,19 +59,20 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
 
             is VariableCallNode -> {
                 val placeHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.visit(booleanExpression)
-                when (placeHoldersLeavingKnownTypeOnStack.type) {
-                    BuiltInType.BOOLEAN -> {
-                        val jumpOffsetPlaceHolder = if (jumpWhen) {
-                            JumpOffsetPlaceHolder.JumpIfNotEqualToZeroWhichMeansTrue()
-                        } else {
-                            JumpOffsetPlaceHolder.JumpIfEqualToZeroWhichMeansFalse()
-                        }
-                        jumpOffsetPlaceHolder.jumpTarget = jumpTarget
-                        placeHoldersLeavingKnownTypeOnStack.placeHolders.plus(jumpOffsetPlaceHolder)
-                    }
+                val jumpOffsetPlaceHolder = createBooleanJump(placeHoldersLeavingKnownTypeOnStack.type, jumpWhen)
+                jumpOffsetPlaceHolder.jumpTarget = jumpTarget
+                placeHoldersLeavingKnownTypeOnStack.placeHolders.plus(jumpOffsetPlaceHolder)
+            }
 
-                    else -> throw NotImplementedError(placeHoldersLeavingKnownTypeOnStack.type.name)
+            is ValueNode<*> -> when (val value = booleanExpression.value) {
+                is Boolean -> if (jumpWhen && value) {
+                    val jumpOffsetPlaceHolder = JumpOffsetPlaceHolder.Jump()
+                    jumpOffsetPlaceHolder.jumpTarget = jumpTarget
+                    listOf(jumpOffsetPlaceHolder)
+                } else {
+                    listOf()
                 }
+                else -> throw NotImplementedError(booleanExpression.value.javaClass.name)
             }
 
             else -> {
@@ -113,6 +128,10 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
 
     override fun visit(continueNode: ContinueNode): List<PlaceHolder> {
         return listOf(JumpOffsetPlaceHolder.Jump(JumpTarget.START))
+    }
+
+    override fun visit(breakNode: BreakNode): List<PlaceHolder> {
+        return listOf(JumpOffsetPlaceHolder.Jump(JumpTarget.END))
     }
 
     override fun visit(functionNode: FunctionNode): List<PlaceHolder> {

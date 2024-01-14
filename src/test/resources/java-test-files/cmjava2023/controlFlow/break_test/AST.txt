@@ -22,46 +22,42 @@ L  body
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: main
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  L  0 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: args
             |        L  type (field of type ArrayType)
-            |           |- arrayType (field of type BuiltIn)
-            |           |  |- name: String
-            |           |  L  type (field of type BuiltIn)
-            |           |     L  name: String
+            |           |- arrayType: STRING
             |           L  dimensions: 1
             |- exception: null
             L  body
                |- 0 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
-               |     |  L  value: 1
+               |     |  |- value: 1
+               |     |  L  builtInType: INT
                |     |- name: i
-               |     L  type (field of type BuiltIn)
-               |        L  name: int
+               |     L  type: INT
                L  1 (field of type WhileLoopNode)
                   |- expression (field of type ValueNode)
-                  |  L  value: true
+                  |  |- value: true
+                  |  L  builtInType: BOOLEAN
                   L  body
                      |- 0 (field of type FunctionCallNode)
                      |  |- function (field of type Function)
                      |  |  |- accessModifier: PUBLIC
                      |  |  |- instanceModifier: null
                      |  |  |- name: System.out.println
-                     |  |  L  type (field of type BuiltIn)
-                     |  |     L  name: void
-                     |  L  values
+                     |  |  L  type: VOID
+                     |  L  argumentExpressions
                      |     L  0 (field of type VariableCallNode)
                      |        L  symbol (field of type Variable)
                      |           |- initialExpression (field of type ValueNode)
-                     |           |  L  value: 1
+                     |           |  |- value: 1
+                     |           |  L  builtInType: INT
                      |           |- name: i
-                     |           L  type (field of type BuiltIn)
-                     |              L  name: int
+                     |           L  type: INT
                      |- 1 (field of type IfBlockNode)
                      |  |- ifNodes
                      |  |  L  0 (field of type IfNode)
@@ -69,22 +65,23 @@ L  body
                      |  |     |  |- leftExpression (field of type VariableCallNode)
                      |  |     |  |  L  symbol (field of type Variable)
                      |  |     |  |     |- initialExpression (field of type ValueNode)
-                     |  |     |  |     |  L  value: 1
+                     |  |     |  |     |  |- value: 1
+                     |  |     |  |     |  L  builtInType: INT
                      |  |     |  |     |- name: i
-                     |  |     |  |     L  type (field of type BuiltIn)
-                     |  |     |  |        L  name: int
-                     |  |     |  |- comparisonOperator: EQ
+                     |  |     |  |     L  type: INT
+                     |  |     |  |- operator: EQUALS
                      |  |     |  L  rightExpression (field of type ValueNode)
-                     |  |     |     L  value: 5
+                     |  |     |     |- value: 5
+                     |  |     |     L  builtInType: INT
                      |  |     L  statements
                      |  |        L  0 (field of type BreakNode)
                      |  L  elseNode: null
                      L  2 (field of type UnarySuffixNode)
                         |- operator: INC
-                        L  Expression (field of type VariableCallNode)
+                        L  variableCallNode (field of type VariableCallNode)
                            L  symbol (field of type Variable)
                               |- initialExpression (field of type ValueNode)
-                              |  L  value: 1
+                              |  |- value: 1
+                              |  L  builtInType: INT
                               |- name: i
-                              L  type (field of type BuiltIn)
-                                 L  name: int
+                              L  type: INT

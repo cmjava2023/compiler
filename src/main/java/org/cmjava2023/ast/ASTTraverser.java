@@ -32,6 +32,8 @@ public abstract class ASTTraverser<T> {
             return visit((ASTNodes.DoWhileLoopNode) node);
         } else if (node instanceof ASTNodes.ContinueNode) {
             return visit((ASTNodes.ContinueNode) node);
+        }  else if (node instanceof ASTNodes.BreakNode) {
+            return visit((ASTNodes.BreakNode) node);
         } else if (node instanceof ASTNodes.ValueNode<?>) {
             return visit((ASTNodes.ValueNode<?>) node);
         } else if (node instanceof ASTNodes.NestedIdentifierNode) {
