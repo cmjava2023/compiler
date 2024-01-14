@@ -157,7 +157,7 @@ public class ASTNodes {
 
     // if_statement -> IfNode
     public record IfNode(Expression expression,
-                         ArrayList<Statement> statements) implements Node, Statement {
+                         ArrayList<Statement> statements, boolean unroll) implements Node, Statement {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
             return visitor.visit(this);
         }
@@ -417,6 +417,22 @@ public class ASTNodes {
     // It is just a helper class for the symbol tables. Nothing which stays in the AST.
     public record OperatorNode(Operator operator) implements Node {
         public ASTNodes.Node accept(ASTTraverser<ASTNodes.Node> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public record UnpackingNode(ArrayList<ASTNodes.Statement> statements) implements Node, Statement {
+
+        @Override
+        public Node accept(ASTTraverser<Node> visitor)  {
+            return visitor.visit(this);
+        }
+    }
+
+    public record EmptyNode() implements Node, Statement {
+
+        @Override
+        public Node accept(ASTTraverser<Node> visitor)  {
             return visitor.visit(this);
         }
     }

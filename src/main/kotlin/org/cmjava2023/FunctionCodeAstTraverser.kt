@@ -699,4 +699,12 @@ class FunctionCodeAstTraverser : ASTTraverser<List<OpCode>>() {
     override fun visit(ifBlockNode: ASTNodes.IfBlockNode): List<OpCode> {
          return listOf(OpCode.IfElseIfsElseBlock(ifBlockNode.ifNodes.map(::createIfNode), if(ifBlockNode.elseNode == null) { listOf() } else { visit(ifBlockNode.elseNode) }))
     }
+
+    override fun visit(unpackingNode: ASTNodes.UnpackingNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
+
+    override fun visit(emptyNode: ASTNodes.EmptyNode?): List<OpCode> {
+        TODO("Not yet implemented")
+    }
 }

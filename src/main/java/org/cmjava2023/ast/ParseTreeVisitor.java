@@ -494,7 +494,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     public ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
         ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
-        return new ASTNodes.IfNode(expression, statements);
+        return new ASTNodes.IfNode(expression, statements, false);
     }
 
     // ########ANTLR########

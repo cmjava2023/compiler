@@ -39,17 +39,56 @@ L  body
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
                |     |  L  value: 42.0
-               |     |- name: i
+               |     |- name: i1
                |     L  type (field of type BuiltIn)
                |        L  name: int
                |- 1 (field of type VariableNode)
                |  L  variableSymbol (field of type Variable)
                |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: 2.0
+               |     |- name: i2
+               |     L  type (field of type BuiltIn)
+               |        L  name: int
+               |- 2 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
                |     |  L  value: true
-               |     |- name: b
+               |     |- name: b1
                |     L  type (field of type BuiltIn)
                |        L  name: boolean
-               L  2 (field of type IfBlockNode)
+               |- 3 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: true
+               |     |- name: b2
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               |- 4 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ComparisonNode)
+               |     |  |- leftExpression (field of type ValueNode)
+               |     |  |  L  value: true
+               |     |  |- comparisonOperator: LOR
+               |     |  L  rightExpression (field of type ValueNode)
+               |     |     L  value: false
+               |     |- name: b3
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               |- 5 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: true
+               |     |- name: b4
+               |     L  type (field of type BuiltIn)
+               |        L  name: boolean
+               |- 6 (field of type VariableNode)
+               |  L  variableSymbol (field of type Variable)
+               |     |- initialExpression (field of type ValueNode)
+               |     |  L  value: HelloWorld!
+               |     |- name: s1
+               |     L  type (field of type BuiltIn)
+               |        L  name: String
+               L  7 (field of type IfBlockNode)
                   |- ifNodes
                   |  L  0 (field of type IfNode)
                   |     |- expression (field of type ValueNode)

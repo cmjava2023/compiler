@@ -9,6 +9,7 @@ import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
+import org.cmjava2023.optimization.OptimizationVisitor;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 
 import java.io.IOException;
@@ -26,10 +27,14 @@ public class Main {
         ParseTree tree = parser.start();
         ParseTreeVisitor visitor = new ParseTreeVisitor();
         ASTNodes.Node ast = visitor.visit(tree);
+
         ASTVisitorFirst astVisitorFirst = new ASTVisitorFirst(visitor.errors);
         ASTNodes.Node modifiedAST = ast.accept(astVisitorFirst);
 
-        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)modifiedAST);
+        OptimizationVisitor optimizationVisitor = new OptimizationVisitor(astVisitorFirst.errors);
+        ASTNodes.Node optimizedAst = modifiedAST.accept(optimizationVisitor);
+
+        var classFileModel = new ClassfileModelFromAst().generate((ASTNodes.StartNode)optimizedAst);
         var bytesForClassFile = new BytecodeFromClassfileModel().generate(classFileModel);
 
         Path outputDirPath = Paths.get(args[1], classFileModel.getPackageNameWithDelimiterForClassFile());

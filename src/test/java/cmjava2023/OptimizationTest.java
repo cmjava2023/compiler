@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
+import org.cmjava2023.optimization.OptimizationVisitor;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -21,10 +22,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
+public class OptimizationTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> snapshotTests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("AST.txt", this, null);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("Optimization.txt", this, null);
     }
 
     @Override
@@ -44,7 +45,11 @@ public class ASTTest implements DynamicTestsForTestFilesHelper.DynamicTestCallba
 
             ASTNodes.Node modifiedAst = ast.accept(astVisitorFirst);
 
-            String actual = GenericTreePrinter.print(modifiedAst);
+            OptimizationVisitor optimizationVisitor = new OptimizationVisitor(astVisitorFirst.errors);
+
+            ASTNodes.Node optimizedAst = modifiedAst.accept(optimizationVisitor);
+
+            String actual = GenericTreePrinter.print(optimizedAst);
 
             LineWiseEqualsAssertion.expectedEqualsActual(contentOfExpectationFile, actual);
 

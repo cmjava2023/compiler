@@ -198,7 +198,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.IfNode node) {
-        return new ASTNodes.IfNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.statements()));
+        return new ASTNodes.IfNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.statements()), false);
     }
 
     @Override
@@ -447,5 +447,15 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
     @Override
     public ASTNodes.Node visit(ASTNodes.IfBlockNode node) {
         return new ASTNodes.IfBlockNode(getModifiedIfNodes(node.ifNodes()), node.elseNode() != null ? (ASTNodes.ElseNode) node.elseNode().accept(this) : null);
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.UnpackingNode unpackingNode) {
+        return null;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.EmptyNode emptyNode) {
+        return null;
     }
 }

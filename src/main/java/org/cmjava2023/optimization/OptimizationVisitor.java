@@ -20,6 +20,18 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
 
         for (ASTNodes.Statement statement : statements) {
             if (statement != null) {
+                ASTNodes.Statement st = (ASTNodes.Statement) statement.accept(this);
+
+                if (st instanceof ASTNodes.IfBlockNode ifBlockNode) {
+                    if (ifBlockNode.ifNodes().get(0).unroll()) {
+                        statementList.addAll(ifBlockNode.ifNodes().get(0).statements());
+                    } else {
+                        statementList.add(st);
+                    }
+                } else {
+                    statementList.add(st);
+                }
+
                 statementList.add((ASTNodes.Statement) statement.accept(this));
             }
         }
@@ -197,7 +209,24 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.IfNode node) {
-        return new ASTNodes.IfNode((ASTNodes.Expression) node.expression().accept(this), getModifiedStatements(node.statements()));
+        ASTNodes.Expression conditionExpression = (ASTNodes.Expression) node.expression().accept(this);
+
+        // Perform constant folding on the condition expression
+        if (conditionExpression instanceof ASTNodes.ValueNode<?>) {
+            ASTNodes.ValueNode<Boolean> conditionValueNode = (ASTNodes.ValueNode<Boolean>) conditionExpression;
+            boolean conditionValue = conditionValueNode.value();
+
+            // If the condition evaluates to a constant boolean value
+            if (conditionValue) {
+                // If the condition is true, return the modified statements
+                return new ASTNodes.IfNode(node.expression(), getModifiedStatements(node.statements()), true);
+            } else {
+                // If the condition is false, return an empty block
+                return new ASTNodes.IfNode(node.expression(), new ArrayList<>(), true);
+            }
+        }
+
+        return new ASTNodes.IfNode(conditionExpression, getModifiedStatements(node.statements()), false);
     }
 
     @Override
@@ -294,29 +323,51 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
+        ASTNodes.Expression leftExpression = (ASTNodes.Expression) node.leftExpression().accept(this);
+        ASTNodes.Expression rightExpression = (ASTNodes.Expression) node.rightExpression().accept(this);
 
-        if (node.leftExpression() instanceof ASTNodes.ValueNode<?> && node.rightExpression() instanceof ASTNodes.ValueNode<?>) {
-            ASTNodes.ValueNode left = (ASTNodes.ValueNode) node.leftExpression();
-            ASTNodes.ValueNode right = (ASTNodes.ValueNode) node.rightExpression();
+        if (leftExpression instanceof ASTNodes.ValueNode<?> && rightExpression instanceof ASTNodes.ValueNode<?>) {
+            ASTNodes.ValueNode left = (ASTNodes.ValueNode) leftExpression;
+            ASTNodes.ValueNode right = (ASTNodes.ValueNode) rightExpression;
 
             boolean isLeftNumerical = (left.value() instanceof Long || left.value() instanceof Integer || left.value() instanceof Double || left.value() instanceof Float);
             boolean isRightNumerical = (right.value() instanceof Long || right.value() instanceof Integer || right.value() instanceof Double || right.value() instanceof Float);
 
             if (isLeftNumerical && isRightNumerical) {
-
                 double l = Double.parseDouble(left.value().toString());
                 double r = Double.parseDouble(right.value().toString());
 
                 switch (node.comparisonOperator()) {
                     case EQ:
                         return new ASTNodes.ValueNode<>(l == r).accept(this);
-//                    case DOT:
-//                        throw NotImplementedError();
+                    case NEQ:
+                        return new ASTNodes.ValueNode<>(l != r).accept(this);
+                    case GTE:
+                        return new ASTNodes.ValueNode<>(l >= r).accept(this);
+                    case LTE:
+                        return new ASTNodes.ValueNode<>(l <= r).accept(this);
+                }
+            }
+
+            boolean isLeftBoolish = (left.value() instanceof Boolean);
+            boolean isRightBoolish = (right.value() instanceof Boolean);
+
+            if (isLeftBoolish && isRightBoolish) {
+                boolean l = Boolean.parseBoolean(left.value().toString());
+                boolean r = Boolean.parseBoolean(right.value().toString());
+
+                switch (node.comparisonOperator()) {
+                    case BAND:
+                        return new ASTNodes.ValueNode<>(l && r).accept(this);
+                    case BOR:
+                        return new ASTNodes.ValueNode<>(l || r).accept(this);
+                    case BXOR:
+                        return new ASTNodes.ValueNode<>(l ^ r).accept(this);
                 }
             }
         }
 
-        return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.comparisonOperator(), (ASTNodes.Expression) node.rightExpression().accept(this));
+        return new ASTNodes.ComparisonNode(leftExpression, node.comparisonOperator(), rightExpression);
     }
 
     @Override
@@ -362,15 +413,17 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.InfixNode node) {
-        if (node.leftExpression() instanceof ASTNodes.ValueNode<?> && node.rightExpression() instanceof ASTNodes.ValueNode<?>) {
-            ASTNodes.ValueNode left = (ASTNodes.ValueNode) node.leftExpression();
-            ASTNodes.ValueNode right = (ASTNodes.ValueNode) node.rightExpression();
+        ASTNodes.Expression leftExpression = (ASTNodes.Expression) node.leftExpression().accept(this);
+        ASTNodes.Expression rightExpression = (ASTNodes.Expression) node.rightExpression().accept(this);
+
+        if (leftExpression instanceof ASTNodes.ValueNode<?> && rightExpression instanceof ASTNodes.ValueNode<?>) {
+            ASTNodes.ValueNode left = (ASTNodes.ValueNode) leftExpression;
+            ASTNodes.ValueNode right = (ASTNodes.ValueNode) rightExpression;
 
             boolean isLeftNumerical = (left.value() instanceof Long || left.value() instanceof Integer || left.value() instanceof Double || left.value() instanceof Float);
             boolean isRightNumerical = (right.value() instanceof Long || right.value() instanceof Integer || right.value() instanceof Double || right.value() instanceof Float);
 
             if (isLeftNumerical && isRightNumerical) {
-
                 double l = Double.parseDouble(left.value().toString());
                 double r = Double.parseDouble(right.value().toString());
 
@@ -385,13 +438,24 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
                         return new ASTNodes.ValueNode<>(l + r).accept(this);
                     case MOD:
                         return new ASTNodes.ValueNode<>(l % r).accept(this);
-//                    case DOT:
-//                        throw NotImplementedError();
+                }
+            }
+
+            boolean isLeftStringish = (left.value() instanceof String);
+            boolean isRightStringish = (right.value() instanceof String);
+
+            if (isLeftStringish && isRightStringish) {
+                String l = left.value().toString();
+                String r = right.value().toString();
+
+                switch (node.operator()) {
+                    case PLUS:
+                        return new ASTNodes.ValueNode<>(l + r).accept(this);
                 }
             }
         }
 
-        return new ASTNodes.InfixNode((ASTNodes.Expression) node.leftExpression().accept(this), node.operator(), (ASTNodes.Expression) node.rightExpression().accept(this));
+        return new ASTNodes.InfixNode(leftExpression, node.operator(), rightExpression);
     }
 
     @Override
@@ -498,4 +562,59 @@ public class OptimizationVisitor extends ASTTraverser<ASTNodes.Node> {
     public ASTNodes.Node visit(ASTNodes.IfBlockNode node) {
         return new ASTNodes.IfBlockNode(getModifiedIfNodes(node.ifNodes()), node.elseNode() != null ? (ASTNodes.ElseNode) node.elseNode().accept(this) : null);
     }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.UnpackingNode unpackingNode) {
+        return unpackingNode;
+    }
+
+    @Override
+    public ASTNodes.Node visit(ASTNodes.EmptyNode emptyNode) {
+        return emptyNode;
+    }
+//
+//    private ASTNodes.ForLoopNode visitForLoopNode(ASTNodes.ForLoopNode forLoopNode) {
+//        if (forLoopNode != null) {
+//            // Check if the loop is suitable for unrolling
+//            if (isLoopUnrollable(forLoopNode)) {
+//                return unrollForLoop(forLoopNode);
+//            } else {
+//                return new ASTNodes.ForLoopNode(
+//                        visitVariableUsage(forLoopNode.loopVariable()),
+//                        visitExpression(forLoopNode.termination()),
+//                        visitExpression(forLoopNode.increment()),
+//                        visitStatements(forLoopNode.body())
+//                );
+//            }
+//        }
+//        return null;
+//    }
+//
+//    private boolean isLoopUnrollable(ASTNodes.ForLoopNode forLoopNode) {
+//        // Check if the loop is suitable for unrolling
+//        // You may want to add more sophisticated checks based on loop conditions, termination, etc.
+//        return true;
+//    }
+//
+//    private ASTNodes.ForLoopNode unrollForLoop(ASTNodes.ForLoopNode forLoopNode) {
+//        // Unroll the loop
+//        ASTNodes.Expression termination = visitExpression(forLoopNode.termination());
+//        ASTNodes.Expression increment = visitExpression(forLoopNode.increment());
+//        ArrayList<ASTNodes.Statement> body = visitStatements(forLoopNode.body());
+//
+//        ArrayList<ASTNodes.Statement> unrolledBody = new ArrayList<>();
+//
+//        // Duplicate the loop body
+//        for (int i = 0; i < UNROLL_FACTOR; i++) {
+//            unrolledBody.addAll(body);
+//        }
+//
+//        return new ASTNodes.ForLoopNode(
+//                visitVariableUsage(forLoopNode.loopVariable()),
+//                termination,
+//                increment,
+//                unrolledBody
+//        );
+//    }
+
 }
