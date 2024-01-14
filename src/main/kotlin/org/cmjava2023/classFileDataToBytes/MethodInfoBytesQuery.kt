@@ -23,7 +23,7 @@ class MethodInfoBytesQuery {
             val codeAttributeInfo = methodInfo.attributes.filterIsInstance<CodeAttributeInfo>().singleOrNull()
             if (codeAttributeInfo != null) {
                 val codeAttributeNameIndex = constantPoolBuilder.addUtf8ConstantAndGetStartIndex(codeAttributeInfo.name)
-                bytesOfMethodInfo.addAll(CodeAttributeBytesQuery.fetch(constantPoolBuilder, codeAttributeInfo.code, codeAttributeNameIndex, methodInfo.typeDescriptor))
+                bytesOfMethodInfo.addAll(CodeAttributeBytesQuery.fetch(constantPoolBuilder, codeAttributeInfo, codeAttributeNameIndex))
             } else {
                 throw NotImplementedError()
             }

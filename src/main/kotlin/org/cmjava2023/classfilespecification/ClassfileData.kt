@@ -1,5 +1,6 @@
 package org.cmjava2023.classfilespecification
 
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 
 data class ClassfileData(

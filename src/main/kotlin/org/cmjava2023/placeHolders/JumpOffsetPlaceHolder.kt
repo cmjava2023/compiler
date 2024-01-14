@@ -1,8 +1,7 @@
-package org.cmjava2023.placeHolders.jumps
+package org.cmjava2023.placeHolders
 
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classFileDataToBytes.PlaceHolderBytesQuery
-import org.cmjava2023.placeHolders.PlaceHolder
 
 
 abstract class JumpOffsetPlaceHolder : PlaceHolder, PlaceHolderBytesQuery.ByteOrJumpOffsetPlaceHolder {

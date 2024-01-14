@@ -1,27 +1,22 @@
 package org.cmjava2023.classFileDataToBytes
 
-import org.cmjava2023.classfilespecification.constantpool.MethodTypeDescriptor
-import org.cmjava2023.placeHolders.PlaceHolder
+import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
 import org.cmjava2023.util.ByteListUtil.Companion.add
 
 class CodeAttributeBytesQuery {
     companion object {
         fun fetch(
             constantPoolBuilder: ConstantPoolBuilder,
-            code: List<PlaceHolder>,
-            codeAttributeNameIndex: UShort,
-            methodTypeDescriptor: MethodTypeDescriptor
+            codeAttributeInfo: CodeAttributeInfo,
+            codeAttributeNameIndex: UShort
         ): List<Byte> {
             val attributeBytesCountedForLength = mutableListOf<Byte>()
 
             val maxStackSize: UShort = 5u
             attributeBytesCountedForLength.add(maxStackSize)
-
-            val localVariableIndexAssigner = LocalVariableIndexAssigner(methodTypeDescriptor)
-            val placeHolderBytesQuery = PlaceHolderBytesQuery(constantPoolBuilder, localVariableIndexAssigner)
-            val codeBytes = code.flatMap { placeHolderBytesQuery.fetch(it) }
-            attributeBytesCountedForLength.add(localVariableIndexAssigner.maxLocalVariableSize())
-
+            attributeBytesCountedForLength.add(codeAttributeInfo.maxLocalVariables)
+            val placeHolderBytesQuery = PlaceHolderBytesQuery(constantPoolBuilder)
+            val codeBytes = codeAttributeInfo.code.flatMap { placeHolderBytesQuery.fetch(it) }
             val sizeOfCode = codeBytes.size.toUInt()
             attributeBytesCountedForLength.add(sizeOfCode)
             attributeBytesCountedForLength.addAll(codeBytes)

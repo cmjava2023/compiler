@@ -4,7 +4,7 @@ import org.cmjava2023.ast.ASTNodes.*
 import org.cmjava2023.astToClassFileData.AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
 import org.cmjava2023.astToClassFileData.ValueNodeTransformedToTypeQuery
 import org.cmjava2023.placeHolders.PlaceHolder
-import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
+import org.cmjava2023.placeHolders.JumpOffsetPlaceHolder
 import org.cmjava2023.symboltable.BuiltInType
 
 class JumpIfComparisonPlaceHoldersQuery {

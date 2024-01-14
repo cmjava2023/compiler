@@ -5,20 +5,16 @@ import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
-import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
-import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
-import org.cmjava2023.placeHolders.PlaceHolder
-import org.cmjava2023.placeHolders.jumps.IfElseIfsElsePlaceHolder
-import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
-import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder.JumpTarget
-import org.cmjava2023.placeHolders.jumps.LoopPlaceHolder
-import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
-import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
-import org.cmjava2023.placeHolders.queries.SystemOutPrintlnPlaceHoldersQuery
+import org.cmjava2023.placeHolders.*
+import org.cmjava2023.placeHolders.JumpOffsetPlaceHolder.JumpTarget
+import org.cmjava2023.placeHolders.queries.*
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
+import org.cmjava2023.symboltable.Variable
 
-class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
+class AstTraverserToGetPlaceHolders(
+    private val storeVariableOperationQuery: StoreVariableOperationQuery
+) : ASTTraverser<List<PlaceHolder>>() {
     private lateinit var astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
     fun init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack) {
         this.astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
@@ -156,35 +152,33 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
         return if (initialExpression == null) {
             listOf()
         } else {
-            AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, initialExpression, this)
+            assignOrDeclareWithValue(variableSymbol, initialExpression)
         }
+    }
+
+    private fun assignOrDeclareWithValue(variableSymbol: Variable, initialExpression: Expression): List<PlaceHolder> {
+        return AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, initialExpression, this)
+            .plus(storeVariableOperationQuery.fetch(variableSymbol))
     }
 
     override fun visit(variableAssignmentNode: VariableAssignmentNode): List<PlaceHolder> {
         val variableSymbol = variableAssignmentNode.variable
-        return AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, variableAssignmentNode.expression, this)
+        return assignOrDeclareWithValue(variableSymbol, variableAssignmentNode.expression)
     }
 
     override fun visit(returnNode: ReturnNode): List<PlaceHolder> {
         return listOf(Operation.Return())
     }
 
-    override fun visit(unarySuffixNode: UnarySuffixNode): List<LocalVariableIndexPlaceHolder> {
+    override fun visit(unarySuffixNode: UnarySuffixNode): List<PlaceHolder> {
         val variableSymbol = (unarySuffixNode.variableCallNode() as VariableCallNode).symbol
-        return when (variableSymbol.type) {
-            BuiltInType.INT -> listOf(
-                LocalVariableIndexPlaceHolder.IncreaseInt(
-                    variableSymbol,
-                    when (unarySuffixNode.operator) {
-                        SuffixOperator.INC -> 1
-                        SuffixOperator.DEC -> -1
-                        else -> throw NotImplementedError(unarySuffixNode.operator.name)
-                    }
-                )
-            )
-
-            else -> throw NotImplementedError(variableSymbol.type.name)
-        }
+        return storeVariableOperationQuery.createIncreaseIntegerOperation(
+            variableSymbol, when (unarySuffixNode.operator) {
+                SuffixOperator.INC -> 1
+                SuffixOperator.DEC -> -1
+                else -> throw NotImplementedError(unarySuffixNode.operator.name)
+            }
+        )
     }
 
     override fun visit(arrayInstantiationNode: ArrayInstantiationNode): List<PlaceHolder> {

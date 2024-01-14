@@ -54,7 +54,7 @@ class BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery {
         }
 
         private fun binaryOperationForIntegers(operator: BinaryOperator): Operation {
-            @Suppress("REDUNDANT_ELSE_IN_WHEN") return when (operator) {
+            return when (operator) {
                 MathOperator.PLUS -> Operation.Iadd()
                 MathOperator.MINUS -> Operation.Isub()
                 MathOperator.DIVISION -> Operation.Idiv()
@@ -71,7 +71,7 @@ class BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery {
         }
 
         private fun binaryOperationForLongs(operator: BinaryOperator): Operation {
-            @Suppress("REDUNDANT_ELSE_IN_WHEN") return when (operator) {
+            return when (operator) {
                 MathOperator.PLUS -> Operation.Ladd()
                 MathOperator.MINUS -> Operation.Lsub()
                 MathOperator.DIVISION -> Operation.Ldiv()

@@ -3,7 +3,6 @@ package org.cmjava2023.placeHolders.queries
 import org.cmjava2023.ast.ASTNodes
 import org.cmjava2023.astToClassFileData.AstTraverserToGetPlaceHolders
 import org.cmjava2023.astToClassFileData.ValueNodeTransformedToTypeQuery
-import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
@@ -22,8 +21,7 @@ class AssignOrDeclareVariablePlaceHoldersQuery {
                 } else {
                     astTraverserToGetPlaceHolders.dispatch(expression)
                 }
-            val storingOpCode = LocalVariableIndexPlaceHolder.createToStoreVariable(variableSymbol)
-            return opCodesLoadingExpressionValueOnStack.plus(storingOpCode)
+            return opCodesLoadingExpressionValueOnStack
         }
     }
 }

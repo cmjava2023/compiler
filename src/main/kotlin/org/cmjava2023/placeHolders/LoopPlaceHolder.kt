@@ -1,4 +1,4 @@
-package org.cmjava2023.placeHolders.jumps
+package org.cmjava2023.placeHolders
 
 import org.cmjava2023.placeHolders.PlaceHolder
 

@@ -1,9 +1,13 @@
 package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes
+import org.cmjava2023.classFileDataToBytes.LocalVariableIndexAssigner
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
-import org.cmjava2023.classfilespecification.constantpool.*
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
+import org.cmjava2023.classfilespecification.constantpool.MethodTypeDescriptor
+import org.cmjava2023.placeHolders.queries.LoadVariableOperationQuery
+import org.cmjava2023.placeHolders.queries.StoreVariableOperationQuery
 
 class ClassfileDataFromAstQuery {
     companion object {
@@ -17,7 +21,21 @@ class ClassfileDataFromAstQuery {
     fun fetch(startNode: ASTNodes.StartNode): ClassfileData {
         val packageNameWithDelimiterForClassFile = parseAndGetPackageName(startNode)
 
-        methodInfos += MethodInfo.DEFAULT_CONSTRUCTOR
+        methodInfos += MethodInfo(
+            listOf(MethodAccessModifier.ACC_PUBLIC),
+            "<init>",
+            MethodTypeDescriptor.voidWithParameters(),
+            listOf(
+                CodeAttributeInfo(
+                    listOf(
+                        Operation.Aload_0(),
+                        Operation.Invokespecial(ConstantPoolEntry.MethodReferenceConstant.defaultConstructorOf(ConstantPoolEntry.ClassConstant.OBJECT_CLASS_CLASSNAME)),
+                        Operation.Return()
+                    ),
+                    1u
+                )
+            )
+        )
 
         return ClassfileData(
             packageNameWithDelimiterForClassFile,
@@ -75,20 +93,25 @@ class ClassfileDataFromAstQuery {
             MethodAccessModifier.fromASTModifier(functionNode.functionSymbol.instanceModifier)
         )
 
-        val astTraverserToGetPlaceHolders = AstTraverserToGetPlaceHolders()
-        val astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack()
+        val methodTypeDescriptor = MethodTypeDescriptor.forFunctionNode(functionNode)
+        val localVariableIndexAssigner = LocalVariableIndexAssigner(methodTypeDescriptor)
+        val loadVariableOperationQuery = LoadVariableOperationQuery(localVariableIndexAssigner)
+        val storeVariableOperationQuery = StoreVariableOperationQuery(localVariableIndexAssigner)
+        
+        val astTraverserToGetPlaceHolders = AstTraverserToGetPlaceHolders(storeVariableOperationQuery)
+        val astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(loadVariableOperationQuery)
         astTraverserToGetPlaceHolders.init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
         astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.init(astTraverserToGetPlaceHolders)
 
         val placeHolders = astTraverserToGetPlaceHolders.visit(functionNode)
-
+        
         methodInfos.add(
             MethodInfo(
                 methodModifiers,
                 functionNode.functionSymbol.name,
-                MethodTypeDescriptor.forFunctionNode(functionNode),
+                methodTypeDescriptor,
                 listOf(
-                    CodeAttributeInfo(placeHolders),
+                    CodeAttributeInfo(placeHolders, localVariableIndexAssigner.maxLocalVariableSize()),
                 )
             )
         )
