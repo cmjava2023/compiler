@@ -1,44 +1,112 @@
 package org.cmjava2023.parsedClassFileDataToBytes
 
-import org.cmjava2023.parsedClassFileDataToBytes.jumps.IfElseIfsElseBytesQuery
-import org.cmjava2023.parsedClassFileDataToBytes.jumps.WhileBytesQuery
 import org.cmjava2023.classfilespecification.Operation
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
-import org.cmjava2023.placeHolders.jumps.PlaceHolderIfElseIfsElse
-import org.cmjava2023.placeHolders.jumps.PlaceHolderWhile
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
 import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
-import org.cmjava2023.util.ByteListUtil.Companion.add
+import org.cmjava2023.placeHolders.jumps.IfElseIfsElse
+import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
 
-class PlaceHolderBytesQuery {
-    companion object {
-        fun fetch(constantPoolBuilder: ConstantPoolBuilder, localVariableIndexAssigner: LocalVariableIndexAssigner, PlaceHolder: PlaceHolder): List<Byte> {
-            return when(PlaceHolder) {
-                is Operation -> getFinalOpCodeBytes(constantPoolBuilder, PlaceHolder)
-                is LoadConstantPlaceHolder -> getFinalOpCodeBytes(constantPoolBuilder, PlaceHolder.toFinalOpCode(constantPoolBuilder))
-                is LocalVariableIndexPlaceHolder -> getFinalOpCodeBytes(constantPoolBuilder, PlaceHolder.toFinalOpCode(localVariableIndexAssigner))
-                is PlaceHolderIfElseIfsElse -> IfElseIfsElseBytesQuery.fetch(constantPoolBuilder, localVariableIndexAssigner, PlaceHolder)
-                is PlaceHolderWhile -> WhileBytesQuery.fetch(constantPoolBuilder, localVariableIndexAssigner, PlaceHolder)
-                else -> throw NotImplementedError(PlaceHolder.javaClass.name)
-            }
+class PlaceHolderBytesQuery(
+    private val constantPoolBuilder: ConstantPoolBuilder,
+    private val localVariableIndexAssigner: LocalVariableIndexAssigner
+) {
+    fun fetch(placeHolder: PlaceHolder): List<Byte> {
+        return when (placeHolder) {
+            is Operation -> placeHolder.toBytes(constantPoolBuilder)
+            is LoadConstantPlaceHolder -> placeHolder.toFinalOpCode(constantPoolBuilder).toBytes(constantPoolBuilder)
+            is LocalVariableIndexPlaceHolder -> placeHolder.toFinalOpCode(localVariableIndexAssigner).toBytes(constantPoolBuilder)
+            is IfElseIfsElse -> resolveIfBlock(placeHolder)
+            else -> throw NotImplementedError(placeHolder.javaClass.name)
+        }
+    }
+
+    class NumberOfBytes private constructor (private val before: Int, private val inside: Int, private val after: Int) {
+        constructor(inside: Int, numberOfBytesAfterIf: Int): this(0, inside, numberOfBytesAfterIf)
+        fun createNext(inside: Int): NumberOfBytes {
+            return NumberOfBytes(
+                before + this.inside,
+                inside,
+                after - this.inside
+            )
         }
         
-        private fun getFinalOpCodeBytes(constantPoolBuilder: ConstantPoolBuilder, operation: Operation): List<Byte> {
-            val result = mutableListOf<Byte>()
-            result.add(operation.opCodeValue)
-            for (value in operation.operands) {
-                when (value) {
-                    is UShort -> result.add(value)
-                    is UByte -> result.add(value)
-                    is Byte -> result.add(value)
-                    is Short -> result.add(value)
-                    is ConstantPoolEntry -> result.add(constantPoolBuilder.getIndexByResolvingOrAdding(value))
-                    is Operation.ArrayType -> result.add(value.code)
-                    else -> throw NotImplementedError(value.javaClass.name)
+        private fun bytesLeftInside(currentIndex: Int): Int = inside - currentIndex
+        
+        fun resolveJumpOffset(currentIndex: Int, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): Short {
+            return when(jumpTargetIfFalse) {
+                JumpOffsetPlaceHolder.JumpTargetIfFalse.START -> (-(before + currentIndex)).toShort()
+                JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT -> bytesLeftInside(currentIndex).toShort()
+                JumpOffsetPlaceHolder.JumpTargetIfFalse.END -> (after + bytesLeftInside(currentIndex)).toShort()
+                else -> throw NotImplementedError(jumpTargetIfFalse.name)
+            }
+        }
+    }
+    
+    private fun resolveIfBlock(
+        ifElseIfsElse: IfElseIfsElse
+    ): List<Byte> {
+        val ifContent = ifElseIfsElse.ifPlaceHolders.resolveExceptJumpOffsetPlaceHolders()
+        val elseIfContents = ifElseIfsElse.elseIfsPlaceHolders.map { it.resolveExceptJumpOffsetPlaceHolders() }
+        val elseContent = ifElseIfsElse.elsePlaceHolders.resolveExceptJumpOffsetPlaceHolders()
+        
+        val numberOfBytesInIf = ifContent.numberOfBytes()
+        var numberOfBytesInAllElseIfs = 0
+        val elseIfContentToNumberOfBytesMap = elseIfContents.associateWith {
+            val n = it.numberOfBytes()
+            numberOfBytesInAllElseIfs += n
+            n
+        }
+        val numberOfBytesInElse = elseContent.numberOfBytes()
+
+        var bytesPosition = NumberOfBytes(numberOfBytesInIf, numberOfBytesInAllElseIfs + numberOfBytesInElse)
+        
+        val result = mutableListOf<Byte>()
+        result += ifContent.resolve(bytesPosition)
+        
+        for ((elseIfContent, numberOfBytes) in elseIfContentToNumberOfBytesMap) {
+            bytesPosition = bytesPosition.createNext(numberOfBytes)
+            result += elseIfContent.resolve(bytesPosition)
+        }
+        
+        bytesPosition = bytesPosition.createNext(numberOfBytesInElse)
+        result += elseContent.resolve(bytesPosition)
+        
+        return result
+    }
+    
+    interface ByteOrJumpOffsetPlaceHolder
+    class ByteWrapper(val byte: Byte): ByteOrJumpOffsetPlaceHolder
+
+    private fun List<PlaceHolder>.resolveExceptJumpOffsetPlaceHolders(): List<ByteOrJumpOffsetPlaceHolder> {
+        return this.flatMap {
+           if (it is JumpOffsetPlaceHolder) {
+                listOf<ByteOrJumpOffsetPlaceHolder>(it)
+            } else {
+                fetch(it).map { b -> ByteWrapper(b) }
+            } 
+        }
+    }
+
+    private fun List<ByteOrJumpOffsetPlaceHolder>.numberOfBytes(): Int {
+        return (this.count { it is JumpOffsetPlaceHolder } * JumpOffsetPlaceHolder.SIZE_IN_BYTES) + this.count { it is ByteWrapper }
+    }
+
+    private fun List<ByteOrJumpOffsetPlaceHolder>.resolve(numberOfBytes: NumberOfBytes): List<Byte> {
+        val result = mutableListOf<Byte>()
+        var currentIndex = 0
+        for(byteOrJumpOffsetPlaceHolder in this) {
+            when(byteOrJumpOffsetPlaceHolder) {
+                is JumpOffsetPlaceHolder -> {
+                    result += byteOrJumpOffsetPlaceHolder.toFinalOpCode(numberOfBytes.resolveJumpOffset(currentIndex, byteOrJumpOffsetPlaceHolder.jumpTargetIfFalse)).toBytes(constantPoolBuilder)
+                    currentIndex += JumpOffsetPlaceHolder.SIZE_IN_BYTES
+                }
+                is ByteWrapper -> {
+                    result += byteOrJumpOffsetPlaceHolder.byte
+                    currentIndex += 1
                 }
             }
-            return result
         }
+        return result
     }
 }

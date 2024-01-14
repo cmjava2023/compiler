@@ -1,4 +1,4 @@
-package cmjava2023.helloworld;
+package cmjava2023.oop.InheritanceGenerics;
 
 // Generic class
 class Animal<T> {

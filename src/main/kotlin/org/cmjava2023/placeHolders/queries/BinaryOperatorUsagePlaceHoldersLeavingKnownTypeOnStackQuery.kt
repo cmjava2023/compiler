@@ -1,7 +1,8 @@
 package org.cmjava2023.placeHolders.queries
 
 import org.cmjava2023.ast.ASTNodes.*
-import org.cmjava2023.astToClassFileData.*
+import org.cmjava2023.astToClassFileData.AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
+import org.cmjava2023.astToClassFileData.ValueNodeTransformedToTypeQuery
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.PlaceHoldersLeavingKnownTypeOnStack
@@ -10,27 +11,9 @@ import org.cmjava2023.symboltable.BuiltInType
 class BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery {
     companion object {
         fun fetch(
-            infixNode: InfixNode,
-            astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
-        ): PlaceHoldersLeavingKnownTypeOnStack = fetch(
-            infixNode.leftExpression,
-            BinaryOperator.fromInfixOperator(infixNode.operator),
-            infixNode.rightExpression,
-            astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
-        )
-
-        fun fetch(
-            comparisonNode: ComparisonNode, astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
-        ): PlaceHoldersLeavingKnownTypeOnStack = fetch(
-            comparisonNode.leftExpression,
-            BinaryOperator.fromComparisonOperator(comparisonNode.comparisonOperator),
-            comparisonNode.rightExpression,
-            astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
-        )
-
-        fun fetch(
             leftExpression: Expression,
-            binaryOperator: BinaryOperator,
+            binaryOperator
+            : BinaryOperator,
             rightExpression: Expression,
             astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
         ): PlaceHoldersLeavingKnownTypeOnStack {
@@ -41,24 +24,24 @@ class BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery {
             val rightType = rightPlaceHoldersLeavingKnownTypeOnStack.type
 
             return when {
-                leftType == BuiltInType.STRING && rightType is BuiltInType && binaryOperator == BinaryOperator.PLUS -> StringConcatPlaceHoldersLeavingKnownTypeOnStackQuery.fetch(
+                leftType == BuiltInType.STRING && rightType is BuiltInType && binaryOperator == MathOperator.PLUS -> StringConcatPlaceHoldersLeavingKnownTypeOnStackQuery.fetch(
                     astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(
                         leftExpression
                     ).placeHolders, astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(rightExpression).placeHolders, rightType
                 )
-                leftType is BuiltInType && (leftType == rightType || (binaryOperator.isBitShift() && leftType == BuiltInType.LONG && rightType == BuiltInType.INT)) -> {
+                leftType is BuiltInType && (leftType == rightType || (binaryOperator is MathOperator && binaryOperator.isBitShift && leftType == BuiltInType.LONG && rightType == BuiltInType.INT)) -> {
                     val result = mutableListOf<PlaceHolder>()
                     result += leftPlaceHoldersLeavingKnownTypeOnStack.placeHolders
                     result += rightPlaceHoldersLeavingKnownTypeOnStack.placeHolders
 
-                    val comparisonOperator = when (leftType) {
-                        BuiltInType.INT -> opCodeForIntegersWithOperator(binaryOperator)
-                        BuiltInType.LONG -> opCodeForLongsWithOperator(binaryOperator)
-                        BuiltInType.FLOAT -> opCodeForFloatsWithOperator(binaryOperator)
-                        BuiltInType.DOUBLE -> opCodeForDoubleWithOperator(binaryOperator)
+                    val binaryOperation = when (leftType) {
+                        BuiltInType.INT -> binaryOperationForIntegers(binaryOperator)
+                        BuiltInType.LONG -> binaryOperationForLongs(binaryOperator)
+                        BuiltInType.FLOAT -> binaryOperationForFloats(binaryOperator)
+                        BuiltInType.DOUBLE -> binaryOperationForDoubles(binaryOperator)
                         else -> throw NotImplementedError(leftType.javaClass.name)
                     }
-                    result += comparisonOperator
+                    result += binaryOperation
 
                     return PlaceHoldersLeavingKnownTypeOnStack(result, leftType)
                 }
@@ -66,63 +49,63 @@ class BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery {
                     fetch(leftExpression, binaryOperator, ValueNodeTransformedToTypeQuery.fetch(rightExpression, leftType), astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
                 }
 
-                else -> throw NotImplementedError(leftExpression.javaClass.name + ":" + leftType.name + " " + binaryOperator.name + " " + rightExpression.javaClass.name + ":" + rightType.name)
+                else -> throw NotImplementedError(leftExpression.javaClass.name + ":" + leftType.name + " " + binaryOperator.toString() + " " + rightExpression.javaClass.name + ":" + rightType.name)
             }
         }
 
-        private fun opCodeForIntegersWithOperator(operator: BinaryOperator): Operation {
+        private fun binaryOperationForIntegers(operator: BinaryOperator): Operation {
             @Suppress("REDUNDANT_ELSE_IN_WHEN") return when (operator) {
-                BinaryOperator.PLUS -> Operation.Iadd()
-                BinaryOperator.MINUS -> Operation.Isub()
-                BinaryOperator.DIVISION -> Operation.Idiv()
-                BinaryOperator.MULTIPLICATION -> Operation.Imul()
-                BinaryOperator.MOD -> Operation.Irem()
-                BinaryOperator.BITWISE_AND -> Operation.Iand()
-                BinaryOperator.BITWISE_OR -> Operation.Ior()
-                BinaryOperator.BITWISE_XOR -> Operation.Ixor()
-                BinaryOperator.BIT_SHIFT_L -> Operation.Ishl()
-                BinaryOperator.BIT_SHIFT_R -> Operation.Ishr()
-                BinaryOperator.LOGICAL_SHIFT_R -> Operation.Iushr()
-                else -> throw NotImplementedError(operator.name)
+                MathOperator.PLUS -> Operation.Iadd()
+                MathOperator.MINUS -> Operation.Isub()
+                MathOperator.DIVISION -> Operation.Idiv()
+                MathOperator.MULTIPLICATION -> Operation.Imul()
+                MathOperator.MOD -> Operation.Irem()
+                MathOperator.BITWISE_AND -> Operation.Iand()
+                MathOperator.BITWISE_OR -> Operation.Ior()
+                MathOperator.BITWISE_XOR -> Operation.Ixor()
+                MathOperator.BIT_SHIFT_L -> Operation.Ishl()
+                MathOperator.BIT_SHIFT_R -> Operation.Ishr()
+                MathOperator.LOGICAL_SHIFT_R -> Operation.Iushr()
+                else -> throw NotImplementedError(operator.toString())
             }
         }
 
-        private fun opCodeForLongsWithOperator(operator: BinaryOperator): Operation {
+        private fun binaryOperationForLongs(operator: BinaryOperator): Operation {
             @Suppress("REDUNDANT_ELSE_IN_WHEN") return when (operator) {
-                BinaryOperator.PLUS -> Operation.Ladd()
-                BinaryOperator.MINUS -> Operation.Lsub()
-                BinaryOperator.DIVISION -> Operation.Ldiv()
-                BinaryOperator.MULTIPLICATION -> Operation.Lmul()
-                BinaryOperator.MOD -> Operation.Lrem()
-                BinaryOperator.BITWISE_AND -> Operation.Land()
-                BinaryOperator.BITWISE_OR -> Operation.Lor()
-                BinaryOperator.BITWISE_XOR -> Operation.Lxor()
-                BinaryOperator.BIT_SHIFT_L -> Operation.Lshl()
-                BinaryOperator.BIT_SHIFT_R -> Operation.Lshr()
-                BinaryOperator.LOGICAL_SHIFT_R -> Operation.Lushr()
-                else -> throw NotImplementedError(operator.name)
+                MathOperator.PLUS -> Operation.Ladd()
+                MathOperator.MINUS -> Operation.Lsub()
+                MathOperator.DIVISION -> Operation.Ldiv()
+                MathOperator.MULTIPLICATION -> Operation.Lmul()
+                MathOperator.MOD -> Operation.Lrem()
+                MathOperator.BITWISE_AND -> Operation.Land()
+                MathOperator.BITWISE_OR -> Operation.Lor()
+                MathOperator.BITWISE_XOR -> Operation.Lxor()
+                MathOperator.BIT_SHIFT_L -> Operation.Lshl()
+                MathOperator.BIT_SHIFT_R -> Operation.Lshr()
+                MathOperator.LOGICAL_SHIFT_R -> Operation.Lushr()
+                else -> throw NotImplementedError(operator.toString())
             }
         }
 
-        private fun opCodeForFloatsWithOperator(operator: BinaryOperator): Operation {
+        private fun binaryOperationForFloats(operator: BinaryOperator): Operation {
             return when (operator) {
-                BinaryOperator.PLUS -> Operation.Fadd()
-                BinaryOperator.MINUS -> Operation.Fsub()
-                BinaryOperator.DIVISION -> Operation.Fdiv()
-                BinaryOperator.MULTIPLICATION -> Operation.Fmul()
-                BinaryOperator.MOD -> Operation.Frem()
-                else -> throw NotImplementedError(operator.name)
+                MathOperator.PLUS -> Operation.Fadd()
+                MathOperator.MINUS -> Operation.Fsub()
+                MathOperator.DIVISION -> Operation.Fdiv()
+                MathOperator.MULTIPLICATION -> Operation.Fmul()
+                MathOperator.MOD -> Operation.Frem()
+                else -> throw NotImplementedError(operator.toString())
             }
         }
 
-        private fun opCodeForDoubleWithOperator(operator: BinaryOperator): Operation {
+        private fun binaryOperationForDoubles(operator: BinaryOperator): Operation {
             return when (operator) {
-                BinaryOperator.PLUS -> Operation.Dadd()
-                BinaryOperator.MINUS -> Operation.Dsub()
-                BinaryOperator.DIVISION -> Operation.Ddiv()
-                BinaryOperator.MULTIPLICATION -> Operation.Dmul()
-                BinaryOperator.MOD -> Operation.Drem()
-                else -> throw NotImplementedError(operator.name)
+                MathOperator.PLUS -> Operation.Dadd()
+                MathOperator.MINUS -> Operation.Dsub()
+                MathOperator.DIVISION -> Operation.Ddiv()
+                MathOperator.MULTIPLICATION -> Operation.Dmul()
+                MathOperator.MOD -> Operation.Drem()
+                else -> throw NotImplementedError(operator.toString())
             }
         }
     }

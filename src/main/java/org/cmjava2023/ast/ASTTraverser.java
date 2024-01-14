@@ -94,7 +94,6 @@ public abstract class ASTTraverser<T> {
     public T visit(ASTNodes.ForEachLoopNode forEachLoopNode) { return defaultValue(forEachLoopNode); }
     public T visit(ASTNodes.WhileLoopNode whileLoopNode) { return defaultValue(whileLoopNode); }
     public T visit(ASTNodes.DoWhileLoopNode doWhileLoopNode) { return defaultValue(doWhileLoopNode); }
-    public T visit(ASTNodes.OperatorNode operatorNode) { return defaultValue(operatorNode); }
     public T visit(ASTNodes.VariableFieldCallNode variableFieldCallNode) { return defaultValue(variableFieldCallNode); }
     public T visit(ASTNodes.VariableFunctionCallNode variableFunctionCallNode) { return defaultValue(variableFunctionCallNode); }
     public T visit(ASTNodes.IfBlockNode ifBlockNode) { return defaultValue(ifBlockNode); }

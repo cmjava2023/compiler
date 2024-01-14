@@ -1,3 +1,5 @@
+package cmjava2023.oop.Inheritance;
+
 package cmjava2023.helloworld;
 
 // Parent class

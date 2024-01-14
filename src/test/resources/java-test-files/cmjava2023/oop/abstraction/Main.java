@@ -1,3 +1,5 @@
+package cmjava2023.oop.abstraction;
+
 // Abstract class with abstract and concrete methods
 abstract class AbstractVehicle {
     private String brand;

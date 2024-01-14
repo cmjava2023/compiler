@@ -33,7 +33,7 @@ public class HexClassFileTester {
         this.constantPoolItems = new ArrayList<>();
 
         classFileIndicatorCafeBabe();
-        javaVersion6();
+        javaVersion5();
         parseConstantPool();
         classAccessModifier();
         thisClass();
@@ -48,8 +48,8 @@ public class HexClassFileTester {
        assertExpectedEqualsActual("CAFEBABE", bytesInHex.dequeueHexBytes(4), "ClassFile Start");
     }
 
-    private void javaVersion6() {
-       assertExpectedEqualsActual(50, bytesInHex.dequeue4ByteInt(), "JavaVersion");
+    private void javaVersion5() {
+       assertExpectedEqualsActual(49, bytesInHex.dequeue4ByteInt(), "JavaVersion");
     }
 
     private void parseConstantPool() {

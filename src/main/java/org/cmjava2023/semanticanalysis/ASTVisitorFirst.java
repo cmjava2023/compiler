@@ -270,7 +270,7 @@ public class ASTVisitorFirst extends ASTTraverser<ASTNodes.Node> {
 
     @Override
     public ASTNodes.Node visit(ASTNodes.ComparisonNode node) {
-        return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.comparisonOperator(), (ASTNodes.Expression) node.rightExpression().accept(this));
+        return new ASTNodes.ComparisonNode((ASTNodes.Expression) node.leftExpression().accept(this), node.operator(), (ASTNodes.Expression) node.rightExpression().accept(this));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes.*
-import org.cmjava2023.ast.ASTNodes.VariableCallNode
 import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
@@ -31,8 +30,6 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack : ASTTraverser<PlaceH
             else -> throw NotImplementedError(functionCallNode.function.name)
         }
     }
-
-
 
     override fun visit(arrayAccessNode: ArrayAccessNode): PlaceHoldersLeavingKnownTypeOnStack {
         val result = mutableListOf<PlaceHolder>()
@@ -65,7 +62,11 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack : ASTTraverser<PlaceH
     }
 
     override fun visit(infixNode: InfixNode): PlaceHoldersLeavingKnownTypeOnStack {
-        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(infixNode, this)
+        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(infixNode.leftExpression, infixNode.operator, infixNode.rightExpression, this)
+    }
+
+    override fun visit(comparisonNode: ComparisonNode): PlaceHoldersLeavingKnownTypeOnStack {
+        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(comparisonNode.leftExpression, comparisonNode.operator, comparisonNode.rightExpression, this)
     }
 
     override fun visit(castNode: CastNode): PlaceHoldersLeavingKnownTypeOnStack {
@@ -81,10 +82,6 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack : ASTTraverser<PlaceH
             else -> throw NotImplementedError(expression.javaClass.name)
         }
         return PlaceHoldersLeavingKnownTypeOnStack(result, castNode.type)
-    }
-
-    override fun visit(comparisonNode: ComparisonNode): PlaceHoldersLeavingKnownTypeOnStack {
-        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(comparisonNode, this)
     }
 
     override fun visit(valueNode: ValueNode<*>): PlaceHoldersLeavingKnownTypeOnStack {

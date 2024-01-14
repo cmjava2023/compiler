@@ -1,12 +1,11 @@
 package org.cmjava2023.ast;
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.cmjava2023.generated_from_antlr.MainAntlrBaseVisitor;
-import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
-import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.cmjava2023.symboltable.*;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,10 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
-
-    private enum OperatorType {
-        INFIX, PREFIX, SUFFIX, COMPARISON
-    }
 
     public final SymbolTable symbolTable = new SymbolTable();
     public ArrayList<String> errors = new ArrayList<>();
@@ -298,24 +293,11 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // ########ANTLR########
     // expressions: expression (expression_operator expression)?;
     public ASTNodes.Node visitExpressions(MainAntlrParser.ExpressionsContext ctx) {
-        if (ctx.expression().size() > 1) {
-            ASTNodes.ComparisonOperator operator = (ASTNodes.ComparisonOperator) getOperator(ctx.expression_operator(), OperatorType.COMPARISON);
-            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
+        if (ctx.expression().size() == 2) {
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), ASTNodes.ComparisonOperator.fromTokenName(getTokenName(ctx.expression_operator().getStart())), (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
             return visit(ctx.expression().get(0));
         }
-    }
-
-
-    // ########ANTLR########
-    // numerical_prefix: PLUS | MINUS;
-    // logical_prefix: NOT | NOTNOT;
-    // expression_suffix: DEC | INC;
-    // expression_concatinator: PLUS | DIVISION | MULTIPLICATION | MINUS | MOD | DOT;
-    // expression_operator: logical_comparison_operator | numerical_comparison_operator | bit_comparison_operator;
-    private ASTNodes.Operator getOperator(ParserRuleContext ctx, OperatorType type) {
-        ASTNodes.OperatorNode operatorNode = getOperatorNode(ctx, type);
-        return operatorNode.operator();
     }
 
     // ########ANTLR########
@@ -358,8 +340,8 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (ctx.expression_concatinator() != null) {
             ASTNodes.Expression leftExpression = (ASTNodes.Expression) visit(ctx.expression().get(0));
             ASTNodes.Expression rightExpression = (ASTNodes.Expression) visit(ctx.expression().get(1));
-            ASTNodes.Operator operator = getOperator(ctx.expression_concatinator(), OperatorType.INFIX);
-            return new ASTNodes.InfixNode(leftExpression, (ASTNodes.InfixOperator) operator, rightExpression);
+            String tokenName = getTokenName(ctx.expression_concatinator().getStart());
+            return new ASTNodes.InfixNode(leftExpression, ASTNodes.BinaryOperator.fromTokenName(tokenName), rightExpression);
         } else if (ctx.PAREN_OPEN() != null && ctx.PAREN_CLOSE() != null && !ctx.expression().isEmpty()) {
             return new ASTNodes.ParenthesesNode((ASTNodes.Expression) visit(ctx.expression().get(0)));
         } else if (ctx.array_expression() != null) {
@@ -369,37 +351,27 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
         } else if (ctx.access_index() != null) {
             return visit(ctx.access_index());
         } else if (ctx.numerical_prefix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.numerical_prefix(), OperatorType.PREFIX);
-            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expressions()));
+            String tokenName = getTokenName(ctx.numerical_prefix().getStart());
+            ASTNodes.PrefixOperator prefixOperator = ASTNodes.PrefixOperator.fromTokenName(tokenName);
+            return new ASTNodes.UnaryPrefixNode(prefixOperator, (ASTNodes.Expression) visit(ctx.expressions()));
         } else if (ctx.logical_prefix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.logical_prefix(), OperatorType.PREFIX);
-            return new ASTNodes.UnaryPrefixNode((ASTNodes.PrefixOperator) operator, (ASTNodes.Expression) visit(ctx.expressions()));
+            String tokenName = getTokenName(ctx.logical_prefix().getStart());
+            ASTNodes.PrefixOperator prefixOperator = ASTNodes.PrefixOperator.fromTokenName(tokenName);
+            return new ASTNodes.UnaryPrefixNode(prefixOperator, (ASTNodes.Expression) visit(ctx.expressions()));
         } else if (ctx.expression_suffix() != null) {
-            ASTNodes.Operator operator = getOperator(ctx.expression_suffix(), OperatorType.SUFFIX);
-            ASTNodes.Expression exp = (ASTNodes.Expression) visit(ctx.expression().get(0));
-            return new ASTNodes.UnarySuffixNode((ASTNodes.SuffixOperator) operator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
-        } else if (ctx.expression() != null && ctx.expression().size() > 1) {
-            ASTNodes.ComparisonOperator operator = (ASTNodes.ComparisonOperator) getOperator(ctx.expression_operator(), OperatorType.COMPARISON);
-            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), operator, (ASTNodes.Expression) visit(ctx.expression().get(1)));
+            String tokenName = getTokenName(ctx.expression_suffix().getStart());
+            ASTNodes.SuffixOperator suffixOperator = ASTNodes.SuffixOperator.fromTokenName(tokenName);
+            return new ASTNodes.UnarySuffixNode(suffixOperator, (ASTNodes.Expression) visit(ctx.expression().get(0)));
+        } else if (ctx.expression() != null && ctx.expression().size() == 2) {
+            String tokenName = getTokenName(ctx.expression_operator().getStart());
+            return new ASTNodes.ComparisonNode((ASTNodes.Expression) visit(ctx.expression().get(0)), ASTNodes.BinaryOperator.fromTokenName(tokenName), (ASTNodes.Expression) visit(ctx.expression().get(1)));
         } else {
             return visit(ctx.expression().get(0));
         }
     }
 
-
-    private static ASTNodes.OperatorNode getOperatorNode(ParserRuleContext ctx, OperatorType type) {
-        int tokenType = ctx.getStart().getType();
-        String tokenName = MainAntlrLexer.VOCABULARY.getSymbolicName(tokenType);
-
-        ASTNodes.Operator operator = switch (type) {
-            case INFIX -> ASTNodes.InfixOperator.valueOf(tokenName);
-            case PREFIX -> ASTNodes.PrefixOperator.valueOf(tokenName);
-            case SUFFIX -> ASTNodes.SuffixOperator.valueOf(tokenName);
-            case COMPARISON -> ASTNodes.ComparisonOperator.valueOf(tokenName);
-            default ->
-                    throw new IllegalArgumentException("Unknown operator type");
-        };
-        return new ASTNodes.OperatorNode(operator);
+    private static String getTokenName(Token token) {
+        return org.cmjava2023.generated_from_antlr.MainAntlrLexer.VOCABULARY.getSymbolicName(token.getType());
     }
 
     // ########ANTLR########
@@ -492,8 +464,7 @@ public class ParseTreeVisitor extends MainAntlrBaseVisitor<ASTNodes.Node> {
     // function_scope: ((expressions | assignment | variable_declaration | return_statement) SEMICOLON | block_scope)*;
     public ASTNodes.Node visitIf_statement(MainAntlrParser.If_statementContext ctx) {
         ArrayList<ASTNodes.Statement> statements = getLocalScopeStatements(ctx.function_scope().children);
-        ASTNodes.Expression expression = (ASTNodes.Expression) visit(ctx.expressions());
-        return new ASTNodes.IfNode(expression, statements);
+        return new ASTNodes.IfNode((ASTNodes.Expression) visit(ctx.expressions()), statements);
     }
 
     // ########ANTLR########

@@ -1,4 +1,14 @@
-Start: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}finalclassCircleextendsShape<Double>{privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}}publicclassMain{publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}}
+Start: packagecmjava2023.oop.InheritanceCollection;abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}finalclassCircleextendsShape<Double>{privatestaticfinaldoublePI=3.14159;publicCircle(Doubleradius){super(radius);}voidcalculateArea(){doubleradius=dimension;doublearea=PI*radius*radius;System.out.println("Area of the circle: "+area);}staticvoidprintStaticInfo(){System.out.println("This is a static method in the Circle class.");}}publicclassMain{publicstaticvoidmain(String[]args){Circlecircle=newCircle(5.0);circle.calculateArea();circle.displayInfo();Circle.printStaticInfo();}}
+|- Global_scope: packagecmjava2023.oop.InheritanceCollection;
+|  |- Package_declaration: packagecmjava2023.oop.InheritanceCollection
+|  |  |- package
+|  |  L  Identifier: cmjava2023.oop.InheritanceCollection
+|  |     |- cmjava2023
+|  |     |- .
+|  |     |- oop
+|  |     |- .
+|  |     L  InheritanceCollection
+|  L  ;
 |- Global_scope: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}
 |  L  Class_declaration: abstractclassShape<T>{Tdimension;publicShape(Tdimension){this.dimension=dimension;}abstractvoidcalculateArea();voiddisplayInfo(){System.out.println("This is a shape.");}}
 |     |- abstract

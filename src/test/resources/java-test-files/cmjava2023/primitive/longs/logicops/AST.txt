@@ -57,7 +57,7 @@ L  body
                |     |  |     |  L  builtInType: INT
                |     |  |     |- name: l
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: BAND
+               |     |  |- operator: BITWISE_AND
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 2
                |     |     L  builtInType: INT
@@ -73,7 +73,7 @@ L  body
                |     |  |     |  L  builtInType: INT
                |     |  |     |- name: l
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: BOR
+               |     |  |- operator: BITWISE_OR
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 2
                |     |     L  builtInType: INT
@@ -89,7 +89,7 @@ L  body
                |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: BIT_SHIFT_L
+               |     |  |- operator: BIT_SHIFT_L
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 1
                |     |     L  builtInType: INT
@@ -105,7 +105,7 @@ L  body
                |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: BIT_SHIFT_R
+               |     |  |- operator: BIT_SHIFT_R
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 1
                |     |     L  builtInType: INT
@@ -121,7 +121,7 @@ L  body
                |     |  |     |  L  builtInType: INT
                |     |  |     |- name: eight
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: LOGICAL_SHIFT_R
+               |     |  |- operator: LOGICAL_SHIFT_R
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 1
                |     |     L  builtInType: INT
@@ -140,13 +140,13 @@ L  body
                |     |  |     |  |     |  L  builtInType: INT
                |     |  |     |  |     |- name: l
                |     |  |     |  |     L  type: LONG
-               |     |  |     |  |- comparisonOperator: BAND
+               |     |  |     |  |- operator: BITWISE_AND
                |     |  |     |  L  rightExpression (field of type ValueNode)
                |     |  |     |     |- value: 2
                |     |  |     |     L  builtInType: INT
                |     |  |     |- name: l2
                |     |  |     L  type: LONG
-               |     |  |- comparisonOperator: BXOR
+               |     |  |- operator: BITWISE_XOR
                |     |  L  rightExpression (field of type ValueNode)
                |     |     |- value: 2
                |     |     L  builtInType: INT
@@ -227,7 +227,7 @@ L  body
                |           |  |     |  L  builtInType: INT
                |           |  |     |- name: l
                |           |  |     L  type: LONG
-               |           |  |- comparisonOperator: BAND
+               |           |  |- operator: BITWISE_AND
                |           |  L  rightExpression (field of type ValueNode)
                |           |     |- value: 2
                |           |     L  builtInType: INT
@@ -260,7 +260,7 @@ L  body
                |           |  |     |  L  builtInType: INT
                |           |  |     |- name: l
                |           |  |     L  type: LONG
-               |           |  |- comparisonOperator: BOR
+               |           |  |- operator: BITWISE_OR
                |           |  L  rightExpression (field of type ValueNode)
                |           |     |- value: 2
                |           |     L  builtInType: INT
@@ -293,7 +293,7 @@ L  body
                |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
                |           |  |     L  type: LONG
-               |           |  |- comparisonOperator: BIT_SHIFT_L
+               |           |  |- operator: BIT_SHIFT_L
                |           |  L  rightExpression (field of type ValueNode)
                |           |     |- value: 1
                |           |     L  builtInType: INT
@@ -326,7 +326,7 @@ L  body
                |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
                |           |  |     L  type: LONG
-               |           |  |- comparisonOperator: BIT_SHIFT_R
+               |           |  |- operator: BIT_SHIFT_R
                |           |  L  rightExpression (field of type ValueNode)
                |           |     |- value: 1
                |           |     L  builtInType: INT
@@ -359,7 +359,7 @@ L  body
                |           |  |     |  L  builtInType: INT
                |           |  |     |- name: eight
                |           |  |     L  type: LONG
-               |           |  |- comparisonOperator: LOGICAL_SHIFT_R
+               |           |  |- operator: LOGICAL_SHIFT_R
                |           |  L  rightExpression (field of type ValueNode)
                |           |     |- value: 1
                |           |     L  builtInType: INT
@@ -395,13 +395,13 @@ L  body
                            |  |     |  |     |  L  builtInType: INT
                            |  |     |  |     |- name: l
                            |  |     |  |     L  type: LONG
-                           |  |     |  |- comparisonOperator: BAND
+                           |  |     |  |- operator: BITWISE_AND
                            |  |     |  L  rightExpression (field of type ValueNode)
                            |  |     |     |- value: 2
                            |  |     |     L  builtInType: INT
                            |  |     |- name: l2
                            |  |     L  type: LONG
-                           |  |- comparisonOperator: BXOR
+                           |  |- operator: BITWISE_XOR
                            |  L  rightExpression (field of type ValueNode)
                            |     |- value: 2
                            |     L  builtInType: INT

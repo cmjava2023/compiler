@@ -18,7 +18,8 @@ class CodeAttributeBytesQuery {
             attributeBytesCountedForLength.add(maxStackSize)
 
             val localVariableIndexAssigner = LocalVariableIndexAssigner(methodTypeDescriptor)
-            val codeBytes = code.flatMap { PlaceHolderBytesQuery.fetch(constantPoolBuilder, localVariableIndexAssigner, it) }
+            val placeHolderBytesQuery = PlaceHolderBytesQuery(constantPoolBuilder, localVariableIndexAssigner)
+            val codeBytes = code.flatMap { placeHolderBytesQuery.fetch(it) }
             attributeBytesCountedForLength.add(localVariableIndexAssigner.maxLocalVariableSize())
 
             val sizeOfCode = codeBytes.size.toUInt()

@@ -1,7 +1,9 @@
 package org.cmjava2023.classfilespecification
 
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
+import org.cmjava2023.parsedClassFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.placeHolders.PlaceHolder
+import org.cmjava2023.util.ByteListUtil.Companion.add
 import kotlin.reflect.KClass
 
 /**
@@ -11,7 +13,24 @@ import kotlin.reflect.KClass
 @Suppress("unused", "ClassName", "SpellCheckingInspection")
 abstract class Operation(vararg val operands: Any): PlaceHolder {
 
-    val opCodeValue:UByte = classToOpCodeValueMap.getValue(this::class)
+    private val opCodeValue:UByte = classToOpCodeValueMap.getValue(this::class)
+
+    fun toBytes(constantPoolBuilder: ConstantPoolBuilder): List<Byte> {
+        val result = mutableListOf<Byte>()
+        result.add(opCodeValue)
+        for (value in operands) {
+            when (value) {
+                is UShort -> result.add(value)
+                is UByte -> result.add(value)
+                is Byte -> result.add(value)
+                is Short -> result.add(value)
+                is ConstantPoolEntry -> result.add(constantPoolBuilder.getIndexByResolvingOrAdding(value))
+                is ArrayType -> result.add(value.code)
+                else -> throw NotImplementedError(value.javaClass.name)
+            }
+        }
+        return result
+    }
 
     interface ReturningOpCode
     interface OpCodeWithConstantPoolIndexParameter

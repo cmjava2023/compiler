@@ -94,12 +94,16 @@ class ClassfileDataFromAstQuery {
         astTraverserToGetPlaceHolders.init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
         astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.init(astTraverserToGetPlaceHolders)
 
+        val placeHolders = astTraverserToGetPlaceHolders.visit(functionNode)
+
         methodInfos.add(
             MethodInfo(
                 methodModifiers,
                 functionNode.functionSymbol.name,
                 MethodTypeDescriptor.forFunctionNode(functionNode),
-                listOf(CodeAttributeInfo(astTraverserToGetPlaceHolders.visit(functionNode))),
+                listOf(
+                    CodeAttributeInfo(placeHolders),
+                )
             )
         )
     }

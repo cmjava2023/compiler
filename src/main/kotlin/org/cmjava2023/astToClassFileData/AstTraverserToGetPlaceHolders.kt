@@ -5,11 +5,13 @@ import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
-import org.cmjava2023.placeHolders.JumpOffsetPlaceHolder
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
 import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
+import org.cmjava2023.placeHolders.jumps.IfElseIfsElse
+import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
 import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
+import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.SystemOutPrintlnPlaceHoldersQuery
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
@@ -19,10 +21,69 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
     fun init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack) {
         this.astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
     }
+
     override fun defaultValue(node: Node): List<PlaceHolder> = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(node).placeHolders
 
-    override fun visit(continueNodeNode: ContinueNode?): List<PlaceHolder> {
-        return listOf(JumpOffsetPlaceHolder.Continue())
+    fun visit(ifNode: IfNode, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): MutableList<PlaceHolder> {
+        val loadAndIfPlaceHolders = when (val expression = ifNode.expression) {
+            is ComparisonNode -> {
+                JumpIfComparisonPlaceHoldersQuery.fetch(
+                    expression.leftExpression,
+                    expression.operator as ComparisonOperator,
+                    expression.rightExpression,
+                    jumpTargetIfFalse,
+                    astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
+                )
+            }
+
+            is VariableCallNode -> {
+                val placeHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.visit(expression)
+                when (placeHoldersLeavingKnownTypeOnStack.type) {
+                    BuiltInType.BOOLEAN -> {
+                        val jumpOffsetPlaceHolder = JumpOffsetPlaceHolder.JumpIfEqualToZeroWhichMeansFalse()
+                        jumpOffsetPlaceHolder.jumpTargetIfFalse = jumpTargetIfFalse
+                        placeHoldersLeavingKnownTypeOnStack.placeHolders.plus(jumpOffsetPlaceHolder)
+                    }
+
+                    else -> throw NotImplementedError(placeHoldersLeavingKnownTypeOnStack.type.name)
+                }
+            }
+
+            else -> {
+                throw NotImplementedError(expression.javaClass.name)
+            }
+        }
+        
+        val result = mutableListOf<PlaceHolder>()
+        result += loadAndIfPlaceHolders
+        result += ifNode.statements.flatMap { dispatch(it) }
+        return result
+    }
+
+    override fun visit(ifBlockNode: IfBlockNode): List<PlaceHolder> {
+        val ifNode = ifBlockNode.ifNodes.first()
+        val elseIfNodes = ifBlockNode.ifNodes.drop(1)
+        val hasElse = ifBlockNode.elseNode != null
+        val numberOfBranches = 1 + elseIfNodes.size + if (hasElse) { 1 } else { 0 }
+        
+        val ifPlaceHolders = visit(ifNode, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT)
+        ifPlaceHolders.withJumpToEndIf(numberOfBranches != 1)
+        
+        val elseIfsPlaceHolders = elseIfNodes.mapIndexed { index, it ->
+            val elseIfPlaceHolders = visit(it, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT)
+            elseIfPlaceHolders.withJumpToEndIf(hasElse || index != elseIfPlaceHolders.lastIndex)
+        }
+
+        val elsePlaceHolders = ifBlockNode.elseNode?.statements?.flatMap { dispatch(it) } ?: listOf()
+
+        return listOf(IfElseIfsElse(ifPlaceHolders, elseIfsPlaceHolders, elsePlaceHolders))
+    }
+
+    private fun MutableList<PlaceHolder>.withJumpToEndIf(anotherBranchExists: Boolean): List<PlaceHolder> {
+        if(anotherBranchExists) {
+            this += JumpOffsetPlaceHolder.Jump(JumpOffsetPlaceHolder.JumpTargetIfFalse.END)
+        }
+        return this
     }
 
     override fun visit(functionNode: FunctionNode): List<PlaceHolder> {
@@ -50,6 +111,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
             AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, initialExpression, this)
         }
     }
+
     override fun visit(variableAssignmentNode: VariableAssignmentNode): List<PlaceHolder> {
         val variableSymbol = variableAssignmentNode.variable
         return AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, variableAssignmentNode.expression, this)
@@ -72,6 +134,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
                     }
                 )
             )
+
             else -> throw NotImplementedError(variableSymbol.type.name)
         }
     }
@@ -85,7 +148,9 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
         val arrayType = (arrayInstantiationNode.type as ArrayType).arrayType
         result.add(
             Operation.Multianewarray(
-                ConstantPoolEntry.ClassConstant(TypeDescriptor.createForBuildInType(arrayType).asArrayOfDimension(numberOfDimensions).stringRepresentation),
+                ConstantPoolEntry.ClassConstant(
+                    TypeDescriptor.createForBuildInType(arrayType).asArrayOfDimension(numberOfDimensions).stringRepresentation
+                ),
                 numberOfDimensions.toUByte()
             )
         )

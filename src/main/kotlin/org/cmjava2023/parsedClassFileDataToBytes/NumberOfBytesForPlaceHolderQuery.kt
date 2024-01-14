@@ -1,4 +1,4 @@
-package org.cmjava2023.parsedClassFileDataToBytes.jumps
+package org.cmjava2023.parsedClassFileDataToBytes
 
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.Operation
