@@ -111,12 +111,12 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack : ASTTraverser<PlaceH
         
         return PlaceHoldersLeavingKnownTypeOnStack(loadVariablePlaceHoldersLeavingKnownTypeOnStack.placeHolders.plus(
             when (unaryPrefixNode.operator) {
-                PrefixOperator.MINUS -> when (val type = TypeOfExpressionQuery.fetch(unaryPrefixNode.variableCallNode())) {
+                PrefixOperator.MINUS -> when (loadVariablePlaceHoldersLeavingKnownTypeOnStack.type) {
                     BuiltInType.INT -> Operation.Ineg()
                     BuiltInType.LONG -> Operation.Lneg()
                     BuiltInType.FLOAT -> Operation.Fneg()
                     BuiltInType.DOUBLE -> Operation.Dneg()
-                    else -> throw NotImplementedError(type.name)
+                    else -> throw NotImplementedError(loadVariablePlaceHoldersLeavingKnownTypeOnStack.type.name)
                 }
                 else -> throw NotImplementedError(unaryPrefixNode.operator.name)
             }

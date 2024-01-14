@@ -135,7 +135,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
     }
 
     override fun visit(functionNode: FunctionNode): List<PlaceHolder> {
-        val opCodes = functionNode.body.flatMap { dispatch(it) }
+        val opCodes = functionNode.body.visitALl()
         return if (opCodes.lastOrNull() !is Operation.ReturningOpCode) {
             opCodes.plus(Operation.Return())
         } else {

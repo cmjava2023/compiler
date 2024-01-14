@@ -14,14 +14,7 @@ class ClassfileDataFromAstQuery {
     private val methodInfos = mutableListOf<MethodInfo>()
     private val classAccessModifiers = mutableListOf<ClassAccessModifier>()
 
-    private fun resetFields() {
-        constantPoolEntries.clear()
-        methodInfos.clear()
-        classAccessModifiers.clear()
-    }
-
     fun fetch(startNode: ASTNodes.StartNode): ClassfileData {
-        resetFields()
         val packageNameWithDelimiterForClassFile = parseAndGetPackageName(startNode)
 
         methodInfos += MethodInfo.DEFAULT_CONSTRUCTOR
