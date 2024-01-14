@@ -23,17 +23,14 @@ class ClassFileModelBytesQuery {
         result.add(MAJOR_VERSION)
         result.add(constantPoolBuilder.itemCount())
         result.addAll(constantPoolBuilder.resultBytes())
-        result.add(model.classClassAccessModifiers.map { it.value }.bitwiseOrCombine())
+        result.add(model.classAccessModifiers.map { it.value }.bitwiseOrCombine())
         result.add(INDEX_OF_THIS_CLASS_IN_CONSTANT_POOL)
         result.add(INDEX_OF_SUPER_CLASS_IN_CONSTANT_POOL)
-        result.add(model.numberOfInterfaces)
-        result.addAll(model.interfaceDefinitions)
-        result.add(model.numberOfFields)
-        result.addAll(model.fieldDefinitions)
+        result.add(0.toUShort()) // numberOfInterfaces
+        result.add(0.toUShort()) // numberOfFields
         result.add(model.methodDefinitions.size.toUShort())
         result.addAll(bytesOfMethodInfos)
-        result.add(model.attributesCount)
-        result.addAll(model.attributeDefinitions)
+        result.add(0.toUShort()) // numberOfAttributes
 
         return result.toByteArray()
     }

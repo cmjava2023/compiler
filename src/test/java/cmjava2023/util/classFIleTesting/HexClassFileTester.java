@@ -24,12 +24,12 @@ public class HexClassFileTester {
     private record ConstantPoolItemToResolve(String type, short index) {
     }
 
-    public void test(BytesInHexQueue bytesInHex, ClassFileContent classFileContent) {
+    public void test(BytesInHexQueue bytesInHex, ClassFileDescriptor classFileDescriptor) {
         this.bytesInHex = bytesInHex;
-        this.classAccessModifierHex = classFileContent.classAccessModifierHex();
-        this.thisClass = classFileContent.thisClass();
-        this.superClass = classFileContent.superClass();
-        this.methodDescriptions = classFileContent.methodDescriptions();
+        this.classAccessModifierHex = classFileDescriptor.classAccessModifierHex();
+        this.thisClass = classFileDescriptor.thisClass();
+        this.superClass = classFileDescriptor.superClass();
+        this.methodDescriptions = classFileDescriptor.methodDescriptions();
         this.constantPoolItems = new ArrayList<>();
 
         classFileIndicatorCafeBabe();

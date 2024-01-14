@@ -23,7 +23,7 @@ import java.util.List;
 public class ClassFileModelTest implements DynamicTestsForTestFilesHelper.DynamicTestCallback {
     @TestFactory
     Collection<DynamicTest> tests() throws IOException {
-        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileModel.txt", this, null);
+        return DynamicTestsForTestFilesHelper.createForAllTestMainsWithFileOfNameBeside("ClassFileModel.json", this, null);
     }
 
     @Override

@@ -30,14 +30,7 @@ class ClassfileDataFromAstQuery {
             packageNameWithDelimiterForClassFile,
             constantPoolEntries,
             classAccessModifiers,
-            0u,
-            0u,
-            listOf(),
-            0u,
-            listOf(),
-            methodInfos,
-            0u,
-            listOf()
+            methodInfos
         )
     }
 

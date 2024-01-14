@@ -8,13 +8,13 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public record ClassFileContent(
+public record ClassFileDescriptor(
         String classAccessModifierHex,
         String thisClass,
         String superClass,
         MethodDescription[] methodDescriptions) {
-    public static ClassFileContent load(String jsonContent, String pathToMain) {
-        ClassFileContent initial = new Gson().fromJson(jsonContent, ClassFileContent.class);
+    public static ClassFileDescriptor load(String jsonContent, String pathToMain) {
+        ClassFileDescriptor initial = new Gson().fromJson(jsonContent, ClassFileDescriptor.class);
         MethodDescription[] resolvedMethodDescriptions = new MethodDescription[initial.methodDescriptions.length];
         MethodDescription[] descriptions = initial.methodDescriptions;
         for (int i = 0; i < descriptions.length; i++) {
@@ -30,6 +30,6 @@ public record ClassFileContent(
                 resolvedMethodDescriptions[i] = methodDescription;
             }
         }
-        return new ClassFileContent(initial.classAccessModifierHex, initial.thisClass, initial.superClass, resolvedMethodDescriptions);
+        return new ClassFileDescriptor(initial.classAccessModifierHex, initial.thisClass, initial.superClass, resolvedMethodDescriptions);
     }
 }
