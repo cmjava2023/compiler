@@ -10,6 +10,7 @@ import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.jumps.IfElseIfsElsePlaceHolder
 import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
+import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder.JumpTargetIfFalse
 import org.cmjava2023.placeHolders.jumps.LoopPlaceHolder
 import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
@@ -25,7 +26,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
 
     override fun defaultValue(node: Node): List<PlaceHolder> = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(node).placeHolders
     
-    private fun visitBooleanExpressionForJumpPlaceHolders(booleanExpression: Expression, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): List<PlaceHolder> {
+    private fun visitBooleanExpressionForJumpPlaceHolders(booleanExpression: Expression, jumpTargetIfFalse: JumpTargetIfFalse): List<PlaceHolder> {
         return when (booleanExpression) {
             is ComparisonNode -> {
                 JumpIfComparisonPlaceHoldersQuery.fetch(
@@ -57,7 +58,7 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
     }
 
     override fun visit(ifNode: IfNode): MutableList<PlaceHolder> {
-        return visitBooleanExpressionForJumpPlaceHolders(ifNode.expression, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT).plus(ifNode.statements.visitALl()).toMutableList()
+        return visitBooleanExpressionForJumpPlaceHolders(ifNode.expression, JumpTargetIfFalse.NEXT).plus(ifNode.statements.visitALl()).toMutableList()
     }
 
     override fun visit(ifBlockNode: IfBlockNode): List<PlaceHolder> {
@@ -79,16 +80,20 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
 
     private fun MutableList<PlaceHolder>.withJumpToEndIf(anotherBranchExists: Boolean): List<PlaceHolder> {
         if(anotherBranchExists) {
-            this += JumpOffsetPlaceHolder.Jump(JumpOffsetPlaceHolder.JumpTargetIfFalse.END)
+            this += JumpOffsetPlaceHolder.Jump(JumpTargetIfFalse.END)
         }
         return this
     }
 
     override fun visit(whileLoopNode: WhileLoopNode): List<PlaceHolder> {
-        val jumpPlaceHolders = visitBooleanExpressionForJumpPlaceHolders(whileLoopNode.expression, JumpOffsetPlaceHolder.JumpTargetIfFalse.END)
+        val jumpPlaceHolders = visitBooleanExpressionForJumpPlaceHolders(whileLoopNode.expression, JumpTargetIfFalse.END)
         val bodyPlaceHolders = whileLoopNode.body.visitALl()
-        val loopingJump = JumpOffsetPlaceHolder.Jump(JumpOffsetPlaceHolder.JumpTargetIfFalse.START)
+        val loopingJump = JumpOffsetPlaceHolder.Jump(JumpTargetIfFalse.START)
         return listOf(LoopPlaceHolder(jumpPlaceHolders + bodyPlaceHolders + loopingJump))
+    }
+    
+    override fun visit(continueNode: ContinueNode): List<PlaceHolder> {
+        return listOf(JumpOffsetPlaceHolder.Jump(JumpTargetIfFalse.START))
     }
 
     override fun visit(functionNode: FunctionNode): List<PlaceHolder> {

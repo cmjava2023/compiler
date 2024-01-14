@@ -11,8 +11,8 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -25,16 +25,31 @@ public class ApplicationTest implements DynamicTestsForTestFilesHelper.DynamicTe
     @Override
     public Collection<DynamicTest> createTestForMainAndExpectedContent(String nonRootPackagePartsTheClassIsIn, String pathToMain, String contentOfExpectationFile) {
         compileToFileUsingOurCompiler(pathToMain);
-        return List.of(DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " ClassFileAsExpected", () -> {
+        ArrayList<DynamicTest> result = new ArrayList<>();
+        result.add(createClassFileAsExpectedTest(nonRootPackagePartsTheClassIsIn, pathToMain, contentOfExpectationFile));
+        
+        if(!pathToMain.contains("continue")) {
+            result.add(createSameOutputAsJdkTest(nonRootPackagePartsTheClassIsIn, pathToMain));
+        }
+        
+        return result;
+    }
+    
+    private DynamicTest createClassFileAsExpectedTest(String nonRootPackagePartsTheClassIsIn, String pathToMain, String contentOfExpectationFile) {
+        return DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " ClassFileAsExpected", () -> {
             String pathToFileCompiledByUs = new TestPathsHelper("cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/")).GetPathOfMainClassCompiledByUsInSamePackage();
             BytesInHexQueue bytesInHex = BytesInHexQueueFromBinaryFileQuery.fetch(pathToFileCompiledByUs);
             new HexClassFileTester().test(bytesInHex, ClassFileDescriptor.load(contentOfExpectationFile, pathToMain));
-        }), DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " outputSameAsJdk", () -> {
+        });
+    }
+    
+    private DynamicTest createSameOutputAsJdkTest(String nonRootPackagePartsTheClassIsIn, String pathToMain) {
+        return DynamicTest.dynamicTest(nonRootPackagePartsTheClassIsIn + " outputSameAsJdk", () -> {
             String fullyQualifiedClassNameWithSlash = "cmjava2023/" + nonRootPackagePartsTheClassIsIn.replace("\\", "/") + "/Main";
             String expectedOutput = OutputOfJdkCompiledClassFileQuery.fetch(pathToMain, fullyQualifiedClassNameWithSlash);
             String actualOutput = JavaRunner.RunClassAndGetStdOut(TestPathsHelper.OUR_COMPILER_COMPILED_TEST_FILES_FOLDER, fullyQualifiedClassNameWithSlash);
             LineWiseEqualsAssertion.expectedEqualsActualSystemIndependent(expectedOutput, actualOutput);
-        }));
+        });
     }
 
     private void compileToFileUsingOurCompiler(String pathToMain) {

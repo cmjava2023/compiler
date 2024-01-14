@@ -1,0 +1,15 @@
+Iconst_1: 
+Istore_1: 
+Iload_1: 
+Iconst_5: 
+If_icmpgt: '24', 
+Iinc: '1', '1', 
+Iload_1: 
+Iconst_3: 
+If_icmpne: '6', 
+Goto: '-5', 
+Getstatic: 'Fieldref java/lang/System.out:Ljava/io/PrintStream;', 
+Iload_1: 
+Invokevirtual: 'Methodref java/io/PrintStream.println:(I)V', 
+Goto: '-23', 
+Return:
