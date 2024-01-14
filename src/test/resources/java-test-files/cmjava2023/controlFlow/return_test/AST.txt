@@ -22,17 +22,13 @@ L  body
          |  |  |- accessModifier: PUBLIC
          |  |  |- instanceModifier: STATIC
          |  |  |- name: main
-         |  |  L  type (field of type BuiltIn)
-         |  |     L  name: void
+         |  |  L  type: VOID
          |  |- parameters
          |  |  L  0 (field of type ParameterNode)
          |  |     L  parameterSymbol (field of type Parameter)
          |  |        |- name: args
          |  |        L  type (field of type ArrayType)
-         |  |           |- arrayType (field of type BuiltIn)
-         |  |           |  |- name: String
-         |  |           |  L  type (field of type BuiltIn)
-         |  |           |     L  name: String
+         |  |           |- arrayType: STRING
          |  |           L  dimensions: 1
          |  |- exception: null
          |  L  body
@@ -43,24 +39,23 @@ L  body
          |     |     |  |  |- accessModifier: PUBLIC
          |     |     |  |  |- instanceModifier: STATIC
          |     |     |  |  |- name: addNumbers
-         |     |     |  |  L  type (field of type BuiltIn)
-         |     |     |  |     L  name: int
-         |     |     |  L  values
+         |     |     |  |  L  type: INT
+         |     |     |  L  argumentExpressions
          |     |     |     |- 0 (field of type ValueNode)
-         |     |     |     |  L  value: 5
+         |     |     |     |  |- value: 5
+         |     |     |     |  L  builtInType: INT
          |     |     |     L  1 (field of type ValueNode)
-         |     |     |        L  value: 7
+         |     |     |        |- value: 7
+         |     |     |        L  builtInType: INT
          |     |     |- name: result
-         |     |     L  type (field of type BuiltIn)
-         |     |        L  name: int
+         |     |     L  type: INT
          |     |- 1 (field of type FunctionCallNode)
          |     |  |- function (field of type Function)
          |     |  |  |- accessModifier: PUBLIC
          |     |  |  |- instanceModifier: null
          |     |  |  |- name: System.out.println
-         |     |  |  L  type (field of type BuiltIn)
-         |     |  |     L  name: void
-         |     |  L  values
+         |     |  |  L  type: VOID
+         |     |  L  argumentExpressions
          |     |     L  0 (field of type VariableCallNode)
          |     |        L  symbol (field of type Variable)
          |     |           |- initialExpression (field of type FunctionCallNode)
@@ -68,58 +63,57 @@ L  body
          |     |           |  |  |- accessModifier: PUBLIC
          |     |           |  |  |- instanceModifier: STATIC
          |     |           |  |  |- name: addNumbers
-         |     |           |  |  L  type (field of type BuiltIn)
-         |     |           |  |     L  name: int
-         |     |           |  L  values
+         |     |           |  |  L  type: INT
+         |     |           |  L  argumentExpressions
          |     |           |     |- 0 (field of type ValueNode)
-         |     |           |     |  L  value: 5
+         |     |           |     |  |- value: 5
+         |     |           |     |  L  builtInType: INT
          |     |           |     L  1 (field of type ValueNode)
-         |     |           |        L  value: 7
+         |     |           |        |- value: 7
+         |     |           |        L  builtInType: INT
          |     |           |- name: result
-         |     |           L  type (field of type BuiltIn)
-         |     |              L  name: int
+         |     |           L  type: INT
          |     |- 2 (field of type FunctionCallNode)
          |     |  |- function (field of type Function)
          |     |  |  |- accessModifier: PUBLIC
          |     |  |  |- instanceModifier: STATIC
          |     |  |  |- name: printMessage
-         |     |  |  L  type (field of type BuiltIn)
-         |     |  |     L  name: void
-         |     |  L  values
+         |     |  |  L  type: VOID
+         |     |  L  argumentExpressions
          |     |     |- 0 (field of type ValueNode)
-         |     |     |  L  value: Hello, World!
+         |     |     |  |- value: Hello, World!
+         |     |     |  L  builtInType: STRING
          |     |     L  1 (field of type ValueNode)
-         |     |        L  value: true
+         |     |        |- value: true
+         |     |        L  builtInType: BOOLEAN
          |     L  3 (field of type FunctionCallNode)
          |        |- function (field of type Function)
          |        |  |- accessModifier: PUBLIC
          |        |  |- instanceModifier: STATIC
          |        |  |- name: printMessage
-         |        |  L  type (field of type BuiltIn)
-         |        |     L  name: void
-         |        L  values
+         |        |  L  type: VOID
+         |        L  argumentExpressions
          |           |- 0 (field of type ValueNode)
-         |           |  L  value: Hello, World!
+         |           |  |- value: Hello, World!
+         |           |  L  builtInType: STRING
          |           L  1 (field of type ValueNode)
-         |              L  value: false
+         |              |- value: false
+         |              L  builtInType: BOOLEAN
          |- 1 (field of type FunctionNode)
          |  |- functionSymbol (field of type Function)
          |  |  |- accessModifier: PUBLIC
          |  |  |- instanceModifier: STATIC
          |  |  |- name: addNumbers
-         |  |  L  type (field of type BuiltIn)
-         |  |     L  name: int
+         |  |  L  type: INT
          |  |- parameters
          |  |  |- 0 (field of type ParameterNode)
          |  |  |  L  parameterSymbol (field of type Parameter)
          |  |  |     |- name: a
-         |  |  |     L  type (field of type BuiltIn)
-         |  |  |        L  name: int
+         |  |  |     L  type: INT
          |  |  L  1 (field of type ParameterNode)
          |  |     L  parameterSymbol (field of type Parameter)
          |  |        |- name: b
-         |  |        L  type (field of type BuiltIn)
-         |  |           L  name: int
+         |  |        L  type: INT
          |  |- exception: null
          |  L  body
          |     |- 0 (field of type VariableNode)
@@ -128,17 +122,14 @@ L  body
          |     |     |  |- leftExpression (field of type ParameterCallNode)
          |     |     |  |  L  parameter (field of type Parameter)
          |     |     |  |     |- name: a
-         |     |     |  |     L  type (field of type BuiltIn)
-         |     |     |  |        L  name: int
+         |     |     |  |     L  type: INT
          |     |     |  |- operator: PLUS
          |     |     |  L  rightExpression (field of type ParameterCallNode)
          |     |     |     L  parameter (field of type Parameter)
          |     |     |        |- name: b
-         |     |     |        L  type (field of type BuiltIn)
-         |     |     |           L  name: int
+         |     |     |        L  type: INT
          |     |     |- name: sum
-         |     |     L  type (field of type BuiltIn)
-         |     |        L  name: int
+         |     |     L  type: INT
          |     L  1 (field of type ReturnNode)
          |        L  value (field of type VariableCallNode)
          |           L  symbol (field of type Variable)
@@ -146,35 +137,29 @@ L  body
          |              |  |- leftExpression (field of type ParameterCallNode)
          |              |  |  L  parameter (field of type Parameter)
          |              |  |     |- name: a
-         |              |  |     L  type (field of type BuiltIn)
-         |              |  |        L  name: int
+         |              |  |     L  type: INT
          |              |  |- operator: PLUS
          |              |  L  rightExpression (field of type ParameterCallNode)
          |              |     L  parameter (field of type Parameter)
          |              |        |- name: b
-         |              |        L  type (field of type BuiltIn)
-         |              |           L  name: int
+         |              |        L  type: INT
          |              |- name: sum
-         |              L  type (field of type BuiltIn)
-         |                 L  name: int
+         |              L  type: INT
          L  2 (field of type FunctionNode)
             |- functionSymbol (field of type Function)
             |  |- accessModifier: PUBLIC
             |  |- instanceModifier: STATIC
             |  |- name: printMessage
-            |  L  type (field of type BuiltIn)
-            |     L  name: void
+            |  L  type: VOID
             |- parameters
             |  |- 0 (field of type ParameterNode)
             |  |  L  parameterSymbol (field of type Parameter)
             |  |     |- name: message
-            |  |     L  type (field of type BuiltIn)
-            |  |        L  name: String
+            |  |     L  type: STRING
             |  L  1 (field of type ParameterNode)
             |     L  parameterSymbol (field of type Parameter)
             |        |- name: shouldPrint
-            |        L  type (field of type BuiltIn)
-            |           L  name: boolean
+            |        L  type: BOOLEAN
             |- exception: null
             L  body
                |- 0 (field of type IfBlockNode)
@@ -183,22 +168,19 @@ L  body
                |  |     |- expression (field of type ParameterCallNode)
                |  |     |  L  parameter (field of type Parameter)
                |  |     |     |- name: shouldPrint
-               |  |     |     L  type (field of type BuiltIn)
-               |  |     |        L  name: boolean
+               |  |     |     L  type: BOOLEAN
                |  |     L  statements
                |  |        |- 0 (field of type FunctionCallNode)
                |  |        |  |- function (field of type Function)
                |  |        |  |  |- accessModifier: PUBLIC
                |  |        |  |  |- instanceModifier: null
                |  |        |  |  |- name: System.out.println
-               |  |        |  |  L  type (field of type BuiltIn)
-               |  |        |  |     L  name: void
-               |  |        |  L  values
+               |  |        |  |  L  type: VOID
+               |  |        |  L  argumentExpressions
                |  |        |     L  0 (field of type ParameterCallNode)
                |  |        |        L  parameter (field of type Parameter)
                |  |        |           |- name: message
-               |  |        |           L  type (field of type BuiltIn)
-               |  |        |              L  name: String
+               |  |        |           L  type: STRING
                |  |        L  1 (field of type ReturnNode)
                |  |           L  value: null
                |  L  elseNode: null
@@ -207,8 +189,8 @@ L  body
                   |  |- accessModifier: PUBLIC
                   |  |- instanceModifier: null
                   |  |- name: System.out.println
-                  |  L  type (field of type BuiltIn)
-                  |     L  name: void
-                  L  values
+                  |  L  type: VOID
+                  L  argumentExpressions
                      L  0 (field of type ValueNode)
-                        L  value: I will not print this
+                        |- value: I will not print this
+                        L  builtInType: STRING
