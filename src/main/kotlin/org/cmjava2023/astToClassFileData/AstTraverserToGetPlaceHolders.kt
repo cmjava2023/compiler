@@ -8,8 +8,9 @@ import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
 import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
-import org.cmjava2023.placeHolders.jumps.IfElseIfsElse
+import org.cmjava2023.placeHolders.jumps.IfElseIfsElsePlaceHolder
 import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
+import org.cmjava2023.placeHolders.jumps.LoopPlaceHolder
 import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.SystemOutPrintlnPlaceHoldersQuery
@@ -23,21 +24,21 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
     }
 
     override fun defaultValue(node: Node): List<PlaceHolder> = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(node).placeHolders
-
-    fun visit(ifNode: IfNode, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): MutableList<PlaceHolder> {
-        val loadAndIfPlaceHolders = when (val expression = ifNode.expression) {
+    
+    private fun visitBooleanExpressionForJumpPlaceHolders(booleanExpression: Expression, jumpTargetIfFalse: JumpOffsetPlaceHolder.JumpTargetIfFalse): List<PlaceHolder> {
+        return when (booleanExpression) {
             is ComparisonNode -> {
                 JumpIfComparisonPlaceHoldersQuery.fetch(
-                    expression.leftExpression,
-                    expression.operator as ComparisonOperator,
-                    expression.rightExpression,
+                    booleanExpression.leftExpression,
+                    booleanExpression.operator as ComparisonOperator,
+                    booleanExpression.rightExpression,
                     jumpTargetIfFalse,
                     astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
                 )
             }
 
             is VariableCallNode -> {
-                val placeHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.visit(expression)
+                val placeHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.visit(booleanExpression)
                 when (placeHoldersLeavingKnownTypeOnStack.type) {
                     BuiltInType.BOOLEAN -> {
                         val jumpOffsetPlaceHolder = JumpOffsetPlaceHolder.JumpIfEqualToZeroWhichMeansFalse()
@@ -50,14 +51,13 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
             }
 
             else -> {
-                throw NotImplementedError(expression.javaClass.name)
+                throw NotImplementedError(booleanExpression.javaClass.name)
             }
         }
-        
-        val result = mutableListOf<PlaceHolder>()
-        result += loadAndIfPlaceHolders
-        result += ifNode.statements.flatMap { dispatch(it) }
-        return result
+    }
+
+    override fun visit(ifNode: IfNode): MutableList<PlaceHolder> {
+        return visitBooleanExpressionForJumpPlaceHolders(ifNode.expression, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT).plus(ifNode.statements.visitALl()).toMutableList()
     }
 
     override fun visit(ifBlockNode: IfBlockNode): List<PlaceHolder> {
@@ -65,18 +65,16 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
         val elseIfNodes = ifBlockNode.ifNodes.drop(1)
         val hasElse = ifBlockNode.elseNode != null
         val numberOfBranches = 1 + elseIfNodes.size + if (hasElse) { 1 } else { 0 }
-        
-        val ifPlaceHolders = visit(ifNode, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT)
-        ifPlaceHolders.withJumpToEndIf(numberOfBranches != 1)
-        
-        val elseIfsPlaceHolders = elseIfNodes.mapIndexed { index, it ->
-            val elseIfPlaceHolders = visit(it, JumpOffsetPlaceHolder.JumpTargetIfFalse.NEXT)
-            elseIfPlaceHolders.withJumpToEndIf(hasElse || index != elseIfPlaceHolders.lastIndex)
-        }
 
-        val elsePlaceHolders = ifBlockNode.elseNode?.statements?.flatMap { dispatch(it) } ?: listOf()
+        val ifPlaceHolders = visit(ifNode).withJumpToEndIf(numberOfBranches != 1)
+        val elseIfsPlaceHolders = elseIfNodes.mapIndexed { index, it -> visit(it).withJumpToEndIf(hasElse || index != elseIfNodes.lastIndex) }
+        val elsePlaceHolders = ifBlockNode.elseNode?.statements?.visitALl() ?: listOf()
 
-        return listOf(IfElseIfsElse(ifPlaceHolders, elseIfsPlaceHolders, elsePlaceHolders))
+        return listOf(IfElseIfsElsePlaceHolder(ifPlaceHolders, elseIfsPlaceHolders, elsePlaceHolders))
+    }
+
+    private fun ArrayList<Statement>.visitALl(): List<PlaceHolder> {
+        return this.flatMap { dispatch(it) }
     }
 
     private fun MutableList<PlaceHolder>.withJumpToEndIf(anotherBranchExists: Boolean): List<PlaceHolder> {
@@ -84,6 +82,13 @@ class AstTraverserToGetPlaceHolders : ASTTraverser<List<PlaceHolder>>() {
             this += JumpOffsetPlaceHolder.Jump(JumpOffsetPlaceHolder.JumpTargetIfFalse.END)
         }
         return this
+    }
+
+    override fun visit(whileLoopNode: WhileLoopNode): List<PlaceHolder> {
+        val jumpPlaceHolders = visitBooleanExpressionForJumpPlaceHolders(whileLoopNode.expression, JumpOffsetPlaceHolder.JumpTargetIfFalse.END)
+        val bodyPlaceHolders = whileLoopNode.body.visitALl()
+        val loopingJump = JumpOffsetPlaceHolder.Jump(JumpOffsetPlaceHolder.JumpTargetIfFalse.START)
+        return listOf(LoopPlaceHolder(jumpPlaceHolders + bodyPlaceHolders + loopingJump))
     }
 
     override fun visit(functionNode: FunctionNode): List<PlaceHolder> {

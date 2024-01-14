@@ -4,8 +4,9 @@ import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
 import org.cmjava2023.placeHolders.LocalVariableIndexPlaceHolder
 import org.cmjava2023.placeHolders.PlaceHolder
-import org.cmjava2023.placeHolders.jumps.IfElseIfsElse
+import org.cmjava2023.placeHolders.jumps.IfElseIfsElsePlaceHolder
 import org.cmjava2023.placeHolders.jumps.JumpOffsetPlaceHolder
+import org.cmjava2023.placeHolders.jumps.LoopPlaceHolder
 
 class PlaceHolderBytesQuery(
     private val constantPoolBuilder: ConstantPoolBuilder,
@@ -16,13 +17,18 @@ class PlaceHolderBytesQuery(
             is Operation -> placeHolder.toBytes(constantPoolBuilder)
             is LoadConstantPlaceHolder -> placeHolder.toFinalOpCode(constantPoolBuilder).toBytes(constantPoolBuilder)
             is LocalVariableIndexPlaceHolder -> placeHolder.toFinalOpCode(localVariableIndexAssigner).toBytes(constantPoolBuilder)
-            is IfElseIfsElse -> resolveIfBlock(placeHolder)
+            is IfElseIfsElsePlaceHolder -> resolveIfBlock(placeHolder)
+            is LoopPlaceHolder -> {
+                val content = placeHolder.placeHolders.resolveExceptJumpOffsetPlaceHolders()
+                content.resolve(NumberOfBytes(content.numberOfBytes()))
+            }
             else -> throw NotImplementedError(placeHolder.javaClass.name)
         }
     }
 
     class NumberOfBytes private constructor (private val before: Int, private val inside: Int, private val after: Int) {
         constructor(inside: Int, numberOfBytesAfterIf: Int): this(0, inside, numberOfBytesAfterIf)
+        constructor(inside: Int): this(0, inside, 0)
         fun createNext(inside: Int): NumberOfBytes {
             return NumberOfBytes(
                 before + this.inside,
@@ -44,11 +50,11 @@ class PlaceHolderBytesQuery(
     }
     
     private fun resolveIfBlock(
-        ifElseIfsElse: IfElseIfsElse
+        ifElseIfsElsePlaceHolder: IfElseIfsElsePlaceHolder
     ): List<Byte> {
-        val ifContent = ifElseIfsElse.ifPlaceHolders.resolveExceptJumpOffsetPlaceHolders()
-        val elseIfContents = ifElseIfsElse.elseIfsPlaceHolders.map { it.resolveExceptJumpOffsetPlaceHolders() }
-        val elseContent = ifElseIfsElse.elsePlaceHolders.resolveExceptJumpOffsetPlaceHolders()
+        val ifContent = ifElseIfsElsePlaceHolder.ifPlaceHolders.resolveExceptJumpOffsetPlaceHolders()
+        val elseIfContents = ifElseIfsElsePlaceHolder.elseIfsPlaceHolders.map { it.resolveExceptJumpOffsetPlaceHolders() }
+        val elseContent = ifElseIfsElsePlaceHolder.elsePlaceHolders.resolveExceptJumpOffsetPlaceHolders()
         
         val numberOfBytesInIf = ifContent.numberOfBytes()
         var numberOfBytesInAllElseIfs = 0
