@@ -1,4 +1,4 @@
-package org.cmjava2023.parsedClassFileDataToBytes
+package org.cmjava2023.classFileDataToBytes
 
 import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileData
@@ -6,7 +6,7 @@ import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 
-class ClassFileModelBytesQuery {
+class ClassFileDataBytesQuery {
 
     private fun addAllClassesToConstantPool(constantPoolBuilder: ConstantPoolBuilder, constantPoolEntries: List<ConstantPoolEntry>) {
         constantPoolEntries.filterIsInstance<ConstantPoolEntry.ClassConstant>().forEach { constantPoolBuilder.getIndexByResolvingOrAdding(it) }

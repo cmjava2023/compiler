@@ -1,4 +1,4 @@
-package org.cmjava2023.parsedClassFileDataToBytes
+package org.cmjava2023.classFileDataToBytes
 
 import org.cmjava2023.classfilespecification.constantpool.MethodTypeDescriptor
 import org.cmjava2023.symboltable.*

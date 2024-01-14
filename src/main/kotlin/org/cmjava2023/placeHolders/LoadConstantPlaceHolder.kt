@@ -1,6 +1,6 @@
 package org.cmjava2023.placeHolders
 
-import org.cmjava2023.parsedClassFileDataToBytes.ConstantPoolBuilder
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.Operation
 

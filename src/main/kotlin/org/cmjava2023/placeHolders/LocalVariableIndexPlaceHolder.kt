@@ -1,6 +1,6 @@
 package org.cmjava2023.placeHolders
 
-import org.cmjava2023.parsedClassFileDataToBytes.LocalVariableIndexAssigner
+import org.cmjava2023.classFileDataToBytes.LocalVariableIndexAssigner
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType

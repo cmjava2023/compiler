@@ -1,4 +1,4 @@
-package org.cmjava2023.parsedClassFileDataToBytes
+package org.cmjava2023.classFileDataToBytes
 
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
@@ -95,7 +95,9 @@ class PlaceHolderBytesQuery(
     }
 
     private fun List<ByteOrJumpOffsetPlaceHolder>.numberOfBytes(): Int {
-        return (this.count { it is JumpOffsetPlaceHolder } * JumpOffsetPlaceHolder.SIZE_IN_BYTES) + this.count { it is ByteWrapper }
+        val numberOfJumpPlaceHolders = this.count { it is JumpOffsetPlaceHolder }
+        val sizeOfByteWrappers = this.size - numberOfJumpPlaceHolders
+        return (numberOfJumpPlaceHolders * JumpOffsetPlaceHolder.SIZE_IN_BYTES) + sizeOfByteWrappers
     }
 
     private fun List<ByteOrJumpOffsetPlaceHolder>.resolve(numberOfBytes: NumberOfBytes): List<Byte> {
