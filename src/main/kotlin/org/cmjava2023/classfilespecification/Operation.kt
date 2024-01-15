@@ -1,7 +1,5 @@
 package org.cmjava2023.classfilespecification
 
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.util.ByteListUtil.Companion.add
 import kotlin.reflect.KClass
@@ -10,12 +8,12 @@ import kotlin.reflect.KClass
  * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html
  * https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions
  */
-@Suppress("unused", "ClassName", "SpellCheckingInspection")
+@Suppress("ClassName", "SpellCheckingInspection")
 abstract class Operation(vararg val operands: Any): PlaceHolder {
 
     private val opCodeValue:UByte = classToOpCodeValueMap.getValue(this::class)
 
-    fun toBytes(constantPoolBuilder: ConstantPoolBuilder): List<Byte> {
+    fun toBytes(): List<Byte> {
         val result = mutableListOf<Byte>()
         result.add(opCodeValue)
         for (value in operands) {
@@ -24,7 +22,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
                 is UByte -> result.add(value)
                 is Byte -> result.add(value)
                 is Short -> result.add(value)
-                is ConstantPoolEntry -> result.add(constantPoolBuilder.getIndexByResolvingOrAdding(value))
                 is ArrayType -> result.add(value.code)
                 else -> throw NotImplementedError(value.javaClass.name)
             }
@@ -37,21 +34,13 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
 
     class Aaload: Operation()
     class Aastore: Operation()
-    class Aconst_null: Operation()
     class Aload(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
     class Aload_0: Operation()
     class Aload_1: Operation()
     class Aload_2: Operation()
     class Aload_3: Operation()
-    class Anewarray(classConstantInfo: ConstantPoolEntry.ClassConstant): Operation(classConstantInfo)
-    class Areturn: Operation(), ReturningOpCode
-    class Arraylength: Operation()
+    class Anewarray(constantPoolIndex: UShort): Operation(constantPoolIndex)
     class Astore(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
-    class Astore_0: Operation()
-    class Astore_1: Operation()
-    class Astore_2: Operation()
-    class Astore_3: Operation()
-    class Athrow: Operation()
     class Baload: Operation()
     class Bastore: Operation()
     class Bipush(byte: Byte): Operation(byte)
@@ -63,8 +52,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Dadd: Operation()
     class Daload: Operation()
     class Dastore: Operation()
-    class Dcompg: Operation()
-    class Dcompl: Operation()
     class Dconst_0: Operation()
     class Dconst_1: Operation()
     class Ddiv: Operation()
@@ -76,27 +63,19 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Dmul: Operation()
     class Dneg: Operation()
     class Drem: Operation()
-    class Dreturn: Operation(), ReturningOpCode
     class Dstore(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
     class Dstore_0: Operation()
     class Dstore_1: Operation()
     class Dstore_2: Operation()
     class Dstore_3: Operation()
     class Dsub: Operation()
-    class Dup2: Operation()
-    class Dup2_x1: Operation()
-    class Dup2_x2: Operation()
     class Dup: Operation()
-    class Dup_x1: Operation()
-    class Dup_x2: Operation()
     class F2d: Operation()
     class F2i: Operation()
     class F2l: Operation()
     class Fadd: Operation()
     class Faload: Operation()
     class Fastore: Operation()
-    class Fcmpg: Operation()
-    class Fcmpl: Operation()
     class Fconst_0: Operation()
     class Fconst_1: Operation()
     class Fconst_2: Operation()
@@ -109,14 +88,13 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Fmul: Operation()
     class Fneg: Operation()
     class Frem: Operation()
-    class Freturn: Operation(), ReturningOpCode
     class Fstore(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
     class Fstore_0: Operation()
     class Fstore_1: Operation()
     class Fstore_2: Operation()
     class Fstore_3: Operation()
     class Fsub: Operation()
-    class Getstatic(fieldReferenceConstantInfo: ConstantPoolEntry.FieldReferenceConstant): Operation(fieldReferenceConstantInfo)
+    class Getstatic(constantPoolIndex: UShort): Operation(constantPoolIndex)
     class Goto(offset: Short): Operation(offset)
     class I2b: Operation()
     class I2c: Operation()
@@ -156,8 +134,8 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Iload_3: Operation()
     class Imul: Operation()
     class Ineg: Operation()
-    class Invokespecial(methodReferenceConstantInfo: ConstantPoolEntry.MethodReferenceConstant): Operation(methodReferenceConstantInfo)
-    class Invokevirtual(methodReferenceConstantInfo: ConstantPoolEntry.MethodReferenceConstant): Operation(methodReferenceConstantInfo)
+    class Invokespecial(constantPoolIndex: UShort): Operation(constantPoolIndex)
+    class Invokevirtual(constantPoolIndex: UShort): Operation(constantPoolIndex)
     class Ior: Operation()
     class Irem: Operation()
     class Ireturn: Operation(), ReturningOpCode
@@ -178,11 +156,10 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Laload: Operation()
     class Land: Operation()
     class Lastore: Operation()
-    class Lcmp: Operation()
     class Lconst_0: Operation()
     class Lconst_1: Operation()
     class Ldc(indexInConstantPool: UByte): Operation(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
-    class Ldc2_w(longOrDoubleToLoad: ConstantPoolEntry): Operation(longOrDoubleToLoad)
+    class Ldc2_w(constantPoolIndex: UShort): Operation(constantPoolIndex)
     class Ldc_w(indexInConstantPool: UShort): Operation(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
     class Ldiv: Operation()
     class Lload(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
@@ -194,7 +171,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Lneg: Operation()
     class Lor: Operation()
     class Lrem: Operation()
-    class Lreturn: Operation(), ReturningOpCode
     class Lshl: Operation()
     class Lshr: Operation()
     class Lstore(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
@@ -205,8 +181,8 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Lsub: Operation()
     class Lushr: Operation()
     class Lxor: Operation()
-    class Multianewarray(classConstantInfo: ConstantPoolEntry.ClassConstant, dimensions: UByte): Operation(classConstantInfo, dimensions)
-    class New(classConstantInfo: ConstantPoolEntry.ClassConstant): Operation(classConstantInfo)
+    class Multianewarray(constantPoolIndex: UShort, dimensions: UByte): Operation(constantPoolIndex, dimensions)
+    class New(constantPoolIndex: UShort): Operation(constantPoolIndex)
     enum class ArrayType(val code: UByte) {
         T_BOOLEAN(4u),
         T_CHAR(5u),
@@ -218,20 +194,15 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
         T_LONG(11u),
     }
     class Newarray(arrayType: ArrayType): Operation(arrayType)
-    class Nop: Operation()
-    class Pop2: Operation()
-    class Pop: Operation()
     class Return: Operation(), ReturningOpCode
     class Saload: Operation()
     class Sastore: Operation()
     class Sipush(valueToPush: Short): Operation(valueToPush)
-    class Swap: Operation()
 
     companion object {
         val classToOpCodeValueMap = mapOf<KClass<*>, UByte>(
             Aaload::class to (0x32u).toUByte(),
             Aastore::class to (0x53u).toUByte(),
-            Aconst_null::class to (0x01u).toUByte(),
             Aload::class to (0x19u).toUByte(),
             Aload::class to (0x19u).toUByte(),
             Aload_0::class to (0x2au).toUByte(),
@@ -239,14 +210,7 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Aload_2::class to (0x2cu).toUByte(),
             Aload_3::class to (0x2du).toUByte(),
             Anewarray::class to (0xbdu).toUByte(),
-            Areturn::class to (0xb0u).toUByte(),
-            Arraylength::class to (0xbeu).toUByte(),
             Astore::class to (0x3au).toUByte(),
-            Astore_0::class to (0x4bu).toUByte(),
-            Astore_1::class to (0x4cu).toUByte(),
-            Astore_2::class to (0x4du).toUByte(),
-            Astore_3::class to (0x4eu).toUByte(),
-            Athrow::class to (0xbfu).toUByte(),
             Baload::class to (0x33u).toUByte(),
             Bastore::class to (0x54u).toUByte(),
             Bipush::class to (0x10u).toUByte(),
@@ -258,8 +222,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Dadd::class to (0x63u).toUByte(),
             Daload::class to (0x31u).toUByte(),
             Dastore::class to (0x52u).toUByte(),
-            Dcompg::class to (0x98u).toUByte(),
-            Dcompl::class to (0x97u).toUByte(),
             Dconst_0::class to (0x0eu).toUByte(),
             Dconst_1::class to (0x0fu).toUByte(),
             Ddiv::class to (0x6fu).toUByte(),
@@ -271,27 +233,19 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Dmul::class to (0x6bu).toUByte(),
             Dneg::class to (0x77u).toUByte(),
             Drem::class to (0x73u).toUByte(),
-            Dreturn::class to (0xafu).toUByte(),
             Dstore::class to (0x39u).toUByte(),
             Dstore_0::class to (0x47u).toUByte(),
             Dstore_1::class to (0x48u).toUByte(),
             Dstore_2::class to (0x49u).toUByte(),
             Dstore_3::class to (0x4au).toUByte(),
             Dsub::class to (0x67u).toUByte(),
-            Dup2::class to (0x5cu).toUByte(),
-            Dup2_x1::class to (0x5du).toUByte(),
-            Dup2_x2::class to (0x5eu).toUByte(),
             Dup::class to (0x59u).toUByte(),
-            Dup_x1::class to (0x5au).toUByte(),
-            Dup_x2::class to (0x5bu).toUByte(),
             F2d::class to (0x8du).toUByte(),
             F2i::class to (0x8bu).toUByte(),
             F2l::class to (0x8cu).toUByte(),
             Fadd::class to (0x62u).toUByte(),
             Faload::class to (0x30u).toUByte(),
             Fastore::class to (0x51u).toUByte(),
-            Fcmpg::class to (0x96u).toUByte(),
-            Fcmpl::class to (0x95u).toUByte(),
             Fconst_0::class to (0x0bu).toUByte(),
             Fconst_1::class to (0x0cu).toUByte(),
             Fconst_2::class to (0x0du).toUByte(),
@@ -304,7 +258,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Fmul::class to (0x6au).toUByte(),
             Fneg::class to (0x76u).toUByte(),
             Frem::class to (0x72u).toUByte(),
-            Freturn::class to (0xaeu).toUByte(),
             Fstore::class to (0x38u).toUByte(),
             Fstore_0::class to (0x43u).toUByte(),
             Fstore_1::class to (0x44u).toUByte(),
@@ -373,7 +326,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Laload::class to (0x2fu).toUByte(),
             Land::class to (0x7fu).toUByte(),
             Lastore::class to (0x50u).toUByte(),
-            Lcmp::class to (0x94u).toUByte(),
             Lconst_0::class to (0x09u).toUByte(),
             Lconst_1::class to (0x0au).toUByte(),
             Ldc2_w::class to (0x14u).toUByte(),
@@ -389,7 +341,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Lneg::class to (0x75u).toUByte(),
             Lor::class to (0x81u).toUByte(),
             Lrem::class to (0x71u).toUByte(),
-            Lreturn::class to (0xadu).toUByte(),
             Lshl::class to (0x79u).toUByte(),
             Lshr::class to (0x7bu).toUByte(),
             Lstore::class to (0x37u).toUByte(),
@@ -403,14 +354,10 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
             Multianewarray::class to (0xc5u).toUByte(),
             New::class to (0xbbu).toUByte(),
             Newarray::class to (0xbcu).toUByte(),
-            Nop::class to (0x00u).toUByte(),
-            Pop2::class to (0x58u).toUByte(),
-            Pop::class to (0x57u).toUByte(),
             Return::class to (0xb1u).toUByte(),
             Saload::class to (0x35u).toUByte(),
             Sastore::class to (0x56u).toUByte(),
             Sipush::class to (0x11u).toUByte(),
-            Swap::class to (0x5fu).toUByte(),
         )
     }
 }

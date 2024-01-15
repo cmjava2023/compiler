@@ -1,6 +1,7 @@
 package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classFileDataToBytes.LocalVariableIndexAssigner
 import org.cmjava2023.classfilespecification.*
 import org.cmjava2023.classfilespecification.attributeInfo.CodeAttributeInfo
@@ -9,12 +10,11 @@ import org.cmjava2023.classfilespecification.constantpool.MethodTypeDescriptor
 import org.cmjava2023.placeHolders.queries.LoadVariableOperationQuery
 import org.cmjava2023.placeHolders.queries.StoreVariableOperationQuery
 
-class ClassfileDataFromAstQuery {
+class ClassfileDataFromAstQuery(private val constantPoolBuilder: ConstantPoolBuilder) {
     companion object {
         private const val PACKAGE_DELIMITER_IN_CLASS_FILES = "/"
     }
 
-    private val constantPoolEntries = mutableListOf<ConstantPoolEntry>()
     private val methodInfos = mutableListOf<MethodInfo>()
     private val classAccessModifiers = mutableListOf<ClassAccessModifier>()
 
@@ -29,7 +29,13 @@ class ClassfileDataFromAstQuery {
                 CodeAttributeInfo(
                     listOf(
                         Operation.Aload_0(),
-                        Operation.Invokespecial(ConstantPoolEntry.MethodReferenceConstant.defaultConstructorOf(ConstantPoolEntry.ClassConstant.OBJECT_CLASS_CLASSNAME)),
+                        Operation.Invokespecial(
+                            constantPoolBuilder.getIndexByResolvingOrAdding(
+                                ConstantPoolEntry.MethodReferenceConstant.defaultConstructorOf(
+                                    ConstantPoolEntry.ClassConstant.OBJECT_CLASS_CLASSNAME
+                                )
+                            )
+                        ),
                         Operation.Return()
                     ),
                     1u
@@ -39,7 +45,6 @@ class ClassfileDataFromAstQuery {
 
         return ClassfileData(
             packageNameWithDelimiterForClassFile,
-            constantPoolEntries,
             classAccessModifiers,
             methodInfos
         )
@@ -47,13 +52,16 @@ class ClassfileDataFromAstQuery {
 
     private fun parseAndGetPackageName(startNode: ASTNodes.StartNode): String {
         val packages = mutableListOf<String>()
-        var className = ""
 
         for (statement in startNode.body) {
             when (statement) {
                 is ASTNodes.PackageNode -> packages.addAll(statement.nestedIdentifier)
                 is ASTNodes.ClassNode -> {
-                    className = statement.classSymbol.name
+                    constantPoolBuilder.getIndexByResolvingOrAdding(ConstantPoolEntry.ClassConstant(
+                        packages.plus( statement.classSymbol.name)
+                            .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
+                    ))
+                    constantPoolBuilder.getIndexByResolvingOrAdding(ConstantPoolEntry.ClassConstant.OBJECT)
                     classAccessModifiers.add(
                         ClassAccessModifier.fromASTModifier(
                             statement.classSymbol.accessModifier
@@ -68,12 +76,6 @@ class ClassfileDataFromAstQuery {
         if (!classAccessModifiers.contains(ClassAccessModifier.ACC_FINAL)) {
             classAccessModifiers.add(ClassAccessModifier.ACC_SUPER)
         }
-
-        constantPoolEntries += ConstantPoolEntry.ClassConstant(
-            packages.plus(className)
-                .joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
-        )
-        constantPoolEntries += ConstantPoolEntry.ClassConstant.OBJECT
 
         return packages.joinToString(PACKAGE_DELIMITER_IN_CLASS_FILES)
     }
@@ -97,14 +99,14 @@ class ClassfileDataFromAstQuery {
         val localVariableIndexAssigner = LocalVariableIndexAssigner(methodTypeDescriptor)
         val loadVariableOperationQuery = LoadVariableOperationQuery(localVariableIndexAssigner)
         val storeVariableOperationQuery = StoreVariableOperationQuery(localVariableIndexAssigner)
-        
-        val astTraverserToGetPlaceHolders = AstTraverserToGetPlaceHolders(storeVariableOperationQuery)
-        val astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(loadVariableOperationQuery)
+
+        val astTraverserToGetPlaceHolders = AstTraverserToGetPlaceHolders(storeVariableOperationQuery, constantPoolBuilder)
+        val astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(loadVariableOperationQuery, constantPoolBuilder)
         astTraverserToGetPlaceHolders.init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
         astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.init(astTraverserToGetPlaceHolders)
 
         val placeHolders = astTraverserToGetPlaceHolders.visit(functionNode)
-        
+
         methodInfos.add(
             MethodInfo(
                 methodModifiers,

@@ -2,20 +2,27 @@ package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes.*
 import org.cmjava2023.ast.ASTTraverser
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.constantpool.TypeDescriptor
 import org.cmjava2023.placeHolders.*
 import org.cmjava2023.placeHolders.JumpOffsetPlaceHolder.JumpTarget
-import org.cmjava2023.placeHolders.queries.*
+import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
+import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
+import org.cmjava2023.placeHolders.queries.StoreVariableOperationQuery
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
 import org.cmjava2023.symboltable.Variable
 
 class AstTraverserToGetPlaceHolders(
-    private val storeVariableOperationQuery: StoreVariableOperationQuery
+    private val storeVariableOperationQuery: StoreVariableOperationQuery,
+    private val constantPoolBuilder: ConstantPoolBuilder
 ) : ASTTraverser<List<PlaceHolder>>() {
     private lateinit var astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
+    private val loadConstantOperationQuery = LoadConstantOperationQuery(constantPoolBuilder)
+    private val assignOrDeclareVariablePlaceHoldersQuery = AssignOrDeclareVariablePlaceHoldersQuery(this, loadConstantOperationQuery)
+    
     fun init(astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack: AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack) {
         this.astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
     }
@@ -68,6 +75,7 @@ class AstTraverserToGetPlaceHolders(
                 } else {
                     listOf()
                 }
+
                 else -> throw NotImplementedError(booleanExpression.value.javaClass.name)
             }
 
@@ -85,11 +93,7 @@ class AstTraverserToGetPlaceHolders(
         val ifNode = ifBlockNode.ifNodes.first()
         val elseIfNodes = ifBlockNode.ifNodes.drop(1)
         val hasElse = ifBlockNode.elseNode != null
-        val numberOfBranches = 1 + elseIfNodes.size + if (hasElse) {
-            1
-        } else {
-            0
-        }
+        val numberOfBranches = 1 + elseIfNodes.size + if (hasElse) { 1 } else { 0 }
 
         val ifPlaceHolders = visit(ifNode).withJumpToEndIf(numberOfBranches != 1)
         val elseIfsPlaceHolders = elseIfNodes.mapIndexed { index, it -> visit(it).withJumpToEndIf(hasElse || index != elseIfNodes.lastIndex) }
@@ -141,7 +145,29 @@ class AstTraverserToGetPlaceHolders(
 
     override fun visit(functionCallNode: FunctionCallNode): List<PlaceHolder> {
         return when (functionCallNode.function.name) {
-            "System.out.println" -> SystemOutPrintlnPlaceHoldersQuery.fetch(functionCallNode, astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack)
+            "System.out.println" -> {
+                val loadArgumentPlaceHoldersLeavingKnownTypeOnStack = astTraverserToGetPlaceHoldersLeavingKnownTypeOnStack.dispatch(
+                    functionCallNode.argumentExpressions()
+                        .single()
+                )
+                val result = mutableListOf<PlaceHolder>()
+                result += Operation.Getstatic(
+                    constantPoolBuilder.getIndexByResolvingOrAdding(
+                        ConstantPoolEntry.FieldReferenceConstant.SYSTEM_OUT
+                    )
+                )
+                result += loadArgumentPlaceHoldersLeavingKnownTypeOnStack.placeHolders
+                result += Operation.Invokevirtual(
+                    constantPoolBuilder.getIndexByResolvingOrAdding(
+                        ConstantPoolEntry.MethodReferenceConstant.printStreamPrintlnFor(
+                            TypeDescriptor.createForBuildInType(
+                                loadArgumentPlaceHoldersLeavingKnownTypeOnStack.type
+                            )
+                        )
+                    )
+                )
+                result
+            }
             else -> defaultValue(functionCallNode)
         }
     }
@@ -157,7 +183,7 @@ class AstTraverserToGetPlaceHolders(
     }
 
     private fun assignOrDeclareWithValue(variableSymbol: Variable, initialExpression: Expression): List<PlaceHolder> {
-        return AssignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, initialExpression, this)
+        return assignOrDeclareVariablePlaceHoldersQuery.fetch(variableSymbol, initialExpression)
             .plus(storeVariableOperationQuery.fetch(variableSymbol))
     }
 
@@ -184,14 +210,16 @@ class AstTraverserToGetPlaceHolders(
     override fun visit(arrayInstantiationNode: ArrayInstantiationNode): List<PlaceHolder> {
         val result = mutableListOf<PlaceHolder>()
         for (dimensionSize in arrayInstantiationNode.dimensionSizes) {
-            result.add(LoadConstantPlaceHolder.IntegerConstant(dimensionSize))
+            result.add(loadConstantOperationQuery.fetch(dimensionSize))
         }
         val numberOfDimensions = arrayInstantiationNode.dimensionSizes.size
         val arrayType = (arrayInstantiationNode.type as ArrayType).arrayType
         result.add(
             Operation.Multianewarray(
-                ConstantPoolEntry.ClassConstant(
-                    TypeDescriptor.createForBuildInType(arrayType).asArrayOfDimension(numberOfDimensions).stringRepresentation
+                constantPoolBuilder.getIndexByResolvingOrAdding(
+                    ConstantPoolEntry.ClassConstant(
+                        TypeDescriptor.createForBuildInType(arrayType).asArrayOfDimension(numberOfDimensions).stringRepresentation
+                    )
                 ),
                 numberOfDimensions.toUByte()
             )

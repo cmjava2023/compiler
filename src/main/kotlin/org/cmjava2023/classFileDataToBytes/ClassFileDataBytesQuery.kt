@@ -6,15 +6,9 @@ import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 
-class ClassFileDataBytesQuery {
-
-    private fun addAllClassesToConstantPool(constantPoolBuilder: ConstantPoolBuilder, constantPoolEntries: List<ConstantPoolEntry>) {
-        constantPoolEntries.filterIsInstance<ConstantPoolEntry.ClassConstant>().forEach { constantPoolBuilder.getIndexByResolvingOrAdding(it) }
-    }
+class ClassFileDataBytesQuery(private val constantPoolBuilder: ConstantPoolBuilder) {
 
     fun fetch(model: ClassfileData): ByteArray {
-        val constantPoolBuilder = ConstantPoolBuilder()
-        addAllClassesToConstantPool(constantPoolBuilder, model.constantPoolEntries)
         val bytesOfMethodInfos = model.methodDefinitions.flatMap { MethodInfoBytesQuery.fetch(constantPoolBuilder, it) }
 
         val result: MutableList<Byte> = mutableListOf()

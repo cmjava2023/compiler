@@ -9,6 +9,7 @@ import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.astToClassFileData.ClassfileDataFromAstQuery;
 import org.cmjava2023.classFileDataToBytes.ClassFileDataBytesQuery;
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
@@ -34,8 +35,9 @@ public class Main {
         if(!visitor.errors.isEmpty()) {
             throw new IllegalArgumentException(String.join("\n\n", visitor.errors));
         }
-        var classFileModel = new ClassfileDataFromAstQuery().fetch((ASTNodes.StartNode)modifiedAST);
-        var bytesForClassFile = new ClassFileDataBytesQuery().fetch(classFileModel);
+        var constantPoolBuilder = new ConstantPoolBuilder();
+        var classFileModel = new ClassfileDataFromAstQuery(constantPoolBuilder).fetch((ASTNodes.StartNode)modifiedAST);
+        var bytesForClassFile = new ClassFileDataBytesQuery(constantPoolBuilder).fetch(classFileModel);
 
         Path outputDirPath = Paths.get(args[1], classFileModel.getPackageNameWithDelimiterForClassFile());
         Files.createDirectories(outputDirPath);

@@ -6,7 +6,6 @@ import org.cmjava2023.util.ByteListUtil.Companion.add
 class CodeAttributeBytesQuery {
     companion object {
         fun fetch(
-            constantPoolBuilder: ConstantPoolBuilder,
             codeAttributeInfo: CodeAttributeInfo,
             codeAttributeNameIndex: UShort
         ): List<Byte> {
@@ -15,8 +14,7 @@ class CodeAttributeBytesQuery {
             val maxStackSize: UShort = 5u
             attributeBytesCountedForLength.add(maxStackSize)
             attributeBytesCountedForLength.add(codeAttributeInfo.maxLocalVariables)
-            val placeHolderBytesQuery = PlaceHolderBytesQuery(constantPoolBuilder)
-            val codeBytes = codeAttributeInfo.code.flatMap { placeHolderBytesQuery.fetch(it) }
+            val codeBytes = codeAttributeInfo.code.flatMap { PlaceHolderBytesQuery.fetch(it) }
             val sizeOfCode = codeBytes.size.toUInt()
             attributeBytesCountedForLength.add(sizeOfCode)
             attributeBytesCountedForLength.addAll(codeBytes)

@@ -5,7 +5,7 @@ import org.cmjava2023.astToClassFileData.AstTraverserToGetPlaceHolders
 import org.cmjava2023.astToClassFileData.ValueNodeTransformedToTypeQuery
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
-import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
+import org.cmjava2023.placeHolders.LoadConstantOperationQuery
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
@@ -13,13 +13,14 @@ import org.cmjava2023.symboltable.BuiltInType
 class CreateArrayWithValuesPlaceHoldersQuery {
     companion object {
         fun fetch(
+            loadConstantOperationQuery: LoadConstantOperationQuery,
             arrayInstantiationWithValuesNode: ASTNodes.ArrayInstantiationWithValuesNode,
             arrayType: ArrayType,
             astTraverserToGetPlaceHolders: AstTraverserToGetPlaceHolders
         ): List<PlaceHolder> {
             val result = mutableListOf<PlaceHolder>()
             val arrayLength = arrayInstantiationWithValuesNode.expressions.size
-            result.add(LoadConstantPlaceHolder.IntegerConstant(arrayLength))
+            result.add(loadConstantOperationQuery.fetch(arrayLength))
             val valueNodesOrNull = arrayInstantiationWithValuesNode.expressions.map {
                 if (it is ASTNodes.ValueNode<*>) {
                     it
@@ -30,7 +31,7 @@ class CreateArrayWithValuesPlaceHoldersQuery {
             if (valueNodesOrNull.none { it == null }) {
                 result.add(
                     when (arrayType.arrayType) {
-                        BuiltInType.STRING -> Operation.Anewarray(ConstantPoolEntry.ClassConstant.STRING)
+                        BuiltInType.STRING -> Operation.Anewarray(loadConstantOperationQuery.constantPoolBuilder.getIndexByResolvingOrAdding(ConstantPoolEntry.ClassConstant.STRING))
                         BuiltInType.BOOLEAN -> Operation.Newarray(Operation.ArrayType.T_BOOLEAN)
                         BuiltInType.INT -> Operation.Newarray(Operation.ArrayType.T_INT)
                         BuiltInType.BYTE -> Operation.Newarray(Operation.ArrayType.T_BYTE)
@@ -57,7 +58,7 @@ class CreateArrayWithValuesPlaceHoldersQuery {
                 result.add(Operation.Dup())
                 val valueNodes = valueNodesOrNull.requireNoNulls()
                 for ((index, valueNode) in valueNodes.withIndex()) {
-                    result.add(LoadConstantPlaceHolder.IntegerConstant(index))
+                    result.add(loadConstantOperationQuery.fetch(index))
                     result.addAll(astTraverserToGetPlaceHolders.dispatch(ValueNodeTransformedToTypeQuery.fetch(valueNode, arrayType.arrayType)))
                     result.add(operationToStoreArrayElements)
                     if (index + 1 < valueNodes.size) {

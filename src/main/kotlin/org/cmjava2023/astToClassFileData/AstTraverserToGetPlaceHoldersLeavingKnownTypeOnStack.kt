@@ -2,18 +2,26 @@ package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes.*
 import org.cmjava2023.ast.ASTTraverser
+import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.Operation
-import org.cmjava2023.placeHolders.LoadConstantPlaceHolder
+import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
+import org.cmjava2023.placeHolders.LoadConstantOperationQuery
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.PlaceHoldersLeavingKnownTypeOnStack
-import org.cmjava2023.placeHolders.queries.*
+import org.cmjava2023.placeHolders.queries.BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery
+import org.cmjava2023.placeHolders.queries.LoadVariableOperationQuery
+import org.cmjava2023.placeHolders.queries.TypeCastOpCodeQuery
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
 
 class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(
-    private val loadVariableOperationQuery: LoadVariableOperationQuery
+    private val loadVariableOperationQuery: LoadVariableOperationQuery,
+    private val constantPoolBuilder: ConstantPoolBuilder
 ) : ASTTraverser<PlaceHoldersLeavingKnownTypeOnStack>() {
     private lateinit var astTraverserToGetPlaceHolders: AstTraverserToGetPlaceHolders
+    private val binaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery =
+        BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery(this, constantPoolBuilder)
+    private val loadConstantOperationQuery = LoadConstantOperationQuery(constantPoolBuilder)
 
     fun init(astTraverserToGetPlaceHolders: AstTraverserToGetPlaceHolders) {
         this.astTraverserToGetPlaceHolders = astTraverserToGetPlaceHolders
@@ -24,8 +32,14 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(
     }
 
     override fun visit(functionCallNode: FunctionCallNode): PlaceHoldersLeavingKnownTypeOnStack {
-        return when (functionCallNode.function.name) {
-            "System.in.read" -> SystemInReadPlaceHoldersLeavingKnownTypeOnStackQuery.fetch()
+         when (functionCallNode.function.name) {
+            "System.in.read" -> {
+                val result = mutableListOf<Operation>()
+                result += Operation.Getstatic(constantPoolBuilder.getIndexByResolvingOrAdding(ConstantPoolEntry.FieldReferenceConstant.SYSTEM_IN))
+                result += Operation.Invokevirtual(constantPoolBuilder.getIndexByResolvingOrAdding(ConstantPoolEntry.MethodReferenceConstant.INPUT_STREAM_READ))
+                result += Operation.I2c()
+                return PlaceHoldersLeavingKnownTypeOnStack(result, BuiltInType.INT)
+            }
             else -> throw NotImplementedError(functionCallNode.function.name)
         }
     }
@@ -36,7 +50,7 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(
 
 
         for ((index, elementIndexAccessed) in arrayAccessNode.elementIndicesAccessed.withIndex()) {
-            result.add(LoadConstantPlaceHolder.IntegerConstant(elementIndexAccessed))
+            result.add(loadConstantOperationQuery.fetch(elementIndexAccessed))
             if (index + 1 < arrayAccessNode.elementIndicesAccessed.size) {
                 result.add(Operation.Aaload())
             }
@@ -59,11 +73,11 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(
     }
 
     override fun visit(infixNode: InfixNode): PlaceHoldersLeavingKnownTypeOnStack {
-        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(infixNode.leftExpression, infixNode.operator, infixNode.rightExpression, this)
+        return binaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(infixNode.leftExpression, infixNode.operator, infixNode.rightExpression)
     }
 
     override fun visit(comparisonNode: ComparisonNode): PlaceHoldersLeavingKnownTypeOnStack {
-        return BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(comparisonNode.leftExpression, comparisonNode.operator, comparisonNode.rightExpression, this)
+        return binaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery.fetch(comparisonNode.leftExpression, comparisonNode.operator, comparisonNode.rightExpression)
     }
 
     override fun visit(castNode: CastNode): PlaceHoldersLeavingKnownTypeOnStack {
@@ -82,7 +96,7 @@ class AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack(
     }
 
     override fun visit(valueNode: ValueNode<*>): PlaceHoldersLeavingKnownTypeOnStack {
-        return PlaceHoldersLeavingKnownTypeOnStack(listOf(LoadConstantPlaceHolder.fromValue(valueNode.value)), valueNode.builtInType)
+        return PlaceHoldersLeavingKnownTypeOnStack(listOf(loadConstantOperationQuery.fetch(valueNode.value)), valueNode.builtInType)
     }
 
     override fun visit(variableCallNode: VariableCallNode): PlaceHoldersLeavingKnownTypeOnStack {
