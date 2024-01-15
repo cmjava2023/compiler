@@ -8,10 +8,10 @@ interface LoadConstantPlaceHolder : PlaceHolder {
     fun toFinalOpCode(constantPoolBuilder: ConstantPoolBuilder): Operation
     
     companion object {
-        fun fromValue(value: Any): LoadConstantPlaceHolder {
+        fun fromValue(value: Any): PlaceHolder {
             return when (value) {
                 is String -> ConstantFromConstantPool(ConstantPoolEntry.StringConstant(value))
-                is Boolean -> BooleanConstant(value)
+                is Boolean -> if (value) { Operation.Iconst_1() } else { Operation.Iconst_0() }
                 is Char -> IntegerConstant(value.code)
                 is Byte -> IntegerConstant(value.toInt())
                 is Short -> IntegerConstant(value.toInt())
@@ -31,15 +31,6 @@ interface LoadConstantPlaceHolder : PlaceHolder {
                 Operation.Ldc(index.toUByte())
             } else {
                 Operation.Ldc_w(index)
-            }
-        }
-    }
-
-    class BooleanConstant(private val boolean: Boolean) : LoadConstantPlaceHolder {
-        override fun toFinalOpCode(constantPoolBuilder: ConstantPoolBuilder): Operation {
-            return when (boolean) {
-                true -> Operation.Iconst_1()
-                false -> Operation.Iconst_0()
             }
         }
     }
