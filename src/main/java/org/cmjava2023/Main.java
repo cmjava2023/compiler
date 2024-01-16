@@ -9,7 +9,7 @@ import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.astToClassFileData.ClassfileDataFromAstQuery;
 import org.cmjava2023.classFileDataToBytes.ClassFileDataBytesQuery;
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder;
+import org.cmjava2023.astToClassFileData.ConstantPoolBuilder;
 import org.cmjava2023.generated_from_antlr.MainAntlrLexer;
 import org.cmjava2023.generated_from_antlr.MainAntlrParser;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;

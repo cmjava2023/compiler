@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.cmjava2023.ast.ASTNodes;
 import org.cmjava2023.ast.ParseTreeVisitor;
 import org.cmjava2023.astToClassFileData.ClassfileDataFromAstQuery;
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder;
+import org.cmjava2023.astToClassFileData.ConstantPoolBuilder;
 import org.cmjava2023.semanticanalysis.ASTVisitorFirst;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;

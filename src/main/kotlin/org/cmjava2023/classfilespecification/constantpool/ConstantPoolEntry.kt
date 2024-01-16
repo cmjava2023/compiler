@@ -12,7 +12,7 @@ abstract class ConstantPoolEntry(val tagByte: Byte) {
     class IntegerConstant(val value: Int) : ConstantPoolEntry(0x03)
     class FloatConstant(val value: Float) : ConstantPoolEntry(0x04)
     class LongConstant(val value: Long) : ConstantPoolEntry(0x05)
-    class DoubleConstant(val value: Double): ConstantPoolEntry(0x06)
+    class DoubleConstant(val value: Double): ConstantPoolEntry(0x06) {}
     class ClassConstant(name: String): ConstantPoolEntry(0X07) {
         val name = Utf8Constant(name)
         companion object {

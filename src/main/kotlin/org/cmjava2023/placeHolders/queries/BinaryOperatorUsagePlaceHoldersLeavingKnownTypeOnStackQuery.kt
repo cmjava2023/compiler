@@ -3,7 +3,7 @@ package org.cmjava2023.placeHolders.queries
 import org.cmjava2023.ast.ASTNodes.*
 import org.cmjava2023.astToClassFileData.AstTraverserToGetPlaceHoldersLeavingKnownTypeOnStack
 import org.cmjava2023.astToClassFileData.ValueNodeTransformedToTypeQuery
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
+import org.cmjava2023.astToClassFileData.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.PlaceHoldersLeavingKnownTypeOnStack

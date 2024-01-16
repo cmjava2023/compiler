@@ -11,6 +11,16 @@ class PlaceHolderBytesQuery {
     class NumberOfBytes private constructor(private val before: Int, private val inside: Int, private val after: Int) {
         constructor(inside: Int, numberOfBytesAfterIf: Int) : this(0, inside, numberOfBytesAfterIf)
         constructor(inside: Int) : this(0, inside, 0)
+        fun resolveJumpOffset(currentIndex: Int, jumpTarget: JumpOffsetPlaceHolder.JumpTarget): Short {
+            return when (jumpTarget) {
+                JumpOffsetPlaceHolder.JumpTarget.START -> (-(before + currentIndex)).toShort()
+                JumpOffsetPlaceHolder.JumpTarget.NEXT -> bytesInsideRemaining(currentIndex).toShort()
+                JumpOffsetPlaceHolder.JumpTarget.END -> (bytesInsideRemaining(currentIndex) + after).toShort()
+                else -> throw NotImplementedError(jumpTarget.name)
+            }
+        }
+
+        private fun bytesInsideRemaining(currentIndex: Int): Int = inside - currentIndex
 
         fun getNumberOfBytesOfNextBranch(inside: Int): NumberOfBytes {
             return NumberOfBytes(
@@ -18,16 +28,6 @@ class PlaceHolderBytesQuery {
                 inside,
                 after - this.inside
             )
-        }
-
-        private fun bytesInsideRemaining(currentIndex: Int): Int = inside - currentIndex
-        fun resolveJumpOffset(currentIndex: Int, jumpTarget: JumpOffsetPlaceHolder.JumpTarget): Short {
-            return when (jumpTarget) {
-                JumpOffsetPlaceHolder.JumpTarget.START -> (-(before + currentIndex)).toShort()
-                JumpOffsetPlaceHolder.JumpTarget.NEXT -> bytesInsideRemaining(currentIndex).toShort()
-                JumpOffsetPlaceHolder.JumpTarget.END -> (after + bytesInsideRemaining(currentIndex)).toShort()
-                else -> throw NotImplementedError(jumpTarget.name)
-            }
         }
     }
     

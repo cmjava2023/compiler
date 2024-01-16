@@ -2,7 +2,6 @@ package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.ast.ASTNodes.*
 import org.cmjava2023.ast.ASTTraverser
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.placeHolders.queries.LoadConstantOperationQuery

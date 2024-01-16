@@ -1,13 +1,9 @@
 package org.cmjava2023.placeHolders.queries
 
-import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
-import org.cmjava2023.classFileDataToBytes.LocalVariableIndexAssigner
+import org.cmjava2023.astToClassFileData.LocalVariableIndexAssigner
 import org.cmjava2023.classfilespecification.Operation
-import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType
-import org.cmjava2023.symboltable.Symbol
-import org.cmjava2023.symboltable.Type
 import org.cmjava2023.symboltable.Variable
 
 class LoadVariableOperationQuery(private val localVariableIndexAssigner: LocalVariableIndexAssigner) {

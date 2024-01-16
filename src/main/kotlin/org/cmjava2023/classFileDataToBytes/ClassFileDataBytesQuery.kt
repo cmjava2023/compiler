@@ -1,8 +1,8 @@
 package org.cmjava2023.classFileDataToBytes
 
+import org.cmjava2023.astToClassFileData.ConstantPoolBuilder
 import org.cmjava2023.util.ByteListUtil.Companion.add
 import org.cmjava2023.classfilespecification.ClassfileData
-import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.util.AccessModifierUtil.Companion.bitwiseOrCombine
 
 

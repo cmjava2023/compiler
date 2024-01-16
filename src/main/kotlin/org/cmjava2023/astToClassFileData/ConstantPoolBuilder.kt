@@ -1,4 +1,4 @@
-package org.cmjava2023.classFileDataToBytes
+package org.cmjava2023.astToClassFileData
 
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry.*
