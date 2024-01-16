@@ -1,8 +1,9 @@
-package org.cmjava2023.placeHolders
+package org.cmjava2023.placeHolders.queries
 
 import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
 import org.cmjava2023.classfilespecification.Operation
+import org.cmjava2023.placeHolders.PlaceHolder
 
 class LoadConstantOperationQuery(val constantPoolBuilder: ConstantPoolBuilder) {
     fun fetch(value: Any): PlaceHolder {

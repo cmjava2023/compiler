@@ -10,6 +10,7 @@ import org.cmjava2023.placeHolders.*
 import org.cmjava2023.placeHolders.JumpOffsetPlaceHolder.JumpTarget
 import org.cmjava2023.placeHolders.queries.AssignOrDeclareVariablePlaceHoldersQuery
 import org.cmjava2023.placeHolders.queries.JumpIfComparisonPlaceHoldersQuery
+import org.cmjava2023.placeHolders.queries.LoadConstantOperationQuery
 import org.cmjava2023.placeHolders.queries.StoreVariableOperationQuery
 import org.cmjava2023.symboltable.ArrayType
 import org.cmjava2023.symboltable.BuiltInType

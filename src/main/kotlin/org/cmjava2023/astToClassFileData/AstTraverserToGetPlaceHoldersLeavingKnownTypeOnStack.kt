@@ -5,7 +5,7 @@ import org.cmjava2023.ast.ASTTraverser
 import org.cmjava2023.classFileDataToBytes.ConstantPoolBuilder
 import org.cmjava2023.classfilespecification.Operation
 import org.cmjava2023.classfilespecification.constantpool.ConstantPoolEntry
-import org.cmjava2023.placeHolders.LoadConstantOperationQuery
+import org.cmjava2023.placeHolders.queries.LoadConstantOperationQuery
 import org.cmjava2023.placeHolders.PlaceHolder
 import org.cmjava2023.placeHolders.PlaceHoldersLeavingKnownTypeOnStack
 import org.cmjava2023.placeHolders.queries.BinaryOperatorUsagePlaceHoldersLeavingKnownTypeOnStackQuery
