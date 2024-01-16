@@ -30,7 +30,6 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     }
 
     interface ReturningOpCode
-    interface OpCodeWithConstantPoolIndexParameter
 
     class Aaload: Operation()
     class Aastore: Operation()
@@ -158,9 +157,9 @@ abstract class Operation(vararg val operands: Any): PlaceHolder {
     class Lastore: Operation()
     class Lconst_0: Operation()
     class Lconst_1: Operation()
-    class Ldc(indexInConstantPool: UByte): Operation(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
+    class Ldc(indexInConstantPool: UByte): Operation(indexInConstantPool)
     class Ldc2_w(constantPoolIndex: UShort): Operation(constantPoolIndex)
-    class Ldc_w(indexInConstantPool: UShort): Operation(indexInConstantPool), OpCodeWithConstantPoolIndexParameter
+    class Ldc_w(indexInConstantPool: UShort): Operation(indexInConstantPool)
     class Ldiv: Operation()
     class Lload(indexInsideLocalVariableArray: UByte): Operation(indexInsideLocalVariableArray)
     class Lload_0: Operation()
